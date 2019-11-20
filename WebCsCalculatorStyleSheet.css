@@ -1,0 +1,33 @@
+/* CSS Sheet for Circadian Calculator */
+ul {
+   list-style:none;
+}
+
+.chart-legend li span{
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    margin-right: 5px;
+}
+
+.nav-pills>li>a{
+	color: gray;
+}
+.nav-pills>li>a:focus, .nav-pills>li>a:hover {
+	
+	color: black;
+	
+}
+.nav-pills>li.active>a, .nav-pills>li.active>a:focus, .nav-pills>li.active>a:hover{
+	background-color: black;
+}
+
+@media only screen and (max-width : 992px) {
+	/*
+	#mid-col {
+		border-right: none !important;
+		border-left: none !important;
+	}
+	*/
+}
+
