@@ -6,7 +6,7 @@
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<!-- Set the width of the page to follow the screen width of the device and set the initial zoom on the page -->
-		<meta name="viewport" content="device-width, initial-scale=1"
+		<meta name="viewport" content="device-width, initial-scale=1" />
 		<!-- Load Libraries for Bootstrap -->
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -64,7 +64,7 @@
 				</nav>
 			</div>
 			<!-- Start of Column sections -->
-			<div class="col-md-3" style="padding: 0% 2%  0% 2%;"><!--border: 10px solid transparent;"-->
+			<div class="col-md-3" style="padding: 0% 2%  0% 2%;">
 				<!-- Column 1: Source Select -->
 				<div class="box">
 					<div class="row">
@@ -209,7 +209,7 @@
 					</div>
 				</div>
 			</div>
-			<div id="mid-col" class="col-md-3" style="padding: 0% 2%  0% 2%;><!--border: 10px solid transparent;">
+			<div id="mid-col" class="col-md-3" style="padding: 0% 2%  0% 2%;">
 				<!-- Column 2: Variable Edit -->
 				<div class="box">
 					<div class="row">
@@ -227,7 +227,7 @@
 						<!-- Available Inputs Help Section -->
 						<div id="inputsHelp" class="collapse help"> <!--style="border:1px solid #4D4D4D;">-->
 							<p style="color:gray;"> <!--border: 4px solid transparent;">-->
-								<i>Biological input variables are listed below, by name and current setting. All variables default to average values. Click on each variable for additional information and to change the value.</i> </b>
+								<i>Biological input variables are listed below, by name and current setting. All variables default to average values. Click on each variable for additional information and to change the value.</i>
 							</p>
 						</div>
 
@@ -245,7 +245,7 @@
 									<td id="mpod">0.5</td>
 								</tr>
 								<tr onmouseover="this.style.backgroundColor='inherit'">
-									<td colspan="6" class="hiddenRow" style="padding: 0">
+									<td colspan="2" class="hiddenRow" style="padding: 0">
 										<div class="accordian-body collapse" id="mpod_info">
 											<p><b>Macular Pigment Optical Density:</b> The human retina is not a uniform neural tissue. The highest density of cone photoreceptors in the retina is in the foveal pit, which is used for such visual tasks a reading, threading needles, and identification of distant objects. The macula is a circular region of the retina that extends radially from the fovea with a much higher density of cones than the peripheral retina which is dominated by rods. Most of the visual cortex is devoted to processing images focused in the macula. Therefore, for human conscious perception, the macula is particularly important.</p>
 											<p>Interlaced among the photoreceptors and the other retinal neurons in the macula is a yellow screening pigment, the macula lutea, that is believed to protect the retina from damage by short wavelengths. The spatial extent of this circular screening pigment is approximately 6-10<sup>o</sup> with the highest pigment density in the foveal region.  Since the macular pigment preferentially filters short wavelengths and since the most effective rays entering the eye are along the optical axis, the spectral sensitivity of the central retina will be influenced by the optical density of the macular pigment.</p>
@@ -351,7 +351,7 @@
 					<!-- End CS Input Section -->
 				</div>
 			</div>
-			<div class="col-md-6" style="padding: 0% 2%  0% 2%;"><!--border: 10px solid transparent;">
+			<div class="col-md-6" style="padding: 0% 2%  0% 2%;">
 				<!-- Column 3: Results -->
 				<div class="box">
 					<div class="row">
@@ -441,8 +441,8 @@
 						<table class="table table-hover">
 							<thead>
 								<tr>
-									<th>Measurement</td>
-									<th>Value</td>
+									<th>Measurement</th>
+									<th>Value</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -452,7 +452,7 @@
 									<td id="resultCS">0</td>
 								</tr>
 								<tr onmouseover="this.style.backgroundColor='inherit'">
-									<td colspan="6" class="hiddenRow" style="padding: 0">
+									<td colspan="2" class="hiddenRow" style="padding: 0">
 										<div class="accordian-body collapse" id="cs_info">
 											<p><b>Circadian Stimulus (CS)</b> is the calculated effectiveness
 	of the spectrally weighted irradiance at the cornea from threshold (CS = 0.1) to saturation (CS = 0.7),  assuming a fixed duration of exposure of 1 hour.</p>
@@ -465,7 +465,7 @@
 									<td id="resultCLA">0</td>
 								</tr>
 								<tr onmouseover="this.style.backgroundColor='inherit'">
-									<td colspan="6" class="hiddenRow" style="padding: 0">
+									<td colspan="2" class="hiddenRow" style="padding: 0">
 										<div class="accordian-body collapse" id="cla_info">
 											<p><b>Circadian Light (CL<sub>A</sub>)</b> is the irradiance at the cornea weighted to reflect the spectral sensitivity of the human circadian
 	system as measured by acute melatonin suppression after a 1-hour exposure.</p>
@@ -478,7 +478,7 @@
 									<td id="resultIll">0</td>
 								</tr>
 								<tr onmouseover="this.style.backgroundColor='inherit'">
-									<td colspan="6" class="hiddenRow" style="padding: 0">
+									<td colspan="2" class="hiddenRow" style="padding: 0">
 										<div class="accordian-body collapse" id="ill_info">
 											<p><b>Illuminance (lx)</b> is the amount of light (luminous flux) incident on a surface area. Illuminance is measured in footcandles (lumens/square foot) or lux (lx, lumens/square meter). One footcandle equals 10.76 lx, although for convenience 10 lx commonly is used as the equivalent.</p>
 										</div>
@@ -486,25 +486,25 @@
 								</tr>
 								<!-- Irradiance Tab -->
 								<tr data-toggle="collapse" data-target="#irr_info" class="accordion-toggle" style="cursor: pointer;">
-									<td>Irradiance (W&middotm<sup>-2</sup>):</td>
+									<td>Irradiance (W&middot;m<sup>-2</sup>):</td>
 									<td id="resultIrr">0</td>
 								</tr>
 								<tr onmouseover="this.style.backgroundColor='inherit'">
-									<td colspan="6" class="hiddenRow" style="padding: 0">
+									<td colspan="2" class="hiddenRow" style="padding: 0">
 										<div class="accordian-body collapse" id="irr_info">
-											<p><b>Irradiance (W&middotm<sup>-2</sup>)</b> is the irradiance of a surface per unit frequency or wavelength, depending on whether the spectrum is taken as a function of frequency or of wavelength. The two forms have different dimensions: spectral irradiance of a frequency spectrum is measured in watts per square metre per hertz (W·m−2·Hz−1), while spectral irradiance of a wavelength spectrum is measured in watts per square metre per metre (W·m−3), or more commonly watts per square metre per nanometre (W·m−2·nm−1).</p>
+											<p><b>Irradiance (W&middot;m<sup>-2</sup>)</b> is the irradiance of a surface per unit frequency or wavelength, depending on whether the spectrum is taken as a function of frequency or of wavelength. The two forms have different dimensions: spectral irradiance of a frequency spectrum is measured in watts per square metre per hertz (W·m−2·Hz−1), while spectral irradiance of a wavelength spectrum is measured in watts per square metre per metre (W·m−3), or more commonly watts per square metre per nanometre (W·m−2·nm−1).</p>
 										</div>
 									</td>
 								</tr>
 								<!-- Photon Flux Tab -->
 								<tr data-toggle="collapse" data-target="#pf_info" class="accordion-toggle" style="cursor: pointer;">
-									<td>Photon Flux (Photons&middotm<sup>-2</sup>&middots<sup>-1</sup>):</td>
+									<td>Photon Flux (Photons&middot;m<sup>-2</sup>&middot;s<sup>-1</sup>):</td>
 									<td id="resultPf">0</td>
 								</tr>
 								<tr onmouseover="this.style.backgroundColor='inherit'">
-									<td colspan="6" class="hiddenRow" style="padding: 0">
+									<td colspan="2" class="hiddenRow" style="padding: 0">
 										<div class="accordian-body collapse" id="pf_info">
-											<p><b>Photon Flux (Photons&middotm<sup>-2</sup>&middots<sup>-1</sup>)</b> is defined as the number of photons per second per unit area</p>
+											<p><b>Photon Flux (Photons&middot;m<sup>-2</sup>&middot;s<sup>-1</sup>)</b> is defined as the number of photons per second per unit area</p>
 										</div>
 									</td>
 								</tr>
@@ -514,7 +514,7 @@
 									<td id="resultEML">0</td>
 								</tr>
 								<tr onmouseover="this.style.backgroundColor='inherit'" hidden>
-									<td colspan="6" class="hiddenRow" style="padding: 0">
+									<td colspan="2" class="hiddenRow" style="padding: 0">
 										<div class="accordian-body collapse" id="eml_info">
 											<p><b>Equivalent Melanopic Lux (EML)</b> is a metric for measuring the biological effects of light on humans. Photosensitive retinal ganglion cells (ipRGCs) regulate the human circadian response to light. These are non-image forming photoreceptors within the eye. EML as a metric is weighted to the ipRGCs response to light and translates how much the spectrum of a light source stimulates ipRGCs and affects the circadian system</p>
 										</div>
@@ -526,7 +526,7 @@
 									<td id="resultCCT">NaN</td>
 								</tr>
 								<tr onmouseover="this.style.backgroundColor='inherit'">
-									<td colspan="6" class="hiddenRow" style="padding: 0">
+									<td colspan="2" class="hiddenRow" style="padding: 0">
 										<div class="accordian-body collapse" id="cct_info">
 											<p><b>Correlated Color Temperature (CCT, Tcp)</b> is a specification for white light sources used to describe the dominant color tone along the dimension from warm (yellows and reds) to cool (blue). Lamps with a CCT rating below 3200 K are usually considered warm sources, whereas those with a CCT above 4000 K usually considered cool in appearance. Temperatures in between are considered neutral in appearance. Technically, CCT extends the practice of using temperature, in kelvins (K), for specifying the spectrum of light sources other than blackbody radiators. Incandescent lamps and daylight closely approximate the spectra of black body radiators at different temperatures and can be designated by the corresponding temperature of a blackbody radiator. The spectra of fluorescent and LED sources, however, differ substantially from black body radiators yet they can have a color appearance similar to a blackbody radiator of a particular temperature as given by CCT.</p>
 										</div>
@@ -538,7 +538,7 @@
 									<td id="resultDuv">NaN</td>
 								</tr>
 								<tr onmouseover="this.style.backgroundColor='inherit'">
-									<td colspan="6" class="hiddenRow" style="padding: 0">
+									<td colspan="2" class="hiddenRow" style="padding: 0">
 										<div class="accordian-body collapse" id="duv_info">
 											<p><b>D<sub>uv</sub></b> is a metric defined by American National Standard Institute (ANSI) that quantifies the distance between the chromaticity of a given light source and a blackbody radiator of equal CCT. A negative D<sub>uv</sub> indicates that the source is “below” the blackbody locus, having a purplish tint, whereas a positive D<sub>uv</sub> indicates that the source is “above” the blackbody locus, having a greenish tint. </p>
 										</div>
@@ -550,7 +550,7 @@
 									<td id="resultCRI">NaN</td>
 								</tr>
 								<tr onmouseover="this.style.backgroundColor='inherit'">
-									<td colspan="6" class="hiddenRow" style="padding: 0">
+									<td colspan="2" class="hiddenRow" style="padding: 0">
 										<div class="accordian-body collapse" id="cri_info">
 											<p><b>Color Rendering Index (CRI)</b> is a rating index commonly used to represent how well a light source renders the colors of objects that it illuminates. For a CRI value of 100, the maximum value, the colors of objects can be expected to be seen as they would appear under an incandescent or daylight spectrum of the same correlated color temperature (CCT). Sources with CRI values less than 50 are generally regarded as rendering colors poorly, that is, colors may appear unnatural.</p>
 										</div>
@@ -562,7 +562,7 @@
 									<td id="resultGAI">NaN</td>
 								</tr>
 								<tr onmouseover="this.style.backgroundColor='inherit'">
-									<td colspan="6" class="hiddenRow" style="padding: 0">
+									<td colspan="2" class="hiddenRow" style="padding: 0">
 										<div class="accordian-body collapse" id="gai_info">
 											<p><b>Gamut Area Index (GAI)</b> is a measure of color rendering based upon volume in color space. It is the range of colors achievable on a given color reproduction medium (or present in an image on that medium) under a given set of viewing conditions.</p>
 										</div>
@@ -574,7 +574,7 @@
 									<td id="resultXY">NaN, NaN</td>
 								</tr>
 								<tr onmouseover="this.style.backgroundColor='inherit'">
-									<td colspan="6" class="hiddenRow" style="padding: 0">
+									<td colspan="2" class="hiddenRow" style="padding: 0">
 										<div class="accordian-body collapse" id="xy_info">
 											<p><b>Chromaticity: </b>The dominant or complementary wavelength and purity aspects of the color taken together, or of the aspects specified by the chromaticity coordinates of the color taken together. It describes the properties of light related to hue and saturation, but not luminance (brightness).</p>
 										</div>
@@ -586,7 +586,7 @@
 									<td>(SPD)</td>
 								</tr>
 								<tr onmouseover="this.style.backgroundColor='inherit'">
-									<td colspan="6" class="hiddenRow" style="padding: 0">
+									<td colspan="2" class="hiddenRow" style="padding: 0">
 										<div class="accordian-body collapse" id="RelSPD_info">
 											<table class="table">
 												<thead>
@@ -608,13 +608,13 @@
 									<td>(SPD)</td>
 								</tr>
 								<tr onmouseover="this.style.backgroundColor='inherit'">
-									<td colspan="6" class="hiddenRow" style="padding: 0">
+									<td colspan="2" class="hiddenRow" style="padding: 0">
 										<div class="accordian-body collapse" id="AbsSPD_info">
 											<table class="table">
 												<thead>
 													<tr>
 														<th>Wavelength (nm)</th>
-														<th>Spectral Irradiance (W&middotm<sup>-2</sup>&middotnm<sup>-1</sup>)</th>
+														<th>Spectral Irradiance (W&middot;m<sup>-2</sup>&middot;nm<sup>-1</sup>)</th>
 													</tr>
 												</thead>
 												<tbody id="AbsSpdTable">
@@ -637,40 +637,36 @@
 			<div class="container-fluid text-center">
 				<div class="row">
 					<!--<h3><a href="http://www.lrc.rpi.edu/programs/lightHealth/alliance.asp" target="_blank" style="color:black;">Light and Health Alliance Members</a></h3>-->
-					<a href="http://www.lrc.rpi.edu/programs/lightHealth/alliance.asp" target="_blank" style="color:black;"><img src="sponser_photos/Alliance_logos/AllianceLogo_250.png" alt="Acuity Brands Lighting" width="200" border="0" align="center"/></a>
+					<a href="http://www.lrc.rpi.edu/programs/lightHealth/alliance.asp" target="_blank" style="color:black;"><img src="sponser_photos/Alliance_logos/AllianceLogo_250.png" alt="Acuity Brands Lighting" width="200"/></a>
 				</div>
                 <div class="row">
 					<div class="col-md-0 col-lg-1">
 					</div>
 					<div class="col-md-0 col-lg-1">
 					</div>
-					<div class="col-xs-6 col-md-3 col-lg-1" align="center" border="5">
-						<a href="http://www.acuitybrandslighting.com/" target="_blank"><img src="sponser_photos/Alliance_logos/AcuityPrimary.jpg" alt="Acuity Brands Lighting" width="100" border="0" align="center"/></a>
+					<div class="col-xs-6 col-md-3 col-lg-1" >
+						<a href="http://www.acuitybrandslighting.com/" target="_blank"><img src="sponser_photos/Alliance_logos/AcuityPrimary.jpg" alt="Acuity Brands Lighting" width="100"  /></a>
 					</div>
-					<div class="col-xs-6 col-md-3 col-lg-1" align="center" border="5">
-						<a href="http://www.cree.com/" target="_blank"><img src="sponser_photos/Alliance_logos/Cree.gif" alt="Cree"  width="100" border="0" align="center"/></a>
+					<div class="col-xs-6 col-md-3 col-lg-1" >
+						<a href="http://www.cree.com/" target="_blank"><img src="sponser_photos/Alliance_logos/Cree.gif" alt="Cree"  width="100"  /></a>
 					</div>
-					<div class="col-xs-6 col-md-3 col-lg-1" align="center" border="5">
-						<a href="http://www.currentbyge.com/" target="_blank"><img src="sponser_photos/Alliance_logos/CurrentByGE-Logo.png" border="0" width="100" align="center"/></a>
+					<div class="col-xs-6 col-md-3 col-lg-1" >
+						<a href="http://www.currentbyge.com/" target="_blank"><img src="sponser_photos/Alliance_logos/CurrentByGE-Logo.png" alt="Current by GE"  width="100" /></a>
 					</div>
-					<div class="col-xs-6 col-md-3 col-lg-1" align="center" border="5">
-						<a href="http://goketra.com" target="_blank"><img src="sponser_photos/Alliance_logos/Ketra_logo-01.png" alt="Ketra Lighting" width="100" border="0" align="center"></a>
+					<div class="col-xs-6 col-md-3 col-lg-1" >
+						<a href="http://goketra.com" target="_blank"><img src="sponser_photos/Alliance_logos/Ketra_logo-01.png" alt="Ketra Lighting" width="100"  ></a>
 					</div>
-					<div class="col-xs-6 col-md-3 col-lg-1" align="center" border="5">
-						<a href="http://www.lrc.rpi.edu/" target="_blank"><img src="sponser_photos/Alliance_logos/LRC-Logo1.jpg" border="0" width="100" align="center"/></a>
+					<div class="col-xs-6 col-md-3 col-lg-1" >
+						<a href="http://www.lrc.rpi.edu/" target="_blank"><img src="sponser_photos/Alliance_logos/LRC-Logo1.jpg"  alt="Lighting Research Center" width="100" /></a>
 					</div>
-					<div class="col-xs-6 col-md-3 col-lg-1" align="center" border="5">
-						<a href="http://www.OSRAM.com/" target="_blank"><img src="sponser_photos/Alliance_logos/Osram.png" border="0" width="100" align="center"/></a>
+					<div class="col-xs-6 col-md-3 col-lg-1" >
+						<a href="http://www.OSRAM.com/" target="_blank"><img src="sponser_photos/Alliance_logos/Osram.png"  alt="Osram" width="100" /></a>
 					</div>
-					<div class="col-xs-6 col-md-3 col-lg-1" align="center" border="5">
-						<a href="http://www.usa.lighting.philips.com/" target="_blank"><img src="sponser_photos/Alliance_logos/Philips.jpg" border="0" width="100" align="center"/></a>
+					<div class="col-xs-6 col-md-3 col-lg-1" >
+						<a href="http://www.usa.lighting.philips.com/" target="_blank"><img src="sponser_photos/Alliance_logos/Philips.jpg" alt="Philips" width="100" /></a>
 					</div>
-					<div class="col-xs-6 col-md-3 col-lg-1" align="center" border="5">
-						<a href="http://usaillumination.com/" target="_blank"><img src="sponser_photos/Alliance_logos/USAILightingLogo_300px.jpg" border="0" width="100" align="center"/></a>
-					</div>
-					<div class="col-md-0 col-lg-1">
-					</div>
-					<div class="col-md-0 col-lg-1">
+					<div class="col-xs-6 col-md-3 col-lg-1" >
+						<a href="http://usaillumination.com/" target="_blank"><img src="sponser_photos/Alliance_logos/USAILightingLogo_300px.jpg"  alt="USAI Lighting" width="100" /></a>
 					</div>
 				</div>
 				<p>2017 Rensselaer Polytechnical Institute, Troy, NY 12180 USA - All rights reserved</p>
