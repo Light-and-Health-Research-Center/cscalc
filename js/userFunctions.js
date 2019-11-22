@@ -285,4 +285,10 @@ $(document).ready(function(){
 		}
 		validateSubmit();
 	});
+
+	$(".step-title-container").on('click',function(){
+		console.log('here');
+		$('.step-title-container').removeClass('active');
+		$(this).addClass('active');
+	})
 });

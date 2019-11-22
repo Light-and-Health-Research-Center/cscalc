@@ -1,4 +1,10 @@
 /* CSS Sheet for Circadian Calculator */
+html{
+  font-size: 1.2rem;
+  font-family: arial;
+  font-family: 'Source Sans Pro', sans-serif;
+}
+
 ul {
    list-style:none;
 }
@@ -14,12 +20,51 @@ ul {
 	color: gray;
 }
 .nav-pills>li>a:focus, .nav-pills>li>a:hover {
-	
+
 	color: black;
-	
+
 }
 .nav-pills>li.active>a, .nav-pills>li.active>a:focus, .nav-pills>li.active>a:hover{
 	background-color: black;
+}
+
+.card-header{
+  padding: 0;
+  border-bottom: none;
+}
+
+h2.step-title{
+  text-align: center;
+  margin-bottom: .25rem;
+  padding-bottom: .5rem;
+  padding-top: .5rem;
+}
+
+.step-title-container.active{
+  border-bottom: none;
+  background-color: white;
+}
+
+.step-title-container{
+  border-right: 1px solid rgba(0,0,0,.125);
+  cursor: pointer;
+  padding: 0;
+  border-bottom: 1px solid rgba(0,0,0,.125);
+}
+
+.step-title-container:hover{
+  background-color: #00205b;
+  color: white;
+}
+
+.step-title-container:first-child{
+  border-top-left-radius: .25rem;
+
+}
+
+.step-title-container:last-child{
+  border-right: 1px solid transparent;
+  border-top-right-radius: .25rem;
 }
 
 @media only screen and (max-width : 992px) {
@@ -30,4 +75,3 @@ ul {
 	}
 	*/
 }
-
