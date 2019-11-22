@@ -1,92 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<title>Web CS Calculator</title>
-		<!-- Load General HTML -->
+		<title>CS Calculator</title>
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<!-- Set the width of the page to follow the screen width of the device and set the initial zoom on the page -->
-		<meta name="viewport" content="device-width, initial-scale=1"
-		<!-- Load Libraries for Bootstrap -->
+		<meta name="viewport" content="device-width, initial-scale=1" />
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.matchHeight/0.7.0/jquery.matchHeight-min.js"></script>
-		<!-- Load library for Chart -->
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.3/Chart.js"></script>
+		<link rel="stylesheet" type="text/css" href="css/WebCsCalculatorStyleSheet.css">
 
-		<!-- Load CSS Style Sheets -->
-		<link rel="stylesheet" type="text/css" href="WebCsCalculatorStyleSheet.css">
-
-		<!-- Global site tag (gtag.js) - Google Analytics -->
 		<script async src="https://www.googletagmanager.com/gtag/js?id=UA-69914675-3"></script>
 		<script>
 		  window.dataLayer = window.dataLayer || [];
 		  function gtag(){dataLayer.push(arguments);}
 		  gtag('js', new Date());
 		  gtag('config', 'UA-69914675-3');
-		</script
-
-		<!-- Load General Function Scripts  -->
-		<script type="text/javascript" src="GeneralAnalysisFunctions.js"></script>
-		<script type="text/javascript" src="math_functions_2017_08_09.js"></script>
-		<script type="text/javascript" src="onStart.js"></script>
-		<script type="text/javascript" src="pageActionFunctions.js"></script>
-
-		<!-- Load Light Metric Functions -->
-		<script type="text/javascript" src="CCT23Sep05.js"></script>
-		<script type="text/javascript" src="CLA_postBerlinCorrMelanopsin_06Feb2014.js"></script>
-		<script type="text/javascript" src="blackbodySpectra23Sep05.js"></script>
-		<script type="text/javascript" src="CieDaySpectra23Sep05.js"></script>
-		<script src="cri23Sep05.js"></script>
-		<script src="gamutArea23Sep05.js"></script>
-		<script src="Lxy23Sep05.js"></script>
-		<script type="text/javascript" src="melanopicLux.js"></script>
-
-		<script type="text/javascript" src="claspd2lux.js"></script>
-		<script type="text/javascript" src="claspd2lux2.js"></script>
-
-		<!-- Spectral Efficiency Function test area -->
-		<script type="text/javascript" src="generateCircadianSpectralResponceForSPD.js"></script>
-		<script type="text/javascript" src="fmin.js"></script>
-
-		<!-- User Enter SPD test area -->
-		<script type="text/javascript" src="userSourceFunctions.js"></script>
-		<script type="text/javascript" src="userSourcePageActionFunctions.js"></script>
-
-		<!-- Load Preloaded Source List -->
-		<script type="text/javascript" src="sourcelist.js"></script>
-
-		<!-- Test JP Blend Source Modal -->
-		<script type="text/javascript" src="jpColorBlend.js"></script>
-		<script type="text/javascript" src="jpPageActionFunctions.js"></script>
-
-		<!-- Color Rendering Test Area -->
-		<script src="distanceFromBlackBody.js"></script>
-		<script src="ansi_duv.js"></script>
-
-		<!-- Script Test Area -->
-		<script>
-			/*
-			$(function() {
-				$('.box').matchHeight();
-			});
-			*/
 		</script>
 
-		<!-- Style Test area -->
-		<style>
-
-		</style>
+		<script src="js/GeneralFunctions.js"></script>
+		<script src="js/lightMetricFunctions.js"></script>
+		<script src="js/spectralEfficiency.js"></script>
+		<script src="js/userFunctions.js"></script>
+		<script src="js/sourcelist.js"></script>
+		<script src="js/jp.js"></script>
+		<script src="js/ansi_duv.js"></script>
 
 	</head>
-	<!-- Start of body -->
 	<body>
 		<div class="container-fluid">
-			<!-- Header -->
 			<div>
-				<!--<h1>Circadian Stimulus Web Calculator</h1> -->
-				<!--Header navbar-->
 				<nav class="navbar navbar-inverse">
 					<div class="navbar-header">
 						<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
@@ -99,18 +43,16 @@
 					<div class="collapse navbar-collapse" id="myNavbar">
 						<ul class="nav navbar-nav navbar-right">
 							<li><a href="http://www.lrc.rpi.edu/programs/lightHealth/index.asp" target="_blank">Light and Health</a></li>
-							<li><a href="CircadianEffectiveLight.pdf" target="_blank">Circadian-Effective Light</a></li>
+							<li><a href="img/CircadianEffectiveLight.pdf" target="_blank">Circadian-Effective Light</a></li>
 							<li><a href="http://www.lrc.rpi.edu/resources/newsroom/LDA_CircadianStimulus_Oct2016.pdf" target="_blank">Designing with Circadian Stimulus</a></li>
 							<li><a href="http://www.lrc.rpi.edu/aboutUs/contactUs.asp" target="_blank">Contact</a></li>
 							<li><a href="http://www.lrc.rpi.edu/aboutUs/contactUs.asp" target="_blank">Instructional Video</a></li>
-							<li><a id='helpMaster' data-toggle="collapse" data-target=".help" style="cursor:pointer;">Help <span id='helpBadge' class="badge">off</span></a></li><!-- <li><a href="#">About</a></li> -->
+							<li><a id='helpMaster' data-toggle="collapse" data-target=".help" style="cursor:pointer;">Help <span id='helpBadge' class="badge">off</span></a></li>
 						</ul>
 					</div>
 				</nav>
 			</div>
-			<!-- Start of Column sections -->
-			<div class="col-md-3" style="padding: 0% 2%  0% 2%;"><!--border: 10px solid transparent;">
-				<!-- Column 1: Source Select -->
+			<div class="col-md-3" style="padding: 0% 2%  0% 2%;">
 				<div class="box">
 					<div class="row">
 						<div class="text-center">
@@ -123,7 +65,6 @@
 						<div class="text-center">
 							<h4><a data-toggle="collapse" data-target="#sortHelp" style="color:black; cursor:help;">Select Available Sources</a></h4>
 						</div>
-						<!-- Sort Sources Help Section -->
 						<div id="sortHelp" class="collapse help">
 							<p style="color:gray;">
 								<i>Select from the dropdown menus and use the keyword search bar (optional) below to access the sources that are currently loaded in the calculator. Sources meeting the selected criteria will appear under the Available Sources heading. Press the Reset Filters button to return Step 1 to the default setting.</i>
@@ -163,20 +104,18 @@
 							</div>
 							<div class="form-group">
 								<div class="input-group">
-									<button id="reset" type="button">Reset Filters</button><!--<input id="reset" type="button" class="btn btn-info" value="Reset Filters">-->
+									<button id="reset" type="button">Reset Filters</button>
 								</div>
 							</div>
 						</form>
 					</div>
 					<div class="row">
-						<!-- Add Custom Source -->
 						<div class="text-center">
-							<button id="addUserSource" type="button" data-toggle='modal' data-target='#myModal'>Add Custom Source</button><!--<input id="addUserSource" type="button" class="btn btn-info" value="Add Custom Source" data-toggle='modal' data-target='#myModal'>-->
+							<button id="addUserSource" type="button" data-toggle='modal' data-target='#myModal'>Add Custom Source</button>
 						</div>
 						<div class="text-center">
 							<h4><a data-toggle="collapse" data-target="#availableHelp" style="color:Black; cursor:help;">Available Sources</a></h4>
 						</div>
-						<!-- Available Sources Help Section -->
 						<div id="availableHelp" class="collapse help">
 							<p style="color:gray;">
 								<i>Below are the list of sources available to be used. Click on a source below to view additional information and have the opportunity to add the source to the calculation area. When the page is first loaded, all preloaded sources will be listed. Use the tools in the Sort Available Sources section to only display sources with the selected metrics. Use the Add Custom Source button to load in additional sources.</i>
@@ -189,20 +128,15 @@
 							<h4>No Available Sources Meet the Selected Filters</h4>
 						</div>
 						<div id="user-modal-area">
-							<!-- Enter custom user SPD -->
 							<div class="modal fade" id="myModal" role="dialog">
 								<div class="modal-dialog">
-									<!-- Modal content-->
 									<div class="modal-content">
-										<!-- Header -->
 										<div class="modal-header">
 										  <button type="button" class="close" data-dismiss="modal">&times;</button>
 										  <h4 class="modal-title">Custom Source</h4>
 										</div>
-										<!-- Body -->
 										<div class="modal-body">
 											<form class="form-horizontal">
-												<!-- Input Source Name -->
 												<div id="userIDFormGroup" class="form-group has-feedback">
 													<label class="control-label col-sm-4" for="userID">Source Name:</label>
 													<div class="col-sm-8">
@@ -210,28 +144,24 @@
 														<span id="userIDSpan" class="glyphicon glyphicon-pencil form-control-feedback"></span>
 													</div>
 												</div>
-												<!-- Input Manufacturer -->
 												<div class="form-group has-feedback">
 													<label class="control-label col-sm-4" for="userMan">Manufacturer:</label>
 													<div class="col-sm-8">
 														<input type="text" class="form-control userSortSource userEnter" id="userMan" value="Other" onfocus="this.select();" onmouseup="return false;">
 													</div>
 												</div>
-												<!-- Input CCT -->
 												<div class="form-group  has-feedback">
 													<label class="control-label col-sm-4" for="userCCT">CCT (K):</label>
 													<div class="col-sm-8">
 														<input type="text" class="form-control userSortSource userEnter" id="userCCT" value="Other" onfocus="this.select();" onmouseup="return false;">
 													</div>
 												</div>
-												<!-- Input Lamp Type -->
 												<div class="form-group has-feedback">
 													<label class="control-label col-sm-4" for="userLamp">Lamp Type:</label>
 													<div class="col-sm-8">
 														<input type="text" class="form-control userSortSource userEnter" id="userLamp" value="Other" onfocus="this.select();" onmouseup="return false;">
 													</div>
 												</div>
-												<!-- Input User SPD -->
 												<div id="userSPDFormGroup" class="form-group has-feedback">
 													<label class="control-label col-sm-4" for="userSPD">Spectral Power Distribution (SPD): <br /><br /><span id="userSPDStatus" style="font-weight:normal;color:red"></span></label>
 													<div class="col-sm-8">
@@ -241,7 +171,6 @@
 												</div>
 											</form>
 										</div>
-										<!-- Footer -->
 										<div class="modal-footer">
 										  <button type="button" class="btn btn-default disabled" id="userSourceSubmit" onclick=submitUserSource() disabled="">Submit</button>
 										</div>
@@ -254,8 +183,7 @@
 					</div>
 				</div>
 			</div>
-			<div id="mid-col" class="col-md-3" style="padding: 0% 2%  0% 2%;><!--border: 10px solid transparent;">
-				<!-- Column 2: Variable Edit -->
+			<div id="mid-col" class="col-md-3" style="padding: 0% 2%  0% 2%;">
 				<div class="box">
 					<div class="row">
 						<div class="text-center">
@@ -264,15 +192,13 @@
 						<div style="height: 2px;background: lightgray;">
 						</div>
 					</div>
-					<!-- Addition Inputs -->
 					<div class="row">
 						<div class="text-center">
 							<h4><a data-toggle="collapse" data-target="#inputsHelp" style="color:Black; cursor:help;">Additional Variables</a></h4>
 						</div>
-						<!-- Available Inputs Help Section -->
-						<div id="inputsHelp" class="collapse help"> <!--style="border:1px solid #4D4D4D;">-->
-							<p style="color:gray;"> <!--border: 4px solid transparent;">-->
-								<i>Biological input variables are listed below, by name and current setting. All variables default to average values. Click on each variable for additional information and to change the value.</i> </b>
+						<div id="inputsHelp" class="collapse help">
+							<p style="color:gray;">
+								<i>Biological input variables are listed below, by name and current setting. All variables default to average values. Click on each variable for additional information and to change the value.</i>
 							</p>
 						</div>
 
@@ -284,13 +210,12 @@
 								</tr>
 							</thead>
 							<tbody>
-								<!-- Macular Pigment Optical Density Tab -->
 								<tr data-toggle="collapse" data-target="#mpod_info" class="accordion-toggle" style="cursor: pointer;">
 									<td>Macular Pigment Optical Density:</td>
 									<td id="mpod">0.5</td>
 								</tr>
 								<tr onmouseover="this.style.backgroundColor='inherit'">
-									<td colspan="6" class="hiddenRow" style="padding: 0">
+									<td colspan="2" class="hiddenRow" style="padding: 0">
 										<div class="accordian-body collapse" id="mpod_info">
 											<p><b>Macular Pigment Optical Density:</b> The human retina is not a uniform neural tissue. The highest density of cone photoreceptors in the retina is in the foveal pit, which is used for such visual tasks a reading, threading needles, and identification of distant objects. The macula is a circular region of the retina that extends radially from the fovea with a much higher density of cones than the peripheral retina which is dominated by rods. Most of the visual cortex is devoted to processing images focused in the macula. Therefore, for human conscious perception, the macula is particularly important.</p>
 											<p>Interlaced among the photoreceptors and the other retinal neurons in the macula is a yellow screening pigment, the macula lutea, that is believed to protect the retina from damage by short wavelengths. The spatial extent of this circular screening pigment is approximately 6-10<sup>o</sup> with the highest pigment density in the foveal region.  Since the macular pigment preferentially filters short wavelengths and since the most effective rays entering the eye are along the optical axis, the spectral sensitivity of the central retina will be influenced by the optical density of the macular pigment.</p>
@@ -319,18 +244,15 @@
 							</tbody>
 						</table>
 					</div>
-					<!-- Edit Source Illuminance Section -->
 					<div class="row">
 						<div class="text-center">
 							<h4><a data-toggle="collapse" data-target="#illHelp" style="color:Black; cursor:help;">Source Illuminances</a></h4>
 						</div>
-						<!-- Source Illuminance Help Section -->
 						<div id="illHelp" class="collapse help">
 							<p style="color:gray;">
 								<i>The sources currently selected for measurement are shown below. When an illuminance value (in lux) is entered in the pane to the right of each source, the combined spectral power distribution is automatically updated in the results graph on the far right. If no illuminance value is entered, the source’s illuminance is set at zero.</i>
 							</p>
 						</div>
-						<!-- Source Illuminance Instruction Section -->
 						<div>
 							<p style="color:gray;">
 								Enter a vertical illuminance value in lux to determine a CS value based on your chosen SPD.
@@ -353,7 +275,6 @@
 						</div>
 					</div>
 
-					<!-- CS Input Section -->
 					<div class="row" id="csInputSection" hidden>
 
 						<div class="text-center">
@@ -364,14 +285,12 @@
 						<div class="text-center">
 							<h4><a data-toggle="collapse" data-target="#csHelp" style="color:Black; cursor:help;">Source Circadian Stimulus</a></h4>
 						</div>
-						<!-- Source CS Help Section -->
 						<div id="csHelp" class="collapse help">
 							<p style="color:gray;">
 								<i>The sources currently selected for measurement are shown below. When an illuminance value (in lux) is entered in the pane to the right of each source, the combined spectral power distribution is automatically updated in the results graph on the far right. If no illuminance value is entered, the source’s illuminance is set at zero.</i>
 							</p>
 						</div>
 
-						<!-- Source CS Instruction Section -->
 						<div>
 							<p style="color:gray;">
 								Enter a target CS value to determine the vertical illuminance needed to achieve this target based on your chosen SPD.
@@ -393,11 +312,9 @@
 							</tbody>
 						</table>
 					</div>
-					<!-- End CS Input Section -->
 				</div>
 			</div>
-			<div class="col-md-6" style="padding: 0% 2%  0% 2%;"><!--border: 10px solid transparent;">
-				<!-- Column 3: Results -->
+			<div class="col-md-6" style="padding: 0% 2%  0% 2%;">
 				<div class="box">
 					<div class="row">
 						<div class="text-center">
@@ -407,11 +324,9 @@
 						</div>
 					</div>
 					<div class="row">
-						<!-- Plots Section -->
 						<div class="text-center">
 							<h4><a data-toggle="collapse" data-target="#plotHelp" style="color:Black; cursor:help;">Output Plots</a></h4>
 						</div>
-						<!-- Plots Help Section -->
 						<div id="plotHelp" class="collapse help">
 							<p style="color:gray;">
 								<i>Below are the output plots displaying information about the combined attributes of light sources that have been selected. Both the graphs and the associated legends will be modified automatically as new sources are added and illuminance values are adjusted.</i>
@@ -425,7 +340,6 @@
 					</div>
 
 					<div class="row tab-content">
-						<!-- SPD Plot Area -->
 						<div id="PlotAreaSPD" class="tab-pane fade in active">
 							<div class="text-center">
 								<h4>Spectral Power Distribution</h4>
@@ -441,7 +355,6 @@
 								<p><a href="http://journals.sagepub.com/doi/abs/10.1177/1477153511430474" target="_blank">Information on the calculation of Circadian Light</a>, <a href="http://journals.sagepub.com/doi/pdf/10.1177/1477153512467607" target="_blank">Corrigendum</a></p>
 							</div>
 						</div>
-						<!-- Chromaticity Plot Area -->
 						<div id="PlotAreaChromaticity" class="tab-pane fade">
 							<div class="text-center">
 								<h4>Chromaticity</h4>
@@ -455,7 +368,6 @@
 								</div>
 							</div>
 						</div>
-						<!-- Color Rendering Metrics Plot Area -->
 						<div id="PlotAreaCRM" class="tab-pane fade">
 							<div class="text-center">
 								<h4>Color Rendering Metrics</h4>
@@ -471,12 +383,10 @@
 						</div>
 					</div>
 
-					<!-- Value Metrics Area -->
 					<div class="row">
 						<div class="text-center" style="padding-top: 15px;">
 							<h4><a data-toggle="collapse" data-target="#metricsHelp" style="color:Black; cursor:help;">Combined Source Value Metrics</a></h4>
 						</div>
-						<!-- Value Metrics Help Section -->
 						<div id="metricsHelp" class="collapse help">
 							<p style="color:gray;">
 								<i>The output measurements calculated for the selected sources and their corresponding values are listed below. The output measurements are shown on the left, and the values are shown on the right. Click on the individual outcome measurements for more information.</i>
@@ -486,152 +396,140 @@
 						<table class="table table-hover">
 							<thead>
 								<tr>
-									<th>Measurement</td>
-									<th>Value</td>
+									<th>Measurement</th>
+									<th>Value</th>
 								</tr>
 							</thead>
 							<tbody>
-								<!-- CS Tab -->
 								<tr data-toggle="collapse" data-target="#cs_info" class="accordion-toggle" style="cursor: pointer;">
 									<td>CS:</td>
 									<td id="resultCS">0</td>
 								</tr>
 								<tr onmouseover="this.style.backgroundColor='inherit'">
-									<td colspan="6" class="hiddenRow" style="padding: 0">
+									<td colspan="2" class="hiddenRow" style="padding: 0">
 										<div class="accordian-body collapse" id="cs_info">
 											<p><b>Circadian Stimulus (CS)</b> is the calculated effectiveness
 	of the spectrally weighted irradiance at the cornea from threshold (CS = 0.1) to saturation (CS = 0.7),  assuming a fixed duration of exposure of 1 hour.</p>
 										</div>
 									</td>
 								</tr>
-								<!-- CLa Tab -->
 								<tr data-toggle="collapse" data-target="#cla_info" class="accordion-toggle" style="cursor: pointer;">
 									<td>CL<sub>A</sub>:</td>
 									<td id="resultCLA">0</td>
 								</tr>
 								<tr onmouseover="this.style.backgroundColor='inherit'">
-									<td colspan="6" class="hiddenRow" style="padding: 0">
+									<td colspan="2" class="hiddenRow" style="padding: 0">
 										<div class="accordian-body collapse" id="cla_info">
 											<p><b>Circadian Light (CL<sub>A</sub>)</b> is the irradiance at the cornea weighted to reflect the spectral sensitivity of the human circadian
 	system as measured by acute melatonin suppression after a 1-hour exposure.</p>
 										</div>
 									</td>
 								</tr>
-								<!-- Illuminance Tab -->
 								<tr data-toggle="collapse" data-target="#ill_info" class="accordion-toggle" style="cursor: pointer;">
 									<td>Illuminance (lx):</td>
 									<td id="resultIll">0</td>
 								</tr>
 								<tr onmouseover="this.style.backgroundColor='inherit'">
-									<td colspan="6" class="hiddenRow" style="padding: 0">
+									<td colspan="2" class="hiddenRow" style="padding: 0">
 										<div class="accordian-body collapse" id="ill_info">
 											<p><b>Illuminance (lx)</b> is the amount of light (luminous flux) incident on a surface area. Illuminance is measured in footcandles (lumens/square foot) or lux (lx, lumens/square meter). One footcandle equals 10.76 lx, although for convenience 10 lx commonly is used as the equivalent.</p>
 										</div>
 									</td>
 								</tr>
-								<!-- Irradiance Tab -->
 								<tr data-toggle="collapse" data-target="#irr_info" class="accordion-toggle" style="cursor: pointer;">
-									<td>Irradiance (W&middotm<sup>-2</sup>):</td>
+									<td>Irradiance (W&middot;m<sup>-2</sup>):</td>
 									<td id="resultIrr">0</td>
 								</tr>
 								<tr onmouseover="this.style.backgroundColor='inherit'">
-									<td colspan="6" class="hiddenRow" style="padding: 0">
+									<td colspan="2" class="hiddenRow" style="padding: 0">
 										<div class="accordian-body collapse" id="irr_info">
-											<p><b>Irradiance (W&middotm<sup>-2</sup>)</b> is the irradiance of a surface per unit frequency or wavelength, depending on whether the spectrum is taken as a function of frequency or of wavelength. The two forms have different dimensions: spectral irradiance of a frequency spectrum is measured in watts per square metre per hertz (W·m−2·Hz−1), while spectral irradiance of a wavelength spectrum is measured in watts per square metre per metre (W·m−3), or more commonly watts per square metre per nanometre (W·m−2·nm−1).</p>
+											<p><b>Irradiance (W&middot;m<sup>-2</sup>)</b> is the irradiance of a surface per unit frequency or wavelength, depending on whether the spectrum is taken as a function of frequency or of wavelength. The two forms have different dimensions: spectral irradiance of a frequency spectrum is measured in watts per square metre per hertz (W·m−2·Hz−1), while spectral irradiance of a wavelength spectrum is measured in watts per square metre per metre (W·m−3), or more commonly watts per square metre per nanometre (W·m−2·nm−1).</p>
 										</div>
 									</td>
 								</tr>
-								<!-- Photon Flux Tab -->
 								<tr data-toggle="collapse" data-target="#pf_info" class="accordion-toggle" style="cursor: pointer;">
-									<td>Photon Flux (Photons&middotm<sup>-2</sup>&middots<sup>-1</sup>):</td>
+									<td>Photon Flux (Photons&middot;m<sup>-2</sup>&middot;s<sup>-1</sup>):</td>
 									<td id="resultPf">0</td>
 								</tr>
 								<tr onmouseover="this.style.backgroundColor='inherit'">
-									<td colspan="6" class="hiddenRow" style="padding: 0">
+									<td colspan="2" class="hiddenRow" style="padding: 0">
 										<div class="accordian-body collapse" id="pf_info">
-											<p><b>Photon Flux (Photons&middotm<sup>-2</sup>&middots<sup>-1</sup>)</b> is defined as the number of photons per second per unit area</p>
+											<p><b>Photon Flux (Photons&middot;m<sup>-2</sup>&middot;s<sup>-1</sup>)</b> is defined as the number of photons per second per unit area</p>
 										</div>
 									</td>
 								</tr>
-								<!-- Melanopic Lux Tab -->
 								<tr data-toggle="collapse" data-target="#eml_info" class="accordion-toggle" style="cursor: pointer;" hidden>
 									<td>Equivalent Melanopic Lux (EML):</td>
 									<td id="resultEML">0</td>
 								</tr>
 								<tr onmouseover="this.style.backgroundColor='inherit'" hidden>
-									<td colspan="6" class="hiddenRow" style="padding: 0">
+									<td colspan="2" class="hiddenRow" style="padding: 0">
 										<div class="accordian-body collapse" id="eml_info">
 											<p><b>Equivalent Melanopic Lux (EML)</b> is a metric for measuring the biological effects of light on humans. Photosensitive retinal ganglion cells (ipRGCs) regulate the human circadian response to light. These are non-image forming photoreceptors within the eye. EML as a metric is weighted to the ipRGCs response to light and translates how much the spectrum of a light source stimulates ipRGCs and affects the circadian system</p>
 										</div>
 									</td>
 								</tr>
-								<!-- CCT Tab -->
 								<tr data-toggle="collapse" data-target="#cct_info" class="accordion-toggle" style="cursor: pointer;">
 									<td>CCT:</td>
 									<td id="resultCCT">NaN</td>
 								</tr>
 								<tr onmouseover="this.style.backgroundColor='inherit'">
-									<td colspan="6" class="hiddenRow" style="padding: 0">
+									<td colspan="2" class="hiddenRow" style="padding: 0">
 										<div class="accordian-body collapse" id="cct_info">
 											<p><b>Correlated Color Temperature (CCT, Tcp)</b> is a specification for white light sources used to describe the dominant color tone along the dimension from warm (yellows and reds) to cool (blue). Lamps with a CCT rating below 3200 K are usually considered warm sources, whereas those with a CCT above 4000 K usually considered cool in appearance. Temperatures in between are considered neutral in appearance. Technically, CCT extends the practice of using temperature, in kelvins (K), for specifying the spectrum of light sources other than blackbody radiators. Incandescent lamps and daylight closely approximate the spectra of black body radiators at different temperatures and can be designated by the corresponding temperature of a blackbody radiator. The spectra of fluorescent and LED sources, however, differ substantially from black body radiators yet they can have a color appearance similar to a blackbody radiator of a particular temperature as given by CCT.</p>
 										</div>
 									</td>
 								</tr>
-								<!-- Duv Tab -->
 								<tr data-toggle="collapse" data-target="#duv_info" class="accordion-toggle" style="cursor: pointer;">
 									<td>D<sub>uv</sub>:</td>
 									<td id="resultDuv">NaN</td>
 								</tr>
 								<tr onmouseover="this.style.backgroundColor='inherit'">
-									<td colspan="6" class="hiddenRow" style="padding: 0">
+									<td colspan="2" class="hiddenRow" style="padding: 0">
 										<div class="accordian-body collapse" id="duv_info">
 											<p><b>D<sub>uv</sub></b> is a metric defined by American National Standard Institute (ANSI) that quantifies the distance between the chromaticity of a given light source and a blackbody radiator of equal CCT. A negative D<sub>uv</sub> indicates that the source is “below” the blackbody locus, having a purplish tint, whereas a positive D<sub>uv</sub> indicates that the source is “above” the blackbody locus, having a greenish tint. </p>
 										</div>
 									</td>
 								</tr>
-								<!-- CRI Tab -->
 								<tr data-toggle="collapse" data-target="#cri_info" class="accordion-toggle" style="cursor: pointer;">
 									<td>CRI:</td>
 									<td id="resultCRI">NaN</td>
 								</tr>
 								<tr onmouseover="this.style.backgroundColor='inherit'">
-									<td colspan="6" class="hiddenRow" style="padding: 0">
+									<td colspan="2" class="hiddenRow" style="padding: 0">
 										<div class="accordian-body collapse" id="cri_info">
 											<p><b>Color Rendering Index (CRI)</b> is a rating index commonly used to represent how well a light source renders the colors of objects that it illuminates. For a CRI value of 100, the maximum value, the colors of objects can be expected to be seen as they would appear under an incandescent or daylight spectrum of the same correlated color temperature (CCT). Sources with CRI values less than 50 are generally regarded as rendering colors poorly, that is, colors may appear unnatural.</p>
 										</div>
 									</td>
 								</tr>
-								<!-- GAI Tab -->
 								<tr data-toggle="collapse" data-target="#gai_info" class="accordion-toggle" style="cursor: pointer;">
 									<td>GAI:</td>
 									<td id="resultGAI">NaN</td>
 								</tr>
 								<tr onmouseover="this.style.backgroundColor='inherit'">
-									<td colspan="6" class="hiddenRow" style="padding: 0">
+									<td colspan="2" class="hiddenRow" style="padding: 0">
 										<div class="accordian-body collapse" id="gai_info">
 											<p><b>Gamut Area Index (GAI)</b> is a measure of color rendering based upon volume in color space. It is the range of colors achievable on a given color reproduction medium (or present in an image on that medium) under a given set of viewing conditions.</p>
 										</div>
 									</td>
 								</tr>
-								<!-- Color Coordinates Tab -->
 								<tr data-toggle="collapse" data-target="#xy_info" class="accordion-toggle" style="cursor: pointer;">
 									<td>Color Coordinates (x,y):</td>
 									<td id="resultXY">NaN, NaN</td>
 								</tr>
 								<tr onmouseover="this.style.backgroundColor='inherit'">
-									<td colspan="6" class="hiddenRow" style="padding: 0">
+									<td colspan="2" class="hiddenRow" style="padding: 0">
 										<div class="accordian-body collapse" id="xy_info">
 											<p><b>Chromaticity: </b>The dominant or complementary wavelength and purity aspects of the color taken together, or of the aspects specified by the chromaticity coordinates of the color taken together. It describes the properties of light related to hue and saturation, but not luminance (brightness).</p>
 										</div>
 									</td>
 								</tr>
-								<!-- Relative Combined SPD -->
 								<tr data-toggle="collapse" data-target="#RelSPD_info" class="accordion-toggle" style="cursor: pointer;">
 									<td>Relative Spectral Power Distribution:</td>
 									<td>(SPD)</td>
 								</tr>
 								<tr onmouseover="this.style.backgroundColor='inherit'">
-									<td colspan="6" class="hiddenRow" style="padding: 0">
+									<td colspan="2" class="hiddenRow" style="padding: 0">
 										<div class="accordian-body collapse" id="RelSPD_info">
 											<table class="table">
 												<thead>
@@ -647,19 +545,18 @@
 										</div>
 									</td>
 								</tr>
-								<!-- Absolute Combined SPD -->
 								<tr data-toggle="collapse" data-target="#AbsSPD_info" class="accordion-toggle" style="cursor: pointer;">
 									<td>Absolute Spectral Power Distribution:</td>
 									<td>(SPD)</td>
 								</tr>
 								<tr onmouseover="this.style.backgroundColor='inherit'">
-									<td colspan="6" class="hiddenRow" style="padding: 0">
+									<td colspan="2" class="hiddenRow" style="padding: 0">
 										<div class="accordian-body collapse" id="AbsSPD_info">
 											<table class="table">
 												<thead>
 													<tr>
 														<th>Wavelength (nm)</th>
-														<th>Spectral Irradiance (W&middotm<sup>-2</sup>&middotnm<sup>-1</sup>)</th>
+														<th>Spectral Irradiance (W&middot;m<sup>-2</sup>&middot;nm<sup>-1</sup>)</th>
 													</tr>
 												</thead>
 												<tbody id="AbsSpdTable">
@@ -676,48 +573,39 @@
 			</div>
 		</div>
 		<div class="footer">
-			<!-- Load Chart Script here -->
-			<script type="text/javascript" src="spdChart.js"></script>
-			<script type="text/javascript" src="crmChart.js"></script>
-			<script type="text/javascript" src="chromaticityChart.js"></script>
-			<!-- Sponser Section -->
+			<script src="js/charts.js"></script>
 			<div class="container-fluid text-center">
 				<div class="row">
-					<!--<h3><a href="http://www.lrc.rpi.edu/programs/lightHealth/alliance.asp" target="_blank" style="color:black;">Light and Health Alliance Members</a></h3>-->
-					<a href="http://www.lrc.rpi.edu/programs/lightHealth/alliance.asp" target="_blank" style="color:black;"><img src="sponser_photos/Alliance_logos/AllianceLogo_250.png" alt="Acuity Brands Lighting" width="200" border="0" align="center"/></a>
+					<a href="http://www.lrc.rpi.edu/programs/lightHealth/alliance.asp" target="_blank" style="color:black;"><img src="sponser_photos/Alliance_logos/AllianceLogo_250.png" alt="Acuity Brands Lighting" width="200"/></a>
 				</div>
                 <div class="row">
 					<div class="col-md-0 col-lg-1">
 					</div>
 					<div class="col-md-0 col-lg-1">
 					</div>
-					<div class="col-xs-6 col-md-3 col-lg-1" align="center" border="5">
-						<a href="http://www.acuitybrandslighting.com/" target="_blank"><img src="sponser_photos/Alliance_logos/AcuityPrimary.jpg" alt="Acuity Brands Lighting" width="100" border="0" align="center"/></a>
+					<div class="col-xs-6 col-md-3 col-lg-1" >
+						<a href="http://www.acuitybrandslighting.com/" target="_blank"><img src="sponser_photos/Alliance_logos/AcuityPrimary.jpg" alt="Acuity Brands Lighting" width="100"  /></a>
 					</div>
-					<div class="col-xs-6 col-md-3 col-lg-1" align="center" border="5">
-						<a href="http://www.cree.com/" target="_blank"><img src="sponser_photos/Alliance_logos/Cree.gif" alt="Cree"  width="100" border="0" align="center"/></a>
+					<div class="col-xs-6 col-md-3 col-lg-1" >
+						<a href="http://www.cree.com/" target="_blank"><img src="sponser_photos/Alliance_logos/Cree.gif" alt="Cree"  width="100"  /></a>
 					</div>
-					<div class="col-xs-6 col-md-3 col-lg-1" align="center" border="5">
-						<a href="http://www.currentbyge.com/" target="_blank"><img src="sponser_photos/Alliance_logos/CurrentByGE-Logo.png" border="0" width="100" align="center"/></a>
+					<div class="col-xs-6 col-md-3 col-lg-1" >
+						<a href="http://www.currentbyge.com/" target="_blank"><img src="sponser_photos/Alliance_logos/CurrentByGE-Logo.png" alt="Current by GE"  width="100" /></a>
 					</div>
-					<div class="col-xs-6 col-md-3 col-lg-1" align="center" border="5">
-						<a href="http://goketra.com" target="_blank"><img src="sponser_photos/Alliance_logos/Ketra_logo-01.png" alt="Ketra Lighting" width="100" border="0" align="center"></a>
+					<div class="col-xs-6 col-md-3 col-lg-1" >
+						<a href="http://goketra.com" target="_blank"><img src="sponser_photos/Alliance_logos/Ketra_logo-01.png" alt="Ketra Lighting" width="100"  ></a>
 					</div>
-					<div class="col-xs-6 col-md-3 col-lg-1" align="center" border="5">
-						<a href="http://www.lrc.rpi.edu/" target="_blank"><img src="sponser_photos/Alliance_logos/LRC-Logo1.jpg" border="0" width="100" align="center"/></a>
+					<div class="col-xs-6 col-md-3 col-lg-1" >
+						<a href="http://www.lrc.rpi.edu/" target="_blank"><img src="sponser_photos/Alliance_logos/LRC-Logo1.jpg"  alt="Lighting Research Center" width="100" /></a>
 					</div>
-					<div class="col-xs-6 col-md-3 col-lg-1" align="center" border="5">
-						<a href="http://www.OSRAM.com/" target="_blank"><img src="sponser_photos/Alliance_logos/Osram.png" border="0" width="100" align="center"/></a>
+					<div class="col-xs-6 col-md-3 col-lg-1" >
+						<a href="http://www.OSRAM.com/" target="_blank"><img src="sponser_photos/Alliance_logos/Osram.png"  alt="Osram" width="100" /></a>
 					</div>
-					<div class="col-xs-6 col-md-3 col-lg-1" align="center" border="5">
-						<a href="http://www.usa.lighting.philips.com/" target="_blank"><img src="sponser_photos/Alliance_logos/Philips.jpg" border="0" width="100" align="center"/></a>
+					<div class="col-xs-6 col-md-3 col-lg-1" >
+						<a href="http://www.usa.lighting.philips.com/" target="_blank"><img src="sponser_photos/Alliance_logos/Philips.jpg" alt="Philips" width="100" /></a>
 					</div>
-					<div class="col-xs-6 col-md-3 col-lg-1" align="center" border="5">
-						<a href="http://usaillumination.com/" target="_blank"><img src="sponser_photos/Alliance_logos/USAILightingLogo_300px.jpg" border="0" width="100" align="center"/></a>
-					</div>
-					<div class="col-md-0 col-lg-1">
-					</div>
-					<div class="col-md-0 col-lg-1">
+					<div class="col-xs-6 col-md-3 col-lg-1" >
+						<a href="http://usaillumination.com/" target="_blank"><img src="sponser_photos/Alliance_logos/USAILightingLogo_300px.jpg"  alt="USAI Lighting" width="100" /></a>
 					</div>
 				</div>
 				<p>2017 Rensselaer Polytechnical Institute, Troy, NY 12180 USA - All rights reserved</p>
