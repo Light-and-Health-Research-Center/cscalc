@@ -1,24 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<title>Web CS Calculator</title>
-		<!-- Load General HTML -->
+		<title>CS Calculator</title>
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<!-- Set the width of the page to follow the screen width of the device and set the initial zoom on the page -->
 		<meta name="viewport" content="device-width, initial-scale=1" />
-		<!-- Load Libraries for Bootstrap -->
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.matchHeight/0.7.0/jquery.matchHeight-min.js"></script>
-		<!-- Load library for Chart -->
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.3/Chart.js"></script>
-
-		<!-- Load CSS Style Sheets -->
 		<link rel="stylesheet" type="text/css" href="css/WebCsCalculatorStyleSheet.css">
 
-		<!-- Global site tag (gtag.js) - Google Analytics -->
 		<script async src="https://www.googletagmanager.com/gtag/js?id=UA-69914675-3"></script>
 		<script>
 		  window.dataLayer = window.dataLayer || [];
@@ -26,6 +18,7 @@
 		  gtag('js', new Date());
 		  gtag('config', 'UA-69914675-3');
 		</script>
+
 		<script src="js/GeneralFunctions.js"></script>
 		<script src="js/lightMetricFunctions.js"></script>
 		<script src="js/spectralEfficiency.js"></script>
@@ -35,13 +28,9 @@
 		<script src="js/ansi_duv.js"></script>
 
 	</head>
-	<!-- Start of body -->
 	<body>
 		<div class="container-fluid">
-			<!-- Header -->
 			<div>
-				<!--<h1>Circadian Stimulus Web Calculator</h1> -->
-				<!--Header navbar-->
 				<nav class="navbar navbar-inverse">
 					<div class="navbar-header">
 						<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
@@ -58,14 +47,12 @@
 							<li><a href="http://www.lrc.rpi.edu/resources/newsroom/LDA_CircadianStimulus_Oct2016.pdf" target="_blank">Designing with Circadian Stimulus</a></li>
 							<li><a href="http://www.lrc.rpi.edu/aboutUs/contactUs.asp" target="_blank">Contact</a></li>
 							<li><a href="http://www.lrc.rpi.edu/aboutUs/contactUs.asp" target="_blank">Instructional Video</a></li>
-							<li><a id='helpMaster' data-toggle="collapse" data-target=".help" style="cursor:pointer;">Help <span id='helpBadge' class="badge">off</span></a></li><!-- <li><a href="#">About</a></li> -->
+							<li><a id='helpMaster' data-toggle="collapse" data-target=".help" style="cursor:pointer;">Help <span id='helpBadge' class="badge">off</span></a></li>
 						</ul>
 					</div>
 				</nav>
 			</div>
-			<!-- Start of Column sections -->
 			<div class="col-md-3" style="padding: 0% 2%  0% 2%;">
-				<!-- Column 1: Source Select -->
 				<div class="box">
 					<div class="row">
 						<div class="text-center">
@@ -78,7 +65,6 @@
 						<div class="text-center">
 							<h4><a data-toggle="collapse" data-target="#sortHelp" style="color:black; cursor:help;">Select Available Sources</a></h4>
 						</div>
-						<!-- Sort Sources Help Section -->
 						<div id="sortHelp" class="collapse help">
 							<p style="color:gray;">
 								<i>Select from the dropdown menus and use the keyword search bar (optional) below to access the sources that are currently loaded in the calculator. Sources meeting the selected criteria will appear under the Available Sources heading. Press the Reset Filters button to return Step 1 to the default setting.</i>
@@ -118,20 +104,18 @@
 							</div>
 							<div class="form-group">
 								<div class="input-group">
-									<button id="reset" type="button">Reset Filters</button><!--<input id="reset" type="button" class="btn btn-info" value="Reset Filters">-->
+									<button id="reset" type="button">Reset Filters</button>
 								</div>
 							</div>
 						</form>
 					</div>
 					<div class="row">
-						<!-- Add Custom Source -->
 						<div class="text-center">
-							<button id="addUserSource" type="button" data-toggle='modal' data-target='#myModal'>Add Custom Source</button><!--<input id="addUserSource" type="button" class="btn btn-info" value="Add Custom Source" data-toggle='modal' data-target='#myModal'>-->
+							<button id="addUserSource" type="button" data-toggle='modal' data-target='#myModal'>Add Custom Source</button>
 						</div>
 						<div class="text-center">
 							<h4><a data-toggle="collapse" data-target="#availableHelp" style="color:Black; cursor:help;">Available Sources</a></h4>
 						</div>
-						<!-- Available Sources Help Section -->
 						<div id="availableHelp" class="collapse help">
 							<p style="color:gray;">
 								<i>Below are the list of sources available to be used. Click on a source below to view additional information and have the opportunity to add the source to the calculation area. When the page is first loaded, all preloaded sources will be listed. Use the tools in the Sort Available Sources section to only display sources with the selected metrics. Use the Add Custom Source button to load in additional sources.</i>
@@ -144,20 +128,15 @@
 							<h4>No Available Sources Meet the Selected Filters</h4>
 						</div>
 						<div id="user-modal-area">
-							<!-- Enter custom user SPD -->
 							<div class="modal fade" id="myModal" role="dialog">
 								<div class="modal-dialog">
-									<!-- Modal content-->
 									<div class="modal-content">
-										<!-- Header -->
 										<div class="modal-header">
 										  <button type="button" class="close" data-dismiss="modal">&times;</button>
 										  <h4 class="modal-title">Custom Source</h4>
 										</div>
-										<!-- Body -->
 										<div class="modal-body">
 											<form class="form-horizontal">
-												<!-- Input Source Name -->
 												<div id="userIDFormGroup" class="form-group has-feedback">
 													<label class="control-label col-sm-4" for="userID">Source Name:</label>
 													<div class="col-sm-8">
@@ -165,28 +144,24 @@
 														<span id="userIDSpan" class="glyphicon glyphicon-pencil form-control-feedback"></span>
 													</div>
 												</div>
-												<!-- Input Manufacturer -->
 												<div class="form-group has-feedback">
 													<label class="control-label col-sm-4" for="userMan">Manufacturer:</label>
 													<div class="col-sm-8">
 														<input type="text" class="form-control userSortSource userEnter" id="userMan" value="Other" onfocus="this.select();" onmouseup="return false;">
 													</div>
 												</div>
-												<!-- Input CCT -->
 												<div class="form-group  has-feedback">
 													<label class="control-label col-sm-4" for="userCCT">CCT (K):</label>
 													<div class="col-sm-8">
 														<input type="text" class="form-control userSortSource userEnter" id="userCCT" value="Other" onfocus="this.select();" onmouseup="return false;">
 													</div>
 												</div>
-												<!-- Input Lamp Type -->
 												<div class="form-group has-feedback">
 													<label class="control-label col-sm-4" for="userLamp">Lamp Type:</label>
 													<div class="col-sm-8">
 														<input type="text" class="form-control userSortSource userEnter" id="userLamp" value="Other" onfocus="this.select();" onmouseup="return false;">
 													</div>
 												</div>
-												<!-- Input User SPD -->
 												<div id="userSPDFormGroup" class="form-group has-feedback">
 													<label class="control-label col-sm-4" for="userSPD">Spectral Power Distribution (SPD): <br /><br /><span id="userSPDStatus" style="font-weight:normal;color:red"></span></label>
 													<div class="col-sm-8">
@@ -196,7 +171,6 @@
 												</div>
 											</form>
 										</div>
-										<!-- Footer -->
 										<div class="modal-footer">
 										  <button type="button" class="btn btn-default disabled" id="userSourceSubmit" onclick=submitUserSource() disabled="">Submit</button>
 										</div>
@@ -210,7 +184,6 @@
 				</div>
 			</div>
 			<div id="mid-col" class="col-md-3" style="padding: 0% 2%  0% 2%;">
-				<!-- Column 2: Variable Edit -->
 				<div class="box">
 					<div class="row">
 						<div class="text-center">
@@ -219,14 +192,12 @@
 						<div style="height: 2px;background: lightgray;">
 						</div>
 					</div>
-					<!-- Addition Inputs -->
 					<div class="row">
 						<div class="text-center">
 							<h4><a data-toggle="collapse" data-target="#inputsHelp" style="color:Black; cursor:help;">Additional Variables</a></h4>
 						</div>
-						<!-- Available Inputs Help Section -->
-						<div id="inputsHelp" class="collapse help"> <!--style="border:1px solid #4D4D4D;">-->
-							<p style="color:gray;"> <!--border: 4px solid transparent;">-->
+						<div id="inputsHelp" class="collapse help">
+							<p style="color:gray;">
 								<i>Biological input variables are listed below, by name and current setting. All variables default to average values. Click on each variable for additional information and to change the value.</i>
 							</p>
 						</div>
@@ -239,7 +210,6 @@
 								</tr>
 							</thead>
 							<tbody>
-								<!-- Macular Pigment Optical Density Tab -->
 								<tr data-toggle="collapse" data-target="#mpod_info" class="accordion-toggle" style="cursor: pointer;">
 									<td>Macular Pigment Optical Density:</td>
 									<td id="mpod">0.5</td>
@@ -274,18 +244,15 @@
 							</tbody>
 						</table>
 					</div>
-					<!-- Edit Source Illuminance Section -->
 					<div class="row">
 						<div class="text-center">
 							<h4><a data-toggle="collapse" data-target="#illHelp" style="color:Black; cursor:help;">Source Illuminances</a></h4>
 						</div>
-						<!-- Source Illuminance Help Section -->
 						<div id="illHelp" class="collapse help">
 							<p style="color:gray;">
 								<i>The sources currently selected for measurement are shown below. When an illuminance value (in lux) is entered in the pane to the right of each source, the combined spectral power distribution is automatically updated in the results graph on the far right. If no illuminance value is entered, the source’s illuminance is set at zero.</i>
 							</p>
 						</div>
-						<!-- Source Illuminance Instruction Section -->
 						<div>
 							<p style="color:gray;">
 								Enter a vertical illuminance value in lux to determine a CS value based on your chosen SPD.
@@ -308,7 +275,6 @@
 						</div>
 					</div>
 
-					<!-- CS Input Section -->
 					<div class="row" id="csInputSection" hidden>
 
 						<div class="text-center">
@@ -319,14 +285,12 @@
 						<div class="text-center">
 							<h4><a data-toggle="collapse" data-target="#csHelp" style="color:Black; cursor:help;">Source Circadian Stimulus</a></h4>
 						</div>
-						<!-- Source CS Help Section -->
 						<div id="csHelp" class="collapse help">
 							<p style="color:gray;">
 								<i>The sources currently selected for measurement are shown below. When an illuminance value (in lux) is entered in the pane to the right of each source, the combined spectral power distribution is automatically updated in the results graph on the far right. If no illuminance value is entered, the source’s illuminance is set at zero.</i>
 							</p>
 						</div>
 
-						<!-- Source CS Instruction Section -->
 						<div>
 							<p style="color:gray;">
 								Enter a target CS value to determine the vertical illuminance needed to achieve this target based on your chosen SPD.
@@ -348,11 +312,9 @@
 							</tbody>
 						</table>
 					</div>
-					<!-- End CS Input Section -->
 				</div>
 			</div>
 			<div class="col-md-6" style="padding: 0% 2%  0% 2%;">
-				<!-- Column 3: Results -->
 				<div class="box">
 					<div class="row">
 						<div class="text-center">
@@ -362,11 +324,9 @@
 						</div>
 					</div>
 					<div class="row">
-						<!-- Plots Section -->
 						<div class="text-center">
 							<h4><a data-toggle="collapse" data-target="#plotHelp" style="color:Black; cursor:help;">Output Plots</a></h4>
 						</div>
-						<!-- Plots Help Section -->
 						<div id="plotHelp" class="collapse help">
 							<p style="color:gray;">
 								<i>Below are the output plots displaying information about the combined attributes of light sources that have been selected. Both the graphs and the associated legends will be modified automatically as new sources are added and illuminance values are adjusted.</i>
@@ -380,7 +340,6 @@
 					</div>
 
 					<div class="row tab-content">
-						<!-- SPD Plot Area -->
 						<div id="PlotAreaSPD" class="tab-pane fade in active">
 							<div class="text-center">
 								<h4>Spectral Power Distribution</h4>
@@ -396,7 +355,6 @@
 								<p><a href="http://journals.sagepub.com/doi/abs/10.1177/1477153511430474" target="_blank">Information on the calculation of Circadian Light</a>, <a href="http://journals.sagepub.com/doi/pdf/10.1177/1477153512467607" target="_blank">Corrigendum</a></p>
 							</div>
 						</div>
-						<!-- Chromaticity Plot Area -->
 						<div id="PlotAreaChromaticity" class="tab-pane fade">
 							<div class="text-center">
 								<h4>Chromaticity</h4>
@@ -410,7 +368,6 @@
 								</div>
 							</div>
 						</div>
-						<!-- Color Rendering Metrics Plot Area -->
 						<div id="PlotAreaCRM" class="tab-pane fade">
 							<div class="text-center">
 								<h4>Color Rendering Metrics</h4>
@@ -426,12 +383,10 @@
 						</div>
 					</div>
 
-					<!-- Value Metrics Area -->
 					<div class="row">
 						<div class="text-center" style="padding-top: 15px;">
 							<h4><a data-toggle="collapse" data-target="#metricsHelp" style="color:Black; cursor:help;">Combined Source Value Metrics</a></h4>
 						</div>
-						<!-- Value Metrics Help Section -->
 						<div id="metricsHelp" class="collapse help">
 							<p style="color:gray;">
 								<i>The output measurements calculated for the selected sources and their corresponding values are listed below. The output measurements are shown on the left, and the values are shown on the right. Click on the individual outcome measurements for more information.</i>
@@ -446,7 +401,6 @@
 								</tr>
 							</thead>
 							<tbody>
-								<!-- CS Tab -->
 								<tr data-toggle="collapse" data-target="#cs_info" class="accordion-toggle" style="cursor: pointer;">
 									<td>CS:</td>
 									<td id="resultCS">0</td>
@@ -459,7 +413,6 @@
 										</div>
 									</td>
 								</tr>
-								<!-- CLa Tab -->
 								<tr data-toggle="collapse" data-target="#cla_info" class="accordion-toggle" style="cursor: pointer;">
 									<td>CL<sub>A</sub>:</td>
 									<td id="resultCLA">0</td>
@@ -472,7 +425,6 @@
 										</div>
 									</td>
 								</tr>
-								<!-- Illuminance Tab -->
 								<tr data-toggle="collapse" data-target="#ill_info" class="accordion-toggle" style="cursor: pointer;">
 									<td>Illuminance (lx):</td>
 									<td id="resultIll">0</td>
@@ -484,7 +436,6 @@
 										</div>
 									</td>
 								</tr>
-								<!-- Irradiance Tab -->
 								<tr data-toggle="collapse" data-target="#irr_info" class="accordion-toggle" style="cursor: pointer;">
 									<td>Irradiance (W&middot;m<sup>-2</sup>):</td>
 									<td id="resultIrr">0</td>
@@ -496,7 +447,6 @@
 										</div>
 									</td>
 								</tr>
-								<!-- Photon Flux Tab -->
 								<tr data-toggle="collapse" data-target="#pf_info" class="accordion-toggle" style="cursor: pointer;">
 									<td>Photon Flux (Photons&middot;m<sup>-2</sup>&middot;s<sup>-1</sup>):</td>
 									<td id="resultPf">0</td>
@@ -508,7 +458,6 @@
 										</div>
 									</td>
 								</tr>
-								<!-- Melanopic Lux Tab -->
 								<tr data-toggle="collapse" data-target="#eml_info" class="accordion-toggle" style="cursor: pointer;" hidden>
 									<td>Equivalent Melanopic Lux (EML):</td>
 									<td id="resultEML">0</td>
@@ -520,7 +469,6 @@
 										</div>
 									</td>
 								</tr>
-								<!-- CCT Tab -->
 								<tr data-toggle="collapse" data-target="#cct_info" class="accordion-toggle" style="cursor: pointer;">
 									<td>CCT:</td>
 									<td id="resultCCT">NaN</td>
@@ -532,7 +480,6 @@
 										</div>
 									</td>
 								</tr>
-								<!-- Duv Tab -->
 								<tr data-toggle="collapse" data-target="#duv_info" class="accordion-toggle" style="cursor: pointer;">
 									<td>D<sub>uv</sub>:</td>
 									<td id="resultDuv">NaN</td>
@@ -544,7 +491,6 @@
 										</div>
 									</td>
 								</tr>
-								<!-- CRI Tab -->
 								<tr data-toggle="collapse" data-target="#cri_info" class="accordion-toggle" style="cursor: pointer;">
 									<td>CRI:</td>
 									<td id="resultCRI">NaN</td>
@@ -556,7 +502,6 @@
 										</div>
 									</td>
 								</tr>
-								<!-- GAI Tab -->
 								<tr data-toggle="collapse" data-target="#gai_info" class="accordion-toggle" style="cursor: pointer;">
 									<td>GAI:</td>
 									<td id="resultGAI">NaN</td>
@@ -568,7 +513,6 @@
 										</div>
 									</td>
 								</tr>
-								<!-- Color Coordinates Tab -->
 								<tr data-toggle="collapse" data-target="#xy_info" class="accordion-toggle" style="cursor: pointer;">
 									<td>Color Coordinates (x,y):</td>
 									<td id="resultXY">NaN, NaN</td>
@@ -580,7 +524,6 @@
 										</div>
 									</td>
 								</tr>
-								<!-- Relative Combined SPD -->
 								<tr data-toggle="collapse" data-target="#RelSPD_info" class="accordion-toggle" style="cursor: pointer;">
 									<td>Relative Spectral Power Distribution:</td>
 									<td>(SPD)</td>
@@ -602,7 +545,6 @@
 										</div>
 									</td>
 								</tr>
-								<!-- Absolute Combined SPD -->
 								<tr data-toggle="collapse" data-target="#AbsSPD_info" class="accordion-toggle" style="cursor: pointer;">
 									<td>Absolute Spectral Power Distribution:</td>
 									<td>(SPD)</td>
@@ -631,12 +573,9 @@
 			</div>
 		</div>
 		<div class="footer">
-			<!-- Load Chart Script here -->
 			<script src="js/charts.js"></script>
-			<!-- Sponser Section -->
 			<div class="container-fluid text-center">
 				<div class="row">
-					<!--<h3><a href="http://www.lrc.rpi.edu/programs/lightHealth/alliance.asp" target="_blank" style="color:black;">Light and Health Alliance Members</a></h3>-->
 					<a href="http://www.lrc.rpi.edu/programs/lightHealth/alliance.asp" target="_blank" style="color:black;"><img src="sponser_photos/Alliance_logos/AllianceLogo_250.png" alt="Acuity Brands Lighting" width="200"/></a>
 				</div>
                 <div class="row">
