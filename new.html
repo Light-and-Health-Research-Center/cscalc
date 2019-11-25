@@ -5,6 +5,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="device-width, initial-scale=1" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
@@ -27,6 +28,10 @@
       </script>
     </div>
 
+    <div class="w-100 text-center my-4 py-4">
+      <img class="w-75" src="img/header.png"/>
+    </div>
+
     <div class="container-fluid mt-4">
       <div class="row">
         <div class="col">
@@ -34,27 +39,106 @@
             <div class="card-header">
               <div class="container-fluid">
                 <div class="row">
-                  <div class="col-md-4 step-title-container active">
+                  <div id="stepChange1" class="col-md-4 step-title-container active">
                     <h2 class="step-title active">
-                      Step 1
+                      Sources
                     </h2>
                   </div>
-                  <div class="col-md-4 step-title-container">
+                  <div id="stepChange2" class="col-md-4 step-title-container">
                     <h2 class="step-title">
-                      Step 2
+                      Variables
                     </h2>
                   </div>
-                  <div class="col-md-4 step-title-container">
+                  <div id="stepChange3" class="col-md-4 step-title-container">
                     <h2 class="step-title">
-                      Step 3
+                      Results
                     </h2>
                   </div>
                 </div>
               </div>
             </div>
-            <div class="card-body">
-              <h5 class="card-title">Special title treatment</h5>
-              <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+            <div id="stepContent1" class="card-body d-block">
+              <div class="container-fluid">
+                <div class="row">
+                  <div class="col-md-8">
+                    <h5 class="w-100 text-center">Existing Sources</h5>
+                    <hr />
+                    <div class="row">
+                      <div class="col-md-5">
+                        <div class="input-group mb-3">
+                          <div class="input-group-prepend text-center">
+                            <label class="input-group-text text-center" for="manufacterer"><b>Manufacturer:</b></label>
+                          </div>
+                          <select class="custom-select sortSource" id="manufacterer">
+                            <option selected>Any</option>
+                          </select>
+                        </div>
+                        <div class="input-group mb-3">
+                          <div class="input-group-prepend">
+                            <label class="input-group-text" for="cct">CCT:</label>
+                          </div>
+                          <select class="custom-select sortSource" id="cct">
+                            <option selected>Any</option>
+                          </select>
+                        </div>
+                        <div class="input-group mb-3">
+                          <div class="input-group-prepend">
+                            <label class="input-group-text" for="lamp">Lamp:</label>
+                          </div>
+                          <select class="custom-select sortSource" id="lamp">
+                            <option selected>Any</option>
+                          </select>
+                        </div>
+                        <div class="input-group mb-3">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text" id="keyword">Keyword:</span>
+                          </div>
+                          <input id="searchSource" type="text" class="form-control sortSource" aria-label="Default" aria-describedby="keyword" placeholder="Search Sources">
+                        </div>
+                        <div class="form-group">
+                          <div class="input-group">
+                            <button class="w-100 btn btn-lrc text-center" id="reset" type="button">Reset</button>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-2">
+                        <i class="pt-2 h-100 middle w-100 text-center fas fa-chevron-right fa-2x"></i>
+                      </div>
+                      <div class="col-md-5">
+                        <div id="names-list" class="list-group">
+            						</div>
+                        <div id="modal-area">
+            						</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <h5 class="w-100 text-center">Custom Source</h5>
+                    <hr />
+                    <div class="row">
+                      <div class="col-md-2">
+                        <p class="p-or w-100 text-center h-100 middle">
+                          OR
+                        </p>
+                      </div>
+                      <div class="col-md-10">
+                        <p class="w-100 text-center">
+                          10
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div id="stepContent2" class="card-body d-none">
+              <h5 class="card-title">Title 2</h5>
+              <p class="card-text">Desc. 2</p>
+              <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
+            <div id="stepContent3" class="card-body d-none">
+              <h5 class="card-title">Title 3</h5>
+              <p class="card-text">Desc. 3</p>
               <a href="#" class="btn btn-primary">Go somewhere</a>
             </div>
           </div>

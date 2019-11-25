@@ -286,9 +286,14 @@ $(document).ready(function(){
 		validateSubmit();
 	});
 
-	$(".step-title-container").on('click',function(){
-		console.log('here');
+	$('[id^=stepChange]').on('click',function(){
+		var num = $(this).attr('id').replace('stepChange','');
+		var contentID = '#stepContent' + num;
 		$('.step-title-container').removeClass('active');
 		$(this).addClass('active');
-	})
+		$('[id^=stepContent]').removeClass('d-block');
+		$('[id^=stepContent]').addClass('d-none');
+		$(contentID).removeClass('d-none');
+		$(contentID).addClass('d-block');
+	});
 });

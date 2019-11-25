@@ -475,6 +475,7 @@ function updateSortSource(){
 
 	// Update inner HTML
 	$(manUnique).each(function(i, el){
+		console.log('here');
 		var opt = document.createElement("option");
 		opt.innerHTML = el;
 		$("#manufacterer")[0].appendChild(opt);

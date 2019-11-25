@@ -9,6 +9,30 @@ ul {
    list-style:none;
 }
 
+.p-or{
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 0;
+}
+
+.btn-lrc{
+  background-color: #00205b;
+  color: white;
+}
+
+.btn-lrc:hover{
+  background-color: #0044c2;
+  color: white;
+}
+
+.input-group-prepend, .input-group-text{
+  min-width: 150px;
+}
+
+.input-group-text{
+  display: block;
+}
+
 .chart-legend li span{
     display: inline-block;
     width: 12px;
@@ -38,6 +62,8 @@ h2.step-title{
   margin-bottom: .25rem;
   padding-bottom: .5rem;
   padding-top: .5rem;
+  font-weight: 600;
+  font-size: 1.5rem;
 }
 
 .step-title-container.active{
@@ -53,8 +79,14 @@ h2.step-title{
 }
 
 .step-title-container:hover{
-  background-color: #00205b;
-  color: white;
+  /* background-color: #00205b;
+  color: white; */
+}
+
+.middle{
+  position: absolute;
+  top: 50px;
+  transform: translate(0, -50%);
 }
 
 .step-title-container:first-child{
