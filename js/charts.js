@@ -1,6 +1,8 @@
+var spectralEfficiencyFunctionDataset, configSPD, spdChart, configCRM,
+		crmChart, configChromaticity, chromaticityChart, dataTestZero, dataTestNan;
+
 $(document).ready(function(){
 	// SPD
-	console.log('here');
 	var ctxSPD = document.getElementById("spdPlot").getContext("2d");
 
 	var chartColors = {
@@ -13,15 +15,15 @@ $(document).ready(function(){
 		grey: 'rgb(201, 203, 207)'
 	};
 
-	var dataTestNan = new Array();
+	dataTestNan = [];
 	for(var k = 0;k < setwavelength.length;k++){
 		dataTestNan[k] = {
 			x: setwavelength[k],
 			y: NaN,
 		};
 	}
-	var dataTestZero = new Array();
-	for(var k = 0;k < setwavelength.length;k++){
+	dataTestZero = [];
+	for(k = 0; k < setwavelength.length; k++){
 		dataTestZero[k] = {
 			x: setwavelength[k],
 			y: 0,
@@ -46,7 +48,7 @@ $(document).ready(function(){
 		yAxisID: 'y-axis-1',
 	};
 
-	var spectralEfficiencyFunctionDataset = {
+	spectralEfficiencyFunctionDataset = {
 		label: 'Circadian Stimulus Spectral Efficiency Response',
 		fill: false,
 		lineTension: 0.1,
@@ -64,7 +66,7 @@ $(document).ready(function(){
 		yAxisID: 'y-axis-2',
 	};
 
-	var configSPD = {
+	configSPD = {
 		type: 'scatter',
 		data: {
 			datasets: [
@@ -145,7 +147,7 @@ $(document).ready(function(){
 			},
 		}
 	};
-	var spdChart = new Chart(ctxSPD,configSPD);
+	spdChart = new Chart(ctxSPD,configSPD);
 	document.getElementById('spdLegend').innerHTML = spdChart.generateLegend();
 	// SPD
 
@@ -195,7 +197,7 @@ $(document).ready(function(){
 		}]
 	};
 
-	var configCRM = {
+	configCRM = {
 		type: 'scatter',
 		data: {
 			//labels: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100],
@@ -256,7 +258,7 @@ $(document).ready(function(){
 			},
 		}
 	};
-	var crmChart = new Chart(ctxCRM,configCRM);
+	crmChart = new Chart(ctxCRM,configCRM);
 	document.getElementById('crmLegend').innerHTML = crmChart.generateLegend();
 	// CRM
 
@@ -1014,7 +1016,7 @@ $(document).ready(function(){
 		}]
 	};
 
-	var configChromaticity = {
+	configChromaticity = {
 		type: 'scatter',
 		data: {
 			datasets: [
@@ -1081,7 +1083,7 @@ $(document).ready(function(){
 			},
 		}
 	};
-	var chromaticityChart = new Chart(ctxChromaticity,configChromaticity);
+	chromaticityChart = new Chart(ctxChromaticity,configChromaticity);
 	document.getElementById('chromaticityLegend').innerHTML = chromaticityChart.generateLegend();
 	// Chromaticity
 

@@ -26,7 +26,7 @@ function jpColorBlend(cct, netIll, source1spd, source2spd, source1ill){
 	var absCombinedSPD = {
 		wavelength: source1spd.wavelength,
 		value: arrayAdd(absSource1spd,absSource2spd),
-	}
+	};
 
 	// Calculate Combined CCT
 	var combinedCCT = CCTcalc(absCombinedSPD);
@@ -46,7 +46,7 @@ function jpColorBlendCS(source1spd, source1ill, source2spd, source2ill){
 	var absCombinedSPD = {
 		wavelength: source1spd.wavelength,
 		value: arrayAdd(absSource1spd,absSource2spd),
-	}
+	};
 
 	// Calculate Combined CCT
 	var combinedCla = CLAcalc(absCombinedSPD, 1.0);

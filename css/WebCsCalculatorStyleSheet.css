@@ -1,12 +1,21 @@
 /* CSS Sheet for Circadian Calculator */
 html{
-  font-size: 1.2rem;
   font-family: arial;
   font-family: 'Source Sans Pro', sans-serif;
+  font-size: 1.2rem;
 }
 
 ul {
    list-style:none;
+}
+
+.table th{
+  border-top: none;
+  padding-top: 7.2px;
+}
+
+.help-hover:hover{
+  cursor: help;
 }
 
 .p-or{
@@ -14,16 +23,21 @@ ul {
   font-weight: 600;
   margin-bottom: 0;
 }
-
+.removeSource{
+    color: red;
+}
+.removeSource:hover{
+  cursor: pointer;
+}
 .o-0{
   opacity: 0;
 }
 
 .inner-section-title{
-  width: 100%;
-  text-align: center;
   font-variant: small-caps;
   margin-bottom: 1.25rem;
+  text-align: center;
+  width: 100%;
 }
 
 .hr-lrc{
@@ -67,83 +81,55 @@ select {
   min-width: 175px;
 }
 
-.no-min-width{
-  min-width: none;
-}
-
-.list-group-item:hover{
-  color: white !important;
-  background-color: #00205b !important;
-}
-
-
-.top-label{
-  border-top-left-radius: .25rem !important;
-  border-top-right-radius: .25rem !important;
-  border-bottom-left-radius: 0 !important;
-  border-bottom-right-radius: 0 !important;
-  border-bottom: none;
-}
-
-.bottom-input{
-  border-top-left-radius: 0 !important;
-  border-top-right-radius: 0 !important;
-  border-bottom-left-radius: .25rem !important;
-  border-bottom-right-radius: .25rem !important;
-}
-
 .input-group-text{
   display: block;
 }
 
 .chart-legend li span{
-    display: inline-block;
-    width: 12px;
-    height: 12px;
-    margin-right: 5px;
+  display: inline-block;
+  height: 12px;
+  margin-right: 5px;
+  width: 12px;
 }
 
 .nav-pills>li>a{
 	color: gray;
 }
+
 .nav-pills>li>a:focus, .nav-pills>li>a:hover {
-
 	color: black;
-
 }
+
 .nav-pills>li.active>a, .nav-pills>li.active>a:focus, .nav-pills>li.active>a:hover{
 	background-color: black;
 }
 
 .card-header{
-  padding: 0;
   border-bottom: none;
+  padding: 0;
 }
 
-h2.step-title{
-  text-align: center;
+.step-title{
+  font-size: 1.5rem;
+  font-weight: 600;
   margin-bottom: .25rem;
   padding-bottom: .5rem;
   padding-top: .5rem;
-  font-weight: 600;
-  font-size: 1.5rem;
+  text-align: center;
 }
 
 .step-title-container.active{
-  border-bottom: none;
   background-color: white;
+  border-bottom: none;
 }
 
 .step-title-container{
+  border-bottom: 1px solid rgb(0,0,0);
+  border-bottom: 1px solid rgba(0,0,0,.125);
+  border-right: 1px solid rgb(0,0,0);
   border-right: 1px solid rgba(0,0,0,.125);
   cursor: pointer;
   padding: 0;
-  border-bottom: 1px solid rgba(0,0,0,.125);
-}
-
-.step-title-container:hover{
-  /* background-color: #00205b;
-  color: white; */
 }
 
 .middle{
@@ -164,13 +150,4 @@ h2.step-title{
 .step-title-container:last-child{
   border-right: 1px solid transparent;
   border-top-right-radius: .25rem;
-}
-
-@media only screen and (max-width : 992px) {
-	/*
-	#mid-col {
-		border-right: none !important;
-		border-left: none !important;
-	}
-	*/
 }

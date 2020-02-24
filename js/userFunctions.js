@@ -47,7 +47,7 @@ function userIDValid(){
 }
 
 function userIDInvalid(){
-	$("#userID").attr("placeholder", "Invalid Source Name").val("")
+	$("#userID").attr("placeholder", "Invalid Source Name").val("");
 	$('#userIDFormGroup').removeClass('has-success');
 	$('#userIDFormGroup').addClass('has-error');
 
@@ -107,7 +107,7 @@ function validateSubmit(){
 }
 
 function readUserSPD(){
-	var result = new Object;
+	var result = {};
 	var validSPD = true;
 	var spd = {
 		wavelength: [],

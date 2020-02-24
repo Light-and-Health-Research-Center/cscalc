@@ -24,8 +24,9 @@ function CCTcalc(spd){
 	// Find adjacent lines to (us,vs)
 	var index = 0;
 	var d1 = ((v-isoTempLines.vt[1]) - isoTempLines.tt[1]*(u-isoTempLines.ut[1]))/Math.sqrt(1+isoTempLines.tt[1]*isoTempLines.tt[1]);
+	var d2;
 	for(var i = 1;i < isoTempLines.T.length; i++){
-		var d2 = ((v-isoTempLines.vt[i]) - isoTempLines.tt[i]*(u-isoTempLines.ut[i]))/Math.sqrt(1+isoTempLines.tt[i]*isoTempLines.tt[i]);
+		d2 = ((v-isoTempLines.vt[i]) - isoTempLines.tt[i]*(u-isoTempLines.ut[i]))/Math.sqrt(1+isoTempLines.tt[i]*isoTempLines.tt[i]);
 		if (d1/d2 < 0){
 			index = i;
 			break;
@@ -99,7 +100,7 @@ function CLAcalc(spd, thickness){
 }
 
 function cla2cs(cla){
-	return .7*(1-(1/(1+Math.pow((cla/355.7),1.1026))));
+	return 0.7*(1-(1/(1+Math.pow((cla/355.7),1.1026))));
 }
 
 function cs2cla(cs){
@@ -144,6 +145,7 @@ function blackbodySpectra23Sep05(Tc, wave){
 
 // CIE Day Spectra
 function cieDaySpectra23Sep05(Tc,wave){
+	var v = NaN;
 	if(Tc <= 25000){
 		var cieDaySn  = {
 			wavelength: [300,310,320,330,340,350,360,370,380,390,400,410,420,430,440,450,460,470,480,490,500,510,520,530,540,550,560,570,580,590,600,610,620,630,640,650,660,670,680,690,700,710,720,730,740,750,760,770,780,790,800,810,820,830],
@@ -164,14 +166,12 @@ function cieDaySpectra23Sep05(Tc,wave){
 		var M2 = (0.0300 - 31.4424*xd + 30.0717*yd) / (0.0241 + 0.2562*xd - 0.7341*yd);
 		var spdDay = arrayAdd(cieDaySn.S0,arrayAdd(arrayScalar(cieDaySn.S1,M1),arrayScalar(cieDaySn.S2,M2)));
 
-		var v = pchip(cieDaySn.wavelength, spdDay, wave);
+		v = pchip(cieDaySn.wavelength, spdDay, wave);
 		for(var i = 0;i < v.length;i++){
 			if(isNaN(v[i])){
 				v[i] = 0;
 			}
 		}
-	}else{
-		v = NaN;
 	}
 	return v;
 }
@@ -228,7 +228,7 @@ function pchipslopes(x, y, del){
 		}
 	}
 
-	for(var i = 0;i < k.length; i++){
+	for(i = 0; i < k.length; i++){
 		var hs = h[k[i]] + h[k[i]+1];
 		var w1 = (h[k[i]] + hs)/(3*hs);
 		var w2 = (h[k[i]+1] + hs)/(3*hs);
@@ -278,7 +278,7 @@ function cri23Sep05(spd){
 
 	// Load TCS Color Standards
 	var TCS = Tcs14_23Sep09();
-	var TCS_1 = new Object;
+	var TCS_1 = {};
 	for(var iCS in TCS.color_standards){
 		if(TCS.color_standards.hasOwnProperty(iCS)){
 			TCS_1[iCS] = interp1(TCS.wavelength,arrayScalar(TCS.color_standards[iCS],1/1000),spd.wavelength,0);
@@ -304,13 +304,13 @@ function cri23Sep05(spd){
 	var vr = 6*Y/(X+15*Y+3*Z);
 
 	// color standards, uri, vri
-	var Yki = new Object;
-	var uki = new Object;
-	var vki = new Object;
-	var Yri = new Object;
-	var uri = new Object;
-	var vri = new Object;
-	for(var iCS in TCS_1){
+	var Yki = {};
+	var uki = {};
+	var vki = {};
+	var Yri = {};
+	var uri = {};
+	var vri = {};
+	for(iCS in TCS_1){
 		if(TCS_1.hasOwnProperty(iCS)){
 			//test illuminant, uki, vki
 			X = sumproduct(arrayMul(spd.value, TCS_1[iCS]), arrayMul(deltaWavelength, xbar));
@@ -341,9 +341,9 @@ function cri23Sep05(spd){
 
 	var cki;
 	var dki;
-	var ukip = new Object;
-	var vkip = new Object;
-	for(var iCS in TCS_1){
+	var ukip = {};
+	var vkip = {};
+	for(iCS in TCS_1){
 		if(TCS_1.hasOwnProperty(iCS)){
 			cki = (4 - uki[iCS] - 10*vki[iCS]) / vki[iCS];
 			dki = (1.708*vki[iCS] + 0.404 - 1.481*uki[iCS]) / vki[iCS];
@@ -353,14 +353,14 @@ function cri23Sep05(spd){
 	}
 
 	// Transformation into 1964 Uniform space coordinates
-	var Wstarr = new Object;
-	var Ustarr = new Object;
-	var Vstarr = new Object;
+	var Wstarr = {};
+	var Ustarr = {};
+	var Vstarr = {};
 
-	var Wstark = new Object;
-	var Ustark = new Object;
-	var Vstark = new Object;
-	for(var iCS in TCS_1){
+	var Wstark = {};
+	var Ustark = {};
+	var Vstark = {};
+	for(iCS in TCS_1){
 		if(TCS_1.hasOwnProperty(iCS)){
 			Wstarr[iCS] = 25*Math.pow(Yri[iCS],0.333333) - 17;
 			Ustarr[iCS] = 13*Wstarr[iCS]*(uri[iCS] - ur);
@@ -373,9 +373,9 @@ function cri23Sep05(spd){
 	}
 
 	// Determination of resultant color shift, delta E
-	var deltaE = new Object;
-	var R = new Object;
-	for(var iCS in TCS_1){
+	var deltaE = {};
+	var R = {};
+	for(iCS in TCS_1){
 		if(TCS_1.hasOwnProperty(iCS)){
 			deltaE[iCS] = Math.sqrt(Math.pow(Ustarr[iCS] - Ustark[iCS],2) + Math.pow(Vstarr[iCS] - Vstark[iCS],2) + Math.pow(Wstarr[iCS] - Wstark[iCS],2));
 			R[iCS] = 100 - 4.6*deltaE[iCS];
@@ -401,7 +401,7 @@ function gamutArea23Sep05(spd){
 
 	// Load TCS Color Standards
 	var TCS = Tcs14_23Sep09();
-	var TCS_1 = new Object;
+	var TCS_1 = {};
 	for(var iCS in TCS.color_standards){
 		if(TCS.color_standards.hasOwnProperty(iCS)){
 			TCS_1[iCS] = interp1(TCS.wavelength,arrayScalar(TCS.color_standards[iCS],1/1000),spd.wavelength,0);
@@ -409,13 +409,13 @@ function gamutArea23Sep05(spd){
 	}
 
 	// Calculate u, v chromaticity coordinates of samples under test illuminant
-	var xki = new Object;
-	var yki = new Object;
-	var uki = new Object;
-	var vki = new Object;
-	var ukiprime = new Object;
-	var vkiprime = new Object;
-	for(var iCS in TCS_1){
+	var xki = {};
+	var yki = {};
+	var uki = {};
+	var vki = {};
+	var ukiprime = {};
+	var vkiprime = {};
+	for(iCS in TCS_1){
 		if(TCS_1.hasOwnProperty(iCS)){
 			//test illuminant, uki, vki
 			X = sumproduct(arrayMul(spd.value, TCS_1[iCS]), arrayMul(deltaWavelength, xbar));
@@ -434,7 +434,7 @@ function gamutArea23Sep05(spd){
 	var iSource = 0;
 	var ukprimeArray = [];
 	var vkprimeArray = [];
-	for(var iCS in TCS_1){
+	for(iCS in TCS_1){
 		if(TCS_1.hasOwnProperty(iCS)){
 			ukprimeArray[iSource] = ukiprime[iCS];
 			vkprimeArray[iSource] = vkiprime[iCS];
@@ -454,13 +454,13 @@ function gamutArea23Sep05(spd){
 
 	var gai = (area/0.007354)*100;
 
-	return gai
+	return gai;
 }
 // Gamut Area
 
 // LXY
 function Lxy23Sep05(spd){
-	var result = new Object;
+	var result = {};
 
 	// Interpolate bar values
 	var cie = cie31by1();
