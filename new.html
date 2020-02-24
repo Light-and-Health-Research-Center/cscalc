@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>CS Calculator</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="device-width, initial-scale=1" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+    <script src="js/charts.js"></script>
+    <script src="js/GeneralFunctions.js"></script>
+    <script src="js/lightMetricFunctions.js"></script>
+    <script src="js/spectralEfficiency.js"></script>
+    <script src="js/userFunctions.js"></script>
+    <script src="js/sourcelist.js"></script>
+    <script src="js/jp.js"></script>
+    <script src="js/ansi_duv.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/WebCsCalculatorStyleSheet.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700&display=swap">
+    <link rel="stylesheet" href="css/nav.css" />
+  </head>
+  <body class="h-100 mh-100">
+    <!-- <div id="navbar" class="bb">
+      <script>
+        $('#navbar').load('navbar.html');
+      </script>
+    </div> -->
+
+    <div class="modal fade" id="mpod-modal" tabindex="-1" role="dialog" aria-labelledby="mpod-modal-label" aria-hidden="true">
+      <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="mpod-modal-label">Molecular Pigment Optical Density</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p>The human retina is not a uniform neural tissue. The highest density of cone photoreceptors in the retina is in the foveal pit, which is used for such visual tasks a reading, threading needles, and identification of distant objects. The macula is a circular region of the retina that extends radially from the fovea with a much higher density of cones than the peripheral retina which is dominated by rods. Most of the visual cortex is devoted to processing images focused in the macula. Therefore, for human conscious perception, the macula is particularly important.</p>
+            <p>Interlaced among the photoreceptors and the other retinal neurons in the macula is a yellow screening pigment, the macula lutea, that is believed to protect the retina from damage by short wavelengths. The spatial extent of this circular screening pigment is approximately 6-10<sup>o</sup> with the highest pigment density in the foveal region.  Since the macular pigment preferentially filters short wavelengths and since the most effective rays entering the eye are along the optical axis, the spectral sensitivity of the central retina will be influenced by the optical density of the macular pigment.</p>
+            <p>Importantly, individuals differ quite substantially in the optical density of their macular pigment. The optical density of the macular pigment for different people can range from 0.3 to 0.7; the original model by Rea et al. (2005) assumes a single optical density of 0.5 for all individuals. A new feature of the CS calculator enables users to change macular pigment density for 0.3 to 0.7 in steps of 0.05 to determine how individuals might differ in their effective CS for a given spectral power distribution. </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="w-100 text-center my-4">
+      <img class="w-75" src="img/header.png"/>
+    </div>
+
+    <div class="container-fluid mt-4">
+      <div class="row">
+        <div class="col">
+          <div class="card">
+            <div class="card-header">
+              <div class="container-fluid">
+                <div class="row">
+                  <div id="stepChange1" class="col-md-4 step-title-container active">
+                    <h2 class="step-title active">
+                      Sources
+                    </h2>
+                  </div>
+                  <div id="stepChange2" class="col-md-4 step-title-container">
+                    <h2 class="step-title">
+                      Variables
+                    </h2>
+                  </div>
+                  <div id="stepChange3" class="col-md-4 step-title-container">
+                    <h2 class="step-title">
+                      Results
+                    </h2>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div id="stepContent1" class="card-body d-block">
+              <div class="container-fluid">
+                <div class="row">
+                  <div class="col-md-7">
+                    <h5 class="w-100 text-center text-lrc">Existing Sources</h5>
+                    <hr class="hr-lrc"/>
+                    <div class="row mb-4">
+                      <div class="col-md-5">
+                        <h5 class="inner-section-title">filter</h5>
+                        <div class="input-group mb-3">
+                          <div class="input-group-prepend text-center">
+                            <label class="input-group-text text-center" for="manufacterer"><b>Manufacturer:</b></label>
+                          </div>
+                          <select class="custom-select sortSource" id="manufacterer">
+                            <option selected>Any</option>
+                          </select>
+                        </div>
+                        <div class="input-group mb-3">
+                          <div class="input-group-prepend">
+                            <label class="input-group-text" for="cct"><b>CCT:</b></label>
+                          </div>
+                          <select class="custom-select sortSource" id="cct">
+                            <option selected>Any</option>
+                          </select>
+                        </div>
+                        <div class="input-group mb-3">
+                          <div class="input-group-prepend">
+                            <label class="input-group-text" for="lamp"><b>Lamp:</b></label>
+                          </div>
+                          <select class="custom-select sortSource" id="lamp">
+                            <option selected>Any</option>
+                          </select>
+                        </div>
+                        <div class="input-group mb-3">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text" id="keyword"><b>Keyword:</b></span>
+                          </div>
+                          <input id="searchSource" type="text" class="form-control sortSource" aria-label="Default" aria-describedby="keyword" placeholder="Search">
+                        </div>
+                        <div class="form-group">
+                          <div class="input-group">
+                            <button class="w-100 btn btn-lrc text-center" id="reset" type="button">Reset</button>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-1">
+                        <h5 class="inner-section-title">></h5>
+                      </div>
+                      <div class="col-md-6">
+                        <h5 class="inner-section-title">sources</h5>
+                        <div id="names-list" class="list-group list-height">
+            						</div>
+                        <div id="modal-area">
+            						</div>
+                      </div>
+                    </div>
+
+                  </div>
+                  <div class="col-md-1">
+                    <div class="row">
+                      <div class="col-md-12">
+                        <h5 class="o-0 w-100 text-center text-lrc">or</h5>
+                        <hr class="o-0 hr-lrc"/>
+                        <div class="row">
+                          <div class="col">
+                            <h5 class="inner-section-title">or</h5>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <h5 class="w-100 text-center text-lrc">Custom Source</h5>
+                    <hr class="hr-lrc" />
+                    <div class="row">
+                      <div id="newSourceCol" class="col-md-12">
+                        <h5 class="inner-section-title">create your own</h5>
+                        <form>
+
+            							<!-- Input Source Name -->
+            							<div id="userIDFormGroup" class="input-group mb-3">
+            								<div class="input-group-prepend">
+            									<label class="input-group-text" for="userID"><b class="m-auto">Source Name:</b></label>
+            								</div>
+            								<input type="text" class="form-control userSortSource userEnter" id="userID" placeholder="Unique Source Name">
+            							</div>
+
+            							<!-- Input Manufacturer -->
+            							<div class="input-group mb-3">
+            								<div class="input-group-prepend">
+            									<label class="input-group-text" for="userMan"><b class="m-auto">Manufacturer:</b></label>
+            								</div>
+            								<input type="text" class="form-control userSortSource userEnter" id="userMan" placeholder="(Optional)">
+            							</div>
+
+            							<!-- Input CCT -->
+            							<div class="input-group mb-3">
+            								<div class="input-group-prepend">
+            									<label class="input-group-text" for="userCCT"><b class="m-auto">CCT (K):</b></label>
+            								</div>
+            								<input type="text" class="form-control userSortSource userEnter" id="userCCT" placeholder="(Optional)">
+            							</div>
+
+            							<!-- Input Lamp Type -->
+            							<div class="input-group mb-3">
+            								<div class="input-group-prepend">
+            									<label class="input-group-text" for="userLamp"><b class="m-auto">Lamp Type:</b></label>
+            								</div>
+            								<input type="text" class="form-control userSortSource userEnter" id="userLamp" placeholder="(Optional)">
+            							</div>
+
+            							<!-- Input Desc -->
+            							<div class="input-group mb-3">
+            								<div class="input-group-prepend">
+            									<label class="input-group-text" for="userDesc"><b class="m-auto">Description:</b></label>
+            								</div>
+            								<textarea rows="3" class="form-control userSortSource userEnter" id="userDesc" Placeholder="(Optional)"></textarea>
+            							</div>
+
+            							<div class="text-center mb-3">
+            								<h5>Spectral Power Distribution (SPD):</h5>
+            							</div>
+
+            							<div class="row">
+            								<div class="col-lg-6 col-md-12">
+
+            									<!-- Input Wavelengths -->
+            									<div id="userSPDFormWavelengths" class="input-group mb-3">
+            										<label class="input-group-text w-100 top-label" for="userSPDWavelengths"><b class="m-auto">Wavelengths (nm):</b></label>
+            										<textarea class="form-control text-right w-100 bottom-input" rows="5" id="userSPDWavelengths" placeholder="380&#10;382&#10;384&#10;386&#10;388"></textarea>
+            									</div>
+            								</div>
+
+            								<div class="col-lg-6 col-md-12">
+
+            									<!-- Input Values -->
+            									<div id="userSPDFormValues" class="input-group mb-3">
+                                <label class="input-group-text w-100 top-label" for="userSPDValues"><b class="m-auto">Values</b></label>
+                                <textarea class="form-control text-right w-100 bottom-input" rows="5" id="userSPDValues" placeholder="0.0020065&#10;0.0016818&#10;0.001013&#10;0.00054935&#10;0.00027727"></textarea>
+            									</div>
+
+            								</div>
+            							</div>
+                            <button type="button" class="btn btn-lrc disabled w-100" id="userSourceSubmit" onclick=submitUserSource()>Add to Existing Sources</button>
+            						</form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div id="stepContent2" class="card-body d-none">
+              <div class="row">
+                <div class="col-md-4">
+                  <h5 class="w-100 text-center text-lrc">Biological Input Variables</h5>
+                  <hr class="hr-lrc"/>
+                  <div class="row mb-4">
+                    <div class="col">
+
+                      <div class="input-group mb-3">
+                        <div class="input-group-prepend text-center">
+                          <label class="input-group-text text-center help-hover" data-toggle="modal" data-target="#mpod-modal" for="mpod_sel"><b>Macular Pigment Optical Density:</b></label>
+                        </div>
+                        <select class="custom-select sortSource" id="mpod_sel">
+                          <option value='0.3'>0.3</option>
+                          <option value='0.35'>0.35</option>
+                          <option value='0.4'>0.4</option>
+                          <option value='0.45'>0.45</option>
+                          <option value='0.5' selected>0.5</option>
+                          <option value='0.55'>0.55</option>
+                          <option value='0.6'>0.6</option>
+                          <option value='0.65'>0.65</option>
+                          <option value='0.7'>0.7</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-8">
+                  <h5 class="w-100 text-center text-lrc">Source Illuminances</h5>
+                  <hr class="hr-lrc"/>
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th>Source</th>
+                        <th>Vertical Photopic Illuminance (lx)</th>
+                        <th>Remove Source</th>
+                      </tr>
+                    </thead>
+                    <tbody id="selected-sources">
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            <div id="stepContent3" class="card-body d-none">
+              <div class="row">
+    						<div class="text-center">
+    							<h4><a data-toggle="collapse" data-target="#plotHelp" style="color:Black; cursor:help;">Output Plots</a></h4>
+    						</div>
+    						<div id="plotHelp" class="collapse help">
+    							<p style="color:gray;">
+    								<i>Below are the output plots displaying information about the combined attributes of light sources that have been selected. Both the graphs and the associated legends will be modified automatically as new sources are added and illuminance values are adjusted.</i>
+    							</p>
+    						</div>
+    						<ul class="nav nav-pills nav-justified" style="padding: 0% 2% 0% 2%;">
+    						  <li class="active"><a data-toggle="pill" href="#PlotAreaSPD">Spectral Power Distribution</a></li>
+    						  <li><a data-toggle="pill" href="#PlotAreaChromaticity">Chromaticity</a></li>
+    						  <li><a data-toggle="pill" href="#PlotAreaCRM">Color Rendering Metrics</a></li>
+    						</ul>
+    					</div>
+
+    					<div class="row tab-content">
+    						<div id="PlotAreaSPD" class="tab-pane fade in active">
+    							<div class="w-100 text-center">
+    								<h4>Spectral Power Distribution</h4>
+    							</div>
+    							<canvas id="spdPlot">
+
+    							</canvas>
+    							<div id="spdLegendDiv" class="text-center" style="display: none;">
+    								<h4>Legend</h4>
+    								<div id="spdLegend" class="chart-legend text-left">
+    								</div>
+    								<p>* For the Specified Spectral Power Distribution [Spectrum, Amount]</p>
+    								<p><a href="http://journals.sagepub.com/doi/abs/10.1177/1477153511430474" target="_blank">Information on the calculation of Circadian Light</a>, <a href="http://journals.sagepub.com/doi/pdf/10.1177/1477153512467607" target="_blank">Corrigendum</a></p>
+    							</div>
+    						</div>
+    						<div id="PlotAreaChromaticity" class="tab-pane fade">
+    							<div class="text-center">
+    								<h4>Chromaticity</h4>
+    								<canvas id="chromaticityPlot" width="100" height="100">
+
+    								</canvas>
+    								<div id="chromaticityLegendDiv" class="text-center" style="display: none;">
+    									<h4>Legend</h4>
+    									<div id="chromaticityLegend" class="chart-legend text-left">
+    									</div>
+    								</div>
+    							</div>
+    						</div>
+    						<div id="PlotAreaCRM" class="tab-pane fade">
+    							<div class="text-center">
+    								<h4>Color Rendering Metrics</h4>
+    								<canvas id="crmPlot">
+
+    								</canvas>
+    								<div id="crmLegendDiv" class="text-center" style="display: none;">
+    									<h4>Legend</h4>
+    									<div id="crmLegend" class="chart-legend text-left">
+    									</div>
+    								</div>
+    							</div>
+    						</div>
+    					</div>
+
+              <div class="row">
+    						<div class="text-center" style="padding-top: 15px;">
+    							<h4><a data-toggle="collapse" data-target="#metricsHelp" style="color:Black; cursor:help;">Combined Source Value Metrics</a></h4>
+    						</div>
+    						<div id="metricsHelp" class="collapse help">
+    							<p style="color:gray;">
+    								<i>The output measurements calculated for the selected sources and their corresponding values are listed below. The output measurements are shown on the left, and the values are shown on the right. Click on the individual outcome measurements for more information.</i>
+    							</p>
+    						</div>
+
+    						<table class="table table-hover">
+    							<thead>
+    								<tr>
+    									<th>Measurement</th>
+    									<th>Value</th>
+    								</tr>
+    							</thead>
+    							<tbody>
+    								<tr data-toggle="collapse" data-target="#cs_info" class="accordion-toggle" style="cursor: pointer;">
+    									<td>CS:</td>
+    									<td id="resultCS">0</td>
+    								</tr>
+    								<tr onmouseover="this.style.backgroundColor='inherit'">
+    									<td colspan="2" class="hiddenRow" style="padding: 0">
+    										<div class="accordian-body collapse" id="cs_info">
+    											<p><b>Circadian Stimulus (CS)</b> is the calculated effectiveness of the spectrally weighted irradiance at the cornea from threshold (CS = 0.1) to saturation (CS = 0.7),  assuming a fixed duration of exposure of 1 hour.</p>
+    										</div>
+    									</td>
+    								</tr>
+    								<tr data-toggle="collapse" data-target="#cla_info" class="accordion-toggle" style="cursor: pointer;">
+    									<td>CL<sub>A</sub>:</td>
+    									<td id="resultCLA">0</td>
+    								</tr>
+    								<tr onmouseover="this.style.backgroundColor='inherit'">
+    									<td colspan="2" class="hiddenRow" style="padding: 0">
+    										<div class="accordian-body collapse" id="cla_info">
+    											<p><b>Circadian Light (CL<sub>A</sub>)</b> is the irradiance at the cornea weighted to reflect the spectral sensitivity of the human circadian </p>system as measured by acute melatonin suppression after a 1-hour exposure.</p>
+    										</div>
+    									</td>
+    								</tr>
+    								<tr data-toggle="collapse" data-target="#ill_info" class="accordion-toggle" style="cursor: pointer;">
+    									<td>Illuminance (lx):</td>
+    									<td id="resultIll">0</td>
+    								</tr>
+    								<tr onmouseover="this.style.backgroundColor='inherit'">
+    									<td colspan="2" class="hiddenRow" style="padding: 0">
+    										<div class="accordian-body collapse" id="ill_info">
+    											<p><b>Illuminance (lx)</b> is the amount of light (luminous flux) incident on a surface area. Illuminance is measured in footcandles (lumens/square foot) or lux (lx, lumens/square meter). One footcandle equals 10.76 lx, although for convenience 10 lx commonly is used as the equivalent.</p>
+    										</div>
+    									</td>
+    								</tr>
+    								<tr data-toggle="collapse" data-target="#irr_info" class="accordion-toggle" style="cursor: pointer;">
+    									<td>Irradiance (W&middot;m<sup>-2</sup>):</td>
+    									<td id="resultIrr">0</td>
+    								</tr>
+    								<tr onmouseover="this.style.backgroundColor='inherit'">
+    									<td colspan="2" class="hiddenRow" style="padding: 0">
+    										<div class="accordian-body collapse" id="irr_info">
+    											<p><b>Irradiance (W&middot;m<sup>-2</sup>)</b> is the irradiance of a surface per unit frequency or wavelength, depending on whether the spectrum is taken as a function of frequency or of wavelength. The two forms have different dimensions: spectral irradiance of a frequency spectrum is measured in watts per square metre per hertz (W·m−2·Hz−1), while spectral irradiance of a wavelength spectrum is measured in watts per square metre per metre (W·m−3), or more commonly watts per square metre per nanometre (W·m−2·nm−1).</p>
+    										</div>
+    									</td>
+    								</tr>
+    								<tr data-toggle="collapse" data-target="#pf_info" class="accordion-toggle" style="cursor: pointer;">
+    									<td>Photon Flux (Photons&middot;m<sup>-2</sup>&middot;s<sup>-1</sup>):</td>
+    									<td id="resultPf">0</td>
+    								</tr>
+    								<tr onmouseover="this.style.backgroundColor='inherit'">
+    									<td colspan="2" class="hiddenRow" style="padding: 0">
+    										<div class="accordian-body collapse" id="pf_info">
+    											<p><b>Photon Flux (Photons&middot;m<sup>-2</sup>&middot;s<sup>-1</sup>)</b> is defined as the number of photons per second per unit area</p>
+    										</div>
+    									</td>
+    								</tr>
+    								<tr data-toggle="collapse" data-target="#eml_info" class="accordion-toggle" style="cursor: pointer;" hidden>
+    									<td>Equivalent Melanopic Lux (EML):</td>
+    									<td id="resultEML">0</td>
+    								</tr>
+    								<tr onmouseover="this.style.backgroundColor='inherit'" hidden>
+    									<td colspan="2" class="hiddenRow" style="padding: 0">
+    										<div class="accordian-body collapse" id="eml_info">
+    											<p><b>Equivalent Melanopic Lux (EML)</b> is a metric for measuring the biological effects of light on humans. Photosensitive retinal ganglion cells (ipRGCs) regulate the human circadian response to light. These are non-image forming photoreceptors within the eye. EML as a metric is weighted to the ipRGCs response to light and translates how much the spectrum of a light source stimulates ipRGCs and affects the circadian system</p>
+    										</div>
+    									</td>
+    								</tr>
+    								<tr data-toggle="collapse" data-target="#cct_info" class="accordion-toggle" style="cursor: pointer;">
+    									<td>CCT:</td>
+    									<td id="resultCCT">NaN</td>
+    								</tr>
+    								<tr onmouseover="this.style.backgroundColor='inherit'">
+    									<td colspan="2" class="hiddenRow" style="padding: 0">
+    										<div class="accordian-body collapse" id="cct_info">
+    											<p><b>Correlated Color Temperature (CCT, Tcp)</b> is a specification for white light sources used to describe the dominant color tone along the dimension from warm (yellows and reds) to cool (blue). Lamps with a CCT rating below 3200 K are usually considered warm sources, whereas those with a CCT above 4000 K usually considered cool in appearance. Temperatures in between are considered neutral in appearance. Technically, CCT extends the practice of using temperature, in kelvins (K), for specifying the spectrum of light sources other than blackbody radiators. Incandescent lamps and daylight closely approximate the spectra of black body radiators at different temperatures and can be designated by the corresponding temperature of a blackbody radiator. The spectra of fluorescent and LED sources, however, differ substantially from black body radiators yet they can have a color appearance similar to a blackbody radiator of a particular temperature as given by CCT.</p>
+    										</div>
+    									</td>
+    								</tr>
+    								<tr data-toggle="collapse" data-target="#duv_info" class="accordion-toggle" style="cursor: pointer;">
+    									<td>D<sub>uv</sub>:</td>
+    									<td id="resultDuv">NaN</td>
+    								</tr>
+    								<tr onmouseover="this.style.backgroundColor='inherit'">
+    									<td colspan="2" class="hiddenRow" style="padding: 0">
+    										<div class="accordian-body collapse" id="duv_info">
+    											<p><b>D<sub>uv</sub></b> is a metric defined by American National Standard Institute (ANSI) that quantifies the distance between the chromaticity of a given light source and a blackbody radiator of equal CCT. A negative D<sub>uv</sub> indicates that the source is “below” the blackbody locus, having a purplish tint, whereas a positive D<sub>uv</sub> indicates that the source is “above” the blackbody locus, having a greenish tint. </p>
+    										</div>
+    									</td>
+    								</tr>
+    								<tr data-toggle="collapse" data-target="#cri_info" class="accordion-toggle" style="cursor: pointer;">
+    									<td>CRI:</td>
+    									<td id="resultCRI">NaN</td>
+    								</tr>
+    								<tr onmouseover="this.style.backgroundColor='inherit'">
+    									<td colspan="2" class="hiddenRow" style="padding: 0">
+    										<div class="accordian-body collapse" id="cri_info">
+    											<p><b>Color Rendering Index (CRI)</b> is a rating index commonly used to represent how well a light source renders the colors of objects that it illuminates. For a CRI value of 100, the maximum value, the colors of objects can be expected to be seen as they would appear under an incandescent or daylight spectrum of the same correlated color temperature (CCT). Sources with CRI values less than 50 are generally regarded as rendering colors poorly, that is, colors may appear unnatural.</p>
+    										</div>
+    									</td>
+    								</tr>
+    								<tr data-toggle="collapse" data-target="#gai_info" class="accordion-toggle" style="cursor: pointer;">
+    									<td>GAI:</td>
+    									<td id="resultGAI">NaN</td>
+    								</tr>
+    								<tr onmouseover="this.style.backgroundColor='inherit'">
+    									<td colspan="2" class="hiddenRow" style="padding: 0">
+    										<div class="accordian-body collapse" id="gai_info">
+    											<p><b>Gamut Area Index (GAI)</b> is a measure of color rendering based upon volume in color space. It is the range of colors achievable on a given color reproduction medium (or present in an image on that medium) under a given set of viewing conditions.</p>
+    										</div>
+    									</td>
+    								</tr>
+    								<tr data-toggle="collapse" data-target="#xy_info" class="accordion-toggle" style="cursor: pointer;">
+    									<td>Color Coordinates (x,y):</td>
+    									<td id="resultXY">NaN, NaN</td>
+    								</tr>
+    								<tr onmouseover="this.style.backgroundColor='inherit'">
+    									<td colspan="2" class="hiddenRow" style="padding: 0">
+    										<div class="accordian-body collapse" id="xy_info">
+    											<p><b>Chromaticity: </b>The dominant or complementary wavelength and purity aspects of the color taken together, or of the aspects specified by the chromaticity coordinates of the color taken together. It describes the properties of light related to hue and saturation, but not luminance (brightness).</p>
+    										</div>
+    									</td>
+    								</tr>
+    								<tr data-toggle="collapse" data-target="#RelSPD_info" class="accordion-toggle" style="cursor: pointer;">
+    									<td>Relative Spectral Power Distribution:</td>
+    									<td>(SPD)</td>
+    								</tr>
+    								<tr onmouseover="this.style.backgroundColor='inherit'">
+    									<td colspan="2" class="hiddenRow" style="padding: 0">
+    										<div class="accordian-body collapse" id="RelSPD_info">
+    											<table class="table">
+    												<thead>
+    													<tr>
+    														<th>Wavelength (nm)</th>
+    														<th>Value</th>
+    													</tr>
+    												</thead>
+    												<tbody id="RelSpdTable">
+
+    												</tbody>
+    											</table>
+    										</div>
+    									</td>
+    								</tr>
+    								<tr data-toggle="collapse" data-target="#AbsSPD_info" class="accordion-toggle" style="cursor: pointer;">
+    									<td>Absolute Spectral Power Distribution:</td>
+    									<td>(SPD)</td>
+    								</tr>
+    								<tr onmouseover="this.style.backgroundColor='inherit'">
+    									<td colspan="2" class="hiddenRow" style="padding: 0">
+    										<div class="accordian-body collapse" id="AbsSPD_info">
+    											<table class="table">
+    												<thead>
+    													<tr>
+    														<th>Wavelength (nm)</th>
+    														<th>Spectral Irradiance (W&middot;m<sup>-2</sup>&middot;nm<sup>-1</sup>)</th>
+    													</tr>
+    												</thead>
+    												<tbody id="AbsSpdTable">
+
+    												</tbody>
+    											</table>
+    										</div>
+    									</td>
+    								</tr>
+    							</tbody>
+    						</table>
+    					</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,29 +1,16 @@
 function resetInputs(){
-	// Remove form-group aura
-	$('#userIDFormGroup').removeClass('has-error');
-	$('#userIDFormGroup').removeClass('has-success');
-
-	$('#userSPDFormGroup').removeClass('has-error');
-	$('#userSPDFormGroup').removeClass('has-success');
-
-	// Reset Glyphicon
-	$('#userIDSpan').addClass('glyphicon-pencil');
-	$('#userIDSpan').removeClass('glyphicon-remove');
-	$('#userIDSpan').removeClass('glyphicon-ok');
-
-	$('#userSPDSpan').addClass('glyphicon-pencil');
-	$('#userSPDSpan').removeClass('glyphicon-remove');
-	$('#userSPDSpan').removeClass('glyphicon-ok');
 
 	// Reset Status text
 	$('#userSPDStatus').text('');
 
 	// Reset Input values
-	$("#userID").attr("placeholder", "Enter Unique Source ID").val("");
-	$('#userMan').val('Other');
-	$('#userCCT').val('Other');
-	$('#userLamp').val('Other');
-	$('#userSPD').val('');
+	$("#userID").attr("placeholder", "Unique Source Name").val("");
+	$('#userSPDValues').val('');
+	$('#userSPDWavelengths').val('');
+	$('#userMan').val('');
+	$('#userCCT').val('');
+	$('#userLamp').val('');
+	$('#userDesc').val('');
 
 	// Reset submit
 	//validateSubmit();
@@ -39,7 +26,6 @@ function notEmpty(id){
 function isUniqueSourceName(newSourceID){
 	var result = true;
 	for(var i in sourcelist){
-		console.log(sourcelist[i].id + ' ' + newSourceID);
 		if(sourcelist[i].id == newSourceID){
 			result = false;
 			break;
@@ -61,7 +47,7 @@ function userIDValid(){
 }
 
 function userIDInvalid(){
-	$("#userID").attr("placeholder", "Invalid Source Name").val("")
+	$("#userID").attr("placeholder", "Invalid Source Name").val("");
 	$('#userIDFormGroup').removeClass('has-success');
 	$('#userIDFormGroup').addClass('has-error');
 
@@ -103,13 +89,15 @@ function validateUserID(){
 	if(notEmpty(newSourceID) & isUniqueSourceName(newSourceID)){
 		result = true;
 	}else{
-
+		if ($('#userSPDValues').val()!= ''){
+			$('#userSPDModalHelp').append('<li class="alert alert-danger"><strong>Error:</strong> Must enter a unique source name</li>');
+		}
 	}
 	return result;
 }
 
 function validateSubmit(){
-	if(validateUserID() & validateUserSPD()){
+	if(validateUserID() && validateUserSPD()){
 		$('#userSourceSubmit').removeClass('disabled');
 		$('#userSourceSubmit').prop('disabled',false);
 	}else{
@@ -119,73 +107,45 @@ function validateSubmit(){
 }
 
 function readUserSPD(){
-	var result = new Object;
+	var result = {};
 	var validSPD = true;
-	var wavelength = [];
-	var value = [];
-	var newSPD = $('#userSPD').val();
-	var newSPDRows = newSPD.split('\n');
-	var newSPDRowsClean = cleanSPDRows(newSPDRows);
-	var newSPDRowArray = [];
-	var alertText;
-	if(newSPDRowsClean.length == 2){
-		//alert("UserSPD is Horizontal");
-		wavelength = newSPDRowsClean[0].split(/\s*[\s|,]\s*/);//(/[\s,]+/);
-		value = newSPDRowsClean[1].split(/\s*[\s|,]\s*/);//(/[\s,]+/);
-	}else if(newSPDRowsClean.length > 2){
-		//alert("UserSPD is vertical");
-		for(var i = 0;i < newSPDRowsClean.length;i++){
-			newSPDRowArray = newSPDRowsClean[i].split(/\s*[\s|,]\s*/);//(/\s*,?\s+/);
-			if(newSPDRowArray.length < 2){
-				alertText = 'Error: not enough Columns';
-				validSPD = false;
-				break;
-			}else if(newSPDRowArray.length > 2){
-				alertText = 'Error: Too many Columns';
-				validSPD = false;
-				break;
-			}else{
-				wavelength[i] = newSPDRowArray[0];
-				value[i] = newSPDRowArray[1];
-			}
-		}
-	}else{
-		alertText = 'Error: not enough rows.';
-		validSPD = false;
-	}
-	$('#userSPD').val(newSPDRowsClean.join('\n'));
-
-	// Validate the arrays
 	var spd = {
 		wavelength: [],
 		value: []
 	};
-	if(wavelength.length == 0 & value.length == 0){
-		alertText = '';
-	}else if(wavelength.length < 3){
-		alertText = 'Error: Not enough entries';
+	var alertText = '';
+	var userWL = cleanSPDRows($('#userSPDWavelengths').val().replace( /\n/g, " " ).split( " " ));
+	var userV = cleanSPDRows($('#userSPDValues').val().replace( /\n/g, " " ).split( " " ));
+	if (userWL.length != userV.length){
+		if ($('#userSPDValues').val()!= ''){
+			alertText += '<li class="alert alert-danger" role="alert"><strong>Error:</strong> There must be the same number of wavelengths and values</li>';
+		}
 		validSPD = false;
-	}else if(wavelength.length != value.length){
-		alertText = 'Error: Arrays not the same length';
-		validSPD = false;
-	}else if(wavelength.some(notNumeric)){
-		alertText = 'Error: Wavelength array contains non-numeric entry';
-		validSPD = false;
-	}else if(value.some(notNumeric)){
-		alertText = 'Error: Value array contains non-numeric entry';
-		validSPD = false;
-	}else{
-		alertText = '';
-		spd.wavelength = arrayParseFloat(wavelength);
-		spd.value = arrayParseFloat(value);
 	}
+	if (userWL.length < 3){
+		if ($('#userSPDValues').val()!= ''){
+			alertText += '<li class="alert alert-danger" role="alert"><strong>Error:</strong> Must enter at least 3 wavelength-value pairs</li>';
+		}
+		validSPD = false;
+	}
+
+	if(userWL.some(notNumeric) || userV.some(notNumeric)){
+		if ($('#userSPDValues').val()!= ''){
+			alertText += '<li class="alert alert-danger" role="alert"><strong>Error:</strong> Wavelengths and values must not contain non-numeric entries</li>';
+		}
+		validSPD = false;
+	}
+
+	spd.wavelength = arrayParseFloat(userWL);
+	spd.value = arrayParseFloat(userV);
+
 	result = {
 		valid: validSPD,
 		spd: spd
 	};
 
 	//alert(alertText);
-	$('#userSPDStatus').text(alertText);
+	$('#userSPDModalHelp').html(alertText);
 	return result;
 }
 
@@ -220,10 +180,9 @@ function notNumeric(n) {
 
 function submitUserSource(){
 	var newSource = buildSourceObj();
-	applyNewSource(sourcelist.length, newSource);
+	applyNewSource(sourcelist.length, newSource, true);
 	updateSortSource();
 	sourcelist.push(newSource);
-	$('#myModal').modal('toggle');
 }
 
 function arrayParseFloat(array){
@@ -241,13 +200,23 @@ function buildSourceObj(){
 		cct: $('#userCCT').val(),
 		lamp: $('#userLamp').val(),
 		spd: loadUserSPD(),
-		info: "User loaded source"
+		info: $('#userDesc').val()
 	};
 	return result;
 }
 
 // Page Action Functions
 $(document).ready(function(){
+	$(".step-title-container").on("click",function(){
+		var step = $(this).attr("id").replace("stepChange","");
+		$(".step-title-container").removeClass("active");
+		$(this).addClass('active');
+		$("[id^='stepContent']").removeClass("d-block");
+		$("[id^='stepContent']").addClass("d-none");
+		$("#stepContent" + step).removeClass("d-none");
+		$("#stepContent" + step).addClass("d-block");
+	});
+
 	$('#userID').change(function () {
 		if(validateUserID()){
 			userIDValid();
@@ -265,11 +234,6 @@ $(document).ready(function(){
 		}
     });
 
-	$("#myModal").on("hidden.bs.modal", function () {
-		// put your default event here
-		resetInputs();
-	});
-
 	$(".userSortSource").change(function() {
 		var sourceVal = $(this).val();
 		if(!notEmpty(sourceVal)){
@@ -277,7 +241,7 @@ $(document).ready(function(){
 		}
 	});
 
-	$("#userSPD").change(function(){
+	$("#newSourceCol").mousemove(function(){
 		if(validateUserSPD()){
 			userSPDValid();
 		}else{
@@ -285,4 +249,23 @@ $(document).ready(function(){
 		}
 		validateSubmit();
 	});
+
+	$("#userSPDWavelengths").change(function(){
+		if(validateUserSPD()){
+			userSPDValid();
+		}else{
+			userSPDInvalid();
+		}
+		validateSubmit();
+	});
+
+	$("#userSPDValues").change(function(){
+		if(validateUserSPD()){
+			userSPDValid();
+		}else{
+			userSPDInvalid();
+		}
+		validateSubmit();
+	});
+
 });

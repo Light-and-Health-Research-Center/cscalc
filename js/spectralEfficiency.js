@@ -17,7 +17,7 @@ function generateCircadianSpectralResponceForSPD(spd, thickness, rod){
   		% are specified as additional arguements (e.g. f(spd,400,700,10))
   	*/
 
-  	var resultObj = new Object;
+  	var resultObj = {};
   	var cs;
   	var specResp;
   	var specRespMinusRod;

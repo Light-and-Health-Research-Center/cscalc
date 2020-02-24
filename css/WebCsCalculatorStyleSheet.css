@@ -1,33 +1,153 @@
 /* CSS Sheet for Circadian Calculator */
+html{
+  font-family: arial;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 1.2rem;
+}
+
 ul {
    list-style:none;
 }
 
+.table th{
+  border-top: none;
+  padding-top: 7.2px;
+}
+
+.help-hover:hover{
+  cursor: help;
+}
+
+.p-or{
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 0;
+}
+.removeSource{
+    color: red;
+}
+.removeSource:hover{
+  cursor: pointer;
+}
+.o-0{
+  opacity: 0;
+}
+
+.inner-section-title{
+  font-variant: small-caps;
+  margin-bottom: 1.25rem;
+  text-align: center;
+  width: 100%;
+}
+
+.hr-lrc{
+  border-top: 3px solid #00205b;
+}
+
+.list-height {
+    height: 20rem;
+    max-height: 20rem;
+    overflow-y: scroll;
+}
+
+.text-lrc{
+  color: #00205b;
+}
+
+.list-group {
+    border: 1px solid #ccc;
+    border-radius: 10px;
+}
+
+select:-moz-focusring {
+    color: transparent;
+    text-shadow: 0 0 0 #000;
+}
+select {
+    background: transparent;
+}
+
+.btn-lrc{
+  background-color: #00205b;
+  color: white;
+}
+
+.btn-lrc:hover{
+  background-color: #0044c2;
+  color: white;
+}
+
+.input-group-prepend, .input-group-text{
+  min-width: 175px;
+}
+
+.input-group-text{
+  display: block;
+}
+
 .chart-legend li span{
-    display: inline-block;
-    width: 12px;
-    height: 12px;
-    margin-right: 5px;
+  display: inline-block;
+  height: 12px;
+  margin-right: 5px;
+  width: 12px;
 }
 
 .nav-pills>li>a{
 	color: gray;
 }
+
 .nav-pills>li>a:focus, .nav-pills>li>a:hover {
-	
 	color: black;
-	
 }
+
 .nav-pills>li.active>a, .nav-pills>li.active>a:focus, .nav-pills>li.active>a:hover{
 	background-color: black;
 }
 
-@media only screen and (max-width : 992px) {
-	/*
-	#mid-col {
-		border-right: none !important;
-		border-left: none !important;
-	}
-	*/
+.card-header{
+  border-bottom: none;
+  padding: 0;
 }
 
+.step-title{
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: .25rem;
+  padding-bottom: .5rem;
+  padding-top: .5rem;
+  text-align: center;
+}
+
+.step-title-container.active{
+  background-color: white;
+  border-bottom: none;
+}
+
+.step-title-container{
+  border-bottom: 1px solid rgb(0,0,0);
+  border-bottom: 1px solid rgba(0,0,0,.125);
+  border-right: 1px solid rgb(0,0,0);
+  border-right: 1px solid rgba(0,0,0,.125);
+  cursor: pointer;
+  padding: 0;
+}
+
+.middle{
+  position: absolute;
+  top: 50%;
+  transform: translate(0, -50%);
+}
+
+.w-100calc{
+  width: calc(100% - 30px);
+}
+
+.step-title-container:first-child{
+  border-top-left-radius: .25rem;
+
+}
+
+.step-title-container:last-child{
+  border-right: 1px solid transparent;
+  border-top-right-radius: .25rem;
+}
