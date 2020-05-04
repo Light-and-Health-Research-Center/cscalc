@@ -1,17 +1,86 @@
 /* CSS Sheet for Circadian Calculator */
-html{
+html,body{
   font-family: arial;
   font-family: 'Source Sans Pro', sans-serif;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
+  scroll-behavior: smooth;
 }
 
 ul {
    list-style:none;
 }
 
+html, body{
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+body::-webkit-scrollbar {
+  display: none;
+}
+
+#content{
+  height: 100%;
+  min-height: 100%;
+}
+
+#selected-sources tr td:first-child{
+  width: 30%;
+  max-width: 30%;
+  overflow: auto;
+}
+
+#selected-sources tr td:last-child{
+  width: 20%;
+  max-width: 20%;
+  overflow: auto;
+}
+
+.w-30{
+  width: 30%;
+  max-width: 30%;
+  overflow: auto;
+}
+
+.w-20{
+  width: 20%;
+  max-width: 20%;
+  overflow: auto;
+}
+
+.drop-shadow {
+  -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.18), 0 1px 2px rgba(0, 0, 0, 0.24);
+  -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.18), 0 1px 2px rgba(0, 0, 0, 0.24);
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.18), 0 10px 10px rgba(0, 0, 0, 0.24);
+}
+
+.plot-title{
+  text-align: center;
+}
+
+.plot-extra{
+  text-align: center;
+}
+
 .table th{
   border-top: none;
-  padding-top: 7.2px;
+  padding: 0.5rem 1rem;
+}
+
+.table td{
+  padding: 0.5rem 1rem;
+}
+
+.table th:first-child{
+  border-top-left-radius: 0.25rem;
+}
+
+.table th:last-child{
+  border-top-right-radius: 0.25rem;
+}
+
+.w-30{
+  width: 30%;
 }
 
 .help-hover:hover{
@@ -63,6 +132,7 @@ select:-moz-focusring {
     color: transparent;
     text-shadow: 0 0 0 #000;
 }
+
 select {
     background: transparent;
 }
@@ -77,9 +147,19 @@ select {
   color: white;
 }
 
+.btn-lrc.active{
+  background-color: #0044c2;
+}
+
+.mw-175{
+  min-width: 175px;
+}
+
 .input-group-prepend, .input-group-text{
   min-width: 175px;
 }
+
+
 
 .input-group-text{
   display: block;
@@ -132,10 +212,26 @@ select {
   padding: 0;
 }
 
+.top-label{
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.bottom-input{
+  border-top-right-radius: 0;
+  border-bottom-left-radius: 0.25rem !important;
+
+}
+
 .middle{
   position: absolute;
   top: 50%;
   transform: translate(0, -50%);
+}
+
+thead.thead-dark tr th{
+  background-color: #00205b !important;
+  border-color: #212529 !important;
 }
 
 .w-100calc{

@@ -1,5 +1,5 @@
 var spectralEfficiencyFunctionDataset, configSPD, spdChart, configCRM,
-		crmChart, configChromaticity, chromaticityChart, dataTestZero, dataTestNan;
+		crmChart, configChromaticity, chromaticityChart, dataTestZero, dataTestNan, combinesSourceDataset;
 
 $(document).ready(function(){
 	// SPD
@@ -30,7 +30,7 @@ $(document).ready(function(){
 		};
 	}
 
-	var combinedSourceDataset = {
+	combinedSourceDataset = {
 		label: 'Combined Source SPD',
 		fill: false,
 		lineTension: 0.1,
@@ -67,7 +67,7 @@ $(document).ready(function(){
 	};
 
 	configSPD = {
-		type: 'scatter',
+	  type: 'scatter',
 		data: {
 			datasets: [
 				//combinedSPD
@@ -81,64 +81,53 @@ $(document).ready(function(){
 			},
 			tooltips: {
 				bodyFontStyle: 'bold',
-	            callbacks: {
-				/*
-					title: function(tooltipItems, data) {
-						var label = data.datasets[tooltipItems[0].datasetIndex].label;
-						return label;
-					},
-	                label: function(tooltipItem, data) {
-						var wavelengthStr = 'Wavelength: ' + tooltipItem.xLabel.toFixed() + ' nm';
-						var valueStr = 'Value: ' + tooltipItem.yLabel.toFixed(2);
-						return [wavelengthStr, valueStr];
-					}
-					*/
+      	callbacks: {
 					label: function(tooltipItem, data) {
 						var label = data.datasets[tooltipItem.datasetIndex].label;
 						return label;
 					}
-	            }
-	        },
+         }
+       },
 			scales: {
-				yAxes: [{
-					id: 'y-axis-1',
-					position: 'left',
-					ticks: {
-						min: -0.4,
-						max: 1
-					},
-					scaleLabel: {
-						display: true,
-						labelString: 'Relative Spectral Power (%)',
-						padding: 0,
-					}
-				},{
-					id: 'y-axis-2',
-					position: 'right',
-					ticks: {
-						min: -0.4,
-						max: 1
-					},
-					scaleLabel: {
-						display: true,
-						labelString: 'Relative Spectral Contribution of Circadian Response*',
-						padding: 0,
-					}
-				}],
-				xAxes: [{
-					ticks: {
-						autoSkip: true,
-						min: 350,
-						max: 750,
-						stepSize: 25,
-					},
-					scaleLabel: {
-						display: true,
-						labelString: 'Wavelength (nm)',
-						padding: 0,
-					}
-				}]
-			},
+			yAxes: [{
+				id: 'y-axis-1',
+				position: 'left',
+				ticks: {
+					min: -0.4,
+					max: 1
+				},
+				scaleLabel: {
+					display: true,
+					labelString: 'Relative Spectral Power (%)',
+					padding: 0,
+				}
+			},{
+				id: 'y-axis-2',
+				position: 'right',
+				ticks: {
+					min: -0.4,
+					max: 1
+				},
+				scaleLabel: {
+					display: true,
+					labelString: 'Relative Spectral Contribution of Circadian Response*',
+					padding: 0,
+				}
+			}],
+			xAxes: [{
+				ticks: {
+					autoSkip: true,
+					min: 350,
+					max: 750,
+					stepSize: 25,
+				},
+				scaleLabel: {
+					display: true,
+					labelString: 'Wavelength (nm)',
+					padding: 0,
+				}
+			}]
+		},
 			elements: {
 				point: {
 					radius: 0,
@@ -1086,5 +1075,4 @@ $(document).ready(function(){
 	chromaticityChart = new Chart(ctxChromaticity,configChromaticity);
 	document.getElementById('chromaticityLegend').innerHTML = chromaticityChart.generateLegend();
 	// Chromaticity
-
 });

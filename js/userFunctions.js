@@ -205,9 +205,28 @@ function buildSourceObj(){
 	return result;
 }
 
+function handlePlotBtns(){
+	$(".plot-btn").on("click",function(){
+		if(!$(this).hasClass('active')){
+			$(".plot-btn").removeClass('active');
+			$(this).addClass('active');
+			let plotID = "#PlotArea" + $(this)[0].id.replace("plotBtn","");
+			$('.plot-area').removeClass('d-block');
+			$('.plot-area').addClass('d-none');
+			$(plotID).addClass('d-block');
+		}
+	});
+}
+
 // Page Action Functions
 $(document).ready(function(){
-	$(".step-title-container").on("click",function(){
+
+	$(this).scrollTop(0);
+
+	$(".step-title-container").on("click",function(e){
+		$('html, body').animate({
+			scrollTop: $('#content').offset().top - 25
+		}, 800);
 		var step = $(this).attr("id").replace("stepChange","");
 		$(".step-title-container").removeClass("active");
 		$(this).addClass('active');
@@ -268,4 +287,5 @@ $(document).ready(function(){
 		validateSubmit();
 	});
 
+	handlePlotBtns();
 });
