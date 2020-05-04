@@ -218,6 +218,39 @@ function handlePlotBtns(){
 	});
 }
 
+function handleSPDBtns(){
+	$(".spd-button").on("click",function(){
+		if(!$(this).hasClass('active')){
+			$(".spd-button").removeClass('active');
+			$(this).addClass('active');
+			let containerID = "#" + $(this)[0].id.replace("Btn","") + "TableContainer";
+			let titleWord;
+			if($(this)[0].id.replace("SpdBtn","") == "Rel"){
+				titleWord = "Relative";
+			}else{
+				titleWord = "Absolute";
+			}
+			$("#SPDModalTitleWord").html(titleWord);
+			$(".spd-container").addClass("d-none");
+			$(containerID).removeClass("d-none");
+		}
+	});
+}
+
+function handleHelpMenu(){
+	$(".help-menu-list-item").on("click",function(){
+		if(!$(this).hasClass("active")){
+			$('.help-menu-list-item').removeClass('active');
+			$(this).addClass('active');
+			let sectionID = "#help-" + $(this).data("value");
+			$(".help-section").addClass('d-none');
+			$(sectionID).removeClass('d-none');
+		}
+
+	});
+}
+
+
 // Page Action Functions
 $(document).ready(function(){
 
@@ -288,4 +321,8 @@ $(document).ready(function(){
 	});
 
 	handlePlotBtns();
+
+	handleSPDBtns();
+
+	handleHelpMenu();
 });

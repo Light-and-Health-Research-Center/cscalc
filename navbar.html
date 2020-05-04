@@ -7,20 +7,19 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarResponsive">
       <ul class="navbar-nav text-uppercase ml-auto">
-        <li class="nav-item">
-          <a class="nav-link js-scroll-trigger" target="_blank" href="http://www.lrc.rpi.edu/programs/lightHealth/index.asp">Light and Health</a>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Resources
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" target="_blank" href="http://www.lrc.rpi.edu/programs/lightHealth/index.asp">Light and Health</a>
+            <a class="dropdown-item" target="_blank" href="img/CircadianEffectiveLight.pdf">Circadian-Effective Light</a>
+            <a class="dropdown-item" target="_blank" href="http://www.lrc.rpi.edu/resources/newsroom/LDA_CircadianStimulus_Oct2016.pdf">Designing with Circadian Stimulus</a>
+            <a class="dropdown-item" target="_blank" href="http://www.lrc.rpi.edu/aboutUs/contactUs.asp">Contact</a>
+          </div>
         </li>
         <li class="nav-item">
-          <a class="nav-link js-scroll-trigger" target="_blank" href="img/CircadianEffectiveLight.pdf">Circadian-Effective Light</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link js-scroll-trigger" target="_blank" href="http://www.lrc.rpi.edu/resources/newsroom/LDA_CircadianStimulus_Oct2016.pdf">Designing with Circadian Stimulus</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link js-scroll-trigger" target="_blank" href="http://www.lrc.rpi.edu/aboutUs/contactUs.asp">Contact</a>
-        </li>
-        <li class="nav-item">
-          <a id="helpMaster" data-toggle="collapse" data-target=".help" class="nav-link js-scroll-trigger" href="#">Help</a>
+          <a id="helpMaster" data-toggle="modal" data-target="#helpModal" class="nav-link js-scroll-trigger" href="#">Help</a>
         </li>
       </ul>
     </div>

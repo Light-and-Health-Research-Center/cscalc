@@ -31,7 +31,190 @@
       </script>
     </div>
 
-    <div class="modal fade" id="mpod-modal" tabindex="-1" role="dialog" aria-labelledby="mpod-modal-label" aria-hidden="true">
+    <div class="modal fade" id="helpModal">
+      <div class="modal-dialog modal-xl">
+        <div class="modal-content help-menu-content">
+          <div class="container-fluid m-0 p-0">
+            <div class="row h-100 mh-100">
+              <div class="col-md-3">
+                <ul class="help-menu-list">
+                  <li data-value="sources" class="help-menu-list-item active"><h4 class="help-menu-list-title">Sources</h4></li>
+                  <li data-value="variables" class="help-menu-list-item"><h4 class="help-menu-list-title">Variables</h4></li>
+                  <li data-value="results" class="help-menu-list-item"><h4 class="help-menu-list-title">Results</h4></li>
+                </ul>
+              </div>
+              <div class="col-md-9">
+                <div class="help-section" id="help-sources">
+                  <div class="modal-header">
+                    <h4 class="modal-title">Source Selection</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  </div>
+                  <div class="modal-body help-body">
+                    <h3 class="help-menu-header">Sources</h3>
+                    <p class="help-menu-p">
+                      Click on a source to view additional information and have
+                      the opportunity to add the source to the calculation area.
+                      When the page is first loaded, all preloaded sources will
+                      be listed. Use the filtering tools to only display sources
+                      with the selected metrics.
+                    </p>
+                    <figure class="w-95 text-center mobile-figure"><img src="img/help/2.png" class="w-55 my-4 rounded drop-shadow" ></figure>
+                    <h3 class="help-menu-header">Filter</h3>
+                    <p class="help-menu-p">
+                      Select from the dropdown menus and use the keyword search bar
+                      (optional) to access the sources that are currently
+                      loaded in the calculator. Sources meeting the selected criteria
+                      will appear under the Sources heading. Press the
+                      Reset button to clear any filters.
+                    </p>
+                    <figure class="w-95 text-center mobile-figure"><img src="img/help/1.png" class="w-55 my-4 rounded drop-shadow" ></figure>
+                    <h3 class="help-menu-header">Custom Source</h3>
+                    <p class="help-menu-p">
+                      Fill in the required fields and click the Add to Sources List button
+                      to see your custom source appear in the Sources list. Note that you will still
+                      have to select your custom source from the Sources list to add
+                      the source to the calculation area.
+                    </p>
+                    <figure class="w-95 text-center mobile-figure"><img src="img/help/3.png" class="w-65 my-4 rounded drop-shadow" ></figure>
+                  </div>
+                </div>
+                <div class="help-section d-none" id="help-variables">
+                  <div class="modal-header">
+                    <h4 class="modal-title">Variable Adjustments</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  </div>
+                  <div class="modal-body help-body">
+                    <h3 class="help-menu-header">Biological Input Variables</h3>
+                    <p class="help-menu-p">
+                      Biological input variables are listed by name and current setting. All variables default to average values. Click on each variable for additional information and click on the value to change it.
+                    </p>
+                    <figure class="w-95 text-center mobile-figure"><img src="img/help/4.png" class="w-65 my-4 rounded drop-shadow" ></figure>
+                    <h3 class="help-menu-header">Source Illuminances</h3>
+                    <p class="help-menu-p">
+                      Here you can enter the vertical illuminance value in lux for each of your selected sources
+                      and remove any of your selected sources.
+                    </p>
+                    <figure class="w-95 text-center mobile-figure"><img src="img/help/5.png" class="w-85 my-4 rounded drop-shadow" ></figure>
+                  </div>
+                </div>
+                <div class="help-section d-none" id="help-results">
+                  <div class="modal-header">
+                    <h4 class="modal-title">Results</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  </div>
+                  <div class="modal-body help-body">
+                    <h3 class="help-menu-header">Combined Source Value Metrics</h3>
+                    <p class="help-menu-p">
+                      This table shows the output measurements calculated for the
+                      selected sources and their corresponding value. The output
+                      measurements are shown on the left, and the values are shown
+                      on the right.
+                    </p>
+                    <p class="help-menu-p">
+                      <b>Circadian Stimulus (CS)</b> is the calculated effectiveness of the spectrally weighted irradiance at the cornea from threshold (CS = 0.1) to saturation (CS = 0.7), assuming a fixed duration of exposure of 1 hour.
+                    </p>
+                    <p class="help-menu-p">
+                      <b>Circadian Light (CL<sub>A</sub>)</b> is the irradiance at the cornea weighted to reflect the spectral sensitivity of the human circadian system as measured by acute melatonin suppression after a 1-hour exposure.
+                    </p>
+                    <p class="help-menu-p">
+                      <b>Illuminance (lx)</b> is the amount of light (luminous flux) incident on a surface area. Illuminance is measured in footcandles (lumens/square foot) or lux (lx, lumens/square meter). One footcandle equals 10.76 lx, although for convenience 10 lx commonly is used as the equivalent.
+                    </p>
+                    <p class="help-menu-p">
+                      <b>Irradiance (W·m-2)</b> is the irradiance of a surface per unit frequency or wavelength, depending on whether the spectrum is taken as a function of frequency or of wavelength. The two forms have different dimensions: spectral irradiance of a frequency spectrum is measured in watts per square metre per hertz (W·m−2·Hz−1), while spectral irradiance of a wavelength spectrum is measured in watts per square metre per metre (W·m−3), or more commonly watts per square metre per nanometre (W·m−2·nm−1).
+                    </p>
+                    <p class="help-menu-p">
+                      <b>Photon Flux (Photons·m-2·s-1)</b> is defined as the number of photons per second per unit area
+                    </p>
+                    <p class="help-menu-p">
+                      <b>Correlated Color Temperature (CCT, Tcp)</b> is a specification for white light sources used to describe the dominant color tone along the dimension from warm (yellows and reds) to cool (blue). Lamps with a CCT rating below 3200 K are usually considered warm sources, whereas those with a CCT above 4000 K usually considered cool in appearance. Temperatures in between are considered neutral in appearance. Technically, CCT extends the practice of using temperature, in kelvins (K), for specifying the spectrum of light sources other than blackbody radiators. Incandescent lamps and daylight closely approximate the spectra of black body radiators at different temperatures and can be designated by the corresponding temperature of a blackbody radiator. The spectra of fluorescent and LED sources, however, differ substantially from black body radiators yet they can have a color appearance similar to a blackbody radiator of a particular temperature as given by CCT.
+                    </p>
+                    <p class="help-menu-p">
+                      <b>D<sub>uv</sub></b> is a metric defined by American National Standard Institute (ANSI) that quantifies the distance between the chromaticity of a given light source and a blackbody radiator of equal CCT. A negative Duv indicates that the source is “below” the blackbody locus, having a purplish tint, whereas a positive Duv indicates that the source is “above” the blackbody locus, having a greenish tint.
+                    </p>
+                    <p class="help-menu-p">
+                      <b>Color Rendering Index (CRI)</b> is a rating index commonly used to represent how well a light source renders the colors of objects that it illuminates. For a CRI value of 100, the maximum value, the colors of objects can be expected to be seen as they would appear under an incandescent or daylight spectrum of the same correlated color temperature (CCT). Sources with CRI values less than 50 are generally regarded as rendering colors poorly, that is, colors may appear unnatural.
+                    </p>
+                    <p class="help-menu-p">
+                      <b>Gamut Area Index (GAI)</b> is a measure of color rendering based upon volume in color space. It is the range of colors achievable on a given color reproduction medium (or present in an image on that medium) under a given set of viewing conditions.
+                    </p>
+                    <p class="help-menu-p">
+                      <b>Chromaticity:</b> The dominant or complementary wavelength and purity aspects of the color taken together, or of the aspects specified by the chromaticity coordinates of the color taken together. It describes the properties of light related to hue and saturation, but not luminance (brightness).
+                    </p>
+                    <figure class="w-95 text-center mobile-figure"><img src="img/help/6.png" class="w-65 my-4 rounded drop-shadow" ></figure>
+                    <p class="help-menu-p">
+                      You can also select the View SPD Values button to view the
+                      specific values for the relative and absolute spectral power
+                      distributions.
+                    </p>
+                    <figure class="w-95 text-center mobile-figure"><img src="img/help/7.png" class="w-55 my-4 rounded drop-shadow" ></figure>
+                    <h3 class="help-menu-header">Output Plots</h3>
+                    <p class="help-menu-p">
+                      The output plots display information about the
+                      combined attributes of light sources that have been selected.
+                      Both the graphs and the associated legends will be modified
+                      automatically as new sources are added and illuminance values
+                      are adjusted. Click the buttons to toggle between the Spectral
+                      Power Distribution, Chromaticity, and Color Rendering Metrics plots.
+                    </p>
+                    <figure class="w-95 text-center mobile-figure"><img src="img/help/8.png" class="w-85 my-4 rounded drop-shadow" ></figure>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="SPDModal" class="modal" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title"><span id="SPDModalTitleWord">Relative</span> Spectral Power Distribution</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="container-fluid">
+              <div class="row mb-4">
+                <div class="col text-center">
+                  <button id="RelSpdBtn" type="button" class="spd-button btn btn-lrc w-30 mr-2 active">Relative</button>
+                  <button id="AbsSpdBtn" type="button" class="spd-button btn btn-lrc w-30 ml-2">Absolute</button>
+                </div>
+              </div>
+              <div id="SPDTableRow" class="row mb-4">
+                <div class="col">
+                  <table id="RelSpdTableContainer" class="spd-container table table-striped">
+                    <thead class="thead-dark">
+                      <tr>
+                        <th class="w-50">Wavelength (nm)</th>
+                        <th class="w-50">Value</th>
+                      </tr>
+                    </thead>
+                    <tbody id="RelSpdTable"></tbody>
+                  </table>
+                  <table id="AbsSpdTableContainer" class="spd-container table table-striped d-none">
+                    <thead class="thead-dark">
+                      <tr>
+                        <th class="w-50">Wavelength (nm)</th>
+                        <th class="w-50">Value</th>
+                      </tr>
+                    </thead>
+                    <tbody id="AbsSpdTable"></tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-lrc" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal" id="mpod-modal" tabindex="-1" role="dialog" aria-labelledby="mpod-modal-label" aria-hidden="true">
       <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
           <div class="modal-header">
@@ -221,7 +404,7 @@
 
             								</div>
             							</div>
-                            <button type="button" class="btn btn-lrc disabled w-100" id="userSourceSubmit" onclick=submitUserSource()>Add to Existing Sources</button>
+                            <button type="button" class="btn btn-lrc disabled w-100" id="userSourceSubmit" onclick=submitUserSource()>Add to Sources List</button>
             						</form>
                       </div>
                     </div>
@@ -239,8 +422,8 @@
                       <div class="col">
 
                         <div class="input-group mb-3">
-                          <div class="input-group-prepend mw-175 text-center">
-                            <label class="input-group-text mw-175 text-center help-hover" data-toggle="modal" data-target="#mpod-modal" for="mpod_sel"><b>Macular Pigment Optical Density:</b></label>
+                          <div id="mpod-label-container" class="input-group-prepend mw-175 text-center">
+                            <label  class="input-group-text mw-175 text-center help-hover" data-toggle="modal" data-target="#mpod-modal" for="mpod_sel"><b>Macular Pigment Optical Density:</b></label>
                           </div>
                           <select class="custom-select sortSource" id="mpod_sel">
                             <option value='0.3'>0.3</option>
@@ -291,60 +474,53 @@
                             </tr>
                           </thead>
                           <tbody>
-                            <tr data-toggle="collapse" data-target="#cs_info">
+                            <tr>
                               <td>CS:</td>
                               <td id="resultCS">0</td>
                             </tr>
-                            <tr data-toggle="collapse" data-target="#cla_info">
+                            <tr>
                               <td>CL<sub>A</sub>:</td>
                               <td id="resultCLA">0</td>
                             </tr>
-                            <tr data-toggle="collapse" data-target="#ill_info">
+                            <tr>
                               <td>Illuminance (lx):</td>
                               <td id="resultIll">0</td>
                             </tr>
-                            <tr data-toggle="collapse" data-target="#irr_info">
+                            <tr>
                               <td>Irradiance (W&middot;m<sup>-2</sup>):</td>
                               <td id="resultIrr">0</td>
                             </tr>
-                            <tr data-toggle="collapse" data-target="#pf_info">
+                            <tr>
                               <td>Photon Flux (Photons&middot;m<sup>-2</sup>&middot;s<sup>-1</sup>):</td>
                               <td id="resultPf">0</td>
                             </tr>
-                            <tr data-toggle="collapse" data-target="#eml_info">
+                            <tr>
                               <td>Equivalent Melanopic Lux (EML):</td>
                               <td id="resultEML">0</td>
                             </tr>
-                            <tr data-toggle="collapse" data-target="#cct_info">
+                            <tr>
                               <td>CCT:</td>
                               <td id="resultCCT">NaN</td>
                             </tr>
-                            <tr data-toggle="collapse" data-target="#duv_info">
+                            <tr>
                               <td>D<sub>uv</sub>:</td>
                               <td id="resultDuv">NaN</td>
                             </tr>
-                            <tr data-toggle="collapse" data-target="#cri_info">
+                            <tr>
                               <td>CRI:</td>
                               <td id="resultCRI">NaN</td>
                             </tr>
-                            <tr data-toggle="collapse" data-target="#gai_info">
+                            <tr>
                               <td>GAI:</td>
                               <td id="resultGAI">NaN</td>
                             </tr>
-                            <tr data-toggle="collapse" data-target="#xy_info">
+                            <tr>
                               <td>Color Coordinates (x,y):</td>
                               <td id="resultXY">NaN, NaN</td>
                             </tr>
-                            <tr data-toggle="collapse" data-target="#RelSPD_info">
-                              <td>Relative Spectral Power Distribution:</td>
-                              <td>(SPD)</td>
-                            </tr>
-                            <tr data-toggle="collapse" data-target="#AbsSPD_info">
-                              <td>Absolute Spectral Power Distribution:</td>
-                              <td>(SPD)</td>
-                            </tr>
                           </tbody>
                         </table>
+                        <button data-toggle="modal" data-target="#SPDModal" type="button" class="btn btn-lrc w-100">View SPD Values</button>
                       </div>
                     </div>
                   </div>

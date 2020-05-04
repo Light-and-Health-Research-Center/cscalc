@@ -228,7 +228,7 @@ function updateResults(){
 		val = document.createElement('td');
 		val.innerHTML = normSPDVals[i].toExponential(4);
 		row.appendChild(val);
-		// $("#RelSpdTable")[0].appendChild(row);
+		$("#RelSpdTable")[0].appendChild(row);
 	}
 
 	// Update Absolute SPD HTML
@@ -241,7 +241,7 @@ function updateResults(){
 		val = document.createElement('td');
 		val.innerHTML = combinedValues.absoluteSPD.value[i].toExponential(4);
 		row.appendChild(val);
-		// $("#AbsSpdTable")[0].appendChild(row);
+		$("#AbsSpdTable")[0].appendChild(row);
 	}
 
 	//Update Chart Combined SPD

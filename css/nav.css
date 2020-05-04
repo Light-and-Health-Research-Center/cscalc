@@ -1,3 +1,6 @@
+:focus {outline:none;}
+::-moz-focus-inner {border:0;}
+
 #mainNav {
   background-color: #00205b;
 }
@@ -8,14 +11,30 @@
   top: 0;
 }
 
+.dropdown-item{
+  color: #ddd !important;
+  font-family: "Source Sans Pro", sans-serif;
+  padding: 0.5rem 0.25rem;
+  width: 100%;
+  white-space: normal;
+}
+
+.dropdown-item:hover{
+  color: #fff !important;
+  background-color: #0059ff;
+}
+
 #mainNav .dropdown-menu {
   background-color:#00205b;
   color:#FFF;
   text-align:center;
-  width:100%;
-  padding-top:none;
+  width: 100%;
+  padding: 0 !important;
   margin-top:0;
-  border: 1px solid white;
+  border: 3px solid black;
+  border-top: none;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
 }
 
 #mainNav .navbar-toggler {
@@ -26,7 +45,7 @@
   color: #FFFFFF;
   border: 0;
   background-color: #00205b;
-  font-family: 'Oswald', sans-serif;
+  font-family: "Oswald";
 }
 
 #mainNav .navbar-toggler:hover,
@@ -51,7 +70,7 @@
   padding: 0.75em 0;
   letter-spacing: 1px;
   color: #dddddd;
-  font-family: 'Oswald', sans-serif;}
+}
 
 #mainNav .navbar-nav .nav-item .nav-link.active, #mainNav .navbar-nav .nav-item .nav-link:hover {
   color: #FFFFFF;
@@ -76,7 +95,7 @@
     transition: all 0.3s;
   }
   #mainNav .navbar-nav .nav-item .nav-link {
-    padding: 1.1em 1em !important;
+    padding: 1rem 1rem !important;
   }
   #mainNav.navbar-shrink {
     padding-top: 0;
@@ -85,6 +104,6 @@
   }
   #mainNav.navbar-shrink .navbar-brand {
     font-size: 1.45em;
-    padding: 12px 0;
+    padding: 0;
   }
 }
