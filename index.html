@@ -95,6 +95,11 @@
                       and remove any of your selected sources.
                     </p>
                     <figure class="w-95 text-center mobile-figure"><img src="img/help/5.png" class="w-85 my-4 rounded drop-shadow" ></figure>
+                    <h3 class="help-menu-header">Source Circadian Stimulus</h3>
+                    <p class="help-menu-p">
+                      When only one source has been added the option to calculate illuminance via circadian stimulus becomes available. Enter a CS value between 0.0 and 0.7 if you wish to calculate via CS.
+                    </p>
+                    <figure class="w-95 text-center mobile-figure"><img src="img/help/9.png" class="w-85 my-4 rounded drop-shadow" ></figure>
                   </div>
                 </div>
                 <div class="help-section d-none" id="help-results">
@@ -448,12 +453,28 @@
                         <tr>
                           <th class="text-center w-30">Source</th>
                           <th class="text-center w-50">Vertical Photopic Illuminance (lx)</th>
-                          <th class="text-center w-20">Remove Source</th>
+                          <th class="text-center w-20">Remove</th>
                         </tr>
                       </thead>
                       <tbody id="selected-sources">
                       </tbody>
                     </table>
+
+                    <div class="row" id="csInputSection" style="display: none;">
+                      <div class="col">
+                        <h4 class="text-center my-4"> - OR - </h4>
+                        <h5 class="w-100 text-center text-lrc">Source Circadian Stimulus</h5>
+                        <hr class="hr-lrc"/>
+                      </div>
+
+                      <div class="input-group mb-3">
+                        <div class="input-group-prepend mw-175 text-center">
+                          <label class="input-group-text mw-175 text-center" for="manufacterer"><b>CS:</b></label>
+                        </div>
+                        <input class="form-control ssCS" id="csInput" placeholder="0.0"></input>
+                      </div>
+          					</div>
+
                   </div>
                 </div>
               </div>

@@ -523,8 +523,12 @@ function addSourceDataset(source){
 		$('#spdLegendDiv').show();
 		$('#crmLegendDiv').show();
 		$('#chromaticityLegendDiv').show();
+		$('#csInputSection').show();
 	}else if(configSPD.data.datasets.length == 3){
 		configSPD.data.datasets.unshift(combinedSourceDataset);
+		$('#csInputSection').hide();
+	}else{
+		$('#csInputSection').hide();
 	}
 	spdChart.update();
 	document.getElementById('spdLegend').innerHTML = spdChart.generateLegend();
@@ -539,12 +543,14 @@ function removeSourceDataset(source){
 			if(configSPD.data.datasets.length == 1 || configSPD.data.datasets.length == 3){
 				configSPD.data.datasets[0].data = dataTestNan;
 				configSPD.data.datasets.splice(0,1);
+				$('#csInputSection').show();
 				if(configSPD.data.datasets.length == 0){
 					$('#spdLegendDiv').hide();
 					$('#crmLegendDiv').hide();
 					$('#chromaticityLegendDiv').hide();
 					$('#noSelectedSources').show();
 					$('#sources-table').hide();
+					$('#csInputSection').hide();
 				}
 			}
 		}
