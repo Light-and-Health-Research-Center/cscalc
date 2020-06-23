@@ -183,6 +183,16 @@ body::-webkit-scrollbar {
   cursor: help;
 }
 
+.btn-green{
+  background-color: #01750e !important;
+  color: white;
+}
+
+.btn-green:hover{
+  background-color: #009c12 !important;
+  color: white;
+}
+
 .p-or{
   font-size: 1.5rem;
   font-weight: 600;

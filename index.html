@@ -172,7 +172,7 @@
     </div>
 
     <div id="SPDModal" class="modal" tabindex="-1" role="dialog">
-      <div class="modal-dialog" role="document">
+      <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title"><span id="SPDModalTitleWord">Relative</span> Spectral Power Distribution</h5>
@@ -494,7 +494,7 @@
                               <th>Value</th>
                             </tr>
                           </thead>
-                          <tbody>
+                          <tbody id="csvmbody">
                             <tr>
                               <td>CS:</td>
                               <td id="resultCS">0</td>
@@ -541,7 +541,7 @@
                             </tr>
                           </tbody>
                         </table>
-                        <button data-toggle="modal" data-target="#SPDModal" type="button" class="btn btn-lrc w-100">View SPD Values</button>
+                        <button data-toggle="modal" data-target="#SPDModal" type="button" class="btn btn-lrc w-100">View Combined SPD Values</button>
                       </div>
                     </div>
                   </div>
@@ -556,7 +556,6 @@
                       </div>
                     </div>
                     <div class="row">
-
                       <div id="PlotAreaSPD" class="plot-area col d-block">
                         <h3 class="plot-title">Spectral Power Distribution</h3>
                         <canvas id="spdPlot"></canvas>
@@ -577,6 +576,12 @@
                         <h3 class="plot-title">Color Rendering Metrics</h3>
                         <canvas id="crmPlot"></canvas>
                         <div id="crmLegend"  class="chart-legend"></div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col text-center">
+                        <button id="resultsDownload" class="btn btn-green">Download Results as JSON</button>
+                        <a id="jsondownload" class="hidden">
                       </div>
                     </div>
                   </div>
