@@ -1006,6 +1006,13 @@ $(document).ready(function(){
 		tdRemove.appendChild(tdRemoveSourceI);
 		tr.appendChild(tdRemove);
 		$("#selected-sources")[0].appendChild(tr);
+		$("input.form-control.ssIll").on("change paste keyup", function(){
+			console.log('hello');
+			if($("#stepChange3").hasClass("disabled")){
+				$("#stepChange3").removeClass("disabled");
+				$("#stepChange3").fadeIn(200).fadeOut(500).fadeIn(500).fadeOut(500).fadeIn(500);
+			}
+		});
 
 		// Disable sourcelist button
 		$("#source_"+sourceIdx).addClass('disabled');

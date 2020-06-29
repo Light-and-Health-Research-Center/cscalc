@@ -357,10 +357,19 @@ $(document).ready(function(){
 
 	$(this).scrollTop(0);
 
+	$("button.addSource").on("click",function(){
+		if($("#stepChange2").hasClass("disabled")){
+			$("#stepChange2").fadeIn(500).fadeOut(500).fadeIn(500).fadeOut(500).fadeIn(500);
+			$("#stepChange2").removeClass("disabled");
+		}
+	});
+
 	$(".step-title-container").on("click",function(e){
-		$('html, body').animate({
-			scrollTop: $('#content').offset().top - 25
-		}, 800);
+		if ($('html').scrollTop() != Math.round($('#content').offset().top - 25)){
+			$('html').animate({
+				scrollTop: $('#content').offset().top - 25
+			}, 800);
+		}
 		var step = $(this).attr("id").replace("stepChange","");
 		$(".step-title-container").removeClass("active");
 		$(this).addClass('active');
