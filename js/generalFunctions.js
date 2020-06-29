@@ -450,6 +450,12 @@ function applyNewSource(i, el, prepend){
 		$("#names-list")[0].append(li);
 	}
 	$("#modal-area")[0].appendChild(mod);
+	$("button.addSource").on("click",function(){
+		if($("#stepChange2").hasClass("disabled")){
+			$("#stepChange2").fadeIn(500).fadeOut(500).fadeIn(500).fadeOut(500).fadeIn(500);
+			$("#stepChange2").removeClass("disabled");
+		}
+	});
 
 
 	if(manUnique.indexOf(el.manufacturer) == -1) manUnique.push(el.manufacturer);
