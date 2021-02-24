@@ -7,6 +7,7 @@
     <meta name="viewport" content="device-width, initial-scale=1" />
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+    <script src="https://unpkg.com/mathjs/lib/browser/math.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
@@ -84,9 +85,9 @@
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                   </div>
                   <div class="modal-body help-body">
-                    <h3 class="help-menu-header">Biological Input Variables</h3>
+                    <h3 class="help-menu-header">Miscellaneous Input Variables</h3>
                     <p class="help-menu-p">
-                      Biological input variables are listed by name and current setting. All variables default to average values. Click on each variable for additional information and click on the value to change it.
+                      Miscellaneous input variables are listed by name and current setting. All variables default to average values. Click on each variable for additional information and click on the value to change it.
                     </p>
                     <figure class="w-95 text-center mobile-figure"><img src="img/help/4.png" class="w-65 my-4 rounded drop-shadow" ></figure>
                     <h3 class="help-menu-header">Source Illuminances</h3>
@@ -223,7 +224,7 @@
       <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="mpod-modal-label">Molecular Pigment Optical Density</h5>
+            <h5 class="modal-title" id="mpod-modal-label">Macular Pigment Optical Density</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
@@ -232,6 +233,54 @@
             <p>The human retina is not a uniform neural tissue. The highest density of cone photoreceptors in the retina is in the foveal pit, which is used for such visual tasks a reading, threading needles, and identification of distant objects. The macula is a circular region of the retina that extends radially from the fovea with a much higher density of cones than the peripheral retina which is dominated by rods. Most of the visual cortex is devoted to processing images focused in the macula. Therefore, for human conscious perception, the macula is particularly important.</p>
             <p>Interlaced among the photoreceptors and the other retinal neurons in the macula is a yellow screening pigment, the macula lutea, that is believed to protect the retina from damage by short wavelengths. The spatial extent of this circular screening pigment is approximately 6-10<sup>o</sup> with the highest pigment density in the foveal region.  Since the macular pigment preferentially filters short wavelengths and since the most effective rays entering the eye are along the optical axis, the spectral sensitivity of the central retina will be influenced by the optical density of the macular pigment.</p>
             <p>Importantly, individuals differ quite substantially in the optical density of their macular pigment. The optical density of the macular pigment for different people can range from 0.3 to 0.7; the original model by Rea et al. (2005) assumes a single optical density of 0.5 for all individuals. A new feature of the CS calculator enables users to change macular pigment density for 0.3 to 0.7 in steps of 0.05 to determine how individuals might differ in their effective CS for a given spectral power distribution. </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal" id="time-modal" tabindex="-1" role="dialog" aria-labelledby="time-modal-label" aria-hidden="true">
+      <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="time-modal-label">Duration of Exposure</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p>Some text here about Durastion of exposure</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal" id="scalar-modal" tabindex="-1" role="dialog" aria-labelledby="scalar-modal-label" aria-hidden="true">
+      <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="scalar-modal-label">Distribution Scalar</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p>Some text here about distribution scalar</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal" id="attenuation-modal" tabindex="-1" role="dialog" aria-labelledby="attenuation-modal-label" aria-hidden="true">
+      <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="scalar-modal-label">Attenuation Percent</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p>Some text here about attenuation percent</p>
           </div>
         </div>
       </div>
@@ -421,27 +470,100 @@
               <div class="container-fluid">
                 <div class="row">
                   <div class="col-xl-4">
-                    <h5 class="w-100 text-center text-lrc">Biological Input Variables</h5>
+                    <h5 class="w-100 text-center text-lrc">Miscellaneous Input Variables</h5>
                     <hr class="hr-lrc"/>
                     <div class="row mb-4">
                       <div class="col">
 
-                        <div class="input-group mb-3">
+                        <!-- <div class="input-group mb-3">
                           <div id="mpod-label-container" class="input-group-prepend mw-175 text-center">
-                            <label  class="input-group-text mw-175 text-center help-hover" data-toggle="modal" data-target="#mpod-modal" for="mpod_sel"><b>Macular Pigment Optical Density:</b></label>
+                            <label  class="input-group-text mw-175 text-center help-hover pointer" data-toggle="modal" data-target="#mpod-modal" for="mpod_sel"><b>Macular Pigment Optical Density:</b></label>
                           </div>
                           <select class="custom-select sortSource" id="mpod_sel">
                             <option value='0.3'>0.3</option>
                             <option value='0.35'>0.35</option>
                             <option value='0.4'>0.4</option>
                             <option value='0.45'>0.45</option>
-                            <option value='0.5' selected>0.5</option>
+                            <option value='0.5' selected="selected">0.5 (default)</option>
                             <option value='0.55'>0.55</option>
                             <option value='0.6'>0.6</option>
                             <option value='0.65'>0.65</option>
                             <option value='0.7'>0.7</option>
                           </select>
+                        </div> -->
+                        <div class="input-group mb-3">
+                          <div id="time-label-container" class="input-group-prepend mw-175 text-center">
+                            <label  class="input-group-text mw-175 text-center help-hover pointer" data-toggle="modal" data-target="#time-modal" for="time_sel"><b>Duration of Exposure (hrs):</b></label>
+                          </div>
+                          <select class="custom-select sortSource" id="time_sel">
+                            <option value='0.5'>0.5</option>
+                            <option value='0.75'>0.75</option>
+                            <option value='1.00' selected="selected">1 (default)</option>
+                            <option value='1.25'>1.25</option>
+                            <option value='1.50'>1.5</option>
+                            <option value='1.75'>1.75</option>
+                            <option value='2.00'>2</option>
+                            <option value='2.25'>2.25</option>
+                            <option value='2.50'>2.5</option>
+                            <option value='2.75'>2.75</option>
+                            <option value='3.00'>3</option>
+                          </select>
                         </div>
+                        <div class="input-group mb-3">
+                          <div id="scalar-label-container" class="input-group-prepend mw-175 text-center">
+                            <label  class="input-group-text mw-175 text-center help-hover pointer" data-toggle="modal" data-target="#scalar-modal" for="scalar_sel"><b>Distribution Scalar:</b></label>
+                          </div>
+                          <select class="custom-select sortSource" id="scalar_sel">
+                            <option value='0.5'>0.5</option>
+                            <option value='0.6'>0.6</option>
+                            <option value='0.7'>0.7</option>
+                            <option value='0.8'>0.8</option>
+                            <option value='0.9'>0.9</option>
+                            <option value='1.0' selected="selected">1 (default)</option>
+                            <option value='1.1'>1.1</option>
+                            <option value='1.2'>1.2</option>
+                            <option value='1.3'>1.3</option>
+                            <option value='1.4'>1.4</option>
+                            <option value='1.5'>1.5</option>
+                            <option value='1.6'>1.6</option>
+                            <option value='1.7'>1.7</option>
+                            <option value='1.8'>1.8</option>
+                            <option value='1.9'>1.9</option>
+                            <option value='2.0'>2</option>
+                            <option value='2.1'>2.1</option>
+                            <option value='2.2'>2.2</option>
+                            <option value='2.3'>2.3</option>
+                            <option value='2.4'>2.4</option>
+                            <option value='2.5'>2.5</option>
+                          </select>
+                        </div>
+                        <!-- <div class="input-group mb-3">
+                          <div id="attenuation-label-container" class="input-group-prepend mw-175 text-center">
+                            <label  class="input-group-text mw-175 text-center help-hover pointer" data-toggle="modal" data-target="#attenuation-modal" for="attenuation_sel"><b>Percent Attenuation:</b></label>
+                          </div>
+                          <select class="custom-select sortSource" id="attenuation_sel">
+                            <option value='0.0' selected="selected">0.0 (default)</option>
+                            <option value='0.05'>0.05</option>
+                            <option value='0.1'>0.1</option>
+                            <option value='0.15'>0.15</option>
+                            <option value='0.2'>0.2</option>
+                            <option value='0.25'>0.25</option>
+                            <option value='0.3'>0.3</option>
+                            <option value='0.35'>0.35</option>
+                            <option value='0.4'>0.4</option>
+                            <option value='0.45'>0.45</option>
+                            <option value='0.5'>0.5</option>
+                            <option value='0.55'>0.55</option>
+                            <option value='0.6'>0.6</option>
+                            <option value='0.65'>0.65</option>
+                            <option value='0.7'>0.7</option>
+                            <option value='0.8'>0.8</option>
+                            <option value='0.85'>0.85</option>
+                            <option value='0.9'>0.9</option>
+                            <option value='0.95'>0.95</option>
+                            <option value='1'>1</option>
+                          </select>
+                        </div> -->
                       </div>
                     </div>
                   </div>

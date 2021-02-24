@@ -291,9 +291,11 @@ function createResultsJSON(){
 	});
 	str += '\t\t},\n';
 
-	// Biological Input Variables
-	str += '\t\t"bio_variables" : {\n';
-	str += '\t\t\t"mpod" : "' + $('#mpod_sel').val() + '"\n';
+	// Misc Input Variables
+	str += '\t\t"misc_variables" : {\n';
+	str += '\t\t\t"mpod" : "' + $('#mpod_sel').val() + '",\n';
+	str += '\t\t\t"exposure_duration" : "' + $('#time_sel').val() + '",\n';
+	str += '\t\t\t"distribution_scalar" : "' + $('#scalar_sel').val() + '"\n';
 	str += '\t\t},\n';
 
 	// Combined Source Value Metrics
@@ -351,11 +353,20 @@ function createResultsJSON(){
   $('#jsondownload')[0].click();
 }
 
+function resetInputVariables(){
+	$("#mpod_sel").val("0.5");
+	$("#time_sel").val("1.00");
+	$("#scalar_sel").val("1.0");
+	$("#attenuation_sel").val("0.0");
+}
+
 
 // Page Action Functions
 $(document).ready(function(){
 
 	$(this).scrollTop(0);
+
+	resetInputVariables();
 
 	$("button.addSource").on("click",function(){
 		if($("#stepChange2").hasClass("disabled")){

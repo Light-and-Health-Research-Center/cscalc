@@ -41,8 +41,8 @@ body::-webkit-scrollbar {
   overflow: auto;
 }
 
-#mpod-label-container:hover{
-  cursor: help;
+.pointer:hover{
+  cursor: pointer !important;
 }
 
 .w-30{
@@ -177,10 +177,6 @@ body::-webkit-scrollbar {
 
 .w-30{
   width: 30%;
-}
-
-.help-hover:hover{
-  cursor: help;
 }
 
 .btn-green{
