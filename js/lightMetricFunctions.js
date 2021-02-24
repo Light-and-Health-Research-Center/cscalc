@@ -90,90 +90,134 @@ function CLAcalc(spd){
 	var g2 = 0.16;
 	var k = 0.2616;
 
+	var rodSat = 6.5215;
+
 	var wavelengths = spd.wavelength;
 	var values = spd.value;
 
 	var efs = efficienyFunctions(wavelengths, thickness);
 	var deltaWavelength = createDelta(wavelengths);
 
-	var Vlambda = sumproduct(values, arrayMul(deltaWavelength, efs.Vlambda));
-	var Vprime = sumproduct(values, arrayMul(deltaWavelength, efs.Vprime));
-	var Scone = sumproduct(values, arrayMul(deltaWavelength, efs.Scone));
+	var vlambda = sumproduct(values, arrayMul(deltaWavelength, efs.Vlambda));
+	var vprime = sumproduct(values, arrayMul(deltaWavelength, efs.Vprime));
+	var scone = sumproduct(values, arrayMul(deltaWavelength, efs.Scone));
+	var melanopsin = sumproduct(values, arrayMul(deltaWavelength, efs.Melanopsin));
 
-	var Melanopsin = sumproduct(values, arrayMul(deltaWavelength, efs.Melanopsin));
+	console.log('\nvlambda:\n');
+	console.log(vlambda);
+	console.log('\nvprime:\n');
+	console.log(vprime);
+	console.log('\nscone:\n');
+	console.log(scone);
+	console.log('\nmelanopsin:\n');
+	console.log(melanopsin);
 
-	var Macula = {
-		wavelength: [4.00E+02,4.05E+02,4.10E+02,4.15E+02,4.20E+02,4.25E+02,4.30E+02,4.35E+02,4.40E+02,4.45E+02,4.50E+02,4.55E+02,4.60E+02,4.65E+02,4.70E+02,4.75E+02,4.80E+02,4.85E+02,4.90E+02,4.95E+02,5.00E+02,5.05E+02,5.10E+02,5.15E+02,5.20E+02,5.25E+02,5.30E+02,5.35E+02,5.40E+02,5.45E+02,5.50E+02,5.55E+02,5.60E+02,5.65E+02,5.70E+02,5.75E+02,5.80E+02,5.85E+02,5.90E+02,5.95E+02,6.00E+02,6.05E+02,6.10E+02,6.15E+02,6.20E+02,6.25E+02,6.30E+02,6.35E+02,6.40E+02,6.45E+02,6.50E+02,6.55E+02,6.60E+02,6.65E+02,6.70E+02,6.75E+02,6.80E+02,6.85E+02,6.90E+02,6.95E+02,7.00E+02,7.05E+02,7.10E+02,7.15E+02,7.20E+02,7.25E+02,7.30E+02],
-		value: [2.24E-01,2.44E-01,2.64E-01,2.83E-01,3.14E-01,3.53E-01,3.83E-01,4.00E-01,4.17E-01,4.40E-01,4.66E-01,4.90E-01,5.00E-01,4.83E-01,4.62E-01,4.38E-01,4.37E-01,4.36E-01,4.27E-01,4.04E-01,3.51E-01,2.83E-01,2.14E-01,1.55E-01,9.60E-02,6.80E-02,4.00E-02,2.85E-02,1.70E-02,1.30E-02,9.00E-03,8.50E-03,8.00E-03,6.50E-03,5.00E-03,4.50E-03,4.00E-03,2.00E-03,0.00E+00,0.00E+00,0.00E+00,0.00E+00,0.00E+00,0.00E+00,0.00E+00,0.00E+00,0.00E+00,0.00E+00,0.00E+00,0.00E+00,0.00E+00,0.00E+00,0.00E+00,0.00E+00,0.00E+00,0.00E+00,0.00E+00,0.00E+00,0.00E+00,0.00E+00,0.00E+00,0.00E+00,0.00E+00,0.00E+00,0.00E+00,0.00E+00,0.00E+00]
-	};
+	// var macula = {
+	// 	wavelength: [4.00E+02,4.05E+02,4.10E+02,4.15E+02,4.20E+02,4.25E+02,4.30E+02,4.35E+02,4.40E+02,4.45E+02,4.50E+02,4.55E+02,4.60E+02,4.65E+02,4.70E+02,4.75E+02,4.80E+02,4.85E+02,4.90E+02,4.95E+02,5.00E+02,5.05E+02,5.10E+02,5.15E+02,5.20E+02,5.25E+02,5.30E+02,5.35E+02,5.40E+02,5.45E+02,5.50E+02,5.55E+02,5.60E+02,5.65E+02,5.70E+02,5.75E+02,5.80E+02,5.85E+02,5.90E+02,5.95E+02,6.00E+02,6.05E+02,6.10E+02,6.15E+02,6.20E+02,6.25E+02,6.30E+02,6.35E+02,6.40E+02,6.45E+02,6.50E+02,6.55E+02,6.60E+02,6.65E+02,6.70E+02,6.75E+02,6.80E+02,6.85E+02,6.90E+02,6.95E+02,7.00E+02,7.05E+02,7.10E+02,7.15E+02,7.20E+02,7.25E+02,7.30E+02],
+	// 	value: [2.24E-01,2.44E-01,2.64E-01,2.83E-01,3.14E-01,3.53E-01,3.83E-01,4.00E-01,4.17E-01,4.40E-01,4.66E-01,4.90E-01,5.00E-01,4.83E-01,4.62E-01,4.38E-01,4.37E-01,4.36E-01,4.27E-01,4.04E-01,3.51E-01,2.83E-01,2.14E-01,1.55E-01,9.60E-02,6.80E-02,4.00E-02,2.85E-02,1.70E-02,1.30E-02,9.00E-03,8.50E-03,8.00E-03,6.50E-03,5.00E-03,4.50E-03,4.00E-03,2.00E-03,0.00E+00,0.00E+00,0.00E+00,0.00E+00,0.00E+00,0.00E+00,0.00E+00,0.00E+00,0.00E+00,0.00E+00,0.00E+00,0.00E+00,0.00E+00,0.00E+00,0.00E+00,0.00E+00,0.00E+00,0.00E+00,0.00E+00,0.00E+00,0.00E+00,0.00E+00,0.00E+00,0.00E+00,0.00E+00,0.00E+00,0.00E+00,0.00E+00,0.00E+00]
+	// };
 
-	var macularT = arrayPow(10,arrayScalar(Macula.value,-_thickness));
-	var macularTi = interp1(Macula.wavelength,macularT,wavelengths,1);
+	// var macularT = arrayPow(10,arrayScalar(macula.value,-_thickness));
+	// var macularTi = interp1(macula.wavelength,macularT,wavelengths,1);
 
-	values = (arrayMul(elementWiseMultiplication(values, _p), macularTi)) + elementWiseMultiplication(values, (1-_p));
-	
-	
+
+	var rod_mel = vprime/(vlambda + g1*scone);
+	var rod_bminusY = vprime/(vlambda + g2*scone);
+
+	console.log('\nrod_mel:\n');
+	console.log(rod_mel);
+
+	console.log('\nrod_bminusY:\n');
+	console.log(rod_bminusY);
+
+	var bminusY = scone-k*vlambda;
+	var cs1 = melanopsin;
+	if (cs1 < 0) {
+		cs1 = 0;
+	}
+	var cs2,cs;
+	var rod = arod2 * rod_bminusY * (1-Math.exp(-vprime/rodSat));
+	var rodmel = arod1 *rod_mel * (1-Math.exp(-vprime/rodSat));
+	console.log('\nrod:\n');
+	console.log(rod);
+
+	console.log('\nrodmel\n');
+	console.log(rodmel);
+	if (bminusY >= 0){
+		cs2 = a_bminusY*bminusY;
+		if (cs2 < 0){
+			cs2 = 0;
+		}
+		var cs = (cs1 + cs2 - rod - rodmel);
+	}else{
+		cs = (cs1 - rodmel);
+	}
+	if (cs < 0){
+		cs = 0;
+	}
+	cla = cs*1548;
+	return cla;
 }
 
 // function CLAcalc(spd, thickness){
 // 	var cs;
-
+//
 // 	var wavelength = spd.wavelength;
 // 	var value = spd.value;
-
+//
 // 	var efs = efficienyFunctions(wavelength, thickness);
 // 	var deltaWavelength = createDelta(wavelength);
-
+//
 // 	var spdScone = sumproduct(value, arrayMul(deltaWavelength, efs.Scone));
 // 	var spdVlambda = sumproduct(value, arrayMul(deltaWavelength, efs.Vlambda));
 // 	console.log(spdVlambda);
 // 	var spdMelanopsin = sumproduct(value, arrayMul(deltaWavelength, efs.Melanopsin));
 // 	var spdVprime = sumproduct(value, arrayMul(deltaWavelength, efs.Vprime));
-
+//
 // 	var rodSat1 = 35000;
 // 	var retinalE = [1, 3, 10, 30, 100, 300, 1000, 3000, 10000, 30000, 100000];
 // 	var pupilDiam = [7.1, 7, 6.9, 6.8, 6.7, 6.5, 6.3, 5.65, 5, 3.65, 2.3];
 // 	var diam = interp1(retinalE,pupilDiam,rodSat1,0);
 // 	var rodSat = rodSat1/(Math.pow(diam,2)/4*Math.PI)*Math.PI/1700;
-
+//
 // 	var a1 = 1;
 // 	var b1 = 0.0;
 // 	var a2 = 0.7000;
 // 	var b2 = 0.0;
 // 	var k = 0.2616;//0.2883;//0.2616;
 // 	var a3 = 3.3000;
-
-// 	if((spdScone - k*spdVlambda) > 0){
-// 		var cs1 = a1*spdMelanopsin - b1;
-// 		if(cs1 < 0){
-// 			cs1 = 0;
-// 		}
-// 		var cs2 = a2*(spdScone - k*spdVlambda) - b2;
-// 		if(cs2 < 0){
-// 			cs2 = 0;
-// 		}
-// 		var rod = a3*(1-Math.exp(-spdVprime/rodSat));
-// 		cs = (cs1 + cs2 - rod);
-// 		if(cs < 0){
-// 			cs = 0;
-// 		}
-// 	}else{
-// 		cs = a1*spdMelanopsin-b1;
-// 		if(cs < 0){
-// 			cs = 0;
-// 		}
-// 	}
+//
+	// if((spdScone - k*spdVlambda) > 0){
+	// 	var cs1 = a1*spdMelanopsin - b1;
+	// 	if(cs1 < 0){
+	// 		cs1 = 0;
+	// 	}
+	// 	var cs2 = a2*(spdScone - k*spdVlambda) - b2;
+	// 	if(cs2 < 0){
+	// 		cs2 = 0;
+	// 	}
+	// 	var rod = a3*(1-Math.exp(-spdVprime/rodSat));
+	// 	cs = (cs1 + cs2 - rod);
+	// 	if(cs < 0){
+	// 		cs = 0;
+	// 	}
+	// }else{
+	// 	cs = a1*spdMelanopsin-b1;
+	// 	if(cs < 0){
+	// 		cs = 0;
+	// 	}
+	// }
 // 	var cla = cs * 1547.9;
-
+//
 // 	return cla;
 // }
 
 function cla2cs(cla){
-	return 0.7*(1-(1/(1+Math.pow((cla/355.7),1.1026))));
+	return 0.7*(1-(1/(1+Math.pow((cla * _t*_d/355.7),1.1026))));
 }
 
 function cs2cla(cs){
-	return 355.7*Math.pow((1/(1-(cs/0.7))-1),(1/1.1026));
+	return (355.7/(_t*_d))*Math.pow((1/(1-(cs/0.7))-1),(1/1.1026));
 }
 
 function zeros(n){
