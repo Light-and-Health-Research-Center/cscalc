@@ -1,4 +1,7 @@
 //General Analysis
+var thickness = 1;
+var _thickness = 1;
+var _mpod = 0.5, _t = 1, _d = 1, _p = 0;
 function efficienyFunctions(wavelength, thickness){
 	var results = {};
 
@@ -786,7 +789,7 @@ function interp1(xarray, yarray, array, value){
 
 function sumproduct(array1, array2){
 	var result = 0;
-	for(var i = 0;i < array1.length;i++){
+	for(var i = 0; i < array1.length; i++){
 		result += (array1[i] * array2[i]);
 	}
 	return result;
@@ -1013,7 +1016,6 @@ $(document).ready(function(){
 		tr.appendChild(tdRemove);
 		$("#selected-sources")[0].appendChild(tr);
 		$("input.form-control.ssIll").on("change paste keyup", function(){
-			console.log('hello');
 			if($("#stepChange3").hasClass("disabled")){
 				$("#stepChange3").removeClass("disabled");
 				$("#stepChange3").fadeIn(200).fadeOut(500).fadeIn(500).fadeOut(500).fadeIn(500);
@@ -1131,7 +1133,23 @@ $(document).ready(function(){
 	});
 
 	$('#mpod_sel').on('change', function(){
-		thickness = Number(this.value);
+		_mpod = Number(this.value);
+		_thickness = 2*_mpod;
+		updateResults();
+	});
+
+	$('#time_sel').on('change', function(){
+		_t = Number(this.value);
+		updateResults();
+	});
+
+	$('#scalar_sel').on('change', function(){
+		_d = Number(this.value);
+		updateResults();
+	});
+
+	$('#attenuation_sel').on('change', function(){
+		_p = Number(this.value);
 		updateResults();
 	});
 
@@ -1163,7 +1181,6 @@ var manUnique = [];
 var lampUnique = [];
 var cctUnique = [];
 var setwavelength = [380,382,384,386,388,390,392,394,396,398,400,402,404,406,408,410,412,414,416,418,420,422,424,426,428,430,432,434,436,438,440,442,444,446,448,450,452,454,456,458,460,462,464,466,468,470,472,474,476,478,480,482,484,486,488,490,492,494,496,498,500,502,504,506,508,510,512,514,516,518,520,522,524,526,528,530,532,534,536,538,540,542,544,546,548,550,552,554,556,558,560,562,564,566,568,570,572,574,576,578,580,582,584,586,588,590,592,594,596,598,600,602,604,606,608,610,612,614,616,618,620,622,624,626,628,630,632,634,636,638,640,642,644,646,648,650,652,654,656,658,660,662,664,666,668,670,672,674,676,678,680,682,684,686,688,690,692,694,696,698,700,702,704,706,708,710,712,714,716,718,720,722,724,726,728,730];
-var thickness = 0.5;
 
 $(document).ready(function(){
 	$(sourcelist).each(function(i, el){
