@@ -18,7 +18,6 @@
     <script src="js/spectralEfficiency.js"></script>
     <script src="js/userFunctions.js"></script>
     <script src="js/jp.js"></script>
-    <script src="js/ansi_duv.js"></script>
     <link rel="stylesheet" href="css/index.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700&display=swap">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Oswald:200,300,400,500,600,700&display=swap">
@@ -541,7 +540,7 @@
               <div id="stepContent2" class="card-body d-none">
                 <div class="container-fluid">
                   <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-xl-6">
                       <!-- <h5 class="w-100 text-center text-lrc">Source Illuminances</h5>
                       <hr class="hr-lrc"/> -->
                       
@@ -550,12 +549,15 @@
                           <table class="table">
                             <thead class="thead">
                               <tr>
-                                <th class="text-center w-40">Source</th>
-                                <th class="text-center w-40">Vertical Illuminance (lx)</th>
-                                <th class="text-center w-20">Remove</th>
+                                <th colspan="2" class="text-center">Source</th>
+                                <th class="text-center">Vertical Illuminance (lx)</th>
+                                <th class="text-center">Remove</th>
                               </tr>
                             </thead>
                             <tbody id="selected-sources">
+                              <tr>
+                                <td id="no-sources" class="text-center" colspan="4">No sources selected.</td>
+                              </tr>
                             </tbody>
                           </table>
                         </div>
@@ -738,7 +740,7 @@
                                   </tr>
                                 </tbody>
                               </table>
-                              <button data-toggle="modal" data-target="#SPDModal" type="button" class="btn btn-lrc w-100">View Combined SPD Values</button>
+                              <button data-toggle="modal" data-target="#SPDModal" type="button" class="btn btn-lrc w-100 mb-4">View Combined SPD Values</button>
                             </div>
                           </div>
                         </div>

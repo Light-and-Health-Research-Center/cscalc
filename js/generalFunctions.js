@@ -949,43 +949,40 @@ $(document).ready(function(){
 	});
 
 	$('.addSource').on('click',function(){
+
+		// Activate second card step
 		if($("#stepChange2").hasClass("disabled")){
 			$("#stepChange2").fadeIn(500).fadeOut(500).fadeIn(500).fadeOut(500).fadeIn(500);
 			$("#stepChange2").removeClass("disabled");
 		}
 
+		// Remove selected sources empty table text
+		$('#no-sources').addClass('d-none');
+
 		//Get Source data
 		var sourceIdx = $(this).attr('data-i');
+
 		// Create selected source object
 		sourcelist[sourceIdx].isSelected = true;
 
-		// Create HTML
-		var tr = document.createElement("tr");
-		tr.setAttribute('id','SelectedSource_'+sourceIdx);
-		var tdSource = document.createElement("td");
-		var pSource = document.createElement("p");
-		pSource.setAttribute('class','selected-source mb-0 mt-1');
-		pSource.setAttribute('data-i', sourceIdx);
-		pSource.innerHTML = sourcelist[sourceIdx].id;
-		tdSource.appendChild(pSource);
-		tr.appendChild(tdSource);
-		var tdIll = document.createElement("td");
-		var tdIllInput = document.createElement("input");
-		tdIllInput.setAttribute('id','ssIll_'+sourceIdx);
-		tdIllInput.setAttribute('class','form-control ssIll');
-		//tdIllInput.setAttribute('type','number');
-		tdIllInput.setAttribute('placeholder',sourcelist[sourceIdx].selectedSource.illuminance);
-		//tdIllInput.setAttribute('min',0);
-		//tdIllInput.setAttribute('step',0.01);
-		tdIll.appendChild(tdIllInput);
-		tr.appendChild(tdIll);
-		var tdRemove = document.createElement("td");
-		tdRemove.setAttribute('class','text-center align-middle');
-		var tdRemoveSourceI = document.createElement("i");
-		tdRemoveSourceI.setAttribute('class','removeSource far fa-trash-alt fa-lg');
-		tdRemove.appendChild(tdRemoveSourceI);
-		tr.appendChild(tdRemove);
-		$("#selected-sources")[0].appendChild(tr);
+
+		// Add source to selected sources list
+		var _tr = '';
+		_tr += '<tr id="SelectedSource_'+sourceIdx+'">';
+		_tr += 		'<td class="text-center align-middle">';
+		_tr +=			'<i class="selected-source fas fa-chart-area fa-lg" data-i="'+sourceIdx+'"></i>'
+		_tr +=		'</td>';
+		_tr += 		'<td>';
+		_tr += 			'<p class="mb-0 mt-1" data-i="'+sourceIdx+'">'+sourcelist[sourceIdx].id+'</p>';
+		_tr += 		'</td>';
+		_tr += 		'<td>';
+		_tr += 			'<input id="ssIll_'+sourceIdx+'" class="form-control ssIll" placeholder="'+sourcelist[sourceIdx].selectedSource.illuminance+'">';
+		_tr += 		'</td>';
+		_tr +=		'<td class="text-center align-middle">';
+		_tr +=			'<i class="removeSource far fa-trash-alt fa-lg" data-i="'+sourceIdx+'">';
+		_tr +=		'</td>';
+		_tr +=	'</tr>';
+		$("#selected-sources").append(_tr);
 
 		// Disable sourcelist button
 		$("#source_"+sourceIdx).addClass('disabled');
@@ -995,62 +992,64 @@ $(document).ready(function(){
 		// Update chart dataset array
 		addSourceDataset(sourcelist[sourceIdx]);
 		jpButtonToggle();
-
-		$(pSource).on('click', function(){
-			var i = sourceIdx
-	
-			var source = sourcelist[i];
-			$('#source-modal-label').html(" " + source.id);
-			$('#source-lamptype').html(source.lamp);
-			$('#source-cct').html(source.cct);
-			$('#source-manufacturer').html(source.manufacturer);
-			$('#source-info').html(source.info);
-			$('#source-add').attr("data-i", i);
-			$('#source-modal-footer').addClass('d-none');
-		
-			sourceData = [];
-			console.log(sourceData);
-			for(i = 0; i < source.spd.wavelength.length; i++){
-				sourceData[i] = {
-					x: source.spd.wavelength[i],
-					y: source.relativeSPD[i],
-				};
-			}
-	
-			var sourceSPD = {
-				label: source.id,
-				fill: false,
-				lineTension: 0.1,
-				backgroundColor: "rgba(255, 205, 86,1)", // Yellow
-				borderColor: "rgba(255, 205, 86,1)", // Yellow
-				borderCapStyle: 'butt',
-				borderDash: [],
-				borderDashOffset: 0.0,
-				borderJoinStyle: 'miter',
-				pointBorderColor: "rgba(255, 205, 86,1)", // Yellow
-				pointBackgroundColor: "#fff",
-				pointBorderWidth: 1,
-				radius: 0,
-				data: sourceData,
-				yAxisID: 'y-axis-1',
-			};
-			configSourceSPD.data.datasets[0] = sourceSPD;
-			sourceSPDChart.update();
-	
-			$('#source-modal').modal('show');
-		});
 	});
 
-	$(document).on('click','.removeSource',function(){
+	$(document).on('click', '.selected-source', function(){
+		var i = $(this).attr('data-i');
+	
+		var source = sourcelist[i];
+		$('#source-modal-label').html(" " + source.id);
+		$('#source-lamptype').html(source.lamp);
+		$('#source-cct').html(source.cct);
+		$('#source-manufacturer').html(source.manufacturer);
+		$('#source-info').html(source.info);
+		$('#source-add').attr("data-i", i);
+		$('#source-modal-footer').addClass('d-none');
+	
+		sourceData = [];
+		for(i = 0; i < source.spd.wavelength.length; i++){
+			sourceData[i] = {
+				x: source.spd.wavelength[i],
+				y: source.relativeSPD[i],
+			};
+		}
+
+		var sourceSPD = {
+			label: source.id,
+			fill: false,
+			lineTension: 0.1,
+			backgroundColor: "rgba(255, 205, 86,1)", // Yellow
+			borderColor: "rgba(255, 205, 86,1)", // Yellow
+			borderCapStyle: 'butt',
+			borderDash: [],
+			borderDashOffset: 0.0,
+			borderJoinStyle: 'miter',
+			pointBorderColor: "rgba(255, 205, 86,1)", // Yellow
+			pointBackgroundColor: "#fff",
+			pointBorderWidth: 1,
+			radius: 0,
+			data: sourceData,
+			yAxisID: 'y-axis-1',
+		};
+		configSourceSPD.data.datasets[0] = sourceSPD;
+		sourceSPDChart.update();
+
+		$('#source-modal').modal('show');
+	});
+
+	$(document).on('click', '.removeSource', function(){
 		// Get Source data index
-		var rowId = ($(this).closest("tr").prop("id"));
-		var sourceIdx = rowId.split("_")[1];
+		var sourceIdx = $(this).attr('data-i');
 
 		// Remove selected source
 		$("#SelectedSource_"+sourceIdx).remove();
 		sourcelist[sourceIdx].isSelected = false;
 		sourcelist[sourceIdx].selectedSource.illuminance = 0;
 		sourcelist[sourceIdx].selectedSource.absoluteSPD =  arrayScalar(sourcelist[sourceIdx].selectedSource.relativeSPD,sourcelist[sourceIdx].selectedSource.illuminance);
+
+		if($('#selected-sources tr').length == 1){
+			$('#no-sources').removeClass('d-none');
+		}
 
 		// Enable source in sourcelist array
 		$("#source_"+sourceIdx).removeClass('disabled');
