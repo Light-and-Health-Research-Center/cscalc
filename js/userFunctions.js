@@ -390,6 +390,21 @@ $(document).ready(function(){
 		$("#stepContent" + step).addClass("d-block");
 	});
 
+	$(".page-title-container").on("click",function(e){
+		if ($('html').scrollTop() != Math.round($('#content').offset().top - 25)){
+			$('html').animate({
+				scrollTop: $('#content').offset().top - 25
+			}, 800);
+		}
+		var page = $(this).attr("id").replace("pageChange","");
+		$(".page-title-container").removeClass("active");
+		$(this).addClass('active');
+		$("[id^='pageContent']").removeClass("d-block");
+		$("[id^='pageContent']").addClass("d-none");
+		$("#pageContent" + page).removeClass("d-none");
+		$("#pageContent" + page).addClass("d-block");
+	});
+
 	$('#userID').change(function () {
 		if(validateUserID()){
 			userIDValid();

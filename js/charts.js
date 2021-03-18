@@ -1,7 +1,69 @@
-var spectralEfficiencyFunctionDataset, configSPD, spdChart, configCRM,
-		crmChart, configChromaticity, chromaticityChart, dataTestZero, dataTestNan, combinesSourceDataset;
+var configSourceSPD, sourceSPDChart, spectralEfficiencyFunctionDataset, configSPD, spdChart, configCRM, crmChart, configChromaticity, chromaticityChart, dataTestZero, dataTestNan, combinesSourceDataset, sourceWavelengths, sourceValues;
 
 $(document).ready(function(){
+	// Source SPD
+	var ctxSourceSPD = document.getElementById("source-spd").getContext("2d");
+	configSourceSPD = {
+		type: 'scatter',
+		data: {
+			datasets: [
+				
+			]
+		},
+		options: {
+			responsive: true,
+			spanGaps: true,
+			legend: {
+				display: false,
+			},
+			tooltips: {
+				bodyFontStyle: 'bold',
+      	callbacks: {
+					label: function(tooltipItem, data) {
+						var label = data.datasets[tooltipItem.datasetIndex].label;
+						return label;
+					}
+         }
+       },
+			scales: {
+			yAxes: [{
+				id: 'y-axis-1',
+				position: 'left',
+				ticks: {
+					min: -0.4,
+					max: 1
+				},
+				scaleLabel: {
+					display: true,
+					labelString: 'Relative Spectral Power (%)',
+					padding: 0,
+				}
+			}],
+			xAxes: [{
+				ticks: {
+					autoSkip: true,
+					min: 350,
+					max: 750,
+					stepSize: 25,
+				},
+				scaleLabel: {
+					display: true,
+					labelString: 'Wavelength (nm)',
+					padding: 0,
+				}
+			}]
+		},
+			elements: {
+				point: {
+					radius: 0,
+					hitRadius: 5,
+				}
+			},
+		}
+	}
+	sourceSPDChart = new Chart(ctxSourceSPD, configSourceSPD);
+
+
 	// SPD
 	var ctxSPD = document.getElementById("spdPlot").getContext("2d");
 

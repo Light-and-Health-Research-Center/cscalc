@@ -45,6 +45,12 @@ body::-webkit-scrollbar {
   cursor: pointer !important;
 }
 
+.w-40{
+  width: 40%;
+  max-width: 40%;
+  overflow: auto;
+}
+
 .w-30{
   width: 30%;
   max-width: 30%;
@@ -175,10 +181,6 @@ body::-webkit-scrollbar {
   border-top-right-radius: 0.25rem;
 }
 
-.w-30{
-  width: 30%;
-}
-
 .btn-green{
   background-color: #01750e !important;
   color: white;
@@ -215,6 +217,12 @@ body::-webkit-scrollbar {
   border-top: 3px solid #00205b;
 }
 
+
+ul.list-group.list-group-hover li:hover{
+  cursor: pointer;
+  background: #eee;
+}
+
 .list-height {
     height: 20rem;
     max-height: 20rem;
@@ -228,6 +236,12 @@ body::-webkit-scrollbar {
 .list-group {
     border: 1px solid #ccc;
     border-radius: 10px;
+}
+
+.light-bg{
+  border-radius: .25rem;
+  margin-bottom: 2rem;
+  background:#F2F2F2 ;
 }
 
 select:-moz-focusring {
@@ -291,6 +305,10 @@ select {
   padding: 0;
 }
 
+.selected-source:hover{
+  cursor: pointer;
+}
+
 .step-title{
   font-size: 1.5rem;
   font-weight: 600;
@@ -314,14 +332,40 @@ select {
 }
 
 .step-title-container{
-  border-bottom: 1px solid rgb(0,0,0);
-  border-bottom: 1px solid rgba(0,0,0,.125);
-  border-right: 1px solid rgb(0,0,0);
-  border-right: 1px solid rgba(0,0,0,.125);
   padding: 0;
 }
 
 .step-title-container:hover{
+  cursor: pointer;
+}
+
+.page-title{
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: .25rem;
+  padding-bottom: .5rem;
+  padding-top: .5rem;
+  text-align: center;
+}
+
+.page-title-container.active{
+  background-color: white;
+  border-bottom: none;
+}
+
+.page-title-container.disabled{
+  opacity: 0.3;
+}
+
+.page-title-container.disabled:hover{
+  cursor: default;
+}
+
+.page-title-container{
+  padding: 0;
+}
+
+.page-title-container:hover{
   cursor: pointer;
 }
 

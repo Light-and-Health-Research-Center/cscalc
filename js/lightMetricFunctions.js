@@ -103,15 +103,6 @@ function CLAcalc(spd){
 	var scone = sumproduct(values, arrayMul(deltaWavelength, efs.Scone));
 	var melanopsin = sumproduct(values, arrayMul(deltaWavelength, efs.Melanopsin));
 
-	console.log('\nvlambda:\n');
-	console.log(vlambda);
-	console.log('\nvprime:\n');
-	console.log(vprime);
-	console.log('\nscone:\n');
-	console.log(scone);
-	console.log('\nmelanopsin:\n');
-	console.log(melanopsin);
-
 	// var macula = {
 	// 	wavelength: [4.00E+02,4.05E+02,4.10E+02,4.15E+02,4.20E+02,4.25E+02,4.30E+02,4.35E+02,4.40E+02,4.45E+02,4.50E+02,4.55E+02,4.60E+02,4.65E+02,4.70E+02,4.75E+02,4.80E+02,4.85E+02,4.90E+02,4.95E+02,5.00E+02,5.05E+02,5.10E+02,5.15E+02,5.20E+02,5.25E+02,5.30E+02,5.35E+02,5.40E+02,5.45E+02,5.50E+02,5.55E+02,5.60E+02,5.65E+02,5.70E+02,5.75E+02,5.80E+02,5.85E+02,5.90E+02,5.95E+02,6.00E+02,6.05E+02,6.10E+02,6.15E+02,6.20E+02,6.25E+02,6.30E+02,6.35E+02,6.40E+02,6.45E+02,6.50E+02,6.55E+02,6.60E+02,6.65E+02,6.70E+02,6.75E+02,6.80E+02,6.85E+02,6.90E+02,6.95E+02,7.00E+02,7.05E+02,7.10E+02,7.15E+02,7.20E+02,7.25E+02,7.30E+02],
 	// 	value: [2.24E-01,2.44E-01,2.64E-01,2.83E-01,3.14E-01,3.53E-01,3.83E-01,4.00E-01,4.17E-01,4.40E-01,4.66E-01,4.90E-01,5.00E-01,4.83E-01,4.62E-01,4.38E-01,4.37E-01,4.36E-01,4.27E-01,4.04E-01,3.51E-01,2.83E-01,2.14E-01,1.55E-01,9.60E-02,6.80E-02,4.00E-02,2.85E-02,1.70E-02,1.30E-02,9.00E-03,8.50E-03,8.00E-03,6.50E-03,5.00E-03,4.50E-03,4.00E-03,2.00E-03,0.00E+00,0.00E+00,0.00E+00,0.00E+00,0.00E+00,0.00E+00,0.00E+00,0.00E+00,0.00E+00,0.00E+00,0.00E+00,0.00E+00,0.00E+00,0.00E+00,0.00E+00,0.00E+00,0.00E+00,0.00E+00,0.00E+00,0.00E+00,0.00E+00,0.00E+00,0.00E+00,0.00E+00,0.00E+00,0.00E+00,0.00E+00,0.00E+00,0.00E+00]
@@ -124,12 +115,6 @@ function CLAcalc(spd){
 	var rod_mel = vprime/(vlambda + g1*scone);
 	var rod_bminusY = vprime/(vlambda + g2*scone);
 
-	console.log('\nrod_mel:\n');
-	console.log(rod_mel);
-
-	console.log('\nrod_bminusY:\n');
-	console.log(rod_bminusY);
-
 	var bminusY = scone-k*vlambda;
 	var cs1 = melanopsin;
 	if (cs1 < 0) {
@@ -138,11 +123,6 @@ function CLAcalc(spd){
 	var cs2,cs;
 	var rod = arod2 * rod_bminusY * (1-Math.exp(-vprime/rodSat));
 	var rodmel = arod1 *rod_mel * (1-Math.exp(-vprime/rodSat));
-	console.log('\nrod:\n');
-	console.log(rod);
-
-	console.log('\nrodmel\n');
-	console.log(rodmel);
 	if (bminusY >= 0){
 		cs2 = a_bminusY*bminusY;
 		if (cs2 < 0){

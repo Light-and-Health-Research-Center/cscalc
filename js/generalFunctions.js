@@ -2,6 +2,14 @@
 var thickness = 1;
 var _thickness = 1;
 var _mpod = 0.5, _t = 1, _d = 1, _p = 0;
+
+var sourcelist;
+
+var manUnique = [];
+var lampUnique = [];
+var cctUnique = [];
+var setwavelength = [380,382,384,386,388,390,392,394,396,398,400,402,404,406,408,410,412,414,416,418,420,422,424,426,428,430,432,434,436,438,440,442,444,446,448,450,452,454,456,458,460,462,464,466,468,470,472,474,476,478,480,482,484,486,488,490,492,494,496,498,500,502,504,506,508,510,512,514,516,518,520,522,524,526,528,530,532,534,536,538,540,542,544,546,548,550,552,554,556,558,560,562,564,566,568,570,572,574,576,578,580,582,584,586,588,590,592,594,596,598,600,602,604,606,608,610,612,614,616,618,620,622,624,626,628,630,632,634,636,638,640,642,644,646,648,650,652,654,656,658,660,662,664,666,668,670,672,674,676,678,680,682,684,686,688,690,692,694,696,698,700,702,704,706,708,710,712,714,716,718,720,722,724,726,728,730];
+
 function efficienyFunctions(wavelength, thickness){
 	var results = {};
 
@@ -152,6 +160,47 @@ function ssAbsoluteSPDCalc(){
 	return result;
 }
 
+function sourceListModal(i){
+	var source = sourcelist[i];
+	$('#source-modal-label').html(" " + source.id);
+	$('#source-lamptype').html(source.lamp);
+	$('#source-cct').html(source.cct);
+	$('#source-manufacturer').html(source.manufacturer);
+	$('#source-info').html(source.info);
+	$('#source-add').attr("data-i", i);
+	$('#source-modal-footer').removeClass('d-none');
+
+	sourceData = [];
+	for(i = 0; i < source.spd.wavelength.length; i++){
+		sourceData[i] = {
+			x: source.spd.wavelength[i],
+			y: source.relativeSPD[i],
+		};
+	}
+
+	var sourceSPD = {
+		label: source.id,
+		fill: false,
+		lineTension: 0.1,
+		backgroundColor: "rgba(255, 205, 86,1)", // Yellow
+		borderColor: "rgba(255, 205, 86,1)", // Yellow
+		borderCapStyle: 'butt',
+		borderDash: [],
+		borderDashOffset: 0.0,
+		borderJoinStyle: 'miter',
+		pointBorderColor: "rgba(255, 205, 86,1)", // Yellow
+		pointBackgroundColor: "#fff",
+		pointBorderWidth: 1,
+		radius: 0,
+		data: sourceData,
+		yAxisID: 'y-axis-1',
+	};
+
+	configSourceSPD.data.datasets[0] = sourceSPD;
+	sourceSPDChart.update();
+	$('#source-modal').modal('show');
+}
+
 function updateResults(){
 	var combinedValues = ssAbsoluteSPDCalc();
 	combinedValues.relativeSPD = {
@@ -254,7 +303,7 @@ function updateResults(){
 	var j, k;
 	for(i = 0; i < sourcelist.length; i++){
 		if(sourcelist[i].isSelected){
-			for(j = 0;j < configSPD.data.datasets.length;j++){
+			for(j = 0; j < configSPD.data.datasets.length; j++){
 				if(sourcelist[i].id === configSPD.data.datasets[j].label){
 					dataValue = arrayScalar(arrayNormalize(sourcelist[i].selectedSource.relativeSPD),sourcelist[i].selectedSource.illuminance/combinedValues.absoluteIll);
 					dataTest = {};
@@ -339,10 +388,11 @@ function updateResults(){
 	return;
 }
 
-function applyNewSource(i, el, prepend){
+function applyNewSource(i, el){
 	// Expand the source object
-	el. isSelected = false;
+	el.isSelected = false;
 	var valueInt = interp1(el.spd.wavelength, el.spd.value, setwavelength, 0);
+	el.relativeSPD = arrayScalar(arrayNormalize(spdNormalize(setwavelength, valueInt)),1);
 	el.selectedSource = {
 		relativeSPD: spdNormalize(setwavelength, valueInt),
 		illuminance: 0,
@@ -350,116 +400,10 @@ function applyNewSource(i, el, prepend){
 	};
 
 	// Create Source list button
-	var li = document.createElement("button");
-	li.setAttribute('class','list-group-item');
-	li.setAttribute('style',"text-align:center;");
-	li.setAttribute('id','source_'+i);
-	li.setAttribute('data-toggle','modal');
-	li.setAttribute('data-target','#modal_'+i);
-	li.innerHTML = el.id;//'Source: ' + el.id;
-
-
-	// Start of modal code
-	var mod = document.createElement("div");
-	mod.setAttribute('id','modal_'+i);
-	mod.setAttribute('class','modal fade');
-	mod.setAttribute('role','dialog');
-	var modDialog = document.createElement("div");
-	modDialog.setAttribute('class','modal-dialog modal-lg');
-	var modContent = document.createElement("div");
-	modContent.setAttribute('class','modal-content');
-	// Modal Header
-	var modHeader = document.createElement("div");
-	modHeader.setAttribute('class','modal-header');
-	modHeader.setAttribute('id','modHeader');
-	var modTitle = document.createElement("h5");
-	modTitle.setAttribute('class','m-0');
-	var modTitleText = document.createTextNode(el.id);
-	modTitle.appendChild(modTitleText);
-	modHeader.appendChild(modTitle);
-	var buttonClose = document.createElement("button");
-	buttonClose.setAttribute('type','button');
-	buttonClose.setAttribute('class','close');
-	buttonClose.setAttribute('data-dismiss','modal');
-	buttonClose.innerHTML = '&times';
-	modHeader.appendChild(buttonClose);
-	// Modal Body
-	var modBody = document.createElement("div");
-	modBody.setAttribute('class','modal-body');
-	// Source Title
-	var modBodyTextIDTitle = document.createElement("B");
-	var modBodyTextIDTitleText = document.createTextNode("Source ID: ");
-	modBodyTextIDTitle.appendChild(modBodyTextIDTitleText);
-	modBody.appendChild(modBodyTextIDTitle);
-	var modBodyTextID = document.createTextNode(el.id);
-	modBody.appendChild(modBodyTextID);
-	var br1 = document.createElement("br");
-	modBody.appendChild(br1);
-	// Source Lamp Type
-	var modBodyTextLampTitle = document.createElement("B");
-	var modBodyTextLampTitleText = document.createTextNode("Source Lamp Type: ");
-	modBodyTextLampTitle.appendChild(modBodyTextLampTitleText);
-	modBody.appendChild(modBodyTextLampTitle);
-	var modBodyTextLamp = document.createTextNode(el.lamp);
-	modBody.appendChild(modBodyTextLamp);
-	var br2 = document.createElement("br");
-	modBody.appendChild(br2);
-	// Source CCT
-	var modBodyTextCCTTitle = document.createElement("B");
-	var modBodyTextCCTTitleText = document.createTextNode("Source CCT: ");
-	modBodyTextCCTTitle.appendChild(modBodyTextCCTTitleText);
-	modBody.appendChild(modBodyTextCCTTitle);
-	var modBodyTextCCT = document.createTextNode(el.cct);
-	modBody.appendChild(modBodyTextCCT);
-	var br3 = document.createElement("br");
-	modBody.appendChild(br3);
-	// Source Manufacturer
-	var modBodyTextManTitle = document.createElement("B");
-	var modBodyTextManTitleText = document.createTextNode("Source Manufacturer: ");
-	modBodyTextManTitle.appendChild(modBodyTextManTitleText);
-	modBody.appendChild(modBodyTextManTitle);
-	var modBodyTextMan = document.createTextNode(el.manufacturer);
-	modBody.appendChild(modBodyTextMan);
-	var br4 = document.createElement("br");
-	modBody.appendChild(br4);
-	// Source Info
-	var modBodyTextInfoTitle = document.createElement("B");
-	var modBodyTextInfoTitleText = document.createTextNode("Source Description: ");
-	modBodyTextInfoTitle.appendChild(modBodyTextInfoTitleText);
-	modBody.appendChild(modBodyTextInfoTitle);
-	var modBodyTextInfo = document.createTextNode(el.info);
-	modBody.appendChild(modBodyTextInfo);
-	// Modal Footer
-	var modFooter = document.createElement("div");
-	modFooter.setAttribute('class','modal-footer');
-	var modAddButton = document.createElement("button");
-	modAddButton.setAttribute('type','button');
-	modAddButton.setAttribute('class','btn btn-lrc addSource');
-	//modAddButton.setAttribute('class','addSource');
-	modAddButton.setAttribute('data-dismiss','modal');
-	modAddButton.innerHTML = "Add Source";
-	modFooter.appendChild(modAddButton);
-	// Build Modal
-	modContent.appendChild(modHeader);
-	modContent.appendChild(modBody);
-	modContent.appendChild(modFooter);
-	modDialog.appendChild(modContent);
-	mod.appendChild(modDialog);
+	var li = '<li id="source_'+i+'" class="list-group-item text-center source-item" data-i="'+i+'">'+el.id+'</li>';
 
 	//Append arrays
-	if (prepend){
-		$("#names-list")[0].prepend(li);
-	}else{
-		$("#names-list")[0].append(li);
-	}
-	$("#modal-area")[0].appendChild(mod);
-	$("button.addSource").on("click",function(){
-		if($("#stepChange2").hasClass("disabled")){
-			$("#stepChange2").fadeIn(500).fadeOut(500).fadeIn(500).fadeOut(500).fadeIn(500);
-			$("#stepChange2").removeClass("disabled");
-		}
-	});
-
+	$("#names-list").append(li);
 
 	if(manUnique.indexOf(el.manufacturer) == -1) manUnique.push(el.manufacturer);
 	if(lampUnique.indexOf(el.lamp) == -1) lampUnique.push(el.lamp);
@@ -877,6 +821,28 @@ function arrayEval(array1, array2){
 
 // Page Action
 $(document).ready(function(){
+	$.ajax({
+    mimeType: "application/json",
+    url: "json/sources.json",
+    async: false,
+    dataType: 'json',
+    success: function(result) {
+      $.each(result,function(){
+        sourcelist = this;
+      });
+    }
+  });
+
+	$(sourcelist).each(function(i, el){
+		applyNewSource(i, el);
+	});
+	updateSortSource();
+
+	$('.source-item').on('click',function(){
+		var i = $(this).attr('data-i');
+		sourceListModal(i);
+	});
+
 	$('.sortSource').change( function () {
 		for(var i = 0; i < sourcelist.length; i++){
 			$("#source_"+i).hide();
@@ -982,10 +948,14 @@ $(document).ready(function(){
 		var manSelected = $('#manufacterer option:selected').text();
 	});
 
-	$(document).on('click','.addSource',function(){
+	$('.addSource').on('click',function(){
+		if($("#stepChange2").hasClass("disabled")){
+			$("#stepChange2").fadeIn(500).fadeOut(500).fadeIn(500).fadeOut(500).fadeIn(500);
+			$("#stepChange2").removeClass("disabled");
+		}
+
 		//Get Source data
-		var modalId = ($(this).closest(".modal").prop("id"));
-		var sourceIdx = modalId.split("_")[1];
+		var sourceIdx = $(this).attr('data-i');
 		// Create selected source object
 		sourcelist[sourceIdx].isSelected = true;
 
@@ -994,7 +964,8 @@ $(document).ready(function(){
 		tr.setAttribute('id','SelectedSource_'+sourceIdx);
 		var tdSource = document.createElement("td");
 		var pSource = document.createElement("p");
-		pSource.setAttribute('class','mb-0 mt-1');
+		pSource.setAttribute('class','selected-source mb-0 mt-1');
+		pSource.setAttribute('data-i', sourceIdx);
 		pSource.innerHTML = sourcelist[sourceIdx].id;
 		tdSource.appendChild(pSource);
 		tr.appendChild(tdSource);
@@ -1015,12 +986,6 @@ $(document).ready(function(){
 		tdRemove.appendChild(tdRemoveSourceI);
 		tr.appendChild(tdRemove);
 		$("#selected-sources")[0].appendChild(tr);
-		$("input.form-control.ssIll").on("change paste keyup", function(){
-			if($("#stepChange3").hasClass("disabled")){
-				$("#stepChange3").removeClass("disabled");
-				$("#stepChange3").fadeIn(200).fadeOut(500).fadeIn(500).fadeOut(500).fadeIn(500);
-			}
-		});
 
 		// Disable sourcelist button
 		$("#source_"+sourceIdx).addClass('disabled');
@@ -1030,6 +995,50 @@ $(document).ready(function(){
 		// Update chart dataset array
 		addSourceDataset(sourcelist[sourceIdx]);
 		jpButtonToggle();
+
+		$(pSource).on('click', function(){
+			var i = sourceIdx
+	
+			var source = sourcelist[i];
+			$('#source-modal-label').html(" " + source.id);
+			$('#source-lamptype').html(source.lamp);
+			$('#source-cct').html(source.cct);
+			$('#source-manufacturer').html(source.manufacturer);
+			$('#source-info').html(source.info);
+			$('#source-add').attr("data-i", i);
+			$('#source-modal-footer').addClass('d-none');
+		
+			sourceData = [];
+			console.log(sourceData);
+			for(i = 0; i < source.spd.wavelength.length; i++){
+				sourceData[i] = {
+					x: source.spd.wavelength[i],
+					y: source.relativeSPD[i],
+				};
+			}
+	
+			var sourceSPD = {
+				label: source.id,
+				fill: false,
+				lineTension: 0.1,
+				backgroundColor: "rgba(255, 205, 86,1)", // Yellow
+				borderColor: "rgba(255, 205, 86,1)", // Yellow
+				borderCapStyle: 'butt',
+				borderDash: [],
+				borderDashOffset: 0.0,
+				borderJoinStyle: 'miter',
+				pointBorderColor: "rgba(255, 205, 86,1)", // Yellow
+				pointBackgroundColor: "#fff",
+				pointBorderWidth: 1,
+				radius: 0,
+				data: sourceData,
+				yAxisID: 'y-axis-1',
+			};
+			configSourceSPD.data.datasets[0] = sourceSPD;
+			sourceSPDChart.update();
+	
+			$('#source-modal').modal('show');
+		});
 	});
 
 	$(document).on('click','.removeSource',function(){
@@ -1175,17 +1184,3 @@ $(document).ready(function(){
 	});
 });
 // Page Action
-
-// On Start
-var manUnique = [];
-var lampUnique = [];
-var cctUnique = [];
-var setwavelength = [380,382,384,386,388,390,392,394,396,398,400,402,404,406,408,410,412,414,416,418,420,422,424,426,428,430,432,434,436,438,440,442,444,446,448,450,452,454,456,458,460,462,464,466,468,470,472,474,476,478,480,482,484,486,488,490,492,494,496,498,500,502,504,506,508,510,512,514,516,518,520,522,524,526,528,530,532,534,536,538,540,542,544,546,548,550,552,554,556,558,560,562,564,566,568,570,572,574,576,578,580,582,584,586,588,590,592,594,596,598,600,602,604,606,608,610,612,614,616,618,620,622,624,626,628,630,632,634,636,638,640,642,644,646,648,650,652,654,656,658,660,662,664,666,668,670,672,674,676,678,680,682,684,686,688,690,692,694,696,698,700,702,704,706,708,710,712,714,716,718,720,722,724,726,728,730];
-
-$(document).ready(function(){
-	$(sourcelist).each(function(i, el){
-		applyNewSource(i, el, false);
-	});
-	updateSortSource();
-});
-// On Start
