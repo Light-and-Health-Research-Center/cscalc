@@ -241,7 +241,7 @@
             </button>
           </div>
           <div class="modal-body">
-            <p>Some text here about Durastion of exposure</p>
+            <p>The functional relationship between melatonin suppression and the light spectrum and amount was extended by duration-dependent parameter to predict circadian stimulus / nocturnal melatonin suppression during the early biological night for exposure durations ranging between 0.5-h and 3.0-h. Recently published data using the duration factor suggest that ambient lighting commonly found in North American homes will not suppress melatonin for durations up to 3 h, whereas extended use of self-luminous displays in the home prior to sleep can.</p>
           </div>
         </div>
       </div>
@@ -273,13 +273,96 @@
             </button>
           </div>
           <div class="modal-body">
-            <p>Some text here about attenuation percent</p>
+            <p>The functional relationship between melatonin suppression and the light spectrum and amount was extended by distribution-dependent parameter to predict circadian stimulus / nocturnal melatonin suppression during the early biological night for three different types of light source spatial profiles - ganzfeld type light box (weighting = 2.0), narrow linear on-axis (weighting = 1.0), and indirect overhead (weighting = 0.5)</p>
           </div>
         </div>
       </div>
     </div>
 
-    <div class="modal" id="source-modal" tabindex="-1" role="dialog" aria-labelledby="sourece-modal-label" aria-hidden="true">
+    <div class="modal" id="custom-source-modal" tabindex="-1" role="dialog" aria-labbelledby="custom-source-modal-label" aria-hidden="true">
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="custom-source-modal-label">Add Custom Source</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form>
+
+              <!-- Input Source Name -->
+              <div id="userIDFormGroup" class="input-group mb-3">
+                <div class="input-group-prepend mw-175">
+                  <label class="input-group-text mw-175" for="userID"><b class="m-auto">Source Name:</b></label>
+                </div>
+                <input type="text" class="form-control userSortSource userEnter" id="userID" placeholder="Unique Source Name">
+              </div>
+
+              <!-- Input Manufacturer -->
+              <div class="input-group mb-3">
+                <div class="input-group-prepend mw-175">
+                  <label class="input-group-text mw-175" for="userMan"><b class="m-auto">Manufacturer:</b></label>
+                </div>
+                <input type="text" class="form-control userSortSource userEnter" id="userMan" placeholder="(Optional)">
+              </div>
+
+              <!-- Input CCT -->
+              <div class="input-group mb-3">
+                <div class="input-group-prepend mw-175">
+                  <label class="input-group-text mw-175" for="userCCT"><b class="m-auto">CCT (K):</b></label>
+                </div>
+                <input type="text" class="form-control userSortSource userEnter" id="userCCT" placeholder="(Optional)">
+              </div>
+
+              <!-- Input Lamp Type -->
+              <div class="input-group mb-3">
+                <div class="input-group-prepend mw-175">
+                  <label class="input-group-text mw-175" for="userLamp"><b class="m-auto">Lamp Type:</b></label>
+                </div>
+                <input type="text" class="form-control userSortSource userEnter" id="userLamp" placeholder="(Optional)">
+              </div>
+
+              <!-- Input Desc -->
+              <div class="input-group mb-3">
+                <div class="input-group-prepend mw-175">
+                  <label class="input-group-text mw-175" for="userDesc"><b class="m-auto">Description:</b></label>
+                </div>
+                <textarea rows="3" class="form-control userSortSource userEnter" id="userDesc" Placeholder="(Optional)"></textarea>
+              </div>
+
+              <div class="text-center mb-3">
+                <h5>Spectral Power Distribution (SPD):</h5>
+              </div>
+
+              <div class="row">
+                <div class="col-lg-6 col-md-12">
+
+                  <!-- Input Wavelengths -->
+                  <div id="userSPDFormWavelengths" class="input-group mb-3">
+                    <label class="input-group-text mw-175 w-100 top-label" for="userSPDWavelengths"><b class="m-auto">λ (nm):</b></label>
+                    <textarea class="form-control text-right w-100 bottom-input mw-175" rows="5" id="userSPDWavelengths" placeholder="380&#10;382&#10;384&#10;386&#10;388"></textarea>
+                  </div>
+                </div>
+
+                <div class="col-lg-6 col-md-12">
+
+                  <!-- Input Values -->
+                  <div id="userSPDFormValues" class="input-group mb-3">
+                    <label class="input-group-text mw-175 w-100 top-label" for="userSPDValues"><b class="m-auto">Values</b></label>
+                    <textarea class="form-control text-right w-100 bottom-input mw-175" rows="5" id="userSPDValues" placeholder="0.0020065&#10;0.0016818&#10;0.001013&#10;0.00054935&#10;0.00027727"></textarea>
+                  </div>
+
+                </div>
+              </div>
+                <button type="button" class="btn btn-lrc disabled w-100" data-dismiss="modal" aria-label="Close" id="userSourceSubmit" onclick=submitUserSource()>Add to Sources List</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal" id="source-modal" tabindex="-1" role="dialog" aria-labelledby="source-modal-label" aria-hidden="true">
       <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
           <div class="modal-header">
@@ -303,63 +386,10 @@
       </div>
     </div>
 
-    <!-- <div id="source-modal" class="modal" tabindex="-1" role="dialog">
-      <div class="modal-dialog modal-lg" role="">
-        <div class="modal-header">
-          <h5 class="m-0"></h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <p><b>ID:</b><span id="source-id"></span></p>
-          <p><b>Lamp Type:</b><span id="source-lamptype"></span></p>
-          <p><b>CCT:</b><span id="source-cct"></span></p>
-          <p><b>Manufacturer:</b><span id="source-manufacturer"></span></p>
-          <p><b>Description:</b><span id="source-description"></span></p>
-        </div>
-        <div class="modal-footer">
-          <button class="btn btn-lrc addSource" type="button" data-dismiss="modal">Add Source</button>
-        </div>
-      </div>
-    </div> -->
-
-    <div id="content" class="container-fluid mt-4 px-5">
+    <div id="content" class="container-fluid">
       <div class="row">
         <div class="col">
           <div class="card mb-3 drop-shadow">
-            <!-- <div class="card-header">
-              <div class="row">
-                <div class="col-md-3">
-                  <div id="pageChange1" class="page-title-container">
-                    <h2 class="page-title mb-0">
-                      Background
-                    </h2>
-                  </div>
-                </div>
-                <div class="col-md-3">
-                  <div id="pageChange2" class="page-title-container active">
-                    <h2 class="page-title mb-0">
-                      Calculator
-                    </h2>
-                  </div>
-                </div>
-                <div class="col-md-3">
-                  <div id="pageChange3" class="page-title-container">
-                    <h2 class="page-title mb-0">
-                      Tutorials
-                    </h2>
-                  </div>
-                </div>
-                <div class="col-md-3">
-                  <div id="pageChange4" class="page-title-container">
-                    <h2 class="page-title mb-0">
-                      Resources
-                    </h2>
-                  </div>
-                </div>
-              </div>
-            </div> -->
             <div class="card-header">
               <div class="row">
                 <div class="col-md-6">
@@ -379,430 +409,326 @@
               </div>
             </div>
 
-            <!-- Background -->
-            <div id="pageContent1">
+            <div id="stepContent1" class="card-body">
+              <div class="container-fluid">
+                <div class="row">
 
-            </div>
-
-            <!-- Calculator -->
-            <div id="pageContent2">
-
-              <div id="stepContent1" class="card-body">
-                <div class="container-fluid">
-                  <div class="row">
-                    <div class="col-xl-7">
-                      <h5 class="w-100 text-center text-lrc">Existing Sources</h5>
-                      <hr class="hr-lrc"/>
-                      <div class="row mb-4">
-                        <div class="col-md-5">
-                          <h5 class="inner-section-title">filter</h5>
-                          <div class="input-group mb-3">
-                            <div class="input-group-prepend mw-175 text-center">
-                              <label class="input-group-text mw-175 text-center" for="manufacterer"><b>Manufacturer:</b></label>
-                            </div>
-                            <select class="custom-select sortSource" id="manufacterer">
-                              <option selected>Any</option>
-                            </select>
-                          </div>
-                          <div class="input-group mb-3">
-                            <div class="input-group-prepend mw-175">
-                              <label class="input-group-text mw-175" for="cct"><b>CCT:</b></label>
-                            </div>
-                            <select class="custom-select sortSource" id="cct">
-                              <option selected>Any</option>
-                            </select>
-                          </div>
-                          <div class="input-group mb-3">
-                            <div class="input-group-prepend mw-175">
-                              <label class="input-group-text mw-175" for="lamp"><b>Lamp:</b></label>
-                            </div>
-                            <select class="custom-select sortSource" id="lamp">
-                              <option selected>Any</option>
-                            </select>
-                          </div>
-                          <div class="input-group mb-3">
-                            <div class="input-group-prepend mw-175">
-                              <span class="input-group-text mw-175" id="keyword"><b>Keyword:</b></span>
-                            </div>
-                            <input id="searchSource" type="text" class="form-control sortSource" aria-label="Default" aria-describedby="keyword" placeholder="Search">
-                          </div>
-                          <div class="form-group">
-                            <div class="input-group">
-                              <button class="w-100 btn btn-lrc text-center" id="reset" type="button">Reset</button>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col-md-1">
-                          <h5 class="inner-section-title">></h5>
-                        </div>
-                        <div class="col-md-6">
-                          <h5 class="inner-section-title">sources</h5>
-                          <ul id="names-list" class="list-group list-group-hover list-height">
-                          </ul>
-                        </div>
-                      </div>
-
-                    </div>
-                    <div class="col-xl-1">
-                      <div class="row">
-                        <div class="col-md-12">
-                          <h5 class="o-0 w-100 text-center text-lrc">or</h5>
-                          <hr class="o-0 hr-lrc"/>
-                          <div class="row">
-                            <div class="col">
-                              <h5 class="inner-section-title">or</h5>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-xl-4">
-                      <h5 class="w-100 text-center text-lrc">Custom Source</h5>
-                      <hr class="hr-lrc" />
-                      <div class="row">
-                        <div id="newSourceCol" class="col-md-12">
-                          <h5 class="inner-section-title">create your own</h5>
-                          <form>
-
-                            <!-- Input Source Name -->
-                            <div id="userIDFormGroup" class="input-group mb-3">
-                              <div class="input-group-prepend mw-175">
-                                <label class="input-group-text mw-175" for="userID"><b class="m-auto">Source Name:</b></label>
-                              </div>
-                              <input type="text" class="form-control userSortSource userEnter" id="userID" placeholder="Unique Source Name">
-                            </div>
-
-                            <!-- Input Manufacturer -->
-                            <div class="input-group mb-3">
-                              <div class="input-group-prepend mw-175">
-                                <label class="input-group-text mw-175" for="userMan"><b class="m-auto">Manufacturer:</b></label>
-                              </div>
-                              <input type="text" class="form-control userSortSource userEnter" id="userMan" placeholder="(Optional)">
-                            </div>
-
-                            <!-- Input CCT -->
-                            <div class="input-group mb-3">
-                              <div class="input-group-prepend mw-175">
-                                <label class="input-group-text mw-175" for="userCCT"><b class="m-auto">CCT (K):</b></label>
-                              </div>
-                              <input type="text" class="form-control userSortSource userEnter" id="userCCT" placeholder="(Optional)">
-                            </div>
-
-                            <!-- Input Lamp Type -->
-                            <div class="input-group mb-3">
-                              <div class="input-group-prepend mw-175">
-                                <label class="input-group-text mw-175" for="userLamp"><b class="m-auto">Lamp Type:</b></label>
-                              </div>
-                              <input type="text" class="form-control userSortSource userEnter" id="userLamp" placeholder="(Optional)">
-                            </div>
-
-                            <!-- Input Desc -->
-                            <div class="input-group mb-3">
-                              <div class="input-group-prepend mw-175">
-                                <label class="input-group-text mw-175" for="userDesc"><b class="m-auto">Description:</b></label>
-                              </div>
-                              <textarea rows="3" class="form-control userSortSource userEnter" id="userDesc" Placeholder="(Optional)"></textarea>
-                            </div>
-
-                            <div class="text-center mb-3">
-                              <h5>Spectral Power Distribution (SPD):</h5>
-                            </div>
-
-                            <div class="row">
-                              <div class="col-lg-6 col-md-12">
-
-                                <!-- Input Wavelengths -->
-                                <div id="userSPDFormWavelengths" class="input-group mb-3">
-                                  <label class="input-group-text mw-175 w-100 top-label" for="userSPDWavelengths"><b class="m-auto">λ (nm):</b></label>
-                                  <textarea class="form-control text-right w-100 bottom-input mw-175" rows="5" id="userSPDWavelengths" placeholder="380&#10;382&#10;384&#10;386&#10;388"></textarea>
-                                </div>
-                              </div>
-
-                              <div class="col-lg-6 col-md-12">
-
-                                <!-- Input Values -->
-                                <div id="userSPDFormValues" class="input-group mb-3">
-                                  <label class="input-group-text mw-175 w-100 top-label" for="userSPDValues"><b class="m-auto">Values</b></label>
-                                  <textarea class="form-control text-right w-100 bottom-input mw-175" rows="5" id="userSPDValues" placeholder="0.0020065&#10;0.0016818&#10;0.001013&#10;0.00054935&#10;0.00027727"></textarea>
-                                </div>
-
-                              </div>
-                            </div>
-                              <button type="button" class="btn btn-lrc disabled w-100" id="userSourceSubmit" onclick=submitUserSource()>Add to Sources List</button>
-                          </form>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div id="stepContent2" class="card-body d-none">
-                <div class="container-fluid">
-                  <div class="row">
-                    <div class="col-xl-6">
-                      <!-- <h5 class="w-100 text-center text-lrc">Source Illuminances</h5>
-                      <hr class="hr-lrc"/> -->
-                      
-                      <div class="row light-bg">
-                        <div class="col">
-                          <table class="table">
-                            <thead class="thead">
-                              <tr>
-                                <th colspan="2" class="text-center">Source</th>
-                                <th class="text-center">Vertical Illuminance (lx)</th>
-                                <th class="text-center">Remove</th>
-                              </tr>
-                            </thead>
-                            <tbody id="selected-sources">
-                              <tr>
-                                <td id="no-sources" class="text-center" colspan="4">No sources selected.</td>
-                              </tr>
-                            </tbody>
-                          </table>
-                        </div>
-                      </div>
-                          
-                      <!-- <div class="row" id="csInputSection" style="display: none;">
-                        <div class="col">
-                          <h4 class="text-center"> - OR - </h4>
-                          <h5 class="w-100 text-center text-lrc">Source Circadian Stimulus</h5>
-                          <hr class="hr-lrc"/>
-                        </div>
-  
+                  <div class="col-xl-6">
+                    <div class="row mb-4">
+                      <div class="col">
                         <div class="input-group mb-3">
                           <div class="input-group-prepend mw-175 text-center">
-                            <label class="input-group-text mw-175 text-center" for="manufacterer"><b>CS:</b></label>
+                            <label class="input-group-text mw-175 text-center" for="manufacterer"><b>Manufacturer:</b></label>
                           </div>
-                          <input class="form-control ssCS" id="csInput" placeholder="0.0"/>
+                          <select class="custom-select sortSource" id="manufacterer">
+                            <option selected>Any</option>
+                          </select>
                         </div>
-                      </div> -->
-
-                      <div class="row">
-                        <div class="col">
-                          <!-- <h5 class="w-100 text-center text-lrc">Miscellaneous Input Variables</h5>
-                          <hr class="hr-lrc"/> -->
-                          <div class="row mb-4">
-                            <div class="col">
-      
-                              <!-- <div class="input-group mb-3">
-                                <div id="mpod-label-container" class="input-group-prepend mw-175 text-center">
-                                  <label  class="input-group-text mw-175 text-center help-hover pointer" data-toggle="modal" data-target="#mpod-modal" for="mpod_sel"><b>Macular Pigment Optical Density:</b></label>
-                                </div>
-                                <select class="custom-select sortSource" id="mpod_sel">
-                                  <option value='0.3'>0.3</option>
-                                  <option value='0.35'>0.35</option>
-                                  <option value='0.4'>0.4</option>
-                                  <option value='0.45'>0.45</option>
-                                  <option value='0.5' selected="selected">0.5 (default)</option>
-                                  <option value='0.55'>0.55</option>
-                                  <option value='0.6'>0.6</option>
-                                  <option value='0.65'>0.65</option>
-                                  <option value='0.7'>0.7</option>
-                                </select>
-                              </div> -->
-                              <div class="input-group mb-3">
-                                <div id="time-label-container" class="input-group-prepend mw-175 text-center">
-                                  <label  class="input-group-text mw-175 text-center help-hover pointer" data-toggle="modal" data-target="#time-modal" for="time_sel"><b>Duration of Exposure (hrs):</b></label>
-                                </div>
-                                <select class="custom-select sortSource" id="time_sel">
-                                  <option value='0.5'>0.5</option>
-                                  <option value='0.75'>0.75</option>
-                                  <option value='1.00' selected="selected">1 (default)</option>
-                                  <option value='1.25'>1.25</option>
-                                  <option value='1.50'>1.5</option>
-                                  <option value='1.75'>1.75</option>
-                                  <option value='2.00'>2</option>
-                                  <option value='2.25'>2.25</option>
-                                  <option value='2.50'>2.5</option>
-                                  <option value='2.75'>2.75</option>
-                                  <option value='3.00'>3</option>
-                                </select>
-                              </div>
-                              <div class="input-group mb-3">
-                                <div id="scalar-label-container" class="input-group-prepend mw-175 text-center">
-                                  <label  class="input-group-text mw-175 text-center help-hover pointer" data-toggle="modal" data-target="#scalar-modal" for="scalar_sel"><b>Distribution Scalar:</b></label>
-                                </div>
-                                <select class="custom-select sortSource" id="scalar_sel">
-                                  <option value='0.5'>0.5</option>
-                                  <option value='0.6'>0.6</option>
-                                  <option value='0.7'>0.7</option>
-                                  <option value='0.8'>0.8</option>
-                                  <option value='0.9'>0.9</option>
-                                  <option value='1.0' selected="selected">1 (default)</option>
-                                  <option value='1.1'>1.1</option>
-                                  <option value='1.2'>1.2</option>
-                                  <option value='1.3'>1.3</option>
-                                  <option value='1.4'>1.4</option>
-                                  <option value='1.5'>1.5</option>
-                                  <option value='1.6'>1.6</option>
-                                  <option value='1.7'>1.7</option>
-                                  <option value='1.8'>1.8</option>
-                                  <option value='1.9'>1.9</option>
-                                  <option value='2.0'>2</option>
-                                  <option value='2.1'>2.1</option>
-                                  <option value='2.2'>2.2</option>
-                                  <option value='2.3'>2.3</option>
-                                  <option value='2.4'>2.4</option>
-                                  <option value='2.5'>2.5</option>
-                                </select>
-                              </div>
-                              <!-- <div class="input-group mb-3">
-                                <div id="attenuation-label-container" class="input-group-prepend mw-175 text-center">
-                                  <label  class="input-group-text mw-175 text-center help-hover pointer" data-toggle="modal" data-target="#attenuation-modal" for="attenuation_sel"><b>Percent Attenuation:</b></label>
-                                </div>
-                                <select class="custom-select sortSource" id="attenuation_sel">
-                                  <option value='0.0' selected="selected">0.0 (default)</option>
-                                  <option value='0.05'>0.05</option>
-                                  <option value='0.1'>0.1</option>
-                                  <option value='0.15'>0.15</option>
-                                  <option value='0.2'>0.2</option>
-                                  <option value='0.25'>0.25</option>
-                                  <option value='0.3'>0.3</option>
-                                  <option value='0.35'>0.35</option>
-                                  <option value='0.4'>0.4</option>
-                                  <option value='0.45'>0.45</option>
-                                  <option value='0.5'>0.5</option>
-                                  <option value='0.55'>0.55</option>
-                                  <option value='0.6'>0.6</option>
-                                  <option value='0.65'>0.65</option>
-                                  <option value='0.7'>0.7</option>
-                                  <option value='0.8'>0.8</option>
-                                  <option value='0.85'>0.85</option>
-                                  <option value='0.9'>0.9</option>
-                                  <option value='0.95'>0.95</option>
-                                  <option value='1'>1</option>
-                                </select>
-                              </div> -->
-                            </div>
+                        <div class="input-group mb-3">
+                          <div class="input-group-prepend mw-175">
+                            <label class="input-group-text mw-175" for="cct"><b>CCT:</b></label>
+                          </div>
+                          <select class="custom-select sortSource" id="cct">
+                            <option selected>Any</option>
+                          </select>
+                        </div>
+                        <div class="input-group mb-3">
+                          <div class="input-group-prepend mw-175">
+                            <label class="input-group-text mw-175" for="lamp"><b>Lamp:</b></label>
+                          </div>
+                          <select class="custom-select sortSource" id="lamp">
+                            <option selected>Any</option>
+                          </select>
+                        </div>
+                        <div class="input-group mb-3">
+                          <div class="input-group-prepend mw-175">
+                            <span class="input-group-text mw-175" id="keyword"><b>Keyword:</b></span>
+                          </div>
+                          <input id="searchSource" type="text" class="form-control sortSource" aria-label="Default" aria-describedby="keyword" placeholder="Search">
+                        </div>
+                        <div class="form-group">
+                          <div class="input-group">
+                            <button class="w-100 btn btn-lrc text-center" id="reset" type="button">Reset Filters</button>
                           </div>
                         </div>
                       </div>
-                    
-
-                      <div class="row">
-                        <div class="col">
-                          <!-- <h5 class="w-100 text-center text-lrc">Combined Source Value Metrics</h5>
-                          <hr class="hr-lrc"/> -->
-                          <div class="row">
-                            <div class="col">
-                              <table class="table table-striped">
-                                <thead class="thead-dark">
-                                  <tr>
-                                    <th>Measurement</th>
-                                    <th>Value</th>
-                                  </tr>
-                                </thead>
-                                <tbody id="csvmbody">
-                                  <tr>
-                                    <td>CS:</td>
-                                    <td id="resultCS">0</td>
-                                  </tr>
-                                  <tr>
-                                    <td>CL<sub>A</sub>:</td>
-                                    <td id="resultCLA">0</td>
-                                  </tr>
-                                  <tr>
-                                    <td>Illuminance (lx):</td>
-                                    <td id="resultIll">0</td>
-                                  </tr>
-                                  <tr>
-                                    <td>Irradiance (W&middot;m<sup>-2</sup>):</td>
-                                    <td id="resultIrr">0</td>
-                                  </tr>
-                                  <tr>
-                                    <td>Photon Flux (Photons&middot;m<sup>-2</sup>&middot;s<sup>-1</sup>):</td>
-                                    <td id="resultPf">0</td>
-                                  </tr>
-                                  <tr>
-                                    <td>Equivalent Melanopic Lux (EML):</td>
-                                    <td id="resultEML">0</td>
-                                  </tr>
-                                  <tr>
-                                    <td>CCT:</td>
-                                    <td id="resultCCT">NaN</td>
-                                  </tr>
-                                  <tr>
-                                    <td>D<sub>uv</sub>:</td>
-                                    <td id="resultDuv">NaN</td>
-                                  </tr>
-                                  <tr>
-                                    <td>CRI:</td>
-                                    <td id="resultCRI">NaN</td>
-                                  </tr>
-                                  <tr>
-                                    <td>GAI:</td>
-                                    <td id="resultGAI">NaN</td>
-                                  </tr>
-                                  <tr>
-                                    <td>Color Coordinates (x,y):</td>
-                                    <td id="resultXY">NaN, NaN</td>
-                                  </tr>
-                                </tbody>
-                              </table>
-                              <button data-toggle="modal" data-target="#SPDModal" type="button" class="btn btn-lrc w-100 mb-4">View Combined SPD Values</button>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      
                     </div>
-                    <div class="col-xl-6">
-                      <!-- <h5 class="w-100 text-center text-lrc">Output Plots</h5>
-                      <hr class="hr-lrc"/> -->
-                      <div class="row mb-4">
-                        <div class="col text-center">
-                          <button type="button" id="plotBtnSPD" class="plot-btn btn btn-lrc w-30 active">SPD</button>
-                          <button type="button" id="plotBtnChromaticity" class="plot-btn btn btn-lrc w-30">Chromaticity</button>
-                          <button type="button" id="plotBtnCRM" class="plot-btn btn btn-lrc w-30">Rendering</button>
-                        </div>
+                    <div class="row mb-4">
+                      <div class="col">
+                        <ul id="names-list" class="list-group list-group-hover list-height mb-2">
+                        </ul>
+                        <button class="w-100 btn btn-lrc text-center" id="custom-source" type="button" data-toggle="modal" data-target="#custom-source-modal">Add Custom Source</button>
                       </div>
-                      <div class="row">
-                        <div id="PlotAreaSPD" class="plot-area col d-block">
-                          <h3 class="plot-title">Spectral Power Distribution</h3>
-                          <canvas id="spdPlot"></canvas>
-                          <div id="spdLegend"  class="chart-legend"></div>
-                          <div class="plot-extra">
-                            <small>* For the Specified Spectral Power Distribution [Spectrum, Amount]</small>
-                            <p><a href="http://journals.sagepub.com/doi/abs/10.1177/1477153511430474" target="_blank">Information on the calculation of Circadian Light</a>, <a href="http://journals.sagepub.com/doi/pdf/10.1177/1477153512467607" target="_blank">Corrigendum</a></p>
-                          </div>
-                        </div>
-  
-                        <div id="PlotAreaChromaticity" class="plot-area col d-none">
-                          <h3 class="plot-title">Chromaticity</h3>
-                          <canvas id="chromaticityPlot"></canvas>
-                          <div id="chromaticityLegend"  class="chart-legend"></div>
-                        </div>
-  
-                        <div id="PlotAreaCRM" class="plot-area col d-none">
-                          <h3 class="plot-title">Color Rendering Metrics</h3>
-                          <canvas id="crmPlot"></canvas>
-                          <div id="crmLegend"  class="chart-legend"></div>
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col text-center">
-                          <button id="resultsDownload" class="btn btn-green">Download Results as JSON</button>
-                          <a id="jsondownload" class="hidden"></a>
-                        </div>
+                    </div>
+                  </div>
+
+                  <div class="col-xl-6">
+                    <div class="row bg-light">
+                      <div class="col">
+                        <table class="table">
+                          <thead class="thead">
+                            <tr>
+                              <th colspan="2" class="text-center w-80">Source</th>
+                              <th class="text-center w-20">Remove</th>
+                            </tr>
+                          </thead>
+                          <tbody id="selected-sources_">
+                            <tr>
+                              <td class="no-sources text-center" colspan="4">No sources selected.</td>
+                            </tr>
+                          </tbody>
+                        </table>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-
             </div>
 
-            <!-- Tutorials -->
-            <div id="pageContent3">
-              
-            </div>
+            <div id="stepContent2" class="card-body d-none">
+              <div class="container-fluid">
+                <div class="row">
+                  <div class="col-xl-6">
+                    <div class="row light-bg">
+                      <div class="col">
+                        <table class="table">
+                          <thead class="thead">
+                            <tr>
+                              <th colspan="2" class="text-center">Source</th>
+                              <th class="text-center">E<sub>V</sub> (lx)</th>
+                              <th class="text-center">Remove</th>
+                            </tr>
+                          </thead>
+                          <tbody id="selected-sources">
+                            <tr>
+                              <td class="no-sources text-center" colspan="4">No sources selected.</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                        
+                    <!-- <div class="row" id="csInputSection" style="display: none;">
+                      <div class="col">
+                        <h4 class="text-center"> - OR - </h4>
+                        <h5 class="w-100 text-center text-lrc">Source Circadian Stimulus</h5>
+                        <hr class="hr-lrc"/>
+                      </div>
 
-            <!-- Resources -->
-            <div id="pageContent4">
-              
-            </div>
+                      <div class="input-group mb-3">
+                        <div class="input-group-prepend mw-175 text-center">
+                          <label class="input-group-text mw-175 text-center" for="manufacterer"><b>CS:</b></label>
+                        </div>
+                        <input class="form-control ssCS" id="csInput" placeholder="0.0"/>
+                      </div>
+                    </div> -->
 
+                    <div class="row">
+                      <div class="col">
+                        <div class="row mb-4">
+                          <div class="col">
+    
+                            <!-- <div class="input-group mb-3">
+                              <div id="mpod-label-container" class="input-group-prepend mw-175 text-center">
+                                <label  class="input-group-text mw-175 text-center help-hover pointer" data-toggle="modal" data-target="#mpod-modal" for="mpod_sel"><b>Macular Pigment Optical Density:</b></label>
+                              </div>
+                              <select class="custom-select sortSource" id="mpod_sel">
+                                <option value='0.3'>0.3</option>
+                                <option value='0.35'>0.35</option>
+                                <option value='0.4'>0.4</option>
+                                <option value='0.45'>0.45</option>
+                                <option value='0.5' selected="selected">0.5 (default)</option>
+                                <option value='0.55'>0.55</option>
+                                <option value='0.6'>0.6</option>
+                                <option value='0.65'>0.65</option>
+                                <option value='0.7'>0.7</option>
+                              </select>
+                            </div> -->
+                            <div class="input-group mb-3">
+                              <div id="time-label-container" class="input-group-prepend mw-175 text-center">
+                                <label  class="input-group-text mw-175 text-center help-hover pointer" data-toggle="modal" data-target="#time-modal" for="time_sel"><b>Duration of Exposure (hrs):</b></label>
+                              </div>
+                              <select class="custom-select sortSource" id="time_sel">
+                                <option value='0.5'>0.5</option>
+                                <option value='0.75'>0.75</option>
+                                <option value='1.00' selected="selected">1 (default)</option>
+                                <option value='1.25'>1.25</option>
+                                <option value='1.50'>1.5</option>
+                                <option value='1.75'>1.75</option>
+                                <option value='2.00'>2</option>
+                                <option value='2.25'>2.25</option>
+                                <option value='2.50'>2.5</option>
+                                <option value='2.75'>2.75</option>
+                                <option value='3.00'>3</option>
+                              </select>
+                            </div>
+                            <div class="input-group mb-3">
+                              <div id="scalar-label-container" class="input-group-prepend mw-175 text-center">
+                                <label  class="input-group-text mw-175 text-center help-hover pointer" data-toggle="modal" data-target="#scalar-modal" for="scalar_sel"><b>Distribution Scalar:</b></label>
+                              </div>
+                              <select class="custom-select sortSource" id="scalar_sel">
+                                <option value='0.5'>0.5</option>
+                                <option value='0.6'>0.6</option>
+                                <option value='0.7'>0.7</option>
+                                <option value='0.8'>0.8</option>
+                                <option value='0.9'>0.9</option>
+                                <option value='1.0' selected="selected">1 (default)</option>
+                                <option value='1.1'>1.1</option>
+                                <option value='1.2'>1.2</option>
+                                <option value='1.3'>1.3</option>
+                                <option value='1.4'>1.4</option>
+                                <option value='1.5'>1.5</option>
+                                <option value='1.6'>1.6</option>
+                                <option value='1.7'>1.7</option>
+                                <option value='1.8'>1.8</option>
+                                <option value='1.9'>1.9</option>
+                                <option value='2.0'>2</option>
+                                <option value='2.1'>2.1</option>
+                                <option value='2.2'>2.2</option>
+                                <option value='2.3'>2.3</option>
+                                <option value='2.4'>2.4</option>
+                                <option value='2.5'>2.5</option>
+                              </select>
+                            </div>
+                            <!-- <div class="input-group mb-3">
+                              <div id="attenuation-label-container" class="input-group-prepend mw-175 text-center">
+                                <label  class="input-group-text mw-175 text-center help-hover pointer" data-toggle="modal" data-target="#attenuation-modal" for="attenuation_sel"><b>Percent Attenuation:</b></label>
+                              </div>
+                              <select class="custom-select sortSource" id="attenuation_sel">
+                                <option value='0.0' selected="selected">0.0 (default)</option>
+                                <option value='0.05'>0.05</option>
+                                <option value='0.1'>0.1</option>
+                                <option value='0.15'>0.15</option>
+                                <option value='0.2'>0.2</option>
+                                <option value='0.25'>0.25</option>
+                                <option value='0.3'>0.3</option>
+                                <option value='0.35'>0.35</option>
+                                <option value='0.4'>0.4</option>
+                                <option value='0.45'>0.45</option>
+                                <option value='0.5'>0.5</option>
+                                <option value='0.55'>0.55</option>
+                                <option value='0.6'>0.6</option>
+                                <option value='0.65'>0.65</option>
+                                <option value='0.7'>0.7</option>
+                                <option value='0.8'>0.8</option>
+                                <option value='0.85'>0.85</option>
+                                <option value='0.9'>0.9</option>
+                                <option value='0.95'>0.95</option>
+                                <option value='1'>1</option>
+                              </select>
+                            </div> -->
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  
+
+                    <div class="row">
+                      <div class="col">
+                        <div class="row">
+                          <div class="col">
+                            <table class="table table-striped">
+                              <thead class="thead-dark">
+                                <tr>
+                                  <th>Measurement</th>
+                                  <th>Value</th>
+                                </tr>
+                              </thead>
+                              <tbody id="csvmbody">
+                                <tr>
+                                  <td>CS:</td>
+                                  <td id="resultCS">0</td>
+                                </tr>
+                                <tr>
+                                  <td>CL<sub>A</sub>:</td>
+                                  <td id="resultCLA">0</td>
+                                </tr>
+                                <tr>
+                                  <td>Illuminance (lx):</td>
+                                  <td id="resultIll">0</td>
+                                </tr>
+                                <tr>
+                                  <td>Irradiance (W&middot;m<sup>-2</sup>):</td>
+                                  <td id="resultIrr">0</td>
+                                </tr>
+                                <tr>
+                                  <td>Photon Flux (Photons&middot;m<sup>-2</sup>&middot;s<sup>-1</sup>):</td>
+                                  <td id="resultPf">0</td>
+                                </tr>
+                                <tr>
+                                  <td>Equivalent Melanopic Lux (EML):</td>
+                                  <td id="resultEML">0</td>
+                                </tr>
+                                <tr>
+                                  <td>CCT:</td>
+                                  <td id="resultCCT">NaN</td>
+                                </tr>
+                                <tr>
+                                  <td>D<sub>uv</sub>:</td>
+                                  <td id="resultDuv">NaN</td>
+                                </tr>
+                                <tr>
+                                  <td>CRI:</td>
+                                  <td id="resultCRI">NaN</td>
+                                </tr>
+                                <tr>
+                                  <td>GAI:</td>
+                                  <td id="resultGAI">NaN</td>
+                                </tr>
+                                <tr>
+                                  <td>Color Coordinates (x,y):</td>
+                                  <td id="resultXY">NaN, NaN</td>
+                                </tr>
+                              </tbody>
+                            </table>
+                            <button data-toggle="modal" data-target="#SPDModal" type="button" class="btn btn-lrc w-100 mb-4">View Combined SPD Values</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    
+                  </div>
+                  <div class="col-xl-6">
+                    <div class="row mb-4">
+                      <div class="col text-center">
+                        <button type="button" id="plotBtnSPD" class="plot-btn btn btn-lrc w-30 active">SPD</button>
+                        <button type="button" id="plotBtnChromaticity" class="plot-btn btn btn-lrc w-30">Chromaticity</button>
+                        <button type="button" id="plotBtnCRM" class="plot-btn btn btn-lrc w-30">Rendering</button>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div id="PlotAreaSPD" class="plot-area col d-block">
+                        <h3 class="plot-title">Spectral Power Distribution</h3>
+                        <canvas id="spdPlot"></canvas>
+                        <div id="spdLegend"  class="chart-legend"></div>
+                        <div class="plot-extra">
+                          <small>* For the Specified Spectral Power Distribution [Spectrum, Amount]</small>
+                          <p><a href="http://journals.sagepub.com/doi/abs/10.1177/1477153511430474" target="_blank">Information on the calculation of Circadian Light</a>, <a href="http://journals.sagepub.com/doi/pdf/10.1177/1477153512467607" target="_blank">Corrigendum</a></p>
+                        </div>
+                      </div>
+
+                      <div id="PlotAreaChromaticity" class="plot-area col d-none">
+                        <h3 class="plot-title">Chromaticity</h3>
+                        <canvas id="chromaticityPlot"></canvas>
+                        <div id="chromaticityLegend"  class="chart-legend"></div>
+                      </div>
+
+                      <div id="PlotAreaCRM" class="plot-area col d-none">
+                        <h3 class="plot-title">Color Rendering Metrics</h3>
+                        <canvas id="crmPlot"></canvas>
+                        <div id="crmLegend"  class="chart-legend"></div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col text-center">
+                        <button id="resultsDownload" class="btn btn-green">Download Results as JSON</button>
+                        <a id="jsondownload" class="hidden"></a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>

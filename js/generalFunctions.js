@@ -957,7 +957,7 @@ $(document).ready(function(){
 		}
 
 		// Remove selected sources empty table text
-		$('#no-sources').addClass('d-none');
+		$('.no-sources').addClass('d-none');
 
 		//Get Source data
 		var sourceIdx = $(this).attr('data-i');
@@ -967,22 +967,36 @@ $(document).ready(function(){
 
 
 		// Add source to selected sources list
-		var _tr = '';
-		_tr += '<tr id="SelectedSource_'+sourceIdx+'">';
-		_tr += 		'<td class="text-center align-middle">';
-		_tr +=			'<i class="selected-source fas fa-chart-area fa-lg" data-i="'+sourceIdx+'"></i>'
-		_tr +=		'</td>';
-		_tr += 		'<td>';
-		_tr += 			'<p class="mb-0 mt-1" data-i="'+sourceIdx+'">'+sourcelist[sourceIdx].id+'</p>';
-		_tr += 		'</td>';
-		_tr += 		'<td>';
-		_tr += 			'<input id="ssIll_'+sourceIdx+'" class="form-control ssIll" placeholder="'+sourcelist[sourceIdx].selectedSource.illuminance+'">';
-		_tr += 		'</td>';
-		_tr +=		'<td class="text-center align-middle">';
-		_tr +=			'<i class="removeSource far fa-trash-alt fa-lg" data-i="'+sourceIdx+'">';
-		_tr +=		'</td>';
-		_tr +=	'</tr>';
-		$("#selected-sources").append(_tr);
+		var tr = '';
+		tr += '<tr id="SelectedSource_'+sourceIdx+'">';
+		tr += 		'<td class="text-center align-middle">';
+		tr +=			'<i class="selected-source fas fa-chart-area fa-lg" data-i="'+sourceIdx+'"></i>'
+		tr +=		'</td>';
+		tr += 		'<td>';
+		tr += 			'<p class="mb-0 mt-1" data-i="'+sourceIdx+'">'+sourcelist[sourceIdx].id+'</p>';
+		tr += 		'</td>';
+		tr += 		'<td>';
+		tr += 			'<input id="ssIll_'+sourceIdx+'" class="form-control ssIll" placeholder="'+sourcelist[sourceIdx].selectedSource.illuminance+'">';
+		tr += 		'</td>';
+		tr +=		'<td class="text-center align-middle">';
+		tr +=			'<i class="removeSource far fa-trash-alt fa-lg" data-i="'+sourceIdx+'">';
+		tr +=		'</td>';
+		tr +=	'</tr>';
+		$("#selected-sources").append(tr);
+
+		var tr = '';
+		tr += '<tr id="SelectedSource_'+sourceIdx+'_">';
+		tr += 		'<td class="text-center align-middle">';
+		tr +=			'<i class="selected-source fas fa-chart-area fa-lg" data-i="'+sourceIdx+'"></i>'
+		tr +=		'</td>';
+		tr += 		'<td>';
+		tr += 			'<p class="mb-0 mt-1" data-i="'+sourceIdx+'">'+sourcelist[sourceIdx].id+'</p>';
+		tr += 		'</td>';
+		tr +=		'<td class="text-center align-middle">';
+		tr +=			'<i class="removeSource  far fa-trash-alt fa-lg" data-i="'+sourceIdx+'">';
+		tr +=		'</td>';
+		tr +=	'</tr>';
+		$("#selected-sources_").append(tr);
 
 		// Disable sourcelist button
 		$("#source_"+sourceIdx).addClass('disabled');
@@ -1043,12 +1057,13 @@ $(document).ready(function(){
 
 		// Remove selected source
 		$("#SelectedSource_"+sourceIdx).remove();
+		$("#SelectedSource_"+sourceIdx + "_").remove();
 		sourcelist[sourceIdx].isSelected = false;
 		sourcelist[sourceIdx].selectedSource.illuminance = 0;
 		sourcelist[sourceIdx].selectedSource.absoluteSPD =  arrayScalar(sourcelist[sourceIdx].selectedSource.relativeSPD,sourcelist[sourceIdx].selectedSource.illuminance);
 
 		if($('#selected-sources tr').length == 1){
-			$('#no-sources').removeClass('d-none');
+			$('.no-sources').removeClass('d-none');
 		}
 
 		// Enable source in sourcelist array
