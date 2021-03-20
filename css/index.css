@@ -276,7 +276,7 @@ select {
   background-color: #d80b8c;
   outline: none !important;
   border-color: #d80b8c;
-  box-shadow:  0px 0px 8px #d80b8c;
+  box-shadow:  0px 0px 4px #d80b8c;
 }
 
 /* .btn-primary:not(:disabled):not(.disabled).active, 
