@@ -364,7 +364,7 @@ function resetInputVariables(){
 // Page Action Functions
 $(document).ready(function(){
 
-	$(this).scrollTop(0);
+	// $(this).scrollTop(0);
 
 	resetInputVariables();
 
@@ -376,11 +376,11 @@ $(document).ready(function(){
 	});
 
 	$(".step-title-container").on("click",function(e){
-		if ($('html').scrollTop() != Math.round($('#content').offset().top - 25)){
-			$('html').animate({
-				scrollTop: $('#content').offset().top - 25
-			}, 800);
-		}
+		// if ($('html').scrollTop() != Math.round($('#content').offset().top - 25)){
+		// 	$('html').animate({
+		// 		scrollTop: $('#content').offset().top - 25
+		// 	}, 800);
+		// }
 		var step = $(this).attr("id").replace("stepChange","");
 		$(".step-title-container").removeClass("active");
 		$(this).addClass('active');
