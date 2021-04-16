@@ -183,6 +183,8 @@ function submitUserSource(){
 	applyNewSource(sourcelist.length, newSource, true);
 	updateSortSource();
 	sourcelist.push(newSource);
+	addSource(sourcelist.length-1);
+	$("#names-list").animate({scrollTop: 0}, 1000);
 }
 
 function arrayParseFloat(array){
@@ -203,6 +205,64 @@ function buildSourceObj(){
 		info: $('#userDesc').val()
 	};
 	return result;
+}
+
+function addSource(sourceIdx){
+	// Activate second card step
+	if($("#stepChange2").hasClass("disabled")){
+		$("#stepChange2").fadeIn(500).fadeOut(500).fadeIn(500).fadeOut(500).fadeIn(500);
+		$("#stepChange2").removeClass("disabled");
+		$("#continue-to-calculations-button").removeClass('d-none');
+		$("#continue-to-calculations-button").fadeIn(500).fadeOut(500).fadeIn(500).fadeOut(500).fadeIn(500);
+	}
+
+	// Remove selected sources empty table text
+	$('.no-sources').addClass('d-none');
+
+	// Create selected source object
+	sourcelist[sourceIdx].isSelected = true;
+
+
+	// Add source to selected sources list
+	var tr = '';
+	tr += '<tr id="SelectedSource_'+sourceIdx+'">';
+	tr += 		'<td class="text-center align-middle">';
+	tr +=			'<i class="selected-source fas fa-chart-area fa-lg" data-i="'+sourceIdx+'"></i>'
+	tr +=		'</td>';
+	tr += 		'<td>';
+	tr += 			'<p class="mb-0 mt-1" data-i="'+sourceIdx+'">'+sourcelist[sourceIdx].id+'</p>';
+	tr += 		'</td>';
+	tr += 		'<td>';
+	tr += 			'<input id="ssIll_'+sourceIdx+'" class="form-control ssIll" placeholder="'+sourcelist[sourceIdx].selectedSource.illuminance+'">';
+	tr += 		'</td>';
+	tr +=		'<td class="text-center align-middle">';
+	tr +=			'<i class="removeSource far fa-trash-alt fa-lg" data-i="'+sourceIdx+'">';
+	tr +=		'</td>';
+	tr +=	'</tr>';
+	$("#selected-sources").append(tr);
+
+	var tr = '';
+	tr += '<tr id="SelectedSource_'+sourceIdx+'_">';
+	tr += 		'<td class="text-center align-middle">';
+	tr +=			'<i class="selected-source fas fa-chart-area fa-lg" data-i="'+sourceIdx+'"></i>'
+	tr +=		'</td>';
+	tr += 		'<td>';
+	tr += 			'<p class="mb-0 mt-1" data-i="'+sourceIdx+'">'+sourcelist[sourceIdx].id+'</p>';
+	tr += 		'</td>';
+	tr +=		'<td class="text-center align-middle">';
+	tr +=			'<i class="removeSource  far fa-trash-alt fa-lg" data-i="'+sourceIdx+'">';
+	tr +=		'</td>';
+	tr +=	'</tr>';
+	$("#selected-sources_").append(tr);
+
+	// Disable sourcelist button
+	$("#source_"+sourceIdx).addClass('disabled');
+	$("#source_"+sourceIdx).prop('disabled',true);
+	updateResults();
+
+	// Update chart dataset array
+	addSourceDataset(sourcelist[sourceIdx]);
+	jpButtonToggle();
 }
 
 function handlePlotBtns(){
@@ -399,6 +459,14 @@ $(document).ready(function(){
 		validateSubmit();
 	});
 
+	$('#userSPDValues').on('input', function(){
+		validateSubmit();
+	});
+
+	$('#userSPDWavelengths').on('input', function(){
+		validateSubmit();
+	})
+
 	$('.userEnter').on('keydown', function(e){
 		//Trigger change on enter
         if(e.keyCode == 13) {
@@ -440,6 +508,14 @@ $(document).ready(function(){
 		}
 		validateSubmit();
 	});
+
+	$("#continue-to-calculations-button").on('click', function(){
+		$('#stepChange2').trigger('click');
+	});
+
+	$("#custom-source").on('click', function(){
+   validateSubmit();
+});
 
 	handlePlotBtns();
 

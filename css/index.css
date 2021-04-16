@@ -19,6 +19,21 @@ body::-webkit-scrollbar {
   display: none;
 }
 
+h2 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: .25rem;
+  padding-bottom: .5rem;
+  padding-top: .5rem;
+  text-align: center;
+}
+
+#continue-to-calculations-button{
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
+}
+
 #content{
   height: 100%;
   min-height: 100%;
@@ -226,7 +241,16 @@ ul.list-group.list-group-hover li:hover{
   background: #eee;
 }
 
-.list-height {
+.names-list::-webkit-scrollbar {
+  display: none;
+}
+
+.names-list {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+.names-list {
     height: 20rem;
     max-height: 20rem;
     overflow-y: scroll;
@@ -234,11 +258,6 @@ ul.list-group.list-group-hover li:hover{
 
 .text-lrc{
   color: #221f72;
-}
-
-.list-group {
-    border: 1px solid #ccc;
-    border-radius: 10px;
 }
 
 .light-bg{
@@ -266,7 +285,7 @@ select {
   color: white;
 }
 
-.btn-lrc:focus {
+.btn-lrc.plot-btn:focus {
   outline: none;
   border-color: #d80b8c;
   box-shadow: none;

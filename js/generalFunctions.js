@@ -388,7 +388,7 @@ function updateResults(){
 	return;
 }
 
-function applyNewSource(i, el){
+function applyNewSource(i, el, custom){
 	// Expand the source object
 	el.isSelected = false;
 	var valueInt = interp1(el.spd.wavelength, el.spd.value, setwavelength, 0);
@@ -399,15 +399,31 @@ function applyNewSource(i, el){
 		absoluteSPD: arrayScalar(setwavelength,0)
 	};
 
-	// Create Source list button
-	var li = '<li id="source_'+i+'" class="list-group-item text-center source-item" data-i="'+i+'">'+el.id+'</li>';
-
-	//Append arrays
-	$("#names-list").append(li);
-
 	if(manUnique.indexOf(el.manufacturer) == -1) manUnique.push(el.manufacturer);
 	if(lampUnique.indexOf(el.lamp) == -1) lampUnique.push(el.lamp);
 	if(cctUnique.indexOf(el.cct) == -1) cctUnique.push(el.cct);
+
+	// Create Source list button
+	var li = '<li id="source_'+i+'" class="list-group-item text-center source-item" data-i="'+i+'">'+el.id+'</li>';
+
+	if(custom){
+		$("#names-list").prepend(li);
+
+		$('.source-item:first-child').on('click',function(){
+			var i = $(this).attr('data-i');
+			sourceListModal(i);
+		});
+	}else{
+		$("#names-list").append(li);
+
+		$('.source-item:last-child').on('click',function(){
+			var i = $(this).attr('data-i');
+			sourceListModal(i);
+		});
+	}
+
+	//Append arrays
+
 }
 
 function updateSortSource(){
@@ -1343,14 +1359,16 @@ $(document).ready(function(){
   ]
 
 	$(sourcelist).each(function(i, el){
-		applyNewSource(i, el);
+		applyNewSource(i, el, false);
 	});
 	updateSortSource();
 
-	$('.source-item').on('click',function(){
-		var i = $(this).attr('data-i');
-		sourceListModal(i);
-	});
+	// $('.source-item').on('click',function(){
+	// 	console.log('i');
+
+	// 	var i = $(this).attr('data-i');
+	// 	sourceListModal(i);
+	// });
 
 	$('.sortSource').change( function () {
 		for(var i = 0; i < sourcelist.length; i++){
@@ -1459,62 +1477,9 @@ $(document).ready(function(){
 
 	$('.addSource').on('click',function(){
 
-		// Activate second card step
-		if($("#stepChange2").hasClass("disabled")){
-			$("#stepChange2").fadeIn(500).fadeOut(500).fadeIn(500).fadeOut(500).fadeIn(500);
-			$("#stepChange2").removeClass("disabled");
-		}
-
-		// Remove selected sources empty table text
-		$('.no-sources').addClass('d-none');
-
-		//Get Source data
+					//Get Source data
 		var sourceIdx = $(this).attr('data-i');
-
-		// Create selected source object
-		sourcelist[sourceIdx].isSelected = true;
-
-
-		// Add source to selected sources list
-		var tr = '';
-		tr += '<tr id="SelectedSource_'+sourceIdx+'">';
-		tr += 		'<td class="text-center align-middle">';
-		tr +=			'<i class="selected-source fas fa-chart-area fa-lg" data-i="'+sourceIdx+'"></i>'
-		tr +=		'</td>';
-		tr += 		'<td>';
-		tr += 			'<p class="mb-0 mt-1" data-i="'+sourceIdx+'">'+sourcelist[sourceIdx].id+'</p>';
-		tr += 		'</td>';
-		tr += 		'<td>';
-		tr += 			'<input id="ssIll_'+sourceIdx+'" class="form-control ssIll" placeholder="'+sourcelist[sourceIdx].selectedSource.illuminance+'">';
-		tr += 		'</td>';
-		tr +=		'<td class="text-center align-middle">';
-		tr +=			'<i class="removeSource far fa-trash-alt fa-lg" data-i="'+sourceIdx+'">';
-		tr +=		'</td>';
-		tr +=	'</tr>';
-		$("#selected-sources").append(tr);
-
-		var tr = '';
-		tr += '<tr id="SelectedSource_'+sourceIdx+'_">';
-		tr += 		'<td class="text-center align-middle">';
-		tr +=			'<i class="selected-source fas fa-chart-area fa-lg" data-i="'+sourceIdx+'"></i>'
-		tr +=		'</td>';
-		tr += 		'<td>';
-		tr += 			'<p class="mb-0 mt-1" data-i="'+sourceIdx+'">'+sourcelist[sourceIdx].id+'</p>';
-		tr += 		'</td>';
-		tr +=		'<td class="text-center align-middle">';
-		tr +=			'<i class="removeSource  far fa-trash-alt fa-lg" data-i="'+sourceIdx+'">';
-		tr +=		'</td>';
-		tr +=	'</tr>';
-		$("#selected-sources_").append(tr);
-
-		// Disable sourcelist button
-		$("#source_"+sourceIdx).addClass('disabled');
-		$("#source_"+sourceIdx).prop('disabled',true);
-		updateResults();
-
-		// Update chart dataset array
-		addSourceDataset(sourcelist[sourceIdx]);
-		jpButtonToggle();
+		addSource(sourceIdx);
 	});
 
 	$(document).on('click', '.selected-source', function(){

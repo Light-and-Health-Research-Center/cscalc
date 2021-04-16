@@ -11,6 +11,10 @@
   top: 0;
 }
 
+.cursor-hover:hover{
+  cursor: pointer;
+}
+
 .dropdown-item{
   color: #ddd !important;
   font-family: "Source Sans Pro", sans-serif;

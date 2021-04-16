@@ -407,7 +407,7 @@
                 <div class="col-md-6">
                   <div id="stepChange2" class="step-title-container disabled">
                     <h2 class="step-title mb-0">
-                      Results
+                      Calculations
                     </h2>
                   </div>
                 </div>
@@ -419,52 +419,68 @@
                 <div class="row">
 
                   <div class="col-xl-6">
+
                     <div class="row mb-4">
                       <div class="col">
-                        <div class="input-group mb-3">
-                          <div class="input-group-prepend mw-175 text-center">
-                            <label class="input-group-text mw-175 text-center" for="manufacterer"><b>Manufacturer:</b></label>
+                        <div class="card">
+                          <div class="card-header cursor-hover">
+                            <h2 class="text-center" data-toggle="collapse" href="#filters" aria-expanded="false" aria-controls="filters"><i class="fas fa-filter"></i> Source List Filters</h2>
                           </div>
-                          <select class="custom-select sortSource" id="manufacterer">
-                            <option selected>Any</option>
-                          </select>
-                        </div>
-                        <div class="input-group mb-3">
-                          <div class="input-group-prepend mw-175">
-                            <label class="input-group-text mw-175" for="cct"><b>CCT:</b></label>
-                          </div>
-                          <select class="custom-select sortSource" id="cct">
-                            <option selected>Any</option>
-                          </select>
-                        </div>
-                        <div class="input-group mb-3">
-                          <div class="input-group-prepend mw-175">
-                            <label class="input-group-text mw-175" for="lamp"><b>Lamp:</b></label>
-                          </div>
-                          <select class="custom-select sortSource" id="lamp">
-                            <option selected>Any</option>
-                          </select>
-                        </div>
-                        <div class="input-group mb-3">
-                          <div class="input-group-prepend mw-175">
-                            <span class="input-group-text mw-175" id="keyword"><b>Keyword:</b></span>
-                          </div>
-                          <input id="searchSource" type="text" class="form-control sortSource" aria-label="Default" aria-describedby="keyword" placeholder="Search">
-                        </div>
-                        <div class="form-group">
-                          <div class="input-group">
-                            <button class="w-100 btn btn-lrc text-center" id="reset" type="button">Reset Filters</button>
+                          <div class="collapse" id="filters">
+                            <div class="card-body">
+                              <div class="input-group mb-3">
+                                <div class="input-group-prepend mw-175 text-center">
+                                  <label class="input-group-text mw-175 text-center" for="manufacterer"><b>Manufacturer:</b></label>
+                                </div>
+                                <select class="custom-select sortSource" id="manufacterer">
+                                  <option selected>Any</option>
+                                </select>
+                              </div>
+                              <div class="input-group mb-3">
+                                <div class="input-group-prepend mw-175">
+                                  <label class="input-group-text mw-175" for="cct"><b>CCT:</b></label>
+                                </div>
+                                <select class="custom-select sortSource" id="cct">
+                                  <option selected>Any</option>
+                                </select>
+                              </div>
+                              <div class="input-group mb-3">
+                                <div class="input-group-prepend mw-175">
+                                  <label class="input-group-text mw-175" for="lamp"><b>Lamp:</b></label>
+                                </div>
+                                <select class="custom-select sortSource" id="lamp">
+                                  <option selected>Any</option>
+                                </select>
+                              </div>
+                              <div class="input-group mb-3">
+                                <div class="input-group-prepend mw-175">
+                                  <span class="input-group-text mw-175" id="keyword"><b>Keyword:</b></span>
+                                </div>
+                                <input id="searchSource" type="text" class="form-control sortSource" aria-label="Default" aria-describedby="keyword" placeholder="Search">
+                              </div>
+                              <div class="input-group">
+                                <button class="w-100 btn btn-lrc text-center" id="reset" type="button">Reset Filters</button>
+                              </div>
+                            </div>
                           </div>
                         </div>
                       </div>
                     </div>
-                    <div class="row mb-4">
+
+                    <div class="row">
                       <div class="col">
-                        <ul id="names-list" class="list-group list-group-hover list-height mb-2">
-                        </ul>
+                        <div class="card mb-2">
+                          <div class="card-header text-center">
+                            <h2> Source List</h2>
+                          </div>
+                          <ul id="names-list" class="list-group list-group-flush list-group-hover names-list mb-2">
+                          </ul>
+                        </div>
+
                         <button class="w-100 btn btn-lrc text-center" id="custom-source" type="button" data-toggle="modal" data-target="#custom-source-modal">Add Custom Source</button>
                       </div>
                     </div>
+                    
                   </div>
 
                   <div class="col-xl-6">
@@ -484,8 +500,13 @@
                           </tbody>
                         </table>
                       </div>
+                      <button id="continue-to-calculations-button" class="btn btn-success text-center d-none" type="button">Continue to Calculations <i class="fas fa-sign-in-alt"></i></button>
                     </div>
+                    
                   </div>
+
+                  
+                  
                 </div>
               </div>
             </div>
@@ -726,7 +747,7 @@
                     </div>
                     <div class="row">
                       <div class="col text-center">
-                        <button id="resultsDownload" class="btn btn-green">Download Results as JSON</button>
+                        <button id="resultsDownload" class="btn btn-green">Download Calculations as JSON <i class="fas fa-download"></i></button>
                         <a id="jsondownload" class="hidden"></a>
                       </div>
                     </div>
