@@ -1363,13 +1363,6 @@ $(document).ready(function(){
 	});
 	updateSortSource();
 
-	// $('.source-item').on('click',function(){
-	// 	console.log('i');
-
-	// 	var i = $(this).attr('data-i');
-	// 	sourceListModal(i);
-	// });
-
 	$('.sortSource').change( function () {
 		for(var i = 0; i < sourcelist.length; i++){
 			$("#source_"+i).hide();
@@ -1548,27 +1541,12 @@ $(document).ready(function(){
 		jpButtonToggle();
 	});
 
-	$(document).on('keydown','.ssIll',function(e){
-		// Allow: backspace, delete, tab, escape, enter and .
-		if(!(e.keyCode == 8 || e.keyCode == 46 || e.keyCode == 37 || e.keyCode == 39)){
-			var tester = this;
-			var testString = (this.value).slice(0,this.selectionStart).concat(e.key).concat(this.value.slice(this.selectionEnd,this.value.length));
-
-
-			if(!(/^\d*\.?(\d{1,2})?$/.test(testString))){ //(!((e.keyCode > 95 && e.keyCode < 106) || (e.keyCode > 47 && e.keyCode < 58) || e.keyCode == 8 || e.keyCode == 110 || e.keyCode == 190 || e.keyCode == 46)) {
-				return false;
-			}
-		}
-	});
-
-	$(document).on('keydown','.ssIll',function(e){
-		// Trigger change on enter
-		if(e.keyCode == 13) {
-			$('.ssIll').trigger('change');
-		}
+	$(document).on('input','.ssIll', function(){
+		$('.ssIll').trigger('change');
 	});
 
 	$(document).on('change','.ssIll',function(){
+		console.log('no');
 		var sourceIdx = this.id.split("_")[1];
 		if(this.value == ''){
 			this.value = '0';
