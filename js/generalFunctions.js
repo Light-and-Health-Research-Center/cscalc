@@ -1538,7 +1538,6 @@ $(document).ready(function(){
 		$("#source_"+sourceIdx).prop('disabled',false);
 		updateResults();
 		removeSourceDataset(sourcelist[sourceIdx]);
-		jpButtonToggle();
 	});
 
 	$(document).on('input','.ssIll', function(){
@@ -1546,7 +1545,6 @@ $(document).ready(function(){
 	});
 
 	$(document).on('change','.ssIll',function(){
-		console.log('no');
 		var sourceIdx = this.id.split("_")[1];
 		if(this.value == ''){
 			this.value = '0';
@@ -1627,15 +1625,6 @@ $(document).ready(function(){
 		_p = Number(this.value);
 		updateResults();
 	});
-
-	function isTextSelected(input) {
-		if (typeof input.selectionStart == "number") {
-			return input.selectionStart == 0 && input.selectionEnd == input.value.length;
-		} else if (typeof document.selection != "undefined") {
-			input.focus();
-			return document.selection.createRange().text == input.value;
-		}
-	}
 
 	$('#helpMaster').on('click',function(){
 		var test = $('#helpBadge').html();

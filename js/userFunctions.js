@@ -262,7 +262,6 @@ function addSource(sourceIdx){
 
 	// Update chart dataset array
 	addSourceDataset(sourcelist[sourceIdx]);
-	jpButtonToggle();
 }
 
 function handlePlotBtns(){
@@ -323,8 +322,9 @@ function createResultsJSON(){
 	//Sources
 	str += '\t\t"sources" : {\n';
 	$("#selected-sources").each(function(){
-		$(this).find('tr').each(function(){
-			var id = $(this).find('td:nth-of-type(1) p').html();
+		$(this).find('tr[id]').each(function(){
+			console.log($(this));
+			var id = $(this).find('td:nth-of-type(2) p').html();
 			str += '\t\t\t"' + id + '" : {\n';
 			str += '\t\t\t\t"info" : {\n'
 			for (var i = 0; i<sourcelist.length; i++){
@@ -341,7 +341,7 @@ function createResultsJSON(){
 				}
 			}
 			str += '\t\t\t\t},\n';
-			str += '\t\t\t\t"lux" : "' + $(this).find('td:nth-of-type(2) input').val() + '"\n';
+			str += '\t\t\t\t"lux" : "' + $(this).find('td:nth-of-type(3) input').val() + '"\n';
 			if ($(this)[0] == ($("#selected-sources").find('tr:last-child'))[0]){
 				str += '\t\t\t}\n';
 			}else{

@@ -74,6 +74,10 @@ h2 {
   width: 10%;
 }
 
+.card-footer{
+  font-size: 1rem;
+}
+
 
 .drop-shadow {
   -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.18), 0 1px 2px rgba(0, 0, 0, 0.24);
@@ -82,10 +86,9 @@ h2 {
 }
 
 .help-menu-list{
-  height: calc(90vh - 2px);
+  height: 100%;
   list-style: none;
   margin: 0;
-  max-height: calc(90vh - 2px);
   padding: 0;
 }
 
@@ -96,10 +99,13 @@ h2 {
   border-right: 1px solid rgb(0,0,0);
   border-right: 1px solid rgba(0,0,0,.125);
   box-sizing: border-box;
-  height: 33.3%;
-  max-height: 33.3%;
+  height: 50%;
   padding: 0;
   width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
 }
 
 .help-menu-list-item:first-child{
@@ -120,12 +126,6 @@ h2 {
   border-right: 1px solid rgb(255,255,255);
 }
 
-.help-menu-list-title{
-  margin: 0;
-  padding: 45% 0;
-  text-align: center;
-}
-
 .help-menu-list-title:hover{
   cursor: pointer;
 }
@@ -133,6 +133,10 @@ h2 {
 .help-menu-p{
   font-family: 'Source Sans Pro', sans-serif;
   font-size: 1.3rem;
+}
+
+.w-45{
+  width: 45%;
 }
 
 .w-55{
@@ -145,11 +149,6 @@ h2 {
 
 .w-85{
   width: 85%;
-}
-
-.help-menu-content{
-  height: 90vh;
-  max-height: 90vh;
 }
 
 .rounded{
@@ -273,6 +272,11 @@ select:-moz-focusring {
 
 select {
     background: transparent;
+}
+
+.help-button{
+  padding: 0rem 0.5rem 0.15rem 0.5rem;
+  float: right;
 }
 
 .btn-lrc{
