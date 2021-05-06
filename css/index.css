@@ -275,8 +275,13 @@ select {
 }
 
 .help-button{
-  padding: 0rem 0.5rem 0.15rem 0.5rem;
+  padding: 0;
+  color: #221f72;
   float: right;
+}
+
+.help-button:hover{
+  color: #d80b8c;
 }
 
 .btn-lrc{
