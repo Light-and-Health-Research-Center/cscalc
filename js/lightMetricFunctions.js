@@ -788,4 +788,3 @@ function ansi_duv(spd){
 	var Duv = Lfp - Lbb;
 	return Duv;
 }
-
