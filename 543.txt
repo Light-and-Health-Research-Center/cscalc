@@ -1,3 +1,0 @@
-add sources
-add duration of exposure (hrs) distribution scalar help text
-make it mount sinai
