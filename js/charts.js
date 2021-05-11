@@ -2,6 +2,10 @@ var configSourceSPD, sourceSPDChart, spectralEfficiencyFunctionDataset, configSP
 
 $(document).ready(function(){
 	// Source SPD
+	Chart.defaults.global.defaultFontSize = 20;
+	Chart.defaults.global.defaultFontColor = 'black';
+	Chart.defaults.global.defaultFontFamily = 'Source Sans Pro';
+
 	var ctxSourceSPD = document.getElementById("source-spd").getContext("2d");
 	configSourceSPD = {
 		type: 'scatter',
@@ -14,10 +18,9 @@ $(document).ready(function(){
 			responsive: true,
 			spanGaps: true,
 			legend: {
-				display: false,
+				display: false
 			},
 			tooltips: {
-				bodyFontStyle: 'bold',
       	callbacks: {
 					label: function(tooltipItem, data) {
 						var label = data.datasets[tooltipItem.datasetIndex].label;
@@ -26,32 +29,30 @@ $(document).ready(function(){
          }
        },
 			scales: {
-			yAxes: [{
-				id: 'y-axis-1',
-				position: 'left',
-				ticks: {
-					min: -0.4,
-					max: 1
-				},
-				scaleLabel: {
-					display: true,
-					labelString: 'Relative Spectral Power (%)',
-					padding: 0,
-				}
-			}],
-			xAxes: [{
-				ticks: {
-					autoSkip: true,
-					min: 350,
-					max: 750,
-					stepSize: 25,
-				},
-				scaleLabel: {
-					display: true,
-					labelString: 'Wavelength (nm)',
-					padding: 0,
-				}
-			}]
+				yAxes: [{
+					id: 'y-axis-1',
+					position: 'left',
+					ticks: {
+						min: 0,
+						max: 1
+					},
+					scaleLabel: {
+						display: true,
+						labelString: 'Relative Spectral Power (%)'
+					}
+				}],
+				xAxes: [{
+					ticks: {
+						autoSkip: true,
+						min: 350,
+						max: 750,
+						stepSize: 25,
+					},
+					scaleLabel: {
+						display: true,
+						labelString: 'Wavelength (nm)'
+					}
+				}]
 		},
 			elements: {
 				point: {
@@ -132,7 +133,6 @@ $(document).ready(function(){
 				display: false,
 			},
 			tooltips: {
-				bodyFontStyle: 'bold',
       	callbacks: {
 					label: function(tooltipItem, data) {
 						var label = data.datasets[tooltipItem.datasetIndex].label;
@@ -141,51 +141,50 @@ $(document).ready(function(){
          }
        },
 			scales: {
-			yAxes: [{
-				id: 'y-axis-1',
-				position: 'left',
-				ticks: {
-					min: -0.4,
-					max: 1
+				yAxes: [{
+					id: 'y-axis-1',
+					position: 'left',
+					ticks: {
+						min: -0.4,
+						max: 1
+					},
+					scaleLabel: {
+						display: true,
+						labelString: 'Relative Spectral Power (%)'
+					}
 				},
-				scaleLabel: {
-					display: true,
-					labelString: 'Relative Spectral Power (%)',
-					padding: 0,
-				}
-			},{
-				id: 'y-axis-2',
-				position: 'right',
-				ticks: {
-					min: -0.4,
-					max: 1
-				},
-				scaleLabel: {
-					display: true,
-					labelString: 'Relative Spectral Contribution of Circadian Response*',
-					padding: 0,
-				}
-			}],
-			xAxes: [{
-				ticks: {
-					autoSkip: true,
-					min: 350,
-					max: 750,
-					stepSize: 25,
-				},
-				scaleLabel: {
-					display: true,
-					labelString: 'Wavelength (nm)',
-					padding: 0,
-				}
-			}]
+				{
+					display: false,
+					id: 'y-axis-2',
+					position: 'right',
+					ticks: {
+						min: -0.4,
+						max: 1
+					},
+					scaleLabel: {
+						display: false,
+						labelString: 'Relative Spectral Contribution of Circadian Response*',
+					}
+				}],
+				xAxes: [{
+					ticks: {
+						autoSkip: true,
+						min: 350,
+						max: 750,
+						stepSize: 25,
+					},
+					scaleLabel: {
+						display: true,
+						labelString: 'Wavelength (nm)',
+					}
+				}]
 		},
 			elements: {
 				point: {
 					radius: 0,
 					hitRadius: 5,
 				}
-			},
+			}
 		}
 	};
 	spdChart = new Chart(ctxSPD,configSPD);
