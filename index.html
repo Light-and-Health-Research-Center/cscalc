@@ -2,11 +2,19 @@
 <html lang="en" class="h-100">
   <head>
     <title>CS Calculator</title>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="device-width, initial-scale=1" />
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
     <script src="https://unpkg.com/mathjs/lib/browser/math.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
@@ -19,20 +27,40 @@
     <script src="js/lightMetricFunctions.js"></script>
     <script src="js/spectralEfficiency.js"></script>
     <script src="js/userFunctions.js"></script>
-    <link rel="stylesheet" href="css/index.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700&display=swap">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Oswald:200,300,400,500,600,700&display=swap">
+    <link rel="stylesheet" href="css/index.css" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Oswald:200,300,400,500,600,700&display=swap"
+    />
     <link rel="stylesheet" href="css/nav.css" />
     <link rel="stylesheet" href="css/animation.css" />
   </head>
   <body>
-
-    <div class="modal" id="SPDModal" tabindex="-1" role="dialog" aria-labelledby="SPDModal-label" aria-hidden="true">
+    <div
+      class="modal"
+      id="SPDModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="SPDModal-label"
+      aria-hidden="true"
+    >
       <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="SPDModal-label"><span id="SPDModalTitleWord">Relative</span> Spectral Power Distribution</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <h5 class="modal-title" id="SPDModal-label">
+              <span id="SPDModalTitleWord">Relative</span> Spectral Power
+              Distribution
+            </h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
@@ -40,13 +68,28 @@
             <div class="container-fluid">
               <div class="row mb-4">
                 <div class="col text-center">
-                  <button id="RelSpdBtn" type="button" class="spd-button btn btn-lrc w-30 mr-2 active">Relative</button>
-                  <button id="AbsSpdBtn" type="button" class="spd-button btn btn-lrc w-30 ml-2">Absolute</button>
+                  <button
+                    id="RelSpdBtn"
+                    type="button"
+                    class="spd-button btn btn-lrc w-30 mr-2 active"
+                  >
+                    Relative
+                  </button>
+                  <button
+                    id="AbsSpdBtn"
+                    type="button"
+                    class="spd-button btn btn-lrc w-30 ml-2"
+                  >
+                    Absolute
+                  </button>
                 </div>
               </div>
               <div id="SPDTableRow" class="row mb-4">
                 <div class="col">
-                  <table id="RelSpdTableContainer" class="spd-container table table-striped">
+                  <table
+                    id="RelSpdTableContainer"
+                    class="spd-container table table-striped"
+                  >
                     <thead class="thead-dark">
                       <tr>
                         <th class="w-50">Wavelength (nm)</th>
@@ -55,7 +98,10 @@
                     </thead>
                     <tbody id="RelSpdTable"></tbody>
                   </table>
-                  <table id="AbsSpdTableContainer" class="spd-container table table-striped d-none">
+                  <table
+                    id="AbsSpdTableContainer"
+                    class="spd-container table table-striped d-none"
+                  >
                     <thead class="thead-dark">
                       <tr>
                         <th class="w-50">Wavelength (nm)</th>
@@ -69,28 +115,45 @@
             </div>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-lrc" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-lrc" data-dismiss="modal">
+              Close
+            </button>
           </div>
         </div>
       </div>
     </div>
 
-    <div class="modal fade" id="helpModal" tabindex="-1" role="dialog" aria-labelledby="helpModal-label" aria-hidden="true">
+    <div
+      class="modal fade"
+      id="helpModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="helpModal-label"
+      aria-hidden="true"
+    >
       <div class="modal-dialog modal-xl">
         <div class="modal-content help-menu-content">
           <div class="container-fluid px-0 m-0">
             <div class="row">
               <div class="col-md-3">
                 <ul class="help-menu-list">
-                  <li data-value="sources" class="help-menu-list-item active"><h4 class="help-menu-list-title">Sources</h4></li>
-                  <li data-value="calculations" class="help-menu-list-item"><h4 class="help-menu-list-title">Caclulations</h4></li>
+                  <li data-value="sources" class="help-menu-list-item active">
+                    <h4 class="help-menu-list-title">Sources</h4>
+                  </li>
+                  <li data-value="calculations" class="help-menu-list-item">
+                    <h4 class="help-menu-list-title">Caclulations</h4>
+                  </li>
                 </ul>
               </div>
               <div class="col-md-9">
                 <div class="help-section" id="help-sources">
                   <div class="modal-header">
-                    <h4 class="modal-title" id="helpModal-label">Source Selection</h4>
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title" id="helpModal-label">
+                      Source Selection
+                    </h4>
+                    <button type="button" class="close" data-dismiss="modal">
+                      &times;
+                    </button>
                   </div>
                   <div class="modal-body help-body">
                     <h3 class="help-menu-header">Source List</h3>
@@ -101,103 +164,253 @@
                       be listed. Use the filtering tools to only display sources
                       with the selected metrics.
                     </p>
-                    <figure class="w-95 text-center mobile-figure"><img src="img/help/2.png" class="w-55 my-4 rounded drop-shadow" ></figure>
+                    <figure class="w-95 text-center mobile-figure">
+                      <img
+                        src="img/help/2.png"
+                        class="w-55 my-4 rounded drop-shadow"
+                      />
+                    </figure>
                     <h3 class="help-menu-header">Source List Filters</h3>
                     <p class="help-menu-p">
-                      Click the <b><i class="fas fa-filter"></i> Source List Filters</b> header to drop down possible source list filtering options. Select from the dropdown menus and/or use the keyword search bar to access the sources that are currently loaded in the calculator. Sources meeting the selected criteria will appear under the Sources heading. Press the <b>Reset Filters</b> button to clear any filters.
+                      Click the
+                      <b><i class="fas fa-filter"></i> Source List Filters</b>
+                      header to drop down possible source list filtering
+                      options. Select from the dropdown menus and/or use the
+                      keyword search bar to access the sources that are
+                      currently loaded in the calculator. Sources meeting the
+                      selected criteria will appear under the Sources heading.
+                      Press the <b>Reset Filters</b> button to clear any
+                      filters.
                     </p>
-                    <figure class="w-95 text-center mobile-figure"><img src="img/help/1.png" class="w-55 my-4 rounded drop-shadow" ></figure>
+                    <figure class="w-95 text-center mobile-figure">
+                      <img
+                        src="img/help/1.png"
+                        class="w-55 my-4 rounded drop-shadow"
+                      />
+                    </figure>
                     <h3 class="help-menu-header">Custom Source</h3>
                     <p class="help-menu-p">
-                      Click the <b>Add Custom Source</b> button to open up a modal which will allow you to add a custom source.
-                      Fill in the required fields and click the <b>Add to Sources List</b> button
-                      to see your custom source appear in the Sources list and in the Selected Sources table.
+                      Click the <b>Add Custom Source</b> button to open up a
+                      modal which will allow you to add a custom source. Fill in
+                      the required fields and click the
+                      <b>Add to Sources List</b> button to see your custom
+                      source appear in the Sources list and in the Selected
+                      Sources table.
                     </p>
-                    <figure class="w-95 text-center mobile-figure"><img src="img/help/3.png" class="w-65 my-4 rounded drop-shadow" ></figure>
+                    <figure class="w-95 text-center mobile-figure">
+                      <img
+                        src="img/help/3.png"
+                        class="w-65 my-4 rounded drop-shadow"
+                      />
+                    </figure>
                     <h3 class="help-menu-header">Selected Sources Table</h3>
                     <p class="help-menu-p">
-                      Once a source is added to the <b>Selected Sources Table</b> it will appear here. Click the graph icon to display information about that source. Click the trash icon to remove that source from the <b>Selected Sources Table</b>.
+                      Once a source is added to the
+                      <b>Selected Sources Table</b> it will appear here. Click
+                      the graph icon to display information about that source.
+                      Click the trash icon to remove that source from the
+                      <b>Selected Sources Table</b>.
                     </p>
-                    <figure class="w-95 text-center mobile-figure"><img src="img/help/4.png" class="w-65 my-4 rounded drop-shadow" ></figure>
+                    <figure class="w-95 text-center mobile-figure">
+                      <img
+                        src="img/help/4.png"
+                        class="w-65 my-4 rounded drop-shadow"
+                      />
+                    </figure>
                   </div>
                 </div>
                 <div class="help-section d-none" id="help-calculations">
                   <div class="modal-header">
                     <h4 class="modal-title">Results</h4>
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <button type="button" class="close" data-dismiss="modal">
+                      &times;
+                    </button>
                   </div>
                   <div class="modal-body help-body">
                     <h3 class="help-menu-header">Selected Sources Table</h3>
                     <p class="help-menu-p">
-                      This Selected Sources Table is a duplicate of the one in the Sources page, only this one will allow you to change the vertical illuminance of the source.
-                      Once a source is added to the <b>Selected Sources Table</b> it will appear here. Click the graph icon to display information about that source. Click the trash icon to remove that source from the <b>Selected Sources Table</b>. Click inside the <b>E<sub>V</sub> (lx)</b> input field to change the vertical illuminance.
+                      This Selected Sources Table is a duplicate of the one in
+                      the Sources page, only this one will allow you to change
+                      the vertical illuminance of the source. Once a source is
+                      added to the <b>Selected Sources Table</b> it will appear
+                      here. Click the graph icon to display information about
+                      that source. Click the trash icon to remove that source
+                      from the <b>Selected Sources Table</b>. Click inside the
+                      <b>E<sub>V</sub> (lx)</b> input field to change the
+                      vertical illuminance.
                     </p>
-                    <figure class="w-95 text-center mobile-figure"><img src="img/help/5.png" class="w-65 my-4 rounded drop-shadow" ></figure>
-                    <h3 class="help-menu-header">Miscellaneous Input Variables</h3>
+                    <figure class="w-95 text-center mobile-figure">
+                      <img
+                        src="img/help/5.png"
+                        class="w-65 my-4 rounded drop-shadow"
+                      />
+                    </figure>
+                    <h3 class="help-menu-header">
+                      Miscellaneous Input Variables
+                    </h3>
                     <p class="help-menu-p">
-                      Miscellaneous input variables are listed by name and current setting. All variables default to average values. Click on each variable for additional information and click on the value to change it.
+                      Miscellaneous input variables are listed by name and
+                      current setting. All variables default to average values.
+                      Click on each variable for additional information and
+                      click on the value to change it.
                     </p>
-                    <figure class="w-95 text-center mobile-figure"><img src="img/help/6.png" class="w-65 my-4 rounded drop-shadow" ></figure>
-                    <h3 class="help-menu-header">Combined Source Value Metrics</h3>
+                    <figure class="w-95 text-center mobile-figure">
+                      <img
+                        src="img/help/6.png"
+                        class="w-65 my-4 rounded drop-shadow"
+                      />
+                    </figure>
+                    <h3 class="help-menu-header">
+                      Combined Source Value Metrics
+                    </h3>
                     <p class="help-menu-p">
-                      This table shows the output measurements calculated for the
-                      selected sources and their corresponding value. The output
-                      measurements are shown on the left, and the values are shown
-                      on the right.
-                    </p>
-                    <p class="help-menu-p">
-                      <b>Circadian Stimulus (CS)</b> is the calculated effectiveness of the spectrally weighted irradiance at the cornea from threshold (CS = 0.1) to saturation (CS = 0.7), assuming a fixed duration of exposure of 1 hour.
-                    </p>
-                    <p class="help-menu-p">
-                      <b>Circadian Light (CL<sub>A</sub>)</b> is the irradiance at the cornea weighted to reflect the spectral sensitivity of the human circadian system as measured by acute melatonin suppression after a 1-hour exposure.
-                    </p>
-                    <p class="help-menu-p">
-                      <b>Illuminance (lx)</b> is the amount of light (luminous flux) incident on a surface area. Illuminance is measured in footcandles (lumens/square foot) or lux (lx, lumens/square meter). One footcandle equals 10.76 lx, although for convenience 10 lx commonly is used as the equivalent.
-                    </p>
-                    <p class="help-menu-p">
-                      <b>Irradiance (W·m-2)</b> is the irradiance of a surface per unit frequency or wavelength, depending on whether the spectrum is taken as a function of frequency or of wavelength. The two forms have different dimensions: spectral irradiance of a frequency spectrum is measured in watts per square metre per hertz (W·m−2·Hz−1), while spectral irradiance of a wavelength spectrum is measured in watts per square metre per metre (W·m−3), or more commonly watts per square metre per nanometre (W·m−2·nm−1).
-                    </p>
-                    <p class="help-menu-p">
-                      <b>Photon Flux (Photons·m-2·s-1)</b> is defined as the number of photons per second per unit area
-                    </p>
-                    <p class="help-menu-p">
-                      <b>Correlated Color Temperature (CCT, Tcp)</b> is a specification for white light sources used to describe the dominant color tone along the dimension from warm (yellows and reds) to cool (blue). Lamps with a CCT rating below 3200 K are usually considered warm sources, whereas those with a CCT above 4000 K usually considered cool in appearance. Temperatures in between are considered neutral in appearance. Technically, CCT extends the practice of using temperature, in kelvins (K), for specifying the spectrum of light sources other than blackbody radiators. Incandescent lamps and daylight closely approximate the spectra of black body radiators at different temperatures and can be designated by the corresponding temperature of a blackbody radiator. The spectra of fluorescent and LED sources, however, differ substantially from black body radiators yet they can have a color appearance similar to a blackbody radiator of a particular temperature as given by CCT.
-                    </p>
-                    <p class="help-menu-p">
-                      <b>D<sub>uv</sub></b> is a metric defined by American National Standard Institute (ANSI) that quantifies the distance between the chromaticity of a given light source and a blackbody radiator of equal CCT. A negative Duv indicates that the source is “below” the blackbody locus, having a purplish tint, whereas a positive Duv indicates that the source is “above” the blackbody locus, having a greenish tint.
-                    </p>
-                    <p class="help-menu-p">
-                      <b>Color Rendering Index (CRI)</b> is a rating index commonly used to represent how well a light source renders the colors of objects that it illuminates. For a CRI value of 100, the maximum value, the colors of objects can be expected to be seen as they would appear under an incandescent or daylight spectrum of the same correlated color temperature (CCT). Sources with CRI values less than 50 are generally regarded as rendering colors poorly, that is, colors may appear unnatural.
-                    </p>
-                    <p class="help-menu-p">
-                      <b>Gamut Area Index (GAI)</b> is a measure of color rendering based upon volume in color space. It is the range of colors achievable on a given color reproduction medium (or present in an image on that medium) under a given set of viewing conditions.
+                      This table shows the output measurements calculated for
+                      the selected sources and their corresponding value. The
+                      output measurements are shown on the left, and the values
+                      are shown on the right.
                     </p>
                     <p class="help-menu-p">
-                      <b>Chromaticity:</b> The dominant or complementary wavelength and purity aspects of the color taken together, or of the aspects specified by the chromaticity coordinates of the color taken together. It describes the properties of light related to hue and saturation, but not luminance (brightness).
+                      <b>Circadian Stimulus (CS)</b> is the calculated
+                      effectiveness of the spectrally weighted irradiance at the
+                      cornea from threshold (CS = 0.1) to saturation (CS = 0.7),
+                      assuming a fixed duration of exposure of 1 hour.
                     </p>
-                    <figure class="w-95 text-center mobile-figure"><img src="img/help/8.png" class="w-65 my-4 rounded drop-shadow" ></figure>
+                    <p class="help-menu-p">
+                      <b>Circadian Light (CL<sub>A</sub>)</b> is the irradiance
+                      at the cornea weighted to reflect the spectral sensitivity
+                      of the human circadian system as measured by acute
+                      melatonin suppression after a 1-hour exposure.
+                    </p>
+                    <p class="help-menu-p">
+                      <b>Illuminance (lx)</b> is the amount of light (luminous
+                      flux) incident on a surface area. Illuminance is measured
+                      in footcandles (lumens/square foot) or lux (lx,
+                      lumens/square meter). One footcandle equals 10.76 lx,
+                      although for convenience 10 lx commonly is used as the
+                      equivalent.
+                    </p>
+                    <p class="help-menu-p">
+                      <b>Irradiance (W·m-2)</b> is the irradiance of a surface
+                      per unit frequency or wavelength, depending on whether the
+                      spectrum is taken as a function of frequency or of
+                      wavelength. The two forms have different dimensions:
+                      spectral irradiance of a frequency spectrum is measured in
+                      watts per square metre per hertz (W·m−2·Hz−1), while
+                      spectral irradiance of a wavelength spectrum is measured
+                      in watts per square metre per metre (W·m−3), or more
+                      commonly watts per square metre per nanometre
+                      (W·m−2·nm−1).
+                    </p>
+                    <p class="help-menu-p">
+                      <b>Photon Flux (Photons·m-2·s-1)</b> is defined as the
+                      number of photons per second per unit area
+                    </p>
+                    <p class="help-menu-p">
+                      <b>Correlated Color Temperature (CCT, Tcp)</b> is a
+                      specification for white light sources used to describe the
+                      dominant color tone along the dimension from warm (yellows
+                      and reds) to cool (blue). Lamps with a CCT rating below
+                      3200 K are usually considered warm sources, whereas those
+                      with a CCT above 4000 K usually considered cool in
+                      appearance. Temperatures in between are considered neutral
+                      in appearance. Technically, CCT extends the practice of
+                      using temperature, in kelvins (K), for specifying the
+                      spectrum of light sources other than blackbody radiators.
+                      Incandescent lamps and daylight closely approximate the
+                      spectra of black body radiators at different temperatures
+                      and can be designated by the corresponding temperature of
+                      a blackbody radiator. The spectra of fluorescent and LED
+                      sources, however, differ substantially from black body
+                      radiators yet they can have a color appearance similar to
+                      a blackbody radiator of a particular temperature as given
+                      by CCT.
+                    </p>
+                    <p class="help-menu-p">
+                      <b>D<sub>uv</sub></b> is a metric defined by American
+                      National Standard Institute (ANSI) that quantifies the
+                      distance between the chromaticity of a given light source
+                      and a blackbody radiator of equal CCT. A negative Duv
+                      indicates that the source is “below” the blackbody locus,
+                      having a purplish tint, whereas a positive Duv indicates
+                      that the source is “above” the blackbody locus, having a
+                      greenish tint.
+                    </p>
+                    <p class="help-menu-p">
+                      <b>Color Rendering Index (CRI)</b> is a rating index
+                      commonly used to represent how well a light source renders
+                      the colors of objects that it illuminates. For a CRI value
+                      of 100, the maximum value, the colors of objects can be
+                      expected to be seen as they would appear under an
+                      incandescent or daylight spectrum of the same correlated
+                      color temperature (CCT). Sources with CRI values less than
+                      50 are generally regarded as rendering colors poorly, that
+                      is, colors may appear unnatural.
+                    </p>
+                    <p class="help-menu-p">
+                      <b>Gamut Area Index (GAI)</b> is a measure of color
+                      rendering based upon volume in color space. It is the
+                      range of colors achievable on a given color reproduction
+                      medium (or present in an image on that medium) under a
+                      given set of viewing conditions.
+                    </p>
+                    <p class="help-menu-p">
+                      <b>Chromaticity:</b> The dominant or complementary
+                      wavelength and purity aspects of the color taken together,
+                      or of the aspects specified by the chromaticity
+                      coordinates of the color taken together. It describes the
+                      properties of light related to hue and saturation, but not
+                      luminance (brightness).
+                    </p>
+                    <figure class="w-95 text-center mobile-figure">
+                      <img
+                        src="img/help/8.png"
+                        class="w-65 my-4 rounded drop-shadow"
+                      />
+                    </figure>
                     <h3 class="help-menu-header">Combined SPD Values</h3>
                     <p class="help-menu-p">
                       Click the <b>Combined SPD Values</b> button to view the
-                      specific values for the relative and absolute spectral power
-                      distributions.
+                      specific values for the relative and absolute spectral
+                      power distributions.
                     </p>
-                    <figure class="w-95 text-center mobile-figure"><img src="img/help/9.png" class="w-55 my-4 rounded drop-shadow" ></figure>
+                    <figure class="w-95 text-center mobile-figure">
+                      <img
+                        src="img/help/9.png"
+                        class="w-55 my-4 rounded drop-shadow"
+                      />
+                    </figure>
                     <h3 class="help-menu-header">Output Plots</h3>
                     <p class="help-menu-p">
-                      The output plots display information about the
-                      combined attributes of light sources that have been selected.
-                      Both the graphs and the associated legends will be modified
-                      automatically as new sources are added and illuminance values
-                      are adjusted. Click the buttons to toggle between the Spectral
-                      Power Distribution, Chromaticity, and Color Rendering Metrics plots.
+                      The output plots display information about the combined
+                      attributes of light sources that have been selected. Both
+                      the graphs and the associated legends will be modified
+                      automatically as new sources are added and illuminance
+                      values are adjusted. Click the buttons to toggle between
+                      the Spectral Power Distribution, Chromaticity, and Color
+                      Rendering Metrics plots.
                     </p>
-                    <figure class="w-95 text-center mobile-figure"><img src="img/help/10.png" class="w-85 my-4 rounded drop-shadow" ></figure>
+                    <figure class="w-95 text-center mobile-figure">
+                      <img
+                        src="img/help/10.png"
+                        class="w-85 my-4 rounded drop-shadow"
+                      />
+                    </figure>
                     <h3 class="help-menu-header">Download Calculations</h3>
                     <p class="help-menu-p">
-                      Click the <b>Download Calculations as JSON <i class="fas fa-download"></i></b> button to download information about your current calculation.
+                      Click the
+                      <b
+                        >Download Calculations as JSON
+                        <i class="fas fa-download"></i
+                      ></b>
+                      button to download information about your current
+                      calculation.
                     </p>
-                    <figure class="w-95 text-center mobile-figure"><img src="img/help/11.png" class="w-45 my-4 rounded drop-shadow" ></figure>
+                    <figure class="w-95 text-center mobile-figure">
+                      <img
+                        src="img/help/11.png"
+                        class="w-45 my-4 rounded drop-shadow"
+                      />
+                    </figure>
                   </div>
                 </div>
               </div>
@@ -207,46 +420,128 @@
       </div>
     </div>
 
-    <div class="modal" id="mpod-modal" tabindex="-1" role="dialog" aria-labelledby="mpod-modal-label" aria-hidden="true">
+    <div
+      class="modal"
+      id="mpod-modal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="mpod-modal-label"
+      aria-hidden="true"
+    >
       <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="mpod-modal-label">Macular Pigment Optical Density</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <h5 class="modal-title" id="mpod-modal-label">
+              Macular Pigment Optical Density
+            </h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
           <div class="modal-body">
-            <p>The human retina is not a uniform neural tissue. The highest density of cone photoreceptors in the retina is in the foveal pit, which is used for such visual tasks a reading, threading needles, and identification of distant objects. The macula is a circular region of the retina that extends radially from the fovea with a much higher density of cones than the peripheral retina which is dominated by rods. Most of the visual cortex is devoted to processing images focused in the macula. Therefore, for human conscious perception, the macula is particularly important.</p>
-            <p>Interlaced among the photoreceptors and the other retinal neurons in the macula is a yellow screening pigment, the macula lutea, that is believed to protect the retina from damage by short wavelengths. The spatial extent of this circular screening pigment is approximately 6-10<sup>o</sup> with the highest pigment density in the foveal region.  Since the macular pigment preferentially filters short wavelengths and since the most effective rays entering the eye are along the optical axis, the spectral sensitivity of the central retina will be influenced by the optical density of the macular pigment.</p>
-            <p>Importantly, individuals differ quite substantially in the optical density of their macular pigment. The optical density of the macular pigment for different people can range from 0.3 to 0.7; the original model by Rea et al. (2005) assumes a single optical density of 0.5 for all individuals. A new feature of the CS calculator enables users to change macular pigment density for 0.3 to 0.7 in steps of 0.05 to determine how individuals might differ in their effective CS for a given spectral power distribution. </p>
+            <p>
+              The human retina is not a uniform neural tissue. The highest
+              density of cone photoreceptors in the retina is in the foveal pit,
+              which is used for such visual tasks a reading, threading needles,
+              and identification of distant objects. The macula is a circular
+              region of the retina that extends radially from the fovea with a
+              much higher density of cones than the peripheral retina which is
+              dominated by rods. Most of the visual cortex is devoted to
+              processing images focused in the macula. Therefore, for human
+              conscious perception, the macula is particularly important.
+            </p>
+            <p>
+              Interlaced among the photoreceptors and the other retinal neurons
+              in the macula is a yellow screening pigment, the macula lutea,
+              that is believed to protect the retina from damage by short
+              wavelengths. The spatial extent of this circular screening pigment
+              is approximately 6-10<sup>o</sup> with the highest pigment density
+              in the foveal region. Since the macular pigment preferentially
+              filters short wavelengths and since the most effective rays
+              entering the eye are along the optical axis, the spectral
+              sensitivity of the central retina will be influenced by the
+              optical density of the macular pigment.
+            </p>
+            <p>
+              Importantly, individuals differ quite substantially in the optical
+              density of their macular pigment. The optical density of the
+              macular pigment for different people can range from 0.3 to 0.7;
+              the original model by Rea et al. (2005) assumes a single optical
+              density of 0.5 for all individuals. A new feature of the CS
+              calculator enables users to change macular pigment density for 0.3
+              to 0.7 in steps of 0.05 to determine how individuals might differ
+              in their effective CS for a given spectral power distribution.
+            </p>
           </div>
         </div>
       </div>
     </div>
 
-    <div class="modal" id="time-modal" tabindex="-1" role="dialog" aria-labelledby="time-modal-label" aria-hidden="true">
+    <div
+      class="modal"
+      id="time-modal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="time-modal-label"
+      aria-hidden="true"
+    >
       <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="time-modal-label">Duration of Exposure</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <h5 class="modal-title" id="time-modal-label">
+              Duration of Exposure
+            </h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
           <div class="modal-body">
-            <p>The functional relationship between melatonin suppression and the light spectrum and amount was extended by duration-dependent parameter to predict circadian stimulus / nocturnal melatonin suppression during the early biological night for exposure durations ranging between 0.5-h and 3.0-h. Recently published data using the duration factor suggest that ambient lighting commonly found in North American homes will not suppress melatonin for durations up to 3 h, whereas extended use of self-luminous displays in the home prior to sleep can.</p>
+            <p>
+              The functional relationship between melatonin suppression and the
+              light spectrum and amount was extended by duration-dependent
+              parameter to predict circadian stimulus / nocturnal melatonin
+              suppression during the early biological night for exposure
+              durations ranging between 0.5-h and 3.0-h. Recently published data
+              using the duration factor suggest that ambient lighting commonly
+              found in North American homes will not suppress melatonin for
+              durations up to 3 h, whereas extended use of self-luminous
+              displays in the home prior to sleep can.
+            </p>
           </div>
         </div>
       </div>
     </div>
 
-    <div class="modal" id="scalar-modal" tabindex="-1" role="dialog" aria-labelledby="scalar-modal-label" aria-hidden="true">
+    <div
+      class="modal"
+      id="scalar-modal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="scalar-modal-label"
+      aria-hidden="true"
+    >
       <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="scalar-modal-label">Distribution Scalar</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <h5 class="modal-title" id="scalar-modal-label">
+              Distribution Scalar
+            </h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
@@ -257,72 +552,142 @@
       </div>
     </div>
 
-    <div class="modal" id="attenuation-modal" tabindex="-1" role="dialog" aria-labelledby="attenuation-modal-label" aria-hidden="true">
+    <div
+      class="modal"
+      id="attenuation-modal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="attenuation-modal-label"
+      aria-hidden="true"
+    >
       <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="attenuation-modal-label">Attenuation Percent</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <h5 class="modal-title" id="attenuation-modal-label">
+              Attenuation Percent
+            </h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
           <div class="modal-body">
-            <p>The functional relationship between melatonin suppression and the light spectrum and amount was extended by distribution-dependent parameter to predict circadian stimulus / nocturnal melatonin suppression during the early biological night for three different types of light source spatial profiles - ganzfeld type light box (weighting = 2.0), narrow linear on-axis (weighting = 1.0), and indirect overhead (weighting = 0.5)</p>
+            <p>
+              The functional relationship between melatonin suppression and the
+              light spectrum and amount was extended by distribution-dependent
+              parameter to predict circadian stimulus / nocturnal melatonin
+              suppression during the early biological night for three different
+              types of light source spatial profiles - ganzfeld type light box
+              (weighting = 2.0), narrow linear on-axis (weighting = 1.0), and
+              indirect overhead (weighting = 0.5)
+            </p>
           </div>
         </div>
       </div>
     </div>
 
-    <div class="modal" id="custom-source-modal" tabindex="-1" role="dialog" aria-labelledby="custom-source-modal-label" aria-hidden="true">
+    <div
+      class="modal"
+      id="custom-source-modal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="custom-source-modal-label"
+      aria-hidden="true"
+    >
       <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="custom-source-modal-label">Add Custom Source</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <h5 class="modal-title" id="custom-source-modal-label">
+              Add Custom Source
+            </h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
           <div class="modal-body">
             <form>
-
               <!-- Input Source Name -->
               <div id="userIDFormGroup" class="input-group mb-3">
                 <div class="input-group-prepend mw-175">
-                  <label class="input-group-text mw-175" for="userID"><b class="m-auto">Source Name:</b></label>
+                  <label class="input-group-text mw-175" for="userID"
+                    ><b class="m-auto">Source Name:</b></label
+                  >
                 </div>
-                <input type="text" class="form-control userSortSource userEnter" id="userID" placeholder="Unique Source Name">
+                <input
+                  type="text"
+                  class="form-control userSortSource userEnter"
+                  id="userID"
+                  placeholder="Unique Source Name"
+                />
               </div>
 
               <!-- Input Manufacturer -->
               <div class="input-group mb-3">
                 <div class="input-group-prepend mw-175">
-                  <label class="input-group-text mw-175" for="userMan"><b class="m-auto">Manufacturer:</b></label>
+                  <label class="input-group-text mw-175" for="userMan"
+                    ><b class="m-auto">Manufacturer:</b></label
+                  >
                 </div>
-                <input type="text" class="form-control userSortSource userEnter" id="userMan" placeholder="(Optional)">
+                <input
+                  type="text"
+                  class="form-control userSortSource userEnter"
+                  id="userMan"
+                  placeholder="(Optional)"
+                />
               </div>
 
               <!-- Input CCT -->
               <div class="input-group mb-3">
                 <div class="input-group-prepend mw-175">
-                  <label class="input-group-text mw-175" for="userCCT"><b class="m-auto">CCT (K):</b></label>
+                  <label class="input-group-text mw-175" for="userCCT"
+                    ><b class="m-auto">CCT (K):</b></label
+                  >
                 </div>
-                <input type="text" class="form-control userSortSource userEnter" id="userCCT" placeholder="(Optional)">
+                <input
+                  type="text"
+                  class="form-control userSortSource userEnter"
+                  id="userCCT"
+                  placeholder="(Optional)"
+                />
               </div>
 
               <!-- Input Lamp Type -->
               <div class="input-group mb-3">
                 <div class="input-group-prepend mw-175">
-                  <label class="input-group-text mw-175" for="userLamp"><b class="m-auto">Lamp Type:</b></label>
+                  <label class="input-group-text mw-175" for="userLamp"
+                    ><b class="m-auto">Lamp Type:</b></label
+                  >
                 </div>
-                <input type="text" class="form-control userSortSource userEnter" id="userLamp" placeholder="(Optional)">
+                <input
+                  type="text"
+                  class="form-control userSortSource userEnter"
+                  id="userLamp"
+                  placeholder="(Optional)"
+                />
               </div>
 
               <!-- Input Desc -->
               <div class="input-group mb-3">
                 <div class="input-group-prepend mw-175">
-                  <label class="input-group-text mw-175" for="userDesc"><b class="m-auto">Description:</b></label>
+                  <label class="input-group-text mw-175" for="userDesc"
+                    ><b class="m-auto">Description:</b></label
+                  >
                 </div>
-                <textarea rows="3" class="form-control userSortSource userEnter" id="userDesc" Placeholder="(Optional)"></textarea>
+                <textarea
+                  rows="3"
+                  class="form-control userSortSource userEnter"
+                  id="userDesc"
+                  placeholder="(Optional)"
+                ></textarea>
               </div>
 
               <div class="text-center mb-3">
@@ -331,50 +696,102 @@
 
               <div class="row">
                 <div class="col-lg-6 col-md-12">
-
                   <!-- Input Wavelengths -->
                   <div id="userSPDFormWavelengths" class="input-group mb-3">
-                    <label class="input-group-text mw-175 w-100 top-label" for="userSPDWavelengths"><b class="m-auto">λ (nm):</b></label>
-                    <textarea class="form-control text-right w-100 bottom-input mw-175" rows="5" id="userSPDWavelengths" placeholder="380&#10;382&#10;384&#10;386&#10;388"></textarea>
+                    <label
+                      class="input-group-text mw-175 w-100 top-label"
+                      for="userSPDWavelengths"
+                      ><b class="m-auto">λ (nm):</b></label
+                    >
+                    <textarea
+                      class="form-control text-right w-100 bottom-input mw-175"
+                      rows="5"
+                      id="userSPDWavelengths"
+                      placeholder="380&#10;382&#10;384&#10;386&#10;388"
+                    ></textarea>
                   </div>
                 </div>
 
                 <div class="col-lg-6 col-md-12">
-
                   <!-- Input Values -->
                   <div id="userSPDFormValues" class="input-group mb-3">
-                    <label class="input-group-text mw-175 w-100 top-label" for="userSPDValues"><b class="m-auto">Values</b></label>
-                    <textarea class="form-control text-right w-100 bottom-input mw-175" rows="5" id="userSPDValues" placeholder="0.0020065&#10;0.0016818&#10;0.001013&#10;0.00054935&#10;0.00027727"></textarea>
+                    <label
+                      class="input-group-text mw-175 w-100 top-label"
+                      for="userSPDValues"
+                      ><b class="m-auto">Values</b></label
+                    >
+                    <textarea
+                      class="form-control text-right w-100 bottom-input mw-175"
+                      rows="5"
+                      id="userSPDValues"
+                      placeholder="0.0020065&#10;0.0016818&#10;0.001013&#10;0.00054935&#10;0.00027727"
+                    ></textarea>
                   </div>
-
                 </div>
               </div>
-                <button type="button" class="btn btn-lrc disabled w-100" data-dismiss="modal" aria-label="Close" id="userSourceSubmit" onclick=submitUserSource()>Add to Sources List</button>
+              <button
+                type="button"
+                class="btn btn-lrc disabled w-100"
+                data-dismiss="modal"
+                aria-label="Close"
+                id="userSourceSubmit"
+                onclick="submitUserSource()"
+              >
+                Add to Sources List
+              </button>
             </form>
           </div>
         </div>
       </div>
     </div>
 
-    <div class="modal" id="source-modal" tabindex="-1" role="dialog" aria-labelledby="source-modal-label" aria-hidden="true">
+    <div
+      class="modal"
+      id="source-modal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="source-modal-label"
+      aria-hidden="true"
+    >
       <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="source-modal-label"></h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
           <div class="modal-body">
-            <p class="m-0"><b>Lamp Type:</b><span class="pl-1" id="source-lamptype"></span></p>
-            <p class="m-0"><b>CCT:</b><span class="pl-1" id="source-cct"></span> K</p>
-            <p class="m-0"><b>Manufacturer:</b><span class="pl-1" id="source-manufacturer"></span></p>
-            <p class="m-0"><b>Description:</b><span class="pl-1" id="source-info"></span></p>
-            <p ><b>SPD:</b></p>
-            <canvas class="p-4" id="source-spd"></canvas>
+            <p class="m-0">
+              <b>Lamp Type:</b><span class="pl-1" id="source-lamptype"></span>
+            </p>
+            <p class="m-0">
+              <b>CCT:</b><span class="pl-1" id="source-cct"></span> K
+            </p>
+            <p class="m-0">
+              <b>Manufacturer:</b
+              ><span class="pl-1" id="source-manufacturer"></span>
+            </p>
+            <p class="m-0">
+              <b>Description:</b><span class="pl-1" id="source-info"></span>
+            </p>
+            <p><b>SPD:</b></p>
+            <canvas class="source-spd" id="source-spd"></canvas>
           </div>
           <div id="source-modal-footer" class="modal-footer">
-            <button id="source-add" class="btn btn-lrc addSource" type="button" data-dismiss="modal">Add Source</button>
+            <button
+              id="source-add"
+              class="btn btn-lrc addSource"
+              type="button"
+              data-dismiss="modal"
+            >
+              Add Source
+            </button>
           </div>
         </div>
       </div>
@@ -383,7 +800,12 @@
     <div id="content" class="container-fluid">
       <div class="row mb-4">
         <div class="col text-center">
-          <img id="logo" class="ms-logo" alt="Mount Sinai LHRC Logo" src="img/MS_Logo.png">
+          <img
+            id="logo"
+            class="ms-logo"
+            alt="Mount Sinai LHRC Logo"
+            src="img/MS_Logo.png"
+          />
         </div>
       </div>
       <div id="main-card-row" class="row">
@@ -393,16 +815,12 @@
               <div class="row">
                 <div class="col-md-6">
                   <div id="stepChange1" class="step-title-container active">
-                    <h2 class="step-title mb-0 active">
-                      Sources
-                    </h2>
+                    <h2 class="step-title mb-0 active">Sources</h2>
                   </div>
                 </div>
                 <div class="col-md-6">
                   <div id="stepChange2" class="step-title-container disabled">
-                    <h2 class="step-title mb-0">
-                      Calculations
-                    </h2>
+                    <h2 class="step-title mb-0">Calculations</h2>
                   </div>
                 </div>
               </div>
@@ -411,49 +829,95 @@
             <div id="stepContent1" class="card-body">
               <div class="container-fluid">
                 <div class="row">
-
                   <div class="col-xl-6">
-
                     <div class="row mb-4">
                       <div class="col">
                         <div class="card">
                           <div class="card-header cursor-hover">
-                            <h2 class="text-center" data-toggle="collapse" data-target="#filters" aria-expanded="false" aria-controls="filters"><i class="fas fa-filter"></i> Source List Filters</h2>
+                            <h2
+                              class="text-center"
+                              data-toggle="collapse"
+                              data-target="#filters"
+                              aria-expanded="false"
+                              aria-controls="filters"
+                            >
+                              <i class="fas fa-filter"></i> Source List Filters
+                            </h2>
                           </div>
                           <div class="collapse" id="filters">
                             <div class="card-body">
                               <div class="input-group mb-3">
-                                <div class="input-group-prepend mw-175 text-center">
-                                  <label class="input-group-text mw-175 text-center" for="manufacterer"><b>Manufacturer:</b></label>
+                                <div
+                                  class="input-group-prepend mw-175 text-center"
+                                >
+                                  <label
+                                    class="input-group-text mw-175 text-center"
+                                    for="manufacterer"
+                                    ><b>Manufacturer:</b></label
+                                  >
                                 </div>
-                                <select class="custom-select sortSource" id="manufacterer">
+                                <select
+                                  class="custom-select sortSource"
+                                  id="manufacterer"
+                                >
                                   <option selected>Any</option>
                                 </select>
                               </div>
                               <div class="input-group mb-3">
                                 <div class="input-group-prepend mw-175">
-                                  <label class="input-group-text mw-175" for="cct"><b>CCT:</b></label>
+                                  <label
+                                    class="input-group-text mw-175"
+                                    for="cct"
+                                    ><b>CCT:</b></label
+                                  >
                                 </div>
-                                <select class="custom-select sortSource" id="cct">
+                                <select
+                                  class="custom-select sortSource"
+                                  id="cct"
+                                >
                                   <option selected>Any</option>
                                 </select>
                               </div>
                               <div class="input-group mb-3">
                                 <div class="input-group-prepend mw-175">
-                                  <label class="input-group-text mw-175" for="lamp"><b>Lamp:</b></label>
+                                  <label
+                                    class="input-group-text mw-175"
+                                    for="lamp"
+                                    ><b>Lamp:</b></label
+                                  >
                                 </div>
-                                <select class="custom-select sortSource" id="lamp">
+                                <select
+                                  class="custom-select sortSource"
+                                  id="lamp"
+                                >
                                   <option selected>Any</option>
                                 </select>
                               </div>
                               <div class="input-group mb-3">
                                 <div class="input-group-prepend mw-175">
-                                  <span class="input-group-text mw-175" id="keyword"><b>Keyword:</b></span>
+                                  <span
+                                    class="input-group-text mw-175"
+                                    id="keyword"
+                                    ><b>Keyword:</b></span
+                                  >
                                 </div>
-                                <input id="searchSource" type="text" class="form-control sortSource" aria-label="Default" aria-describedby="keyword" placeholder="Search">
+                                <input
+                                  id="searchSource"
+                                  type="text"
+                                  class="form-control sortSource"
+                                  aria-label="Default"
+                                  aria-describedby="keyword"
+                                  placeholder="Search"
+                                />
                               </div>
                               <div class="input-group">
-                                <button class="w-100 btn btn-lrc text-center" id="reset" type="button">Reset Filters</button>
+                                <button
+                                  class="w-100 btn btn-lrc text-center"
+                                  id="reset"
+                                  type="button"
+                                >
+                                  Reset Filters
+                                </button>
                               </div>
                             </div>
                           </div>
@@ -465,42 +929,62 @@
                       <div class="col">
                         <div class="card mb-2">
                           <div class="card-header text-center">
-                            <h2> Source List</h2>
+                            <h2>Source List</h2>
                           </div>
-                          <ul id="names-list" class="list-group list-group-flush list-group-hover names-list mb-2">
-                          </ul>
+                          <ul
+                            id="names-list"
+                            class="
+                              list-group list-group-flush list-group-hover
+                              names-list
+                              mb-2
+                            "
+                          ></ul>
                         </div>
 
-                        <button class="w-100 btn btn-lrc text-center" id="custom-source" type="button" data-toggle="modal" data-target="#custom-source-modal">Add Custom Source</button>
+                        <button
+                          class="w-100 btn btn-lrc text-center mb-2"
+                          id="custom-source"
+                          type="button"
+                          data-toggle="modal"
+                          data-target="#custom-source-modal"
+                        >
+                          Add Custom Source
+                        </button>
                       </div>
                     </div>
-                    
                   </div>
 
                   <div class="col-xl-6">
-                    <div class="row light-bg">
+                    <div class="row light-bg mb-2">
                       <div class="col">
                         <table class="table">
                           <thead class="thead">
                             <tr>
-                              <th colspan="2" class="text-center w-80">Source</th>
+                              <th colspan="2" class="text-center w-80">
+                                Source
+                              </th>
                               <th class="text-center w-20">Remove</th>
                             </tr>
                           </thead>
                           <tbody id="selected-sources_">
                             <tr>
-                              <td class="no-sources text-center" colspan="3">No sources selected.</td>
+                              <td class="no-sources text-center" colspan="3">
+                                No sources selected.
+                              </td>
                             </tr>
                           </tbody>
                         </table>
                       </div>
-                      <button id="continue-to-calculations-button" class="btn btn-success text-center d-none" type="button">Continue to Calculations <i class="fas fa-sign-in-alt"></i></button>
                     </div>
-                    
+                    <button
+                      id="continue-to-calculations-button"
+                      class="btn btn-success text-center d-none"
+                      type="button"
+                    >
+                      Continue to Calculations
+                      <i class="fas fa-sign-in-alt"></i>
+                    </button>
                   </div>
-
-                  
-                  
                 </div>
               </div>
             </div>
@@ -521,13 +1005,15 @@
                           </thead>
                           <tbody id="selected-sources">
                             <tr>
-                              <td class="no-sources text-center" colspan="4">No sources selected.</td>
+                              <td class="no-sources text-center" colspan="4">
+                                No sources selected.
+                              </td>
                             </tr>
                           </tbody>
                         </table>
                       </div>
                     </div>
-                        
+
                     <!-- <div class="row" id="csInputSection" style="display: none;">
                       <div class="col">
                         <h4 class="text-center"> - OR - </h4>
@@ -547,7 +1033,6 @@
                       <div class="col">
                         <div class="row mb-4">
                           <div class="col">
-    
                             <!-- <div class="input-group mb-3">
                               <div id="mpod-label-container" class="input-group-prepend mw-175 text-center">
                                 <label  class="input-group-text mw-175 text-center help-hover pointer" data-toggle="modal" data-target="#mpod-modal" for="mpod_sel"><b>Macular Pigment Optical Density:</b></label>
@@ -565,44 +1050,84 @@
                               </select>
                             </div> -->
                             <div class="input-group mb-3">
-                              <div id="time-label-container" class="input-group-prepend mw-175 text-center">
-                                <label  class="input-group-text mw-175 text-center help-hover pointer" data-toggle="modal" data-target="#time-modal" for="time_sel"><b>Duration of Exposure (hrs):</b></label>
+                              <div
+                                id="time-label-container"
+                                class="input-group-prepend mw-175 text-center"
+                              >
+                                <label
+                                  class="
+                                    input-group-text
+                                    mw-175
+                                    text-center
+                                    help-hover
+                                    pointer
+                                  "
+                                  data-toggle="modal"
+                                  data-target="#time-modal"
+                                  for="time_sel"
+                                  ><b>Duration of Exposure (hrs):</b></label
+                                >
                               </div>
-                              <select class="custom-select sortSource" id="time_sel">
-                                <option value='0.5'>0.5</option>
-                                <option value='0.75'>0.75</option>
-                                <option value='1.00' selected="selected">1 (default)</option>
-                                <option value='1.25'>1.25</option>
-                                <option value='1.50'>1.5</option>
-                                <option value='1.75'>1.75</option>
-                                <option value='2.00'>2</option>
-                                <option value='2.25'>2.25</option>
-                                <option value='2.50'>2.5</option>
-                                <option value='2.75'>2.75</option>
-                                <option value='3.00'>3</option>
+                              <select
+                                class="custom-select sortSource"
+                                id="time_sel"
+                              >
+                                <option value="0.5">0.5</option>
+                                <option value="0.75">0.75</option>
+                                <option value="1.00" selected="selected">
+                                  1 (default)
+                                </option>
+                                <option value="1.25">1.25</option>
+                                <option value="1.50">1.5</option>
+                                <option value="1.75">1.75</option>
+                                <option value="2.00">2</option>
+                                <option value="2.25">2.25</option>
+                                <option value="2.50">2.5</option>
+                                <option value="2.75">2.75</option>
+                                <option value="3.00">3</option>
                               </select>
                             </div>
                             <div class="input-group mb-3">
-                              <div id="scalar-label-container" class="input-group-prepend mw-175 text-center">
-                                <label  class="input-group-text mw-175 text-center help-hover pointer" data-toggle="modal" data-target="#scalar-modal" for="scalar_sel"><b>Distribution Scalar:</b></label>
+                              <div
+                                id="scalar-label-container"
+                                class="input-group-prepend mw-175 text-center"
+                              >
+                                <label
+                                  class="
+                                    input-group-text
+                                    mw-175
+                                    text-center
+                                    help-hover
+                                    pointer
+                                  "
+                                  data-toggle="modal"
+                                  data-target="#scalar-modal"
+                                  for="scalar_sel"
+                                  ><b>Distribution Scalar:</b></label
+                                >
                               </div>
-                              <select class="custom-select sortSource" id="scalar_sel">
-                                <option value='0.5'>0.5</option>
-                                <option value='0.6'>0.6</option>
-                                <option value='0.7'>0.7</option>
-                                <option value='0.8'>0.8</option>
-                                <option value='0.9'>0.9</option>
-                                <option value='1.0' selected="selected">1 (default)</option>
-                                <option value='1.1'>1.1</option>
-                                <option value='1.2'>1.2</option>
-                                <option value='1.3'>1.3</option>
-                                <option value='1.4'>1.4</option>
-                                <option value='1.5'>1.5</option>
-                                <option value='1.6'>1.6</option>
-                                <option value='1.7'>1.7</option>
-                                <option value='1.8'>1.8</option>
-                                <option value='1.9'>1.9</option>
-                                <option value='2.0'>2</option>
+                              <select
+                                class="custom-select sortSource"
+                                id="scalar_sel"
+                              >
+                                <option value="0.5">0.5</option>
+                                <option value="0.6">0.6</option>
+                                <option value="0.7">0.7</option>
+                                <option value="0.8">0.8</option>
+                                <option value="0.9">0.9</option>
+                                <option value="1.0" selected="selected">
+                                  1 (default)
+                                </option>
+                                <option value="1.1">1.1</option>
+                                <option value="1.2">1.2</option>
+                                <option value="1.3">1.3</option>
+                                <option value="1.4">1.4</option>
+                                <option value="1.5">1.5</option>
+                                <option value="1.6">1.6</option>
+                                <option value="1.7">1.7</option>
+                                <option value="1.8">1.8</option>
+                                <option value="1.9">1.9</option>
+                                <option value="2.0">2</option>
                               </select>
                             </div>
                             <!-- <div class="input-group mb-3">
@@ -636,7 +1161,6 @@
                         </div>
                       </div>
                     </div>
-                  
 
                     <div class="row">
                       <div class="col">
@@ -667,7 +1191,10 @@
                                   <td id="resultIrr">0</td>
                                 </tr>
                                 <tr>
-                                  <td>Photon Flux (Photons&middot;m<sup>-2</sup>&middot;s<sup>-1</sup>):</td>
+                                  <td>
+                                    Photon Flux
+                                    (Photons&middot;m<sup>-2</sup>&middot;s<sup>-1</sup>):
+                                  </td>
                                   <td id="resultPf">0</td>
                                 </tr>
                                 <tr>
@@ -696,47 +1223,93 @@
                                 </tr>
                               </tbody>
                             </table>
-                            <button data-toggle="modal" data-target="#SPDModal" type="button" class="btn btn-lrc w-100 mb-4">Combined SPD Values</button>
+                            <button
+                              data-toggle="modal"
+                              data-target="#SPDModal"
+                              type="button"
+                              class="btn btn-lrc w-100 mb-4"
+                            >
+                              Combined SPD Values
+                            </button>
                           </div>
                         </div>
                       </div>
                     </div>
-                    
                   </div>
                   <div class="col-xl-6">
                     <div class="row mb-4">
                       <div class="col text-center">
-                        <button type="button" id="plotBtnSPD" class="plot-btn btn btn-lrc w-30 active">SPD</button>
-                        <button type="button" id="plotBtnChromaticity" class="plot-btn btn btn-lrc w-30">Chromaticity</button>
-                        <button type="button" id="plotBtnCRM" class="plot-btn btn btn-lrc w-30">Rendering</button>
+                        <button
+                          type="button"
+                          id="plotBtnSPD"
+                          class="plot-btn btn btn-lrc w-30 active"
+                        >
+                          SPD
+                        </button>
+                        <button
+                          type="button"
+                          id="plotBtnChromaticity"
+                          class="plot-btn btn btn-lrc w-30"
+                        >
+                          Chromaticity
+                        </button>
+                        <button
+                          type="button"
+                          id="plotBtnCRM"
+                          class="plot-btn btn btn-lrc w-30"
+                        >
+                          Rendering
+                        </button>
                       </div>
                     </div>
                     <div class="row">
                       <div id="PlotAreaSPD" class="plot-area col d-block">
                         <h3 class="plot-title">Spectral Power Distribution</h3>
                         <canvas id="spdPlot"></canvas>
-                        <div id="spdLegend"  class="chart-legend"></div>
+                        <div id="spdLegend" class="chart-legend"></div>
                         <div class="plot-extra">
-                          <small>* Relative Spectral Contribution of Circadian Response For the Specified Spectral Power Distribution [Spectrum, Amount]</small>
-                          <p><a href="http://journals.sagepub.com/doi/abs/10.1177/1477153511430474" target="_blank">Information on the calculation of Circadian Light</a>, <a href="http://journals.sagepub.com/doi/pdf/10.1177/1477153512467607" target="_blank">Corrigendum</a></p>
+                          <small
+                            >* Relative Spectral Contribution of Circadian
+                            Response For the Specified Spectral Power
+                            Distribution [Spectrum, Amount]</small
+                          >
+                          <p>
+                            <a
+                              href="http://journals.sagepub.com/doi/abs/10.1177/1477153511430474"
+                              target="_blank"
+                              >Information on the calculation of Circadian
+                              Light</a
+                            >,
+                            <a
+                              href="http://journals.sagepub.com/doi/pdf/10.1177/1477153512467607"
+                              target="_blank"
+                              >Corrigendum</a
+                            >
+                          </p>
                         </div>
                       </div>
 
-                      <div id="PlotAreaChromaticity" class="plot-area col d-none">
+                      <div
+                        id="PlotAreaChromaticity"
+                        class="plot-area col d-none"
+                      >
                         <h3 class="plot-title">Chromaticity</h3>
                         <canvas id="chromaticityPlot"></canvas>
-                        <div id="chromaticityLegend"  class="chart-legend"></div>
+                        <div id="chromaticityLegend" class="chart-legend"></div>
                       </div>
 
                       <div id="PlotAreaCRM" class="plot-area col d-none">
                         <h3 class="plot-title">Color Rendering Metrics</h3>
                         <canvas id="crmPlot"></canvas>
-                        <div id="crmLegend"  class="chart-legend"></div>
+                        <div id="crmLegend" class="chart-legend"></div>
                       </div>
                     </div>
                     <div class="row">
                       <div class="col text-center">
-                        <button id="resultsDownload" class="btn btn-green">Download Calculations as JSON <i class="fas fa-download"></i></button>
+                        <button id="resultsDownload" class="btn btn-green">
+                          Download Calculations as JSON
+                          <i class="fas fa-download"></i>
+                        </button>
                         <a id="jsondownload" class="hidden"></a>
                       </div>
                     </div>
@@ -746,8 +1319,22 @@
             </div>
 
             <div class="card-footer text-muted">
-              <button type="button" class="btn btn-link help-button" data-toggle="modal" data-target="#helpModal">Help</button>
-              <p class="text-center m-0">Copyright © <script>document.write(new Date().getFullYear())</script> Icahn School of Medicine at Mount Sinai, LHRC. All Rights Reserved.</p>
+              <button
+                type="button"
+                class="btn btn-link help-button"
+                data-toggle="modal"
+                data-target="#helpModal"
+              >
+                Help
+              </button>
+              <p class="text-center m-0">
+                Copyright ©
+                <script>
+                  document.write(new Date().getFullYear());
+                </script>
+                Icahn School of Medicine at Mount Sinai, LHRC. All Rights
+                Reserved.
+              </p>
             </div>
           </div>
         </div>

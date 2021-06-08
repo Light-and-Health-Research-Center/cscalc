@@ -27,10 +27,8 @@ h2 {
   text-align: center;
 }
 
-#continue-to-calculations-button{
-  position: absolute;
-  bottom: 0px;
-  right: 0px;
+#continue-to-calculations-button {
+  width: 100%;
 }
 
 #content{
@@ -453,6 +451,21 @@ thead.thead-dark tr th{
 .step-title-container:last-child{
   border-right: 1px solid transparent;
   border-top-right-radius: .25rem;
+}
+
+@media only screen and (min-width:992px) {
+  .source-spd{
+    padding: 1.25rem;
+  }
+}
+
+@media only screen and (min-width: 1200px) {
+  #continue-to-calculations-button {
+    width: auto;
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+  }
 }
 
 @media only screen and (max-width: 720px) {
