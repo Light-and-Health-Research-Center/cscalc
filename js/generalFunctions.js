@@ -26,6 +26,12 @@ var setwavelength = [
   710, 712, 714, 716, 718, 720, 722, 724, 726, 728, 730,
 ];
 
+var CIE_S_cone_opic_irr,
+  CIE_M_cone_opic_irr,
+  CIE_L_cone_opic_irr,
+  CIE_Rhodopic_irr,
+  CIE_Melanopic_irr;
+
 function efficienyFunctions(wavelength, thickness) {
   var results = {};
 
@@ -782,8 +788,8 @@ function efficienyFunctions(wavelength, thickness) {
     CIE_S_cone: CIE_S_cone_int,
     CIE_M_cone: CIE_M_cone_int,
     CIE_L_cone: CIE_L_cone_int,
-    CIE_Rhodopic: CIE_Rhodopic,
-    CIE_Melanopic: CIE_Melanopic,
+    CIE_Rhodopic: CIE_Rhodopic_int,
+    CIE_Melanopic: CIE_Melanopic_int,
   };
   return results;
 }
@@ -1970,8 +1976,8 @@ function updateResults() {
   // Update Results Section HTML
   $("#resultIll").html(combinedValues.absoluteIll);
   $("#resultEML").html(combinedValues.EML.toFixed());
-  $("#resultCLA").html(combinedValues.CLA.toFixed()); //$('#resultCLA').html((combinedValues.CLAlow).toFixed() + ' to ' + (combinedValues.CLAhigh).toFixed());
-  $("#resultCS").html(combinedValues.CS.toFixed(3)); //$('#resultCS').html((combinedValues.CSlow).toFixed(3) + ' to ' + (combinedValues.CShigh).toFixed(3));
+  $("#resultCLA").html(combinedValues.CLA.toFixed());
+  $("#resultCS").html(combinedValues.CS.toFixed(3));
   $("#resultCCT").html(combinedValues.CCT.toFixed());
   $("#resultDuv").html(combinedValues.Duv.toFixed(3));
   $("#resultCRI").html(combinedValues.CRI.toFixed(1));
@@ -1980,6 +1986,13 @@ function updateResults() {
     combinedValues.x.toFixed(4) + ", " + combinedValues.y.toFixed(4)
   );
   $("#resultIrr").html(combinedValues.Irr.toExponential(4));
+
+  $("#resultCIE_S").html(CIE_S_cone_opic_irr.toExponential(4));
+  $("#resultCIE_M").html(CIE_M_cone_opic_irr.toExponential(4));
+  $("#resultCIE_L").html(CIE_L_cone_opic_irr.toExponential(4));
+  $("#resultCIE_Rhod").html(CIE_Rhodopic_irr.toExponential(4));
+  $("#resultCIE_Mela").html(CIE_Melanopic_irr.toExponential(4));
+
   $("#resultPf").html(combinedValues.pf.toExponential(4));
 
   var normSPDVals = arrayNormalize(combinedValues.absoluteSPD.value);
