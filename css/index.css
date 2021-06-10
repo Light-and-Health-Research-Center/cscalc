@@ -9,15 +9,6 @@ ul {
    list-style:none;
 }
 
-html, body{
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-}
-
-body::-webkit-scrollbar {
-  display: none;
-}
-
 h2 {
   font-size: 1.1rem;
   font-weight: 600;
@@ -25,6 +16,10 @@ h2 {
   padding-bottom: .5rem;
   padding-top: .5rem;
   text-align: center;
+}
+
+.ssIll{
+  max-width: 200px;
 }
 
 #continue-to-calculations-button {
@@ -45,6 +40,52 @@ h2 {
   margin-top: 1.5rem;
   padding-left: 3rem;
   padding-right: 3rem;
+}
+
+#copy-to-clipboard {
+  font-weight: 800;
+}
+
+#copy-to-clipboard:hover{
+  cursor: pointer;
+}
+
+.measurement {
+  width: 50%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.input-variable {
+  display: block;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.measurement-value-pair, .input-variable, .selected_source_, .selected_source {
+  border-radius: 0.25rem;
+}
+
+.measurement-row:nth-child(even) .measurement-value-pair{
+  background-color: #F2F2F2;
+}
+
+.sources_-row:nth-child(odd) .selected_source_, .sources-row:nth-child(odd) .selected_source{
+    background-color: #F2F2F2;
+}
+
+.ms-purple {
+  color: #221f72
+}
+
+.ms-pink {
+  color: #D80B8C
+}
+
+.beta-banner{
+  padding: 0.5rem;
+  font-size: 1rem;
 }
 
 .pointer:hover{
@@ -75,10 +116,11 @@ h2 {
   font-size: 1rem;
 }
 
-
 .drop-shadow {
-  -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.18), 0 1px 2px rgba(0, 0, 0, 0.24);
-  -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.18), 0 1px 2px rgba(0, 0, 0, 0.24);
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.18), 0 10px 10px rgba(0, 0, 0, 0.24);
+}
+
+.drop-shadow-light {
   box-shadow: 0 14px 28px rgba(0, 0, 0, 0.18), 0 10px 10px rgba(0, 0, 0, 0.24);
 }
 
@@ -237,15 +279,6 @@ ul.list-group.list-group-hover li:hover{
   background: #eee;
 }
 
-.names-list::-webkit-scrollbar {
-  display: none;
-}
-
-.names-list {
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
-}
-
 .names-list {
     height: 20rem;
     max-height: 20rem;
@@ -254,6 +287,10 @@ ul.list-group.list-group-hover li:hover{
 
 .text-lrc{
   color: #221f72;
+}
+
+.page-footer{
+  position: relative;
 }
 
 .light-bg{
@@ -277,9 +314,28 @@ select {
   float: right;
 }
 
-.help-button:hover{
+.add-source-button{
+  position: absolute;
+  right: 0;
+  color: #221f72;
+}
+
+.selected-source-icon {
+    color: #221f72;
+}
+
+.toggle-help-menu-button{
+  position: absolute;
+  right: 0;
+  bottom: 50%;
+  transform: translate(0, 50%);
+  color: #221f72;
+}
+
+.help-button:hover, .add-source-button:hover, .toggle-help-menu-button:hover, .selected-source-icon:hover{
   color: #d80b8c;
 }
+
 
 .btn-lrc{
   background-color: #221f72;
@@ -294,7 +350,6 @@ select {
 .btn-lrc.plot-btn:focus {
   outline: none;
   border-color: #d80b8c;
-  box-shadow: none;
 }
 
 .btn-lrc.active{
@@ -482,6 +537,10 @@ thead.thead-dark tr th{
 @media only screen and (max-width: 960px) {
   .ms-logo{
     width: 80%;
+  }
+  .card-body {
+    padding-right: 0.25rem;
+    padding-left: 0.25rem;
   }
 }
 
