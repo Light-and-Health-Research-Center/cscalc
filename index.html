@@ -181,7 +181,7 @@
                     <h3 class="help-menu-header">Source List Filters</h3>
                     <p class="help-menu-p">
                       Click the
-                      <b><i class="fas fa-filter"></i> Source List Filters</b>
+                      <b>Source List Filters</b>
                       header to drop down possible source list filtering
                       options. Select from the dropdown menus and/or use the
                       keyword search bar to access the sources that are
@@ -198,9 +198,9 @@
                     </figure>
                     <h3 class="help-menu-header">Custom Source</h3>
                     <p class="help-menu-p">
-                      Click the <b>Add Custom Source</b> button to open up a
-                      modal which will allow you to add a custom source. Fill in
-                      the required fields and click the
+                      Click the <i class="ms-purple fas fa-plus"></i> button to
+                      open up a modal which will allow you to add a custom
+                      source. Fill in the required fields and click the
                       <b>Add to Sources List</b> button to see your custom
                       source appear in the Sources list and in the Selected
                       Sources table.
@@ -211,13 +211,14 @@
                         class="w-65 my-4 rounded drop-shadow"
                       />
                     </figure>
-                    <h3 class="help-menu-header">Selected Sources Table</h3>
+                    <h3 class="help-menu-header">Selected Sources</h3>
                     <p class="help-menu-p">
                       Once a source is added to the
-                      <b>Selected Sources Table</b> it will appear here. Click
-                      the graph icon to display information about that source.
-                      Click the trash icon to remove that source from the
-                      <b>Selected Sources Table</b>.
+                      <b>Selected Sources</b> list it will appear here. Click
+                      the <i class="ms-purple fas fa-info-circle"></i> icon to
+                      display information about that source. Click the
+                      <i class="text-red fas fa-times"></i> icon to remove that
+                      source from the <b>Selected Sources</b> list.
                     </p>
                     <figure class="w-95 text-center mobile-figure">
                       <img
@@ -235,17 +236,16 @@
                     </button>
                   </div>
                   <div class="modal-body help-body">
-                    <h3 class="help-menu-header">Selected Sources Table</h3>
+                    <h3 class="help-menu-header">Selected Sources</h3>
                     <p class="help-menu-p">
                       This Selected Sources Table is a duplicate of the one in
                       the Sources page, only this one will allow you to change
                       the vertical illuminance of the source. Once a source is
-                      added to the <b>Selected Sources Table</b> it will appear
+                      added to the <b>Selected Sources</b> list it will appear
                       here. Click the graph icon to display information about
                       that source. Click the trash icon to remove that source
-                      from the <b>Selected Sources Table</b>. Click inside the
-                      <b>E<sub>V</sub> (lx)</b> input field to change the
-                      vertical illuminance.
+                      from the <b>Selected Sources</b> list. Click inside the
+                      input field to change the vertical illuminance.
                     </p>
                     <figure class="w-95 text-center mobile-figure">
                       <img
@@ -253,14 +253,12 @@
                         class="w-65 my-4 rounded drop-shadow"
                       />
                     </figure>
-                    <h3 class="help-menu-header">
-                      Miscellaneous Input Variables
-                    </h3>
+                    <h3 class="help-menu-header">Input Variables</h3>
                     <p class="help-menu-p">
-                      Miscellaneous input variables are listed by name and
-                      current setting. All variables default to average values.
-                      Click on each variable for additional information and
-                      click on the value to change it.
+                      Input variables are listed by name and current setting.
+                      All variables default to average values. Click on each
+                      variable for additional information and click on the value
+                      to change it.
                     </p>
                     <figure class="w-95 text-center mobile-figure">
                       <img
@@ -377,8 +375,9 @@
                     </figure>
                     <h3 class="help-menu-header">Combined SPD Values</h3>
                     <p class="help-menu-p">
-                      Click the <b>Combined SPD Values</b> button to view the
-                      specific values for the relative and absolute spectral
+                      Click the
+                      <i class="ms-purple fas fa-chart-area"></i> button to view
+                      the specific values for the relative and absolute spectral
                       power distributions.
                     </p>
                     <figure class="w-95 text-center mobile-figure">
@@ -387,9 +386,9 @@
                         class="w-55 my-4 rounded drop-shadow"
                       />
                     </figure>
-                    <h3 class="help-menu-header">Output Plots</h3>
+                    <h3 class="help-menu-header">Charts</h3>
                     <p class="help-menu-p">
-                      The output plots display information about the combined
+                      The charts display information about the combined
                       attributes of light sources that have been selected. Both
                       the graphs and the associated legends will be modified
                       automatically as new sources are added and illuminance
@@ -406,19 +405,9 @@
                     <h3 class="help-menu-header">Download Calculations</h3>
                     <p class="help-menu-p">
                       Click the
-                      <b
-                        >Download Calculations as JSON
-                        <i class="fas fa-download"></i
-                      ></b>
-                      button to download information about your current
-                      calculation.
+                      <i class="ms-purple fas fa-download"></i>
+                      button to download your current calculation as json data.
                     </p>
-                    <figure class="w-95 text-center mobile-figure">
-                      <img
-                        src="img/help/11.png"
-                        class="w-45 my-4 rounded drop-shadow"
-                      />
-                    </figure>
                   </div>
                 </div>
               </div>
@@ -615,7 +604,12 @@
               <b>Manufacturer:</b
               ><span class="pl-1" id="source-manufacturer"></span>
             </p>
-            <p class="m-0">
+            <p
+              id="sourceModalDescriptionCollapse"
+              class="m-0 description-collapse description-collapse-collapsed"
+              data-toggle="tooltip"
+              title="Expand Description"
+            >
               <b>Description:</b><span class="pl-1" id="source-info"></span>
             </p>
             <p><b>SPD:</b></p>
@@ -1055,7 +1049,7 @@ michael.morrison@mountsinai.org</textarea
                               aria-expanded="true"
                               aria-controls="measurements"
                             >
-                              Measurements
+                              Metrics
                             </h2>
                           </div>
                           <div class="collapse show" id="measurements">
@@ -1121,6 +1115,98 @@ michael.morrison@mountsinai.org</textarea
                                     </div>
                                   </div>
                                 </div>
+
+                                <div class="row mb-1 measurement-row">
+                                  <div
+                                    class="
+                                      col
+                                      d-flex
+                                      justify-content-between
+                                      measurement-value-pair
+                                    "
+                                  >
+                                    <div class="measurement">
+                                      CIE S-cone Irradiance
+                                      (W&middot;m<sup>-2</sup>):
+                                    </div>
+                                    <div id="resultCIE_S" class="value">
+                                      0.0000e+0
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="row mb-1 measurement-row">
+                                  <div
+                                    class="
+                                      col
+                                      d-flex
+                                      justify-content-between
+                                      measurement-value-pair
+                                    "
+                                  >
+                                    <div class="measurement">
+                                      CIE M-cone Irradiance
+                                      (W&middot;m<sup>-2</sup>):
+                                    </div>
+                                    <div id="resultCIE_M" class="value">
+                                      0.0000e+0
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="row mb-1 measurement-row">
+                                  <div
+                                    class="
+                                      col
+                                      d-flex
+                                      justify-content-between
+                                      measurement-value-pair
+                                    "
+                                  >
+                                    <div class="measurement">
+                                      CIE L-cone Irradiance
+                                      (W&middot;m<sup>-2</sup>):
+                                    </div>
+                                    <div id="resultCIE_L" class="value">
+                                      0.0000e+0
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="row mb-1 measurement-row">
+                                  <div
+                                    class="
+                                      col
+                                      d-flex
+                                      justify-content-between
+                                      measurement-value-pair
+                                    "
+                                  >
+                                    <div class="measurement">
+                                      CIE Rhodopic Irradiance
+                                      (W&middot;m<sup>-2</sup>):
+                                    </div>
+                                    <div id="resultCIE_Rhod" class="value">
+                                      0.0000e+0
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="row mb-1 measurement-row">
+                                  <div
+                                    class="
+                                      col
+                                      d-flex
+                                      justify-content-between
+                                      measurement-value-pair
+                                    "
+                                  >
+                                    <div class="measurement">
+                                      CIE Melanopic Irradiance
+                                      (W&middot;m<sup>-2</sup>):
+                                    </div>
+                                    <div id="resultCIE_Mela" class="value">
+                                      0.0000e+0
+                                    </div>
+                                  </div>
+                                </div>
+
                                 <div class="row mb-1 measurement-row">
                                   <div
                                     class="
@@ -1218,7 +1304,7 @@ michael.morrison@mountsinai.org</textarea
                                     "
                                   >
                                     <div class="measurement">
-                                      Chromaticity Coordinates (x,y):
+                                      Chromaticity Coordinates (x, y):
                                     </div>
                                     <div id="resultXY" class="value">
                                       NaN, NaN

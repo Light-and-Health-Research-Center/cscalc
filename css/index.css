@@ -130,6 +130,20 @@ h2 {
   width: 10%;
 }
 
+.text-red{
+  color: red;
+}
+
+.description-collapse:hover{
+  cursor: pointer;
+}
+
+.description-collapse-collapsed{
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis
+}
+
 .card-footer{
   font-size: 1rem;
 }

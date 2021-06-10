@@ -286,7 +286,7 @@ function addSource(sourceIdx) {
   div +=
     '<div class="d-flex justify-content-end"><input oninput="handleLuxChangeFocus()" onfocusout="handleLuxChangeFocusOut()" onkeydown="if(event.keyCode==13){ $(this).blur(); return false;}" id="ssIll_' +
     sourceIdx +
-    '" class="form-control ssIll flex-shrink-1" placeholder="0" />';
+    '" class="form-control ssIll flex-shrink-1" placeholder="Illuminance (lx)" />';
   div +=
     '<button class="py-0 removeSource btn btn-link" type="button" data-toggle="tooltip" title="Remove Source" data-i="' +
     sourceIdx +
@@ -410,6 +410,24 @@ function handleLuxChangeFocusOut() {
   $("#lux-change-pending-container").addClass("d-none");
 }
 
+function handleSourceModalDescriptionCollapse() {
+  $("#sourceModalDescriptionCollapse").on("click", function () {
+    if ($(this).hasClass("description-collapse-collapsed")) {
+      $(this)
+        .attr("title", "Collapse Description")
+        .tooltip("_fixTitle")
+        .tooltip("show");
+      $(this).removeClass("description-collapse-collapsed");
+    } else {
+      $(this).addClass("description-collapse-collapsed");
+      $(this)
+        .attr("title", "Expand Description")
+        .tooltip("_fixTitle")
+        .tooltip("show");
+    }
+  });
+}
+
 function createResultsJSON() {
   var str = '{"results" : \n\t{\n';
 
@@ -509,13 +527,18 @@ function createResultsJSON() {
   str += '\t\t\t"cla 2.0": ' + '"' + vals[1] + '",\n';
   str += '\t\t\t"illuminance": ' + '"' + vals[2] + '",\n';
   str += '\t\t\t"irradiance": ' + '"' + vals[3] + '",\n';
-  str += '\t\t\t"flux": ' + '"' + vals[4] + '",\n';
-  str += '\t\t\t"eml": ' + '"' + vals[5] + '",\n';
-  str += '\t\t\t"cct": ' + '"' + vals[6] + '",\n';
-  str += '\t\t\t"duv": ' + '"' + vals[7] + '",\n';
-  str += '\t\t\t"cri": ' + '"' + vals[8] + '",\n';
-  str += '\t\t\t"gai": ' + '"' + vals[9] + '",\n';
-  str += '\t\t\t"chromaticity_coordinates": ' + '"' + vals[10] + '"\n';
+  str += '\t\t\t"cie s-cone irradiance": ' + '"' + vals[4] + '",\n';
+  str += '\t\t\t"cie m-cone irradiance": ' + '"' + vals[5] + '",\n';
+  str += '\t\t\t"cie l-cone irradiance": ' + '"' + vals[6] + '",\n';
+  str += '\t\t\t"cie rhodopic irradiance": ' + '"' + vals[7] + '",\n';
+  str += '\t\t\t"cie melanopic irradiance": ' + '"' + vals[8] + '",\n';
+  str += '\t\t\t"photon flux": ' + '"' + vals[9] + '",\n';
+  str += '\t\t\t"eml": ' + '"' + vals[10] + '",\n';
+  str += '\t\t\t"cct": ' + '"' + vals[11] + '",\n';
+  str += '\t\t\t"duv": ' + '"' + vals[12] + '",\n';
+  str += '\t\t\t"cri": ' + '"' + vals[13] + '",\n';
+  str += '\t\t\t"gai": ' + '"' + vals[14] + '",\n';
+  str += '\t\t\t"chromaticity_coordinates": ' + '"' + vals[15] + '"\n';
   str += "\t\t},\n";
 
   // Combined spd's
@@ -674,6 +697,8 @@ $(document).ready(function () {
   handleChartSize();
 
   handleResize();
+
+  handleSourceModalDescriptionCollapse();
 
   $("#resultsDownload").click(createResultsJSON);
 });
