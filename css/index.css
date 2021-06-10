@@ -57,6 +57,15 @@ h2 {
   text-overflow: ellipsis;
 }
 
+.view-combined-spd{
+  color:#221f72
+}
+
+
+.view-combined-spd:hover{
+  color: #D80B8C
+}
+
 .input-variable {
   display: block;
   font-size: 1rem;
@@ -332,7 +341,13 @@ select {
   color: #221f72;
 }
 
-.help-button:hover, .add-source-button:hover, .toggle-help-menu-button:hover, .selected-source-icon:hover{
+.view-combined-spd-button{
+  position: absolute;
+  right: 0;
+  color: #221f72;
+}
+
+.help-button:hover, .add-source-button:hover, .toggle-help-menu-button:hover, .selected-source-icon:hover, .view-combined-spd-button:hover{
   color: #d80b8c;
 }
 

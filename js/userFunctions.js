@@ -261,9 +261,9 @@ function addSource(sourceIdx) {
     sourcelist[sourceIdx].id +
     "</div>";
   div +=
-    '<button class="py-0 removeSource btn btn-link" type="button" data-toggle="tooltip" title="Delete Source" data-i="' +
+    '<button class="py-0 removeSource btn btn-link" type="button" data-toggle="tooltip" title="Remove Source" data-i="' +
     sourceIdx +
-    '"><i class="far fa-trash-alt fa-lg py-0"></i></button>';
+    '"><i class="fas fa-times fa-lg py-0"></i></button>';
   div += "</div></div>";
   $("#selected-sources_").append(div);
 
@@ -288,9 +288,9 @@ function addSource(sourceIdx) {
     sourceIdx +
     '" class="form-control ssIll flex-shrink-1" placeholder="0" />';
   div +=
-    '<button class="py-0 removeSource btn btn-link" type="button" data-toggle="tooltip" title="Delete Source" data-i="' +
+    '<button class="py-0 removeSource btn btn-link" type="button" data-toggle="tooltip" title="Remove Source" data-i="' +
     sourceIdx +
-    '"><i class="far fa-trash-alt fa-lg py-0"></i></button></div>';
+    '"><i class="fas fa-times fa-lg py-0"></i></button></div>';
   div += "</div></div>";
 
   $("#selected-sources").append(div);
