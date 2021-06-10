@@ -284,7 +284,7 @@ function addSource(sourceIdx) {
     sourcelist[sourceIdx].id +
     "</div>";
   div +=
-    '<div class="d-flex justify-content-end"><input id="ssIll_' +
+    '<div class="d-flex justify-content-end"><input oninput="handleLuxChangeFocus()" onfocusout="handleLuxChangeFocusOut()" onkeydown="if(event.keyCode==13){ $(this).blur(); return false;}" id="ssIll_' +
     sourceIdx +
     '" class="form-control ssIll flex-shrink-1" placeholder="0" />';
   div +=
@@ -346,8 +346,7 @@ function handleSPDBtns() {
     if (!$(this).hasClass("active")) {
       $(".spd-button").removeClass("active");
       $(this).addClass("active");
-      let containerID =
-        "#" + $(this)[0].id.replace("Btn", "") + "TableContainer";
+      let containerID = "#" + $(this)[0].id.replace("Btn", "") + "Container";
       let titleWord;
       if ($(this)[0].id.replace("SpdBtn", "") == "Rel") {
         titleWord = "Relative";
@@ -401,6 +400,14 @@ function handleResize() {
     handleChartSize();
   };
   window.addEventListener("resize", resizeListener);
+}
+
+function handleLuxChangeFocus() {
+  $("#lux-change-pending-container").removeClass("d-none");
+}
+
+function handleLuxChangeFocusOut() {
+  $("#lux-change-pending-container").addClass("d-none");
 }
 
 function createResultsJSON() {
@@ -516,12 +523,12 @@ function createResultsJSON() {
   str += '\t\t\t"relative": {\n';
   var wl = [],
     val = [];
-  $("#RelSpdTable").each(function () {
+  $("#RelSpdContainer").each(function () {
     $(this)
-      .find("tr")
+      .find("div > div.col")
       .each(function () {
-        wl.push(parseFloat($(this).find("td:nth-of-type(1)").html()));
-        val.push(parseFloat($(this).find("td:nth-of-type(2)").html()));
+        wl.push(parseFloat($(this).find("div.spd-wl").html()));
+        val.push(parseFloat($(this).find("div.spd-value").html()));
       });
   });
   str += '\t\t\t\t"wavelengths": [' + wl + "],\n";
@@ -531,12 +538,12 @@ function createResultsJSON() {
   str += '\t\t\t"absolute": {\n';
   var wl = [],
     val = [];
-  $("#AbsSpdTable").each(function () {
+  $("#AbsSpdContainer").each(function () {
     $(this)
-      .find("tr")
+      .find("div > div.col")
       .each(function () {
-        wl.push(parseFloat($(this).find("td:nth-of-type(1)").html()));
-        val.push(parseFloat($(this).find("td:nth-of-type(2)").html()));
+        wl.push(parseFloat($(this).find("div.spd-wl").html()));
+        val.push(parseFloat($(this).find("div.spd-value").html()));
       });
   });
   str += '\t\t\t\t"wavelengths": [' + wl + "],\n";

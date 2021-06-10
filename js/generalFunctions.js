@@ -1985,30 +1985,42 @@ function updateResults() {
   var normSPDVals = arrayNormalize(combinedValues.absoluteSPD.value);
 
   // Update Relative SPD HTML
-  $("#RelSpdTable").empty();
+  $("#RelSpdContainer").empty();
   var row, wave, val;
   for (var i = 0; i < combinedValues.relativeSPD.wavelength.length; i++) {
-    row = document.createElement("tr");
-    wave = document.createElement("td");
-    wave.innerHTML = combinedValues.relativeSPD.wavelength[i];
-    row.appendChild(wave);
-    val = document.createElement("td");
-    val.innerHTML = normSPDVals[i].toExponential(4);
-    row.appendChild(val);
-    $("#RelSpdTable")[0].appendChild(row);
+    row = "";
+    row += '<div class="row mb-1 spd-row">';
+    row += '  <div class="col d-flex justify-content-around spd-pair">';
+    row +=
+      '    <div class="spd-wl">' +
+      combinedValues.relativeSPD.wavelength[i] +
+      "</div>";
+    row +=
+      '    <div class="spd-value">' +
+      normSPDVals[i].toExponential(4) +
+      "</div>";
+    row += "  </div>";
+    row += "</div>";
+    $("#RelSpdContainer").append(row);
   }
 
   // Update Absolute SPD HTML
-  $("#AbsSpdTable").empty();
+  $("#AbsSpdContainer").empty();
   for (i = 0; i < combinedValues.absoluteSPD.wavelength.length; i++) {
-    row = document.createElement("tr");
-    wave = document.createElement("td");
-    wave.innerHTML = combinedValues.absoluteSPD.wavelength[i];
-    row.appendChild(wave);
-    val = document.createElement("td");
-    val.innerHTML = combinedValues.absoluteSPD.value[i].toExponential(4);
-    row.appendChild(val);
-    $("#AbsSpdTable")[0].appendChild(row);
+    row = "";
+    row += '<div class="row mb-1 spd-row">';
+    row += '  <div class="col d-flex justify-content-around spd-pair">';
+    row +=
+      '    <div class="spd-wl">' +
+      combinedValues.absoluteSPD.wavelength[i] +
+      "</div>";
+    row +=
+      '    <div class="spd-value">' +
+      combinedValues.absoluteSPD.value[i].toExponential(4) +
+      "</div>";
+    row += "  </div>";
+    row += "</div>";
+    $("#AbsSpdContainer").append(row);
   }
 
   //Update Chart Combined SPD

@@ -18,6 +18,11 @@ h2 {
   text-align: center;
 }
 
+.mh-50 {
+  max-height: 50vh;
+  overflow: auto;
+}
+
 .ssIll{
   max-width: 200px;
 }
@@ -76,12 +81,16 @@ h2 {
   border-radius: 0.25rem;
 }
 
-.measurement-row:nth-child(even) .measurement-value-pair{
+.measurement-row:nth-child(even) .measurement-value-pair, .spd-row:nth-child(even) .spd-pair{
   background-color: #F2F2F2;
 }
 
 .sources_-row:nth-child(odd) .selected_source_, .sources-row:nth-child(odd) .selected_source{
     background-color: #F2F2F2;
+}
+
+.spd-wl-title, .spd-value-title{
+  font-weight: 600;
 }
 
 .ms-purple {
@@ -123,6 +132,12 @@ h2 {
 
 .card-footer{
   font-size: 1rem;
+}
+
+.lux-change-pending{
+  font-size: 0.75rem;
+  font-style: italic;
+  font-weight: 400;
 }
 
 .drop-shadow {

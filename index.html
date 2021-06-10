@@ -59,7 +59,7 @@
       aria-labelledby="SPDModal-label"
       aria-hidden="true"
     >
-      <div class="modal-dialog modal-xl" role="document">
+      <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="SPDModal-label">
@@ -78,49 +78,46 @@
           <div class="modal-body">
             <div class="container-fluid">
               <div class="row mb-4">
-                <div class="col text-center">
+                <div class="col d-flex justify-content-around text-center">
                   <button
                     id="RelSpdBtn"
                     type="button"
-                    class="spd-button btn btn-lrc w-30 mr-2 active"
+                    class="flex-fill spd-button m-2 py-1 btn btn-lrc active"
                   >
                     Relative
                   </button>
                   <button
                     id="AbsSpdBtn"
                     type="button"
-                    class="spd-button btn btn-lrc w-30 ml-2"
+                    class="flex-fill spd-button m-2 py-1 btn btn-lrc"
                   >
                     Absolute
                   </button>
                 </div>
               </div>
-              <div id="SPDTableRow" class="row mb-4">
+              <div class="row mb-2">
                 <div class="col">
-                  <table
-                    id="RelSpdTableContainer"
-                    class="spd-container table table-striped"
-                  >
-                    <thead class="thead-dark">
-                      <tr>
-                        <th class="w-50">Wavelength (nm)</th>
-                        <th class="w-50">Value</th>
-                      </tr>
-                    </thead>
-                    <tbody id="RelSpdTable"></tbody>
-                  </table>
-                  <table
-                    id="AbsSpdTableContainer"
-                    class="spd-container table table-striped d-none"
-                  >
-                    <thead class="thead-dark">
-                      <tr>
-                        <th class="w-50">Wavelength (nm)</th>
-                        <th class="w-50">Value</th>
-                      </tr>
-                    </thead>
-                    <tbody id="AbsSpdTable"></tbody>
-                  </table>
+                  <div class="container-fluid">
+                    <div class="row">
+                      <div class="col d-flex justify-content-around">
+                        <div class="spd-wl-title">Wavelength (nm)</div>
+                        <div class="spd-value-title">Value</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row mb-4 mh-50">
+                <div class="col">
+                  <div
+                    id="RelSpdContainer"
+                    class="container-fluid spd-container"
+                  ></div>
+
+                  <div
+                    id="AbsSpdContainer"
+                    class="container-fluid spd-container d-none"
+                  ></div>
                 </div>
               </div>
             </div>
@@ -627,7 +624,7 @@
           <div id="source-modal-footer" class="modal-footer">
             <button
               id="source-add"
-              class="btn btn-lrc addSource"
+              class="btn btn-lrc addSource py-1"
               type="button"
               data-dismiss="modal"
             >
@@ -642,7 +639,8 @@
       class="alert alert-warning alert-dismissible fade show beta-banner"
       role="alert"
     >
-      <strong>Beta:</strong> the CS Calculator 2.0 is in beta. Please e-mail
+      <strong>Beta v2.0.0:</strong> the CS Calculator 2.0 is in beta. Please
+      e-mail
       <span
         id="copy-to-clipboard"
         data-toggle="tooltip"
@@ -839,7 +837,7 @@ michael.morrison@mountsinai.org</textarea
                   </div>
 
                   <div class="col-xl-6">
-                    <div class="row mb-4">
+                    <div class="row mb-5">
                       <div class="col">
                         <div class="card">
                           <div class="card-header cursor-hover">
@@ -914,6 +912,20 @@ michael.morrison@mountsinai.org</textarea
                                     class="col d-flex justify-content-center"
                                   >
                                     <div>No Selected Sources</div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div
+                                id="lux-change-pending-container"
+                                class="container-fluid d-none"
+                              >
+                                <div class="row">
+                                  <div class="col text-center">
+                                    <div class="lux-change-pending">
+                                      <i class="ms-pink far fa-dot-circle"></i>
+                                      changes pending - press enter to
+                                      recalculate
+                                    </div>
                                   </div>
                                 </div>
                               </div>
