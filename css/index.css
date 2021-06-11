@@ -384,7 +384,16 @@ select {
   bottom: 50%;
   padding-right: 0.5rem;
   transform: translate(0, 50%);
-  z-index: 1000;
+  z-index: 1;
+}
+
+.btn-menu-left{
+  position: absolute;
+  left: 0;
+  bottom: 50%;
+  padding-left: 0.5rem;
+  transform: translate(0, 50%);
+  z-index: 1;
 }
 
 .btn-menu-btn{
