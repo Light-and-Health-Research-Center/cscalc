@@ -313,18 +313,14 @@ function addSource(sourceIdx) {
 }
 
 function handleBetaMessage() {
-  $(function () {
-    $('[data-toggle="tooltip"]').tooltip();
-  });
-  $("#copy-to-clipboard").on("click", function () {
-    $("#copy-to-clipboard")
-      .attr("title", "<i class='fas fa-copy'></i> Copied")
+  $("#copy-email").on("click", function () {
+    $("#copy-email")
+      .attr("title", '<i class="fas fa-check"></i> Copied')
       .tooltip("_fixTitle")
       .tooltip("show");
 
-    var text = document.getElementById("copy-text");
     var textArea = document.createElement("textarea");
-    textArea.value = text.textContent;
+    textArea.value = "michaelmorrison@mountsinai.org";
     document.body.appendChild(textArea);
     textArea.select();
     document.execCommand("Copy");
@@ -446,159 +442,151 @@ function handleCIEAlphaCaretDropdown() {
   });
 }
 
+function handleDownloadMetrics() {
+  $("#download-metrics").on("click", function () {
+    var str =
+      "Nothing Here. Check to make soure you've added one or more sources.";
+    if (combinedValues) {
+      str = "";
+      str += `CS 2.0\t${combinedValues.CS.toFixed(3)}\n`;
+      str += `CLA 2.0\t${combinedValues.CLA.toFixed()}\n`;
+      str += `Illuminance\t${combinedValues.absoluteIll}\n`;
+      str += `Irradiance\t${combinedValues.Irr.toExponential(4)}\n`;
+      str += `Photon Flux\t${combinedValues.pf.toExponential(4)}\n`;
+      str += `EML\t${combinedValues.EML.toFixed()}\n`;
+      str += `CCT\t${combinedValues.CCT.toFixed()}\n`;
+      str += `Duv\t${combinedValues.Duv.toFixed(3)}\n`;
+      str += `CRI\t${combinedValues.CRI.toFixed(1)}\n`;
+      str += `GAI\t${combinedValues.GAI.toFixed(1)}\n`;
+      str += `Chromaticity Coordinates\t(${combinedValues.x.toFixed(
+        4
+      )}, ${combinedValues.y.toFixed(4)})\n`;
+      str += `CIE S-cone Irradiance\t${combinedValues.CIE_S_cone_opic_irr.toExponential(
+        4
+      )}\n`;
+      str += `CIE M-cone Irradiance\t${combinedValues.CIE_M_cone_opic_irr.toExponential(
+        4
+      )}\n`;
+      str += `CIE L-cone Irradiance\t${combinedValues.CIE_L_cone_opic_irr.toExponential(
+        4
+      )}\n`;
+      str += `CIE Rhodopic Irradiance\t${combinedValues.CIE_Rhodopic_irr.toExponential(
+        4
+      )}\n`;
+      str += `CIE Melanopic Irradiance\t${combinedValues.CIE_Melanopic_irr.toExponential(
+        4
+      )}\n`;
+    }
+
+    $("#metrics-download").attr(
+      "href",
+      "data:text/plain;charset=utf-8," + encodeURIComponent(str)
+    );
+    $("#metrics-download").attr("download", "Metrics.txt");
+    $("#metrics-download")[0].click();
+  });
+}
+
+function handleDownloadSPDs() {
+  $("#download-spds").on("click", function () {
+    var str = "Nothing here. Check to make sure you've added sources.";
+    if (combinedValues) {
+      str = "";
+      var wl, v, i;
+
+      str += "Relative\n";
+      for (i = 0; i < combinedValues.relativeSPD.wavelength.length; i++) {
+        wl = combinedValues.relativeSPD.wavelength[i];
+        v = combinedValues.relativeSPD.value[i];
+        str += `${wl}\t${v}\n`;
+      }
+
+      str += "\nAbsolute\n";
+      for (i = 0; i < combinedValues.absoluteSPD.wavelength.length; i++) {
+        wl = combinedValues.absoluteSPD.wavelength[i];
+        v = combinedValues.absoluteSPD.value[i];
+        str += `${wl}\t${v}\n`;
+      }
+    }
+
+    $("#spd-download").attr(
+      "href",
+      "data:text/plain;charset=utf-8," + encodeURIComponent(str)
+    );
+    $("#spd-download").attr("download", "Combined SPDs.txt");
+    $("#spd-download")[0].click();
+  });
+}
+
 function createResultsJSON() {
-  var str = '{"results" : \n\t{\n';
-
-  // Date
-  var monthNames = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
-  ];
-  var d = new Date();
-  var date =
-    monthNames[d.getMonth()] +
-    " " +
-    d.getDate() +
-    ", " +
-    d.getFullYear() +
-    " " +
-    d.getHours() +
-    ":" +
-    d.getMinutes();
-  str += '\t\t"version": "' + VERSION + '",\n';
-  str += '\t\t"date": "' + date + '",\n';
-
-  //Sources
-  str += '\t\t"sources": {\n';
-  $(".sources-row").each(function () {
-    $(this)
-      .children("div")
-      .each(function () {
-        var id = $(this).find("div.text-truncate").html();
-        str += '\t\t\t"' + id + '": {\n';
-        str += '\t\t\t\t"info": {\n';
-        for (var i = 0; i < sourcelist.length; i++) {
-          if (sourcelist[i].id == id) {
-            str += '\t\t\t\t\t"id": "' + sourcelist[i].id + '",\n';
-            str +=
-              '\t\t\t\t\t"manufacturer": "' +
-              sourcelist[i].manufacturer +
-              '",\n';
-            str += '\t\t\t\t\t"cct": "' + sourcelist[i].cct + '",\n';
-            str += '\t\t\t\t\t"lamp": "' + sourcelist[i].lamp + '",\n';
-            str += '\t\t\t\t\t"desc": "' + sourcelist[i].info + '",\n';
-            str += '\t\t\t\t\t"spd": {\n';
-            str +=
-              '\t\t\t\t\t\t"wavelengths": ' +
-              JSON.stringify(sourcelist[i].spd.wavelength) +
-              ",\n";
-            str +=
-              '\t\t\t\t\t\t"values": ' +
-              JSON.stringify(sourcelist[i].spd.value) +
-              "\n";
-            str += "\t\t\t\t\t}\n";
-          }
-        }
-        str += "\t\t\t\t},\n";
-        str +=
-          '\t\t\t\t"lux": "' +
-          Number($(this).find("div:nth-of-type(2) > input").val()) +
-          '"\n';
-
-        if (
-          $(this).parent()[0] ==
-          $("#selected-sources").children("div:last-child")[0]
-        ) {
-          str += "\t\t\t}\n";
-        } else {
-          str += "\t\t\t},\n";
-        }
-      });
-  });
-  str += "\t\t},\n";
-
-  // Misc Input Variables
-  str += '\t\t"input_variables": {\n';
-  str += '\t\t\t"exposure_duration": "' + $("#time_sel").val() + '",\n';
-  str += '\t\t\t"distribution_scalar": "' + $("#scalar_sel").val() + '"\n';
-  str += "\t\t},\n";
-
-  // Combined Source Value Metrics
-  str += '\t\t"combined_metrics": {\n';
-  var vals = [];
-
-  $(".measurement-row").each(function () {
-    vals.push($(this).find("div").find(".value").first().html());
-  });
-
-  console.log(vals);
-
-  str += '\t\t\t"cs 2.0": ' + '"' + vals[0] + '",\n';
-  str += '\t\t\t"cla 2.0": ' + '"' + vals[1] + '",\n';
-  str += '\t\t\t"illuminance": ' + '"' + vals[2] + '",\n';
-  str += '\t\t\t"irradiance": ' + '"' + vals[3] + '",\n';
-  str += '\t\t\t"photon flux": ' + '"' + vals[4] + '",\n';
-  str += '\t\t\t"eml": ' + '"' + vals[5] + '",\n';
-  str += '\t\t\t"cct": ' + '"' + vals[6] + '",\n';
-  str += '\t\t\t"duv": ' + '"' + vals[7] + '",\n';
-  str += '\t\t\t"cri": ' + '"' + vals[8] + '",\n';
-  str += '\t\t\t"gai": ' + '"' + vals[9] + '",\n';
-  str += '\t\t\t"chromaticity_coordinates": ' + '"' + vals[10] + '",\n';
-  str += '\t\t\t"cie s-cone irradiance": ' + '"' + vals[12] + '",\n';
-  str += '\t\t\t"cie m-cone irradiance": ' + '"' + vals[13] + '",\n';
-  str += '\t\t\t"cie l-cone irradiance": ' + '"' + vals[14] + '",\n';
-  str += '\t\t\t"cie rhodopic irradiance": ' + '"' + vals[15] + '",\n';
-  str += '\t\t\t"cie melanopic irradiance": ' + '"' + vals[16] + '"\n';
-  str += "\t\t},\n";
-
-  // Combined spd's
-  str += '\t\t"combined_spds": {\n';
-  str += '\t\t\t"relative": {\n';
-  var wl = [],
-    val = [];
-  $("#RelSpdContainer").each(function () {
-    $(this)
-      .find("div > div.col")
-      .each(function () {
-        wl.push(parseFloat($(this).find("div.spd-wl").html()));
-        val.push(parseFloat($(this).find("div.spd-value").html()));
-      });
-  });
-  str += '\t\t\t\t"wavelengths": [' + wl + "],\n";
-  str += '\t\t\t\t"values": [' + val + "]\n";
-  str += "\t\t\t},\n";
-
-  str += '\t\t\t"absolute": {\n';
-  var wl = [],
-    val = [];
-  $("#AbsSpdContainer").each(function () {
-    $(this)
-      .find("div > div.col")
-      .each(function () {
-        wl.push(parseFloat($(this).find("div.spd-wl").html()));
-        val.push(parseFloat($(this).find("div.spd-value").html()));
-      });
-  });
-  str += '\t\t\t\t"wavelengths": [' + wl + "],\n";
-  str += '\t\t\t\t"values": [' + val + "]\n";
-  str += "\t\t\t}\n";
-  str += "\t\t}\n";
-
-  str += "\t}\n}";
+  var calculations = {};
+  calculations.version = VERSION;
+  calculations.date = new Date().toString();
+  calculations.sources = {};
+  for (source of sourcelist) {
+    if (source.isSelected) {
+      calculations.sources[source.id] = {
+        info: {
+          id: source.id,
+          manufacturer: source.manufacturer,
+          cct: source.cct,
+          lamp: source.lamp,
+          desc: source.info,
+          spd: {
+            wavelengths: source.spd.wavelength.map((a) => a.toString()),
+            values: source.spd.value.map((a) => a.toExponential(4)),
+          },
+        },
+        lux: source.selectedSource.illuminance.toString(),
+      };
+    }
+  }
+  calculations.input_variables = {
+    exposure_duration: _t.toString(),
+    distribution_scaler: _d.toString(),
+  };
+  calculations.combined_metrics = {
+    "cs_2.0": combinedValues.CS.toFixed(3),
+    "cla_2.0": combinedValues.CLA.toFixed(),
+    illuminance: combinedValues.absoluteIll.toString(),
+    irradiance: combinedValues.Irr.toExponential(4),
+    flux: combinedValues.pf.toExponential(4),
+    eml: combinedValues.EML.toFixed(),
+    cct: combinedValues.CCT.toFixed(),
+    duv: combinedValues.Duv.toFixed(3),
+    cri: combinedValues.CRI.toFixed(1),
+    gai: combinedValues.GAI.toFixed(1),
+    chromaticity_coordinates: `(${combinedValues.x.toFixed(
+      4
+    )}, ${combinedValues.y.toFixed(4)})`,
+    "cie_s-cone-irradiance":
+      combinedValues.CIE_S_cone_opic_irr.toExponential(4),
+    "cie_m-cone_irradiance":
+      combinedValues.CIE_M_cone_opic_irr.toExponential(4),
+    "cie_l-cone_irradiance":
+      combinedValues.CIE_L_cone_opic_irr.toExponential(4),
+    cie_rhodopic_irradiance: combinedValues.CIE_Rhodopic_irr.toExponential(4),
+    cie_melanopic_irradiance: combinedValues.CIE_Melanopic_irr.toExponential(4),
+  };
+  calculations.combined_spd = {
+    relative: {
+      wavelengths: combinedValues.relativeSPD.wavelength.map((a) =>
+        a.toString()
+      ),
+      values: combinedValues.relativeSPD.value.map((a) => a.toExponential(4)),
+    },
+    absolute: {
+      wavelengths: combinedValues.absoluteSPD.wavelength.map((a) =>
+        a.toString()
+      ),
+      values: combinedValues.absoluteSPD.value.map((a) => a.toExponential(4)),
+    },
+  };
 
   $("#jsondownload").attr(
     "href",
-    "data:text/json;charset=utf-8," + encodeURIComponent(str)
+    "data:application/json;charset=utf-8," +
+      encodeURIComponent(JSON.stringify(calculations, null, 2))
   );
   $("#jsondownload").attr("download", "CSCalculator Results.json");
   $("#jsondownload")[0].click();
@@ -613,6 +601,9 @@ function resetInputVariables() {
 
 // Page Action Functions
 $(document).ready(function () {
+  $(function () {
+    $('[data-toggle="tooltip"]').tooltip();
+  });
   resetInputVariables();
 
   $("button.addSource").on("click", function () {
@@ -721,6 +712,10 @@ $(document).ready(function () {
   handleSourceModalDescriptionCollapse();
 
   handleCIEAlphaCaretDropdown();
+
+  handleDownloadMetrics();
+
+  handleDownloadSPDs();
 
   $("#resultsDownload").click(createResultsJSON);
 });

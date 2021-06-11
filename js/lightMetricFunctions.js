@@ -121,23 +121,23 @@ function CLAcalc(spd) {
     values,
     arrayMul(deltaWavelength, efs.Melanopsin)
   );
-  CIE_S_cone_opic_irr = sumproduct(
+  combinedValues.CIE_S_cone_opic_irr = sumproduct(
     values,
     arrayMul(deltaWavelength, efs.CIE_S_cone)
   );
-  CIE_M_cone_opic_irr = sumproduct(
+  combinedValues.CIE_M_cone_opic_irr = sumproduct(
     values,
     arrayMul(deltaWavelength, efs.CIE_M_cone)
   );
-  CIE_L_cone_opic_irr = sumproduct(
+  combinedValues.CIE_L_cone_opic_irr = sumproduct(
     values,
     arrayMul(deltaWavelength, efs.CIE_L_cone)
   );
-  CIE_Rhodopic_irr = sumproduct(
+  combinedValues.CIE_Rhodopic_irr = sumproduct(
     values,
     arrayMul(deltaWavelength, efs.CIE_Rhodopic)
   );
-  CIE_Melanopic_irr = sumproduct(
+  combinedValues.CIE_Melanopic_irr = sumproduct(
     values,
     arrayMul(deltaWavelength, efs.CIE_Melanopic)
   );

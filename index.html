@@ -52,86 +52,6 @@
   </head>
   <body>
     <div
-      class="modal"
-      id="SPDModal"
-      tabindex="-1"
-      role="dialog"
-      aria-labelledby="SPDModal-label"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="SPDModal-label">
-              <span id="SPDModalTitleWord">Relative</span> Spectral Power
-              Distribution
-            </h5>
-            <button
-              type="button"
-              class="close"
-              data-dismiss="modal"
-              aria-label="Close"
-            >
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <div class="container-fluid">
-              <div class="row mb-4">
-                <div class="col d-flex justify-content-around text-center">
-                  <button
-                    id="RelSpdBtn"
-                    type="button"
-                    class="flex-fill spd-button m-2 py-1 btn btn-lrc active"
-                  >
-                    Relative
-                  </button>
-                  <button
-                    id="AbsSpdBtn"
-                    type="button"
-                    class="flex-fill spd-button m-2 py-1 btn btn-lrc"
-                  >
-                    Absolute
-                  </button>
-                </div>
-              </div>
-              <div class="row mb-2">
-                <div class="col">
-                  <div class="container-fluid">
-                    <div class="row">
-                      <div class="col d-flex justify-content-around">
-                        <div class="spd-wl-title">Wavelength (nm)</div>
-                        <div class="spd-value-title">Value</div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="row mb-4 mh-50">
-                <div class="col">
-                  <div
-                    id="RelSpdContainer"
-                    class="container-fluid spd-container"
-                  ></div>
-
-                  <div
-                    id="AbsSpdContainer"
-                    class="container-fluid spd-container d-none"
-                  ></div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-lrc" data-dismiss="modal">
-              Close
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div
       class="modal fade"
       id="helpModal"
       tabindex="-1"
@@ -439,7 +359,7 @@
             </button>
           </div>
           <div class="modal-body">
-            <form>
+            <form autocomplete="off">
               <!-- Input Source Name -->
               <div id="userIDFormGroup" class="input-group mb-3">
                 <div class="input-group-prepend mw-175">
@@ -474,7 +394,7 @@
               <div class="input-group mb-3">
                 <div class="input-group-prepend mw-175">
                   <label class="input-group-text mw-175" for="userCCT"
-                    ><b class="m-auto">CCT (K):</b></label
+                    ><b class="m-auto">CCT:</b></label
                   >
                 </div>
                 <input
@@ -483,6 +403,9 @@
                   id="userCCT"
                   placeholder="(Optional)"
                 />
+                <div class="input-group-append">
+                  <span class="input-group-text">K</span>
+                </div>
               </div>
 
               <!-- Input Lamp Type -->
@@ -634,11 +557,11 @@
       <strong>Beta v2.0.0:</strong> the CS Calculator 2.0 is in beta. Please
       e-mail
       <span
-        id="copy-to-clipboard"
+        id="copy-email"
         data-toggle="tooltip"
         data-placement="bottom"
         data-html="true"
-        title="<i class='far fa-copy'></i> Copy Email"
+        title="Copy Email to Clipboard"
         >michael.morrison@mountsinai.org</span
       >
       with any bugs, comments, concerns, or suggestions.
@@ -651,9 +574,6 @@
         <span aria-hidden="true">&times;</span>
       </button>
     </div>
-    <textarea id="copy-text" class="d-none">
-michael.morrison@mountsinai.org</textarea
-    >
 
     <div id="content" class="container-fluid">
       <div class="row mb-4">
@@ -672,15 +592,28 @@ michael.morrison@mountsinai.org</textarea
         <div class="col">
           <div class="card mb-3 drop-shadow">
             <div class="card-header">
-              <div class="row">
-                <div class="col-md-6">
-                  <div id="stepChange1" class="step-title-container active">
-                    <h2 class="step-title mb-0 active">Sources</h2>
+              <div class="container-fluid">
+                <div class="row">
+                  <div class="col-md-6 p-0">
+                    <div id="stepChange1" class="step-title-container active">
+                      <h2 class="step-title mb-0 active">Sources</h2>
+                    </div>
                   </div>
-                </div>
-                <div class="col-md-6">
-                  <div id="stepChange2" class="step-title-container disabled">
-                    <h2 class="step-title mb-0">Calculations</h2>
+                  <div class="col-md-6 p-0">
+                    <div id="stepChange2" class="step-title-container disabled">
+                      <div class="btn-menu">
+                        <button
+                          id="resultsDownload"
+                          class="btn btn-link btn-menu-btn"
+                          type="button"
+                          data-toggle="tooltip"
+                          title="Download All Calculations as .json"
+                        >
+                          <i class="fas fa-lg fa-download"></i>
+                        </button>
+                      </div>
+                      <h2 class="step-title mb-0">Calculations</h2>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -789,19 +722,21 @@ michael.morrison@mountsinai.org</textarea
                       <div class="col">
                         <div class="card">
                           <div class="card-header cursor-hover">
-                            <span
-                              data-toggle="modal"
-                              data-target="#custom-source-modal"
-                            >
-                              <button
-                                class="add-source-button btn btn-link"
-                                type="button"
-                                data-toggle="tooltip"
-                                title="Add Custom Source"
+                            <div class="btn-menu">
+                              <span
+                                data-toggle="modal"
+                                data-target="#custom-source-modal"
                               >
-                                <i class="fas fa-plus"></i>
-                              </button>
-                            </span>
+                                <button
+                                  class="btn btn-link btn-menu-btn"
+                                  type="button"
+                                  data-toggle="tooltip"
+                                  title="Add Custom Source"
+                                >
+                                  <i class="fas fa-plus"></i>
+                                </button>
+                              </span>
+                            </div>
                             <h2
                               class="text-center"
                               data-toggle="collapse"
@@ -1029,16 +964,18 @@ michael.morrison@mountsinai.org</textarea
                       <div class="col">
                         <div class="card">
                           <div class="card-header cursor-hover">
-                            <span data-toggle="modal" data-target="#SPDModal">
+                            <div class="btn-menu">
                               <button
-                                class="view-combined-spd-button btn btn-link"
+                                id="download-metrics"
+                                class="btn btn-link btn-menu-btn"
                                 type="button"
                                 data-toggle="tooltip"
-                                title="View Combined SPD"
+                                data-html="true"
+                                title="Download Metrics as .txt"
                               >
-                                <i class="fas fa-chart-area"></i>
+                                <i class="fas fa-download"></i>
                               </button>
-                            </span>
+                            </div>
 
                             <h2
                               class="text-center"
@@ -1347,22 +1284,124 @@ michael.morrison@mountsinai.org</textarea
                         </div>
                       </div>
                     </div>
+
+                    <div class="row mb-4">
+                      <div class="col">
+                        <div class="card">
+                          <div class="card-header cursor-hover">
+                            <div class="btn-menu">
+                              <button
+                                id="download-spds"
+                                class="btn btn-link btn-menu-btn"
+                                type="button"
+                                data-toggle="tooltip"
+                                title="Download Combined SPDs as .txt"
+                              >
+                                <i class="fas fa-download"></i>
+                              </button>
+                            </div>
+                            <h2
+                              class="text-center"
+                              data-toggle="collapse"
+                              data-target="#spds"
+                              aria-expanded="false"
+                              aria-controls="spds"
+                            >
+                              Combined SPDs
+                            </h2>
+                          </div>
+                          <div class="collapse" id="spds">
+                            <div class="card-body">
+                              <div class="container-fluid">
+                                <div class="row mb-4">
+                                  <div
+                                    class="
+                                      col
+                                      d-flex
+                                      justify-content-around
+                                      text-center
+                                    "
+                                  >
+                                    <button
+                                      id="RelSpdBtn"
+                                      type="button"
+                                      class="
+                                        flex-fill
+                                        spd-button
+                                        m-2
+                                        py-1
+                                        btn btn-lrc
+                                        active
+                                      "
+                                    >
+                                      Relative
+                                    </button>
+                                    <button
+                                      id="AbsSpdBtn"
+                                      type="button"
+                                      class="
+                                        flex-fill
+                                        spd-button
+                                        m-2
+                                        py-1
+                                        btn btn-lrc
+                                      "
+                                    >
+                                      Absolute
+                                    </button>
+                                  </div>
+                                </div>
+                                <div class="row mb-2">
+                                  <div class="col">
+                                    <div class="container-fluid">
+                                      <div class="row">
+                                        <div
+                                          class="
+                                            col
+                                            d-flex
+                                            justify-content-around
+                                          "
+                                        >
+                                          <div class="spd-wl-title">
+                                            Wavelength (nm)
+                                          </div>
+                                          <div class="spd-value-title">
+                                            Value
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="row mb-4 mh-50">
+                                  <div class="col">
+                                    <div
+                                      id="RelSpdContainer"
+                                      class="container-fluid spd-container"
+                                    ></div>
+
+                                    <div
+                                      id="AbsSpdContainer"
+                                      class="
+                                        container-fluid
+                                        spd-container
+                                        d-none
+                                      "
+                                    ></div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                   <div class="col-xl-6">
                     <div class="row mb-4">
                       <div class="col">
                         <div class="card">
                           <div class="card-header cursor-hover">
-                            <button
-                              id="resultsDownload"
-                              class="add-source-button btn btn-link"
-                              type="button"
-                              data-toggle="tooltip"
-                              title="Download Calculations as JSON"
-                            >
-                              <i class="fas fa-download"></i>
-                            </button>
-                            <a id="jsondownload" class="hidden"></a>
                             <h2
                               class="text-center"
                               data-toggle="collapse"
@@ -1416,7 +1455,7 @@ michael.morrison@mountsinai.org</textarea
                                         py-1
                                       "
                                     >
-                                      Rendering
+                                      Color Rendering
                                     </button>
                                   </div>
                                 </div>
@@ -1496,5 +1535,8 @@ michael.morrison@mountsinai.org</textarea
         </div>
       </div>
     </div>
+    <a id="jsondownload" class="hidden"></a>
+    <a id="metrics-download" class="hidden"></a>
+    <a id="spd-download" class="hidden"></a>
   </body>
 </html>

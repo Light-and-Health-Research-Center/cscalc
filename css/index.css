@@ -47,11 +47,11 @@ h2 {
   padding-right: 3rem;
 }
 
-#copy-to-clipboard {
+#copy-email {
   font-weight: 800;
 }
 
-#copy-to-clipboard:hover{
+#copy-email:hover{
   cursor: pointer;
 }
 
@@ -77,7 +77,7 @@ h2 {
   font-weight: 600;
 }
 
-.measurement-value-pair, .input-variable, .selected_source_, .selected_source {
+.measurement-value-pair, .input-variable, .selected_source_, .selected_source, .spd-pair {
   border-radius: 0.25rem;
 }
 
@@ -374,9 +374,24 @@ select {
   color: #221f72;
 }
 
-.view-combined-spd-button{
+.card-header{
+  position: relative;
+}
+
+.btn-menu{
   position: absolute;
   right: 0;
+  bottom: 50%;
+  padding-right: 0.5rem;
+  transform: translate(0, 50%);
+  z-index: 1000;
+}
+
+.btn-menu-btn{
+  padding-left: 0;
+  padding-right: 0;
+  margin-left: 0.25rem;
+  margin-right: 0.25rem;
   color: #221f72;
 }
 
@@ -418,7 +433,7 @@ select {
   min-width: 175px;
 }
 
-.input-group-prepend, .input-group-text{
+.input-group-prepend{
   min-width: 175px;
 }
 

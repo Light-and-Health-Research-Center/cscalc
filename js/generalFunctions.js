@@ -26,11 +26,7 @@ var setwavelength = [
   710, 712, 714, 716, 718, 720, 722, 724, 726, 728, 730,
 ];
 
-var CIE_S_cone_opic_irr,
-  CIE_M_cone_opic_irr,
-  CIE_L_cone_opic_irr,
-  CIE_Rhodopic_irr,
-  CIE_Melanopic_irr;
+var combinedValues;
 
 function efficienyFunctions(wavelength, thickness) {
   var results = {};
@@ -1878,7 +1874,7 @@ function sourceListModal(i) {
   sourceData = [];
   for (i = 0; i < source.spd.wavelength.length; i++) {
     sourceData[i] = {
-      x: source.spd.wavelength[i],
+      x: setwavelength[i],
       y: source.relativeSPD[i],
     };
   }
@@ -1907,7 +1903,7 @@ function sourceListModal(i) {
 }
 
 function updateResults() {
-  var combinedValues = ssAbsoluteSPDCalc();
+  combinedValues = ssAbsoluteSPDCalc();
   combinedValues.relativeSPD = {
     wavelength: setwavelength,
     value: spdNormalize(setwavelength, combinedValues.absoluteSPD.value),
@@ -1987,11 +1983,11 @@ function updateResults() {
   );
   $("#resultIrr").html(combinedValues.Irr.toExponential(4));
 
-  $("#resultCIE_S").html(CIE_S_cone_opic_irr.toExponential(4));
-  $("#resultCIE_M").html(CIE_M_cone_opic_irr.toExponential(4));
-  $("#resultCIE_L").html(CIE_L_cone_opic_irr.toExponential(4));
-  $("#resultCIE_Rhod").html(CIE_Rhodopic_irr.toExponential(4));
-  $("#resultCIE_Mela").html(CIE_Melanopic_irr.toExponential(4));
+  $("#resultCIE_S").html(combinedValues.CIE_S_cone_opic_irr.toExponential(4));
+  $("#resultCIE_M").html(combinedValues.CIE_M_cone_opic_irr.toExponential(4));
+  $("#resultCIE_L").html(combinedValues.CIE_L_cone_opic_irr.toExponential(4));
+  $("#resultCIE_Rhod").html(combinedValues.CIE_Rhodopic_irr.toExponential(4));
+  $("#resultCIE_Mela").html(combinedValues.CIE_Melanopic_irr.toExponential(4));
 
   $("#resultPf").html(combinedValues.pf.toExponential(4));
 
@@ -2756,7 +2752,7 @@ $(document).ready(function () {
     sourceData = [];
     for (i = 0; i < source.spd.wavelength.length; i++) {
       sourceData[i] = {
-        x: source.spd.wavelength[i],
+        x: setwavelength[i],
         y: source.relativeSPD[i],
       };
     }
