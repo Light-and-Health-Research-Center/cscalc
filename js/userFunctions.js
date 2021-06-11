@@ -257,6 +257,8 @@ function addSource(sourceIdx) {
   div +=
     '<div class="text-truncate" data-i="' +
     sourceIdx +
+    '" data-toggle="tooltip" title="' +
+    sourcelist[sourceIdx].id +
     '">' +
     sourcelist[sourceIdx].id +
     "</div>";
@@ -280,6 +282,8 @@ function addSource(sourceIdx) {
   div +=
     '<div data-i="' +
     sourceIdx +
+    '" data-toggle="tooltip" title="' +
+    sourcelist[sourceIdx].id +
     '" class="text-truncate">' +
     sourcelist[sourceIdx].id +
     "</div>";
@@ -428,6 +432,20 @@ function handleSourceModalDescriptionCollapse() {
   });
 }
 
+function handleCIEAlphaCaretDropdown() {
+  $("#CIE_alpha_container").on("click", function () {
+    var caret = $(".cie-alpha-caret");
+    if (caret.hasClass("fa-caret-right")) {
+      console.log("here");
+      caret.removeClass("fa-caret-right");
+      caret.addClass("fa-caret-down");
+    } else {
+      caret.removeClass("fa-caret-down");
+      caret.addClass("fa-caret-right");
+    }
+  });
+}
+
 function createResultsJSON() {
   var str = '{"results" : \n\t{\n';
 
@@ -523,22 +541,24 @@ function createResultsJSON() {
     vals.push($(this).find("div").find(".value").first().html());
   });
 
+  console.log(vals);
+
   str += '\t\t\t"cs 2.0": ' + '"' + vals[0] + '",\n';
   str += '\t\t\t"cla 2.0": ' + '"' + vals[1] + '",\n';
   str += '\t\t\t"illuminance": ' + '"' + vals[2] + '",\n';
   str += '\t\t\t"irradiance": ' + '"' + vals[3] + '",\n';
-  str += '\t\t\t"cie s-cone irradiance": ' + '"' + vals[4] + '",\n';
-  str += '\t\t\t"cie m-cone irradiance": ' + '"' + vals[5] + '",\n';
-  str += '\t\t\t"cie l-cone irradiance": ' + '"' + vals[6] + '",\n';
-  str += '\t\t\t"cie rhodopic irradiance": ' + '"' + vals[7] + '",\n';
-  str += '\t\t\t"cie melanopic irradiance": ' + '"' + vals[8] + '",\n';
-  str += '\t\t\t"photon flux": ' + '"' + vals[9] + '",\n';
-  str += '\t\t\t"eml": ' + '"' + vals[10] + '",\n';
-  str += '\t\t\t"cct": ' + '"' + vals[11] + '",\n';
-  str += '\t\t\t"duv": ' + '"' + vals[12] + '",\n';
-  str += '\t\t\t"cri": ' + '"' + vals[13] + '",\n';
-  str += '\t\t\t"gai": ' + '"' + vals[14] + '",\n';
-  str += '\t\t\t"chromaticity_coordinates": ' + '"' + vals[15] + '"\n';
+  str += '\t\t\t"photon flux": ' + '"' + vals[4] + '",\n';
+  str += '\t\t\t"eml": ' + '"' + vals[5] + '",\n';
+  str += '\t\t\t"cct": ' + '"' + vals[6] + '",\n';
+  str += '\t\t\t"duv": ' + '"' + vals[7] + '",\n';
+  str += '\t\t\t"cri": ' + '"' + vals[8] + '",\n';
+  str += '\t\t\t"gai": ' + '"' + vals[9] + '",\n';
+  str += '\t\t\t"chromaticity_coordinates": ' + '"' + vals[10] + '",\n';
+  str += '\t\t\t"cie s-cone irradiance": ' + '"' + vals[12] + '",\n';
+  str += '\t\t\t"cie m-cone irradiance": ' + '"' + vals[13] + '",\n';
+  str += '\t\t\t"cie l-cone irradiance": ' + '"' + vals[14] + '",\n';
+  str += '\t\t\t"cie rhodopic irradiance": ' + '"' + vals[15] + '",\n';
+  str += '\t\t\t"cie melanopic irradiance": ' + '"' + vals[16] + '"\n';
   str += "\t\t},\n";
 
   // Combined spd's
@@ -699,6 +719,8 @@ $(document).ready(function () {
   handleResize();
 
   handleSourceModalDescriptionCollapse();
+
+  handleCIEAlphaCaretDropdown();
 
   $("#resultsDownload").click(createResultsJSON);
 });
