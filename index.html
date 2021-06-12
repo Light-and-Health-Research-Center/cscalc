@@ -1,15 +1,3 @@
-<!-- <p>
-  <a
-    href="http://journals.sagepub.com/doi/abs/10.1177/1477153511430474"
-    target="_blank"
-    >Information on the calculation of Circadian Light</a
-  >,
-  <a
-    href="http://journals.sagepub.com/doi/pdf/10.1177/1477153512467607"
-    target="_blank"
-    >Corrigendum</a
-  >
-</p> -->
 <!DOCTYPE html>
 <html lang="en" class="h-100">
   <head>
@@ -360,132 +348,150 @@
           </div>
           <div class="modal-body">
             <form autocomplete="off">
-              <!-- Input Source Name -->
-              <div id="userIDFormGroup" class="input-group mb-3">
-                <div class="input-group-prepend mw-175">
-                  <label class="input-group-text mw-175" for="userID"
-                    ><b class="m-auto">Source Name:</b></label
-                  >
-                </div>
+              <div class="form-group">
+                <label for="userID">*Source Name</label>
                 <input
                   type="text"
                   class="form-control userSortSource userEnter"
                   id="userID"
-                  placeholder="Unique Source Name"
+                  placeholder="Custom Source"
                 />
               </div>
-
-              <!-- Input Manufacturer -->
-              <div class="input-group mb-3">
-                <div class="input-group-prepend mw-175">
-                  <label class="input-group-text mw-175" for="userMan"
-                    ><b class="m-auto">Manufacturer:</b></label
-                  >
+              <div class="form-row">
+                <div class="col-sm-4 col-xs-12">
+                  <div class="form-group">
+                    <label for="userMan">Manufacturer</label>
+                    <input
+                      type="text"
+                      class="form-control userSortSorce userEnter"
+                      id="userMan"
+                      placeholder="GE"
+                    />
+                  </div>
                 </div>
-                <input
-                  type="text"
-                  class="form-control userSortSource userEnter"
-                  id="userMan"
-                  placeholder="(Optional)"
-                />
+                <div class="col-sm-4 col-xs-12">
+                  <div class="form-group">
+                    <label for="userCCT">CCT</label>
+                    <div class="input-group">
+                      <input
+                        type="text"
+                        class="form-control userSortSorce userEnter"
+                        id="userCCT"
+                        placeholder="6500"
+                      />
+                      <div class="input-group-append">
+                        <span class="input-group-text">K</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-4">
+                  <div class="form-group">
+                    <label for="userLamp">Lamp Type</label>
+                    <input
+                      type="text"
+                      class="form-control userSortSorce userEnter"
+                      id="userLamp"
+                      placeholder="Daylight"
+                    />
+                  </div>
+                </div>
               </div>
-
-              <!-- Input CCT -->
-              <div class="input-group mb-3">
-                <div class="input-group-prepend mw-175">
-                  <label class="input-group-text mw-175" for="userCCT"
-                    ><b class="m-auto">CCT:</b></label
-                  >
-                </div>
-                <input
-                  type="text"
-                  class="form-control userSortSource userEnter"
-                  id="userCCT"
-                  placeholder="(Optional)"
-                />
-                <div class="input-group-append">
-                  <span class="input-group-text">K</span>
-                </div>
-              </div>
-
-              <!-- Input Lamp Type -->
-              <div class="input-group mb-3">
-                <div class="input-group-prepend mw-175">
-                  <label class="input-group-text mw-175" for="userLamp"
-                    ><b class="m-auto">Lamp Type:</b></label
-                  >
-                </div>
-                <input
-                  type="text"
-                  class="form-control userSortSource userEnter"
-                  id="userLamp"
-                  placeholder="(Optional)"
-                />
-              </div>
-
-              <!-- Input Desc -->
-              <div class="input-group mb-3">
-                <div class="input-group-prepend mw-175">
-                  <label class="input-group-text mw-175" for="userDesc"
-                    ><b class="m-auto">Description:</b></label
-                  >
-                </div>
+              <div class="form-group">
+                <label for="userDesc">Description</label>
                 <textarea
-                  rows="3"
-                  class="form-control userSortSource userEnter"
+                  class="form-control"
                   id="userDesc"
-                  placeholder="(Optional)"
+                  row="2"
+                  placeholder="My Custom Source"
                 ></textarea>
               </div>
 
-              <div class="text-center mb-3">
-                <h5>Spectral Power Distribution (SPD):</h5>
-              </div>
-
-              <div class="row">
-                <div class="col-lg-6 col-md-12">
-                  <!-- Input Wavelengths -->
-                  <div id="userSPDFormWavelengths" class="input-group mb-3">
-                    <label
-                      class="input-group-text mw-175 w-100 top-label"
-                      for="userSPDWavelengths"
-                      ><b class="m-auto">λ (nm):</b></label
-                    >
-                    <textarea
-                      class="form-control text-right w-100 bottom-input mw-175"
-                      rows="5"
-                      id="userSPDWavelengths"
-                      placeholder="380&#10;382&#10;384&#10;386&#10;388"
-                    ></textarea>
+              <div id="userSPDTogetherContainer">
+                <div class="form-group">
+                  <div class="form-label-container">
+                    <div class="btn-menu">
+                      <button
+                        class="btn btn-link btn-menu-btn"
+                        type="button"
+                        data-toggle="tooltip"
+                        title="Toggle SPD Input Type"
+                      >
+                        <i
+                          class="change-spd-input-type fas fa-lg fa-toggle-off"
+                        ></i>
+                      </button>
+                    </div>
+                    <label for="userSPDTogether">*SPD</label>
                   </div>
-                </div>
 
-                <div class="col-lg-6 col-md-12">
-                  <!-- Input Values -->
-                  <div id="userSPDFormValues" class="input-group mb-3">
-                    <label
-                      class="input-group-text mw-175 w-100 top-label"
-                      for="userSPDValues"
-                      ><b class="m-auto">Values</b></label
-                    >
-                    <textarea
-                      class="form-control text-right w-100 bottom-input mw-175"
-                      rows="5"
-                      id="userSPDValues"
-                      placeholder="0.0020065&#10;0.0016818&#10;0.001013&#10;0.00054935&#10;0.00027727"
-                    ></textarea>
-                  </div>
+                  <textarea
+                    class="form-control"
+                    id="userSPDComplete"
+                    rows="5"
+                    placeholder="380&#9;0.0020065&#10;382&#9;0.0016818&#10;384&#9;0.001013&#10;386&#9;0.00054935&#10;388&#9;0.00027727"
+                  ></textarea>
+                  <small class="form-text text-muted">*required</small>
+                  <div class="addCustomSourceError"></div>
                 </div>
               </div>
+
+              <div id="userSPDSeperateContainer" class="d-none">
+                <div class="form-row">
+                  <div class="col-sm-6 col-xs-12">
+                    <div class="form-group">
+                      <label for="userSPDWavelengths">*λ</label>
+                      <textarea
+                        class="form-control"
+                        id="userSPDWavelengths"
+                        rows="5"
+                        placeholder="380&#10;382&#10;384&#10;386&#10;388"
+                      ></textarea>
+                      <small class="form-text text-muted">*required</small>
+                      <div class="addCustomSourceError"></div>
+                    </div>
+                  </div>
+                  <div class="col-sm-6 col-xs-12">
+                    <div class="form-group">
+                      <div class="form-label-container">
+                        <div class="btn-menu">
+                          <button
+                            class="btn btn-link btn-menu-btn"
+                            type="button"
+                            data-toggle="tooltip"
+                            title="Toggle SPD Input Type"
+                          >
+                            <i
+                              class="
+                                change-spd-input-type
+                                fas
+                                fa-lg fa-toggle-off
+                              "
+                            ></i>
+                          </button>
+                        </div>
+                        <label for="userSPDValues">*Values</label>
+                      </div>
+                      <textarea
+                        class="form-control"
+                        id="userSPDValues"
+                        rows="5"
+                        placeholder="0.0020065&#10;0.0016818&#10;0.001013&#10;0.00054935&#10;0.00027727"
+                      ></textarea>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
               <button
-                type="button"
+                id="userSourceSubmit"
                 class="btn btn-lrc disabled w-100"
+                type="button"
                 data-dismiss="modal"
                 aria-label="Close"
-                id="userSourceSubmit"
                 onclick="submitUserSource()"
               >
-                Add to Sources List
+                Add Source
               </button>
             </form>
           </div>
@@ -873,21 +879,6 @@
                         </div>
                       </div>
                     </div>
-
-                    <!-- <div class="row" id="csInputSection" style="display: none;">
-                      <div class="col">
-                        <h4 class="text-center"> - OR - </h4>
-                        <h5 class="w-100 text-center text-lrc">Source Circadian Stimulus</h5>
-                        <hr class="hr-lrc"/>
-                      </div>
-
-                      <div class="input-group mb-3">
-                        <div class="input-group-prepend mw-175 text-center">
-                          <label class="input-group-text mw-175 text-center" for="manufacterer"><b>CS:</b></label>
-                        </div>
-                        <input class="form-control ssCS" id="csInput" placeholder="0.0"/>
-                      </div>
-                    </div> -->
 
                     <div class="row mb-4">
                       <div class="col">
@@ -1374,9 +1365,7 @@
                                             justify-content-around
                                           "
                                         >
-                                          <div class="spd-wl-title">
-                                            Wavelength (nm)
-                                          </div>
+                                          <div class="spd-wl-title">λ (nm)</div>
                                           <div class="spd-value-title">
                                             Value
                                           </div>

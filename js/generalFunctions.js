@@ -1872,7 +1872,7 @@ function sourceListModal(i) {
   $("#source-modal-footer").removeClass("d-none");
 
   sourceData = [];
-  for (i = 0; i < source.spd.wavelength.length; i++) {
+  for (i = 0; i < source.relativeSPD.length; i++) {
     sourceData[i] = {
       x: setwavelength[i],
       y: source.relativeSPD[i],
@@ -2750,7 +2750,7 @@ $(document).ready(function () {
     $("#source-modal-footer").addClass("d-none");
 
     sourceData = [];
-    for (i = 0; i < source.spd.wavelength.length; i++) {
+    for (i = 0; i < source.relativeSPD.length; i++) {
       sourceData[i] = {
         x: setwavelength[i],
         y: source.relativeSPD[i],

@@ -117,31 +117,53 @@ function readUserSPD() {
     value: [],
   };
   var alertText = "";
-  var userWL = cleanSPDRows(
-    $("#userSPDWavelengths").val().replace(/\n/g, " ").split(" ")
-  );
-  var userV = cleanSPDRows(
-    $("#userSPDValues").val().replace(/\n/g, " ").split(" ")
-  );
+  var userWL = [],
+    userV = [];
+  if (!$("#userSPDSeperateContainer").hasClass("d-none")) {
+    userWL = cleanSPDRows(
+      $("#userSPDWavelengths").val().replace(/\n/g, " ").split(" ")
+    );
+    userV = cleanSPDRows(
+      $("#userSPDValues").val().replace(/\n/g, " ").split(" ")
+    );
+  } else {
+    var spd_arr = $("#userSPDComplete").val().split("\n");
+    for (let line of spd_arr) {
+      if (line.trim() == "") {
+        continue;
+      }
+      line = line
+        .trim()
+        .replace(/\t|\s\s+/g, " ")
+        .split(" "); // replace all tabs and spaces with a single space
+      if (line.length > 2) {
+        alertText += '<p class="error-text">Invalid SPD Input</p>';
+        validSPD = false;
+      } else {
+        userWL.push(line[0]);
+        userV.push(line[1]);
+      }
+    }
+  }
+
   if (userWL.length != userV.length) {
-    if ($("#userSPDValues").val() != "") {
+    if ($("#userSPDValues").val() != "" || $("#userSPDComplete").val() != "") {
       alertText +=
-        '<li class="alert alert-danger" role="alert"><strong>Error:</strong> There must be the same number of wavelengths and values</li>';
+        '<p class="error-text">There must be the same number of wavelengths and values</p>';
     }
     validSPD = false;
   }
   if (userWL.length < 3) {
-    if ($("#userSPDValues").val() != "") {
+    if ($("#userSPDValues").val() != "" || $("#userSPDComplete").val() != "") {
       alertText +=
-        '<li class="alert alert-danger" role="alert"><strong>Error:</strong> Must enter at least 3 wavelength-value pairs</li>';
+        '<p class="error-text">Must enter at least 3 wavelength-value pairs</p>';
     }
     validSPD = false;
   }
-
   if (userWL.some(notNumeric) || userV.some(notNumeric)) {
-    if ($("#userSPDValues").val() != "") {
+    if ($("#userSPDValues").val() != "" || $("#userSPDComplete").val() != "") {
       alertText +=
-        '<li class="alert alert-danger" role="alert"><strong>Error:</strong> Wavelengths and values must not contain non-numeric entries</li>';
+        '<p class="error-text">Wavelengths and values must not contain non-numeric entries</p>';
     }
     validSPD = false;
   }
@@ -153,9 +175,7 @@ function readUserSPD() {
     valid: validSPD,
     spd: spd,
   };
-
-  //alert(alertText);
-  $("#userSPDModalHelp").html(alertText);
+  $(".addCustomSourceError").html(alertText);
   return result;
 }
 
@@ -432,7 +452,6 @@ function handleCIEAlphaCaretDropdown() {
   $("#CIE_alpha_container").on("click", function () {
     var caret = $(".cie-alpha-caret");
     if (caret.hasClass("fa-caret-right")) {
-      console.log("here");
       caret.removeClass("fa-caret-right");
       caret.addClass("fa-caret-down");
     } else {
@@ -515,6 +534,27 @@ function handleDownloadSPDs() {
     );
     $("#spd-download").attr("download", "Combined SPDs.txt");
     $("#spd-download")[0].click();
+  });
+}
+
+function handleChangeSPDInputType() {
+  $(".change-spd-input-type").on("click", function () {
+    if ($(".change-spd-input-type").hasClass("fa-toggle-on")) {
+      $("#userSPDTogetherContainer").removeClass("d-none");
+      $("#userSPDWavelengths").val("");
+      $("#userSPDValues").val("");
+      $("#userSPDSeperateContainer").addClass("d-none");
+      $(".change-spd-input-type")
+        .removeClass("fa-toggle-on")
+        .addClass("fa-toggle-off");
+    } else {
+      $("#userSPDSeperateContainer").removeClass("d-none");
+      $("#userSPDTogetherContainer").addClass("d-none");
+      $("#userSPDComplete").val("");
+      $(".change-spd-input-type")
+        .removeClass("fa-toggle-off")
+        .addClass("fa-toggle-on");
+    }
   });
 }
 
@@ -645,6 +685,10 @@ $(document).ready(function () {
     validateSubmit();
   });
 
+  $("#userSPDComplete").on("input", function () {
+    validateSubmit();
+  });
+
   $(".userEnter").on("keydown", function (e) {
     //Trigger change on enter
     if (e.keyCode == 13) {
@@ -687,6 +731,15 @@ $(document).ready(function () {
     validateSubmit();
   });
 
+  $("#userSPDComplete").change(function () {
+    if (validateUserSPD()) {
+      userSPDValid();
+    } else {
+      userSPDInvalid();
+    }
+    validateSubmit();
+  });
+
   $("#continue-to-calculations-button").on("click", function () {
     $("#stepChange2").trigger("click");
   });
@@ -716,6 +769,8 @@ $(document).ready(function () {
   handleDownloadMetrics();
 
   handleDownloadSPDs();
+
+  handleChangeSPDInputType();
 
   $("#resultsDownload").click(createResultsJSON);
 });
