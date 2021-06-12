@@ -1998,8 +1998,8 @@ function updateResults() {
   var row, wave, val;
   for (var i = 0; i < combinedValues.relativeSPD.wavelength.length; i++) {
     row = "";
-    row += '<div class="row mb-1 spd-row">';
-    row += '  <div class="col d-flex justify-content-around spd-pair">';
+    row += '<div class="row mb-1 zebra-row">';
+    row += '  <div class="col d-flex justify-content-around zebra-entry">';
     row +=
       '    <div class="spd-wl">' +
       combinedValues.relativeSPD.wavelength[i] +
@@ -2017,8 +2017,8 @@ function updateResults() {
   $("#AbsSpdContainer").empty();
   for (i = 0; i < combinedValues.absoluteSPD.wavelength.length; i++) {
     row = "";
-    row += '<div class="row mb-1 spd-row">';
-    row += '  <div class="col d-flex justify-content-around spd-pair">';
+    row += '<div class="row mb-1 zebra-row">';
+    row += '  <div class="col d-flex justify-content-around zebra-entry">';
     row +=
       '    <div class="spd-wl">' +
       combinedValues.absoluteSPD.wavelength[i] +

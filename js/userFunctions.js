@@ -264,12 +264,12 @@ function addSource(sourceIdx) {
 
   // Add source to selected sources list
   var div = "";
-  div += '<div class="row mb-1 sources_-row">';
+  div += '<div class="row mb-1 zebra-row">';
   div +=
     '<div id="SelectedSource_' +
     sourceIdx +
     "_" +
-    '" class="col d-flex  justify-content-between selected_source_">';
+    '" class="col d-flex  justify-content-between zebra-entry">';
   div +=
     '<button class="py-0 selected-source-icon btn btn-link" type="button" data-toggle="tooltip" title="Toggle Source Info" data-i="' +
     sourceIdx +
@@ -283,18 +283,18 @@ function addSource(sourceIdx) {
     sourcelist[sourceIdx].id +
     "</div>";
   div +=
-    '<button class="py-0 removeSource btn btn-link" type="button" data-toggle="tooltip" title="Remove Source" data-i="' +
+    '<button class="py-0 removeSource text-red pointer btn btn-link" type="button" data-toggle="tooltip" title="Remove Source" data-i="' +
     sourceIdx +
     '"><i class="fas fa-times fa-lg py-0"></i></button>';
   div += "</div></div>";
   $("#selected-sources_").append(div);
 
   var div = "";
-  div += '<div class="row mb-1 sources-row">';
+  div += '<div class="row mb-1 zebra-row">';
   div +=
     '<div id="SelectedSource_' +
     sourceIdx +
-    '" class="col d-flex  justify-content-between selected_source py-2">';
+    '" class="col d-flex  justify-content-between zebra-entry py-2">';
   div +=
     '<button class="py-0 selected-source-icon btn btn-link" type="button" data-toggle="tooltip" title="Toggle Source Info" data-i="' +
     sourceIdx +
@@ -312,7 +312,7 @@ function addSource(sourceIdx) {
     sourceIdx +
     '" class="form-control ssIll flex-shrink-1" placeholder="Illuminance (lx)" />';
   div +=
-    '<button class="py-0 removeSource btn btn-link" type="button" data-toggle="tooltip" title="Remove Source" data-i="' +
+    '<button class="py-0 removeSource text-red pointer btn btn-link" type="button" data-toggle="tooltip" title="Remove Source" data-i="' +
     sourceIdx +
     '"><i class="fas fa-times fa-lg py-0"></i></button></div>';
   div += "</div></div>";
@@ -432,14 +432,14 @@ function handleLuxChangeFocusOut() {
 
 function handleSourceModalDescriptionCollapse() {
   $("#sourceModalDescriptionCollapse").on("click", function () {
-    if ($(this).hasClass("description-collapse-collapsed")) {
+    if ($(this).hasClass("text-truncate")) {
       $(this)
         .attr("title", "Collapse Description")
         .tooltip("_fixTitle")
         .tooltip("show");
-      $(this).removeClass("description-collapse-collapsed");
+      $(this).removeClass("text-truncate");
     } else {
-      $(this).addClass("description-collapse-collapsed");
+      $(this).addClass("text-truncate");
       $(this)
         .attr("title", "Expand Description")
         .tooltip("_fixTitle")

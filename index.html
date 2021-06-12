@@ -15,7 +15,6 @@
     />
     <script src="https://unpkg.com/mathjs/lib/browser/math.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.3/Chart.js"></script>
@@ -26,17 +25,11 @@
     <script src="js/lightMetricFunctions.js"></script>
     <script src="js/spectralEfficiency.js"></script>
     <script src="js/userFunctions.js"></script>
-    <link rel="stylesheet" href="css/index.css" />
+    <link rel="stylesheet" href="css/css.css" />
     <link
       rel="stylesheet"
       href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700&display=swap"
     />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css?family=Oswald:200,300,400,500,600,700&display=swap"
-    />
-    <link rel="stylesheet" href="css/nav.css" />
-    <link rel="stylesheet" href="css/animation.css" />
   </head>
   <body>
     <div
@@ -53,10 +46,16 @@
             <div class="row">
               <div class="col-md-3">
                 <ul class="help-menu-list">
-                  <li data-value="sources" class="help-menu-list-item active">
+                  <li
+                    data-value="sources"
+                    class="help-menu-list-item pointer active"
+                  >
                     <h4 class="help-menu-list-title">Sources</h4>
                   </li>
-                  <li data-value="calculations" class="help-menu-list-item">
+                  <li
+                    data-value="calculations"
+                    class="help-menu-list-item pointer"
+                  >
                     <h4 class="help-menu-list-title">Caclulations</h4>
                   </li>
                 </ul>
@@ -72,8 +71,10 @@
                     </button>
                   </div>
                   <div class="modal-body help-body">
-                    <h3 class="help-menu-header">Source List</h3>
-                    <p class="help-menu-p">
+                    <h3 class="font-size-1_25 text-uppercase font-weight-bold">
+                      Source List
+                    </h3>
+                    <p class="font-size-1_3">
                       Click on a source to view additional information and have
                       the opportunity to add the source to the calculation area.
                       When the page is first loaded, all preloaded sources will
@@ -86,8 +87,10 @@
                         class="w-55 my-4 rounded drop-shadow"
                       />
                     </figure>
-                    <h3 class="help-menu-header">Source List Filters</h3>
-                    <p class="help-menu-p">
+                    <h3 class="font-size-1_25 text-uppercase font-weight-bold">
+                      Source List Filters
+                    </h3>
+                    <p class="font-size-1_3">
                       Click the
                       <b>Source List Filters</b>
                       header to drop down possible source list filtering
@@ -104,8 +107,10 @@
                         class="w-55 my-4 rounded drop-shadow"
                       />
                     </figure>
-                    <h3 class="help-menu-header">Custom Source</h3>
-                    <p class="help-menu-p">
+                    <h3 class="font-size-1_25 text-uppercase font-weight-bold">
+                      Custom Source
+                    </h3>
+                    <p class="font-size-1_3">
                       Click the <i class="ms-purple fas fa-plus"></i> button to
                       open up a modal which will allow you to add a custom
                       source. Fill in the required fields and click the
@@ -119,8 +124,10 @@
                         class="w-65 my-4 rounded drop-shadow"
                       />
                     </figure>
-                    <h3 class="help-menu-header">Selected Sources</h3>
-                    <p class="help-menu-p">
+                    <h3 class="font-size-1_25 text-uppercase font-weight-bold">
+                      Selected Sources
+                    </h3>
+                    <p class="font-size-1_3">
                       Once a source is added to the
                       <b>Selected Sources</b> list it will appear here. Click
                       the <i class="ms-purple fas fa-info-circle"></i> icon to
@@ -144,8 +151,10 @@
                     </button>
                   </div>
                   <div class="modal-body help-body">
-                    <h3 class="help-menu-header">Selected Sources</h3>
-                    <p class="help-menu-p">
+                    <h3 class="font-size-1_25 text-uppercase font-weight-bold">
+                      Selected Sources
+                    </h3>
+                    <p class="font-size-1_3">
                       This Selected Sources Table is a duplicate of the one in
                       the Sources page, only this one will allow you to change
                       the vertical illuminance of the source. Once a source is
@@ -161,8 +170,10 @@
                         class="w-65 my-4 rounded drop-shadow"
                       />
                     </figure>
-                    <h3 class="help-menu-header">Input Variables</h3>
-                    <p class="help-menu-p">
+                    <h3 class="font-size-1_25 text-uppercase font-weight-bold">
+                      Input Variables
+                    </h3>
+                    <p class="font-size-1_3">
                       Input variables are listed by name and current setting.
                       All variables default to average values. Click on each
                       variable for additional information and click on the value
@@ -174,26 +185,28 @@
                         class="w-65 my-4 rounded drop-shadow"
                       />
                     </figure>
-                    <h3 class="help-menu-header">Metrics</h3>
-                    <p class="help-menu-p">
+                    <h3 class="font-size-1_25 text-uppercase font-weight-bold">
+                      Metrics
+                    </h3>
+                    <p class="font-size-1_3">
                       This table shows the output measurements calculated for
                       the selected sources and their corresponding value. The
                       output measurements are shown on the left, and the values
                       are shown on the right.
                     </p>
-                    <p class="help-menu-p">
+                    <p class="font-size-1_3">
                       <b>Circadian Stimulus (CS)</b> is the calculated
                       effectiveness of the spectrally weighted irradiance at the
                       cornea from threshold (CS = 0.1) to saturation (CS = 0.7),
                       assuming a fixed duration of exposure of 1 hour.
                     </p>
-                    <p class="help-menu-p">
+                    <p class="font-size-1_3">
                       <b>Circadian Light (CL<sub>A</sub>)</b> is the irradiance
                       at the cornea weighted to reflect the spectral sensitivity
                       of the human circadian system as measured by acute
                       melatonin suppression after a 1-hour exposure.
                     </p>
-                    <p class="help-menu-p">
+                    <p class="font-size-1_3">
                       <b>Illuminance (lx)</b> is the amount of light (luminous
                       flux) incident on a surface area. Illuminance is measured
                       in footcandles (lumens/square foot) or lux (lx,
@@ -201,7 +214,7 @@
                       although for convenience 10 lx commonly is used as the
                       equivalent.
                     </p>
-                    <p class="help-menu-p">
+                    <p class="font-size-1_3">
                       <b>Irradiance (W·m-2)</b> is the irradiance of a surface
                       per unit frequency or wavelength, depending on whether the
                       spectrum is taken as a function of frequency or of
@@ -213,11 +226,11 @@
                       commonly watts per square metre per nanometre
                       (W·m−2·nm−1).
                     </p>
-                    <p class="help-menu-p">
+                    <p class="font-size-1_3">
                       <b>Photon Flux (Photons·m-2·s-1)</b> is defined as the
                       number of photons per second per unit area
                     </p>
-                    <p class="help-menu-p">
+                    <p class="font-size-1_3">
                       <b>Correlated Color Temperature (CCT, Tcp)</b> is a
                       specification for white light sources used to describe the
                       dominant color tone along the dimension from warm (yellows
@@ -237,7 +250,7 @@
                       a blackbody radiator of a particular temperature as given
                       by CCT.
                     </p>
-                    <p class="help-menu-p">
+                    <p class="font-size-1_3">
                       <b>D<sub>uv</sub></b> is a metric defined by American
                       National Standard Institute (ANSI) that quantifies the
                       distance between the chromaticity of a given light source
@@ -247,7 +260,7 @@
                       that the source is “above” the blackbody locus, having a
                       greenish tint.
                     </p>
-                    <p class="help-menu-p">
+                    <p class="font-size-1_3">
                       <b>Color Rendering Index (CRI)</b> is a rating index
                       commonly used to represent how well a light source renders
                       the colors of objects that it illuminates. For a CRI value
@@ -258,14 +271,14 @@
                       50 are generally regarded as rendering colors poorly, that
                       is, colors may appear unnatural.
                     </p>
-                    <p class="help-menu-p">
+                    <p class="font-size-1_3">
                       <b>Gamut Area Index (GAI)</b> is a measure of color
                       rendering based upon volume in color space. It is the
                       range of colors achievable on a given color reproduction
                       medium (or present in an image on that medium) under a
                       given set of viewing conditions.
                     </p>
-                    <p class="help-menu-p">
+                    <p class="font-size-1_3">
                       <b>Chromaticity:</b> The dominant or complementary
                       wavelength and purity aspects of the color taken together,
                       or of the aspects specified by the chromaticity
@@ -279,8 +292,10 @@
                         class="w-65 my-4 rounded drop-shadow"
                       />
                     </figure>
-                    <h3 class="help-menu-header">Combined SPD Values</h3>
-                    <p class="help-menu-p">
+                    <h3 class="font-size-1_25 text-uppercase font-weight-bold">
+                      Combined SPD Values
+                    </h3>
+                    <p class="font-size-1_3">
                       Click the
                       <i class="ms-purple fas fa-chart-area"></i> button to view
                       the specific values for the relative and absolute spectral
@@ -292,8 +307,10 @@
                         class="w-55 my-4 rounded drop-shadow"
                       />
                     </figure>
-                    <h3 class="help-menu-header">Charts</h3>
-                    <p class="help-menu-p">
+                    <h3 class="font-size-1_25 text-uppercase font-weight-bold">
+                      Charts
+                    </h3>
+                    <p class="font-size-1_3">
                       The charts display information about the combined
                       attributes of light sources that have been selected. Both
                       the graphs and the associated legends will be modified
@@ -308,8 +325,10 @@
                         class="w-85 my-4 rounded drop-shadow"
                       />
                     </figure>
-                    <h3 class="help-menu-header">Download Calculations</h3>
-                    <p class="help-menu-p">
+                    <h3 class="font-size-1_25 text-uppercase font-weight-bold">
+                      Download Calculations
+                    </h3>
+                    <p class="font-size-1_3">
                       Click the
                       <i class="ms-purple fas fa-download"></i>
                       button to download your current calculation as json data.
@@ -380,7 +399,7 @@
                         placeholder="6500"
                       />
                       <div class="input-group-append">
-                        <span class="input-group-text">K</span>
+                        <span class="input-group-text d-block">K</span>
                       </div>
                     </div>
                   </div>
@@ -485,7 +504,7 @@
 
               <button
                 id="userSourceSubmit"
-                class="btn btn-lrc disabled w-100"
+                class="btn btn-ms disabled w-100"
                 type="button"
                 data-dismiss="modal"
                 aria-label="Close"
@@ -533,7 +552,7 @@
             </p>
             <p
               id="sourceModalDescriptionCollapse"
-              class="m-0 description-collapse description-collapse-collapsed"
+              class="m-0 pointer text-truncate"
               data-toggle="tooltip"
               title="Expand Description"
             >
@@ -545,7 +564,7 @@
           <div id="source-modal-footer" class="modal-footer">
             <button
               id="source-add"
-              class="btn btn-lrc addSource py-1"
+              class="btn btn-ms addSource py-1"
               type="button"
               data-dismiss="modal"
             >
@@ -556,19 +575,17 @@
       </div>
     </div>
 
-    <div
-      class="alert alert-warning alert-dismissible fade show beta-banner"
-      role="alert"
-    >
+    <h6 class="alert alert-warning alert-dismissible fade show" role="alert">
       <strong>Beta v2.0.0:</strong> the CS Calculator 2.0 is in beta. Please
       e-mail
       <span
         id="copy-email"
+        class="pointer"
         data-toggle="tooltip"
         data-placement="bottom"
         data-html="true"
         title="Copy Email to Clipboard"
-        >michael.morrison@mountsinai.org</span
+        ><strong>michael.morrison@mountsinai.org</strong></span
       >
       with any bugs, comments, concerns, or suggestions.
       <button
@@ -579,14 +596,13 @@
       >
         <span aria-hidden="true">&times;</span>
       </button>
-    </div>
+    </h6>
 
-    <div id="content" class="container-fluid">
-      <div class="row mb-4">
+    <div id="content" class="container-fluid px-5 mt-4">
+      <div class="row mb-4 opacity-0" id="logo-container">
         <div class="col text-center">
           <a href="https://icahn.mssm.edu/research/light-health">
             <img
-              id="logo"
               class="ms-logo"
               alt="Mount Sinai LHRC Logo"
               src="img/MS_Logo.png"
@@ -594,10 +610,10 @@
           </a>
         </div>
       </div>
-      <div id="main-card-row" class="row">
+      <div id="main-card-row" class="row opacity-0">
         <div class="col">
           <div class="card mb-3 drop-shadow">
-            <div class="card-header">
+            <div class="card-header border-bottom-0 p-0 position-relative">
               <div class="container-fluid">
                 <div class="row">
                   <div class="col-md-6 p-0">
@@ -614,7 +630,18 @@
                           </button>
                         </span>
                       </div>
-                      <h2 class="step-title mb-0 active">Sources</h2>
+                      <h2
+                        class="
+                          step-title
+                          font-size-1_5
+                          py-2
+                          text-center
+                          mb-0
+                          active
+                        "
+                      >
+                        Sources
+                      </h2>
                     </div>
                   </div>
                   <div class="col-md-6 p-0">
@@ -630,7 +657,11 @@
                           <i class="fas fa-lg fa-download"></i>
                         </button>
                       </div>
-                      <h2 class="step-title mb-0">Calculations</h2>
+                      <h2
+                        class="step-title font-size-1_5 py-2 text-center mb-0"
+                      >
+                        Calculations
+                      </h2>
                     </div>
                   </div>
                 </div>
@@ -644,7 +675,15 @@
                     <div class="row mb-4">
                       <div class="col">
                         <div class="card">
-                          <div class="card-header cursor-hover">
+                          <div
+                            class="
+                              card-header
+                              border-bottom-0
+                              p-0
+                              position-relative
+                              pointer
+                            "
+                          >
                             <h2
                               class="text-center"
                               data-toggle="collapse"
@@ -662,7 +701,12 @@
                                   class="input-group-prepend mw-175 text-center"
                                 >
                                   <label
-                                    class="input-group-text mw-175 text-center"
+                                    class="
+                                      input-group-text
+                                      d-block
+                                      mw-175
+                                      text-center
+                                    "
                                     for="manufacterer"
                                     ><b>Manufacturer:</b></label
                                   >
@@ -677,7 +721,7 @@
                               <div class="input-group mb-3">
                                 <div class="input-group-prepend mw-175">
                                   <label
-                                    class="input-group-text mw-175"
+                                    class="input-group-text d-block mw-175"
                                     for="cct"
                                     ><b>CCT:</b></label
                                   >
@@ -692,7 +736,7 @@
                               <div class="input-group mb-3">
                                 <div class="input-group-prepend mw-175">
                                   <label
-                                    class="input-group-text mw-175"
+                                    class="input-group-text d-block mw-175"
                                     for="lamp"
                                     ><b>Lamp:</b></label
                                   >
@@ -707,7 +751,7 @@
                               <div class="input-group mb-3">
                                 <div class="input-group-prepend mw-175">
                                   <span
-                                    class="input-group-text mw-175"
+                                    class="input-group-text d-block mw-175"
                                     id="keyword"
                                     ><b>Keyword:</b></span
                                   >
@@ -723,7 +767,7 @@
                               </div>
                               <div class="input-group">
                                 <button
-                                  class="w-100 btn btn-lrc text-center"
+                                  class="w-100 btn btn-ms text-center"
                                   id="reset"
                                   type="button"
                                 >
@@ -739,7 +783,15 @@
                     <div class="row mb-4">
                       <div class="col">
                         <div class="card">
-                          <div class="card-header cursor-hover">
+                          <div
+                            class="
+                              card-header
+                              border-bottom-0
+                              p-0
+                              position-relative
+                              pointer
+                            "
+                          >
                             <div class="btn-menu">
                               <span
                                 data-toggle="modal"
@@ -785,7 +837,15 @@
                     <div class="row mb-5">
                       <div class="col">
                         <div class="card">
-                          <div class="card-header cursor-hover">
+                          <div
+                            class="
+                              card-header
+                              border-bottom-0
+                              p-0
+                              position-relative
+                              pointer
+                            "
+                          >
                             <h2
                               class="text-center"
                               data-toggle="collapse"
@@ -817,7 +877,7 @@
                     </div>
                     <button
                       id="continue-to-calculations-button"
-                      class="btn btn-lrc text-center d-none"
+                      class="btn btn-ms text-center d-none"
                       type="button"
                     >
                       Continue to Calculations
@@ -835,7 +895,15 @@
                     <div class="row mb-4">
                       <div class="col">
                         <div class="card">
-                          <div class="card-header cursor-hover">
+                          <div
+                            class="
+                              card-header
+                              border-bottom-0
+                              p-0
+                              position-relative
+                              pointer
+                            "
+                          >
                             <h2
                               class="text-center"
                               data-toggle="collapse"
@@ -866,7 +934,7 @@
                               >
                                 <div class="row">
                                   <div class="col text-center">
-                                    <div class="lux-change-pending">
+                                    <div class="font-size-_75 font-italic">
                                       <i class="ms-pink far fa-dot-circle"></i>
                                       changes pending - press enter to
                                       recalculate
@@ -883,7 +951,15 @@
                     <div class="row mb-4">
                       <div class="col">
                         <div class="card">
-                          <div class="card-header cursor-hover">
+                          <div
+                            class="
+                              card-header
+                              border-bottom-0
+                              p-0
+                              position-relative
+                              pointer
+                            "
+                          >
                             <h2
                               class="text-center"
                               data-toggle="collapse"
@@ -966,7 +1042,15 @@
                     <div class="row mb-4">
                       <div class="col">
                         <div class="card">
-                          <div class="card-header cursor-hover">
+                          <div
+                            class="
+                              card-header
+                              border-bottom-0
+                              p-0
+                              position-relative
+                              pointer
+                            "
+                          >
                             <div class="btn-menu">
                               <button
                                 id="download-metrics"
@@ -993,59 +1077,61 @@
                           <div class="collapse show" id="measurements">
                             <div class="card-body measurements-container">
                               <div class="container-fluid">
-                                <div class="row mb-1 measurement-row">
+                                <div class="row mb-1 zebra-row">
                                   <div
                                     class="
                                       col
                                       d-flex
                                       justify-content-between
-                                      measurement-value-pair
+                                      zebra-entry
                                     "
                                   >
-                                    <div class="measurement">CS 2.0:</div>
+                                    <div class="w-50 text-truncate">
+                                      CS 2.0:
+                                    </div>
                                     <div id="resultCS" class="value">NaN</div>
                                   </div>
                                 </div>
-                                <div class="row mb-1 measurement-row">
+                                <div class="row mb-1 zebra-row">
                                   <div
                                     class="
                                       col
                                       d-flex
                                       justify-content-between
-                                      measurement-value-pair
+                                      zebra-entry
                                     "
                                   >
-                                    <div class="measurement">
+                                    <div class="w-50 text-truncate">
                                       CL<sub>A</sub> 2.0:
                                     </div>
                                     <div id="resultCLA" class="value">NaN</div>
                                   </div>
                                 </div>
-                                <div class="row mb-1 measurement-row">
+                                <div class="row mb-1 zebra-row">
                                   <div
                                     class="
                                       col
                                       d-flex
                                       justify-content-between
-                                      measurement-value-pair
+                                      zebra-entry
                                     "
                                   >
-                                    <div class="measurement">
+                                    <div class="w-50 text-truncate">
                                       Illuminance (lx):
                                     </div>
                                     <div id="resultIll" class="value">0</div>
                                   </div>
                                 </div>
-                                <div class="row mb-1 measurement-row">
+                                <div class="row mb-1 zebra-row">
                                   <div
                                     class="
                                       col
                                       d-flex
                                       justify-content-between
-                                      measurement-value-pair
+                                      zebra-entry
                                     "
                                   >
-                                    <div class="measurement">
+                                    <div class="w-50 text-truncate">
                                       Irradiance (W&middot;m<sup>-2</sup>):
                                     </div>
                                     <div id="resultIrr" class="value">
@@ -1054,16 +1140,16 @@
                                   </div>
                                 </div>
 
-                                <div class="row mb-1 measurement-row">
+                                <div class="row mb-1 zebra-row">
                                   <div
                                     class="
                                       col
                                       d-flex
                                       justify-content-between
-                                      measurement-value-pair
+                                      zebra-entry
                                     "
                                   >
-                                    <div class="measurement">
+                                    <div class="w-50 text-truncate">
                                       Photon Flux
                                       (Photons&middot;m<sup>-2</sup>&middot;s<sup>-1</sup>):
                                     </div>
@@ -1072,85 +1158,85 @@
                                     </div>
                                   </div>
                                 </div>
-                                <div class="row mb-1 measurement-row">
+                                <div class="row mb-1 zebra-row">
                                   <div
                                     class="
                                       col
                                       d-flex
                                       justify-content-between
-                                      measurement-value-pair
+                                      zebra-entry
                                     "
                                   >
-                                    <div class="measurement">
+                                    <div class="w-50 text-truncate">
                                       Equivalent Melanopic Lux (EML):
                                     </div>
                                     <div id="resultEML" class="value">0</div>
                                   </div>
                                 </div>
-                                <div class="row mb-1 measurement-row">
+                                <div class="row mb-1 zebra-row">
                                   <div
                                     class="
                                       col
                                       d-flex
                                       justify-content-between
-                                      measurement-value-pair
+                                      zebra-entry
                                     "
                                   >
-                                    <div class="measurement">CCT:</div>
+                                    <div class="w-50 text-truncate">CCT:</div>
                                     <div id="resultCCT" class="value">NaN</div>
                                   </div>
                                 </div>
-                                <div class="row mb-1 measurement-row">
+                                <div class="row mb-1 zebra-row">
                                   <div
                                     class="
                                       col
                                       d-flex
                                       justify-content-between
-                                      measurement-value-pair
+                                      zebra-entry
                                     "
                                   >
-                                    <div class="measurement">
+                                    <div class="w-50 text-truncate">
                                       D<sub>uv</sub>:
                                     </div>
                                     <div id="resultDuv" class="value">NaN</div>
                                   </div>
                                 </div>
-                                <div class="row mb-1 measurement-row">
+                                <div class="row mb-1 zebra-row">
                                   <div
                                     class="
                                       col
                                       d-flex
                                       justify-content-between
-                                      measurement-value-pair
+                                      zebra-entry
                                     "
                                   >
-                                    <div class="measurement">CRI:</div>
+                                    <div class="w-50 text-truncate">CRI:</div>
                                     <div id="resultCRI" class="value">NaN</div>
                                   </div>
                                 </div>
-                                <div class="row mb-1 measurement-row">
+                                <div class="row mb-1 zebra-row">
                                   <div
                                     class="
                                       col
                                       d-flex
                                       justify-content-between
-                                      measurement-value-pair
+                                      zebra-entry
                                     "
                                   >
-                                    <div class="measurement">GAI:</div>
+                                    <div class="w-50 text-truncate">GAI:</div>
                                     <div id="resultGAI" class="value">NaN</div>
                                   </div>
                                 </div>
-                                <div class="row mb-1 measurement-row">
+                                <div class="row mb-1 zebra-row">
                                   <div
                                     class="
                                       col
                                       d-flex
                                       justify-content-between
-                                      measurement-value-pair
+                                      zebra-entry
                                     "
                                   >
-                                    <div class="measurement">
+                                    <div class="w-50 text-truncate">
                                       Chromaticity Coordinates (x, y):
                                     </div>
                                     <div id="resultXY" class="value">
@@ -1159,7 +1245,7 @@
                                   </div>
                                 </div>
                                 <div
-                                  class="row mb-1 measurement-row cursor-hover"
+                                  class="row mb-1 zebra-row pointer"
                                   id="CIE_alpha_container"
                                   data-toggle="collapse"
                                   href="#CIE_alpha"
@@ -1171,7 +1257,7 @@
                                       col
                                       d-flex
                                       justify-content-between
-                                      measurement-value-pair
+                                      zebra-entry
                                     "
                                     data-toggle="tooltip"
                                     title="Toggle CIE Alpha Opic Irradiances"
@@ -1190,16 +1276,16 @@
                                   </div>
                                 </div>
                                 <div class="collapse" id="CIE_alpha">
-                                  <div class="row mb-1 measurement-row">
+                                  <div class="row mb-1 zebra-row">
                                     <div
                                       class="
                                         col
                                         d-flex
                                         justify-content-between
-                                        measurement-value-pair
+                                        zebra-entry
                                       "
                                     >
-                                      <div class="measurement CIE-measurement">
+                                      <div class="measurement pl-4">
                                         CIE S-cone Irradiance
                                         (W&middot;m<sup>-2</sup>):
                                       </div>
@@ -1208,16 +1294,16 @@
                                       </div>
                                     </div>
                                   </div>
-                                  <div class="row mb-1 measurement-row">
+                                  <div class="row mb-1 zebra-row">
                                     <div
                                       class="
                                         col
                                         d-flex
                                         justify-content-between
-                                        measurement-value-pair
+                                        zebra-entry
                                       "
                                     >
-                                      <div class="measurement CIE-measurement">
+                                      <div class="measurement pl-4">
                                         CIE M-cone Irradiance
                                         (W&middot;m<sup>-2</sup>):
                                       </div>
@@ -1226,16 +1312,16 @@
                                       </div>
                                     </div>
                                   </div>
-                                  <div class="row mb-1 measurement-row">
+                                  <div class="row mb-1 zebra-row">
                                     <div
                                       class="
                                         col
                                         d-flex
                                         justify-content-between
-                                        measurement-value-pair
+                                        zebra-entry
                                       "
                                     >
-                                      <div class="measurement CIE-measurement">
+                                      <div class="measurement pl-4">
                                         CIE L-cone Irradiance
                                         (W&middot;m<sup>-2</sup>):
                                       </div>
@@ -1244,16 +1330,16 @@
                                       </div>
                                     </div>
                                   </div>
-                                  <div class="row mb-1 measurement-row">
+                                  <div class="row mb-1 zebra-row">
                                     <div
                                       class="
                                         col
                                         d-flex
                                         justify-content-between
-                                        measurement-value-pair
+                                        zebra-entry
                                       "
                                     >
-                                      <div class="measurement CIE-measurement">
+                                      <div class="measurement pl-4">
                                         CIE Rhodopic Irradiance
                                         (W&middot;m<sup>-2</sup>):
                                       </div>
@@ -1262,16 +1348,16 @@
                                       </div>
                                     </div>
                                   </div>
-                                  <div class="row mb-1 measurement-row">
+                                  <div class="row mb-1 zebra-row">
                                     <div
                                       class="
                                         col
                                         d-flex
                                         justify-content-between
-                                        measurement-value-pair
+                                        zebra-entry
                                       "
                                     >
-                                      <div class="measurement CIE-measurement">
+                                      <div class="measurement pl-4">
                                         CIE Melanopic Irradiance
                                         (W&middot;m<sup>-2</sup>):
                                       </div>
@@ -1291,7 +1377,15 @@
                     <div class="row mb-4">
                       <div class="col">
                         <div class="card">
-                          <div class="card-header cursor-hover">
+                          <div
+                            class="
+                              card-header
+                              border-bottom-0
+                              p-0
+                              position-relative
+                              pointer
+                            "
+                          >
                             <div class="btn-menu">
                               <button
                                 id="download-spds"
@@ -1333,7 +1427,7 @@
                                         spd-button
                                         m-2
                                         py-1
-                                        btn btn-lrc
+                                        btn btn-ms
                                         active
                                       "
                                     >
@@ -1347,7 +1441,7 @@
                                         spd-button
                                         m-2
                                         py-1
-                                        btn btn-lrc
+                                        btn btn-ms
                                       "
                                     >
                                       Absolute
@@ -1365,10 +1459,8 @@
                                             justify-content-around
                                           "
                                         >
-                                          <div class="spd-wl-title">λ (nm)</div>
-                                          <div class="spd-value-title">
-                                            Value
-                                          </div>
+                                          <h2>λ (nm)</h2>
+                                          <h2>Value</h2>
                                         </div>
                                       </div>
                                     </div>
@@ -1402,7 +1494,15 @@
                     <div class="row mb-4">
                       <div class="col">
                         <div class="card">
-                          <div class="card-header cursor-hover">
+                          <div
+                            class="
+                              card-header
+                              border-bottom-0
+                              p-0
+                              position-relative
+                              pointer
+                            "
+                          >
                             <h2
                               class="text-center"
                               data-toggle="collapse"
@@ -1424,7 +1524,7 @@
                                       class="
                                         flex-fill
                                         plot-btn
-                                        btn btn-lrc
+                                        btn btn-ms
                                         m-2
                                         py-1
                                         active
@@ -1438,7 +1538,7 @@
                                       class="
                                         flex-fill
                                         plot-btn
-                                        btn btn-lrc
+                                        btn btn-ms
                                         m-2
                                         py-1
                                       "
@@ -1451,7 +1551,7 @@
                                       class="
                                         flex-fill
                                         plot-btn
-                                        btn btn-lrc
+                                        btn btn-ms
                                         m-2
                                         py-1
                                       "
@@ -1465,7 +1565,7 @@
                                     id="PlotAreaSPD"
                                     class="plot-area col d-block"
                                   >
-                                    <h3 class="plot-title">
+                                    <h3 class="text-center">
                                       Spectral Power Distribution
                                     </h3>
                                     <canvas id="spdPlot"></canvas>
@@ -1479,7 +1579,7 @@
                                     id="PlotAreaChromaticity"
                                     class="plot-area col d-none"
                                   >
-                                    <h3 class="plot-title">Chromaticity</h3>
+                                    <h3 class="text-center">Chromaticity</h3>
                                     <canvas id="chromaticityPlot"></canvas>
                                     <div
                                       id="chromaticityLegend"
@@ -1491,7 +1591,7 @@
                                     id="PlotAreaCRM"
                                     class="plot-area col d-none"
                                   >
-                                    <h3 class="plot-title">
+                                    <h3 class="text-center">
                                       Color Rendering Metrics
                                     </h3>
                                     <canvas id="crmPlot"></canvas>
@@ -1512,7 +1612,15 @@
               </div>
             </div>
 
-            <div class="card-footer text-muted page-footer">
+            <div
+              class="
+                card-footer
+                position-relative
+                font-size-1
+                text-muted
+                page-footer
+              "
+            >
               <p class="text-center m-0">
                 Copyright ©
                 <script>
