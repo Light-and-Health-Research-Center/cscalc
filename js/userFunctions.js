@@ -273,7 +273,7 @@ function handleCustomSource() {
         $("#userSPDValues").val().replace(/\n/g, " ").split(" ")
       );
     } else {
-      var spd_arr = $("#userSPDComplete").val().split("\n");
+      var spd_arr = $("#userSPDTogether").val().split("\n");
       for (let line of spd_arr) {
         if (line.trim() == "") {
           continue;
@@ -296,7 +296,7 @@ function handleCustomSource() {
     if (userWL.length != userV.length) {
       if (
         $("#userSPDValues").val() != "" ||
-        $("#userSPDComplete").val() != ""
+        $("#userSPDTogether").val() != ""
       ) {
         alertText +=
           '<p class="font-size-_75 m-0 text-red">There must be the same number of wavelengths and values</p>';
@@ -306,7 +306,7 @@ function handleCustomSource() {
     if (userWL.length < 3) {
       if (
         $("#userSPDValues").val() != "" ||
-        $("#userSPDComplete").val() != ""
+        $("#userSPDTogether").val() != ""
       ) {
         alertText +=
           '<p class="font-size-_75 m-0 text-red">Must enter at least 3 wavelength-value pairs</p>';
@@ -316,7 +316,7 @@ function handleCustomSource() {
     if (userWL.some(notNumeric) || userV.some(notNumeric)) {
       if (
         $("#userSPDValues").val() != "" ||
-        $("#userSPDComplete").val() != ""
+        $("#userSPDTogether").val() != ""
       ) {
         alertText +=
           '<p class="font-size-_75 m-0 text-red">Wavelengths and values must not contain non-numeric entries</p>';
@@ -434,7 +434,7 @@ function handleCustomSource() {
     validateSubmit();
   });
 
-  $("#userSPDComplete").on("input change paste keyup", function () {
+  $("#userSPDTogether").on("input change paste keyup", function () {
     if (validateUserSPD()) {
       userSPDValid();
     } else {
@@ -670,7 +670,7 @@ function handleChangeSPDInputType() {
     } else {
       $("#userSPDSeperateContainer").removeClass("d-none");
       $("#userSPDTogetherContainer").addClass("d-none");
-      $("#userSPDComplete").val("");
+      $("#userSPDTogether").val("");
       $(".change-spd-input-type")
         .removeClass("fa-toggle-off")
         .addClass("fa-toggle-on");
