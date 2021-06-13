@@ -8,6 +8,7 @@ let _mpod = 0.5,
   _p = 0;
 
 let sourcelist;
+let userSourceList = [];
 let manUnique = [];
 let lampUnique = [];
 let cctUnique = [];
@@ -171,227 +172,219 @@ function removeSourceDataset(source) {
   document.getElementById("spdLegend").innerHTML = spdChart.generateLegend();
 }
 
+function submitUserSource() {
+  var newSource = buildSourceObj();
+  applyNewSource(sourcelist.length, newSource, true);
+  updateSortSource();
+  sourcelist.push(newSource);
+  userSourceList.push(newSource);
+  addSource(sourcelist.length - 1);
+  $("#names-list").animate({ scrollTop: 0 }, 1000);
+}
+
+function buildSourceObj() {
+  var result = {
+    id: $("#userID").val(),
+    manufacturer: $("#userMan").val(),
+    cct: $("#userCCT").val(),
+    lamp: $("#userLamp").val(),
+    spd: loadUserSPD(),
+    info: $("#userDesc").val(),
+  };
+  return result;
+}
+
+function userIDValid() {
+  $("#userIDFormGroup").removeClass("has-error");
+  $("#userIDFormGroup").addClass("has-success");
+
+  $("#userIDSpan").removeClass("glyphicon-pencil");
+  $("#userIDSpan").removeClass("glyphicon-remove");
+  $("#userIDSpan").removeClass("glyphicon-ok");
+
+  $("#userIDSpan").addClass("glyphicon-ok");
+  return;
+}
+
+function userIDInvalid() {
+  $("#userID").attr("placeholder", "Invalid Source Name").val("");
+  $("#userIDFormGroup").removeClass("has-success");
+  $("#userIDFormGroup").addClass("has-error");
+
+  $("#userIDSpan").removeClass("glyphicon-pencil");
+  $("#userIDSpan").removeClass("glyphicon-remove");
+  $("#userIDSpan").removeClass("glyphicon-ok");
+
+  $("#userIDSpan").addClass("glyphicon-remove");
+  return;
+}
+
+function userSPDValid() {
+  $("#userSPDFormGroup").removeClass("has-error");
+  $("#userSPDFormGroup").addClass("has-success");
+
+  $("#userSPDSpan").removeClass("glyphicon-pencil");
+  $("#userSPDSpan").removeClass("glyphicon-remove");
+  $("#userSPDSpan").removeClass("glyphicon-ok");
+
+  $("#userSPDSpan").addClass("glyphicon-ok");
+  return;
+}
+
+function userSPDInvalid() {
+  $("#userSPDFormGroup").removeClass("has-success");
+  $("#userSPDFormGroup").addClass("has-error");
+
+  $("#userSPDSpan").removeClass("glyphicon-pencil");
+  $("#userSPDSpan").removeClass("glyphicon-remove");
+  $("#userSPDSpan").removeClass("glyphicon-ok");
+
+  $("#userSPDSpan").addClass("glyphicon-remove");
+  return;
+}
+
+function validateUserID() {
+  function isUniqueSourceName(newSourceID) {
+    for (var i in sourcelist) {
+      if (sourcelist[i].id == newSourceID) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  var result = false;
+  var newSourceID = $("#userID").val();
+  if ((newSourceID != "") & isUniqueSourceName(newSourceID)) {
+    result = true;
+  } else {
+    if ($("#userSPDValues").val() != "") {
+      $("#userSPDModalHelp").append(
+        '<li class="alert alert-danger"><strong>Error:</strong> Must enter a unique source name</li>'
+      );
+    }
+  }
+  return result;
+}
+
+function validateSubmit() {
+  if (validateUserID() && validateUserSPD()) {
+    $("#userSourceSubmit").removeClass("disabled");
+    $("#userSourceSubmit").prop("disabled", false);
+  } else {
+    $("#userSourceSubmit").addClass("disabled");
+    $("#userSourceSubmit").prop("disabled", true);
+  }
+}
+
+function readUserSPD() {
+  var result = {};
+  var validSPD = true;
+  var spd = {
+    wavelength: [],
+    value: [],
+  };
+  var alertText = "";
+  var userWL = [],
+    userV = [];
+  if (!$("#userSPDSeperateContainer").hasClass("d-none")) {
+    userWL = cleanSPDRows(
+      $("#userSPDWavelengths").val().replace(/\n/g, " ").split(" ")
+    );
+    userV = cleanSPDRows(
+      $("#userSPDValues").val().replace(/\n/g, " ").split(" ")
+    );
+  } else {
+    var spd_arr = $("#userSPDTogether").val().split("\n");
+    for (let line of spd_arr) {
+      if (line.trim() == "") {
+        continue;
+      }
+      line = line
+        .trim()
+        .replace(/\t|\s\s+/g, " ")
+        .split(" "); // replace all tabs and spaces with a single space
+      if (line.length > 2) {
+        alertText +=
+          '<p class="font-size-_75 m-0 text-red">Invalid SPD Input</p>';
+        validSPD = false;
+      } else {
+        userWL.push(line[0]);
+        userV.push(line[1]);
+      }
+    }
+  }
+
+  if (userWL.length != userV.length) {
+    if ($("#userSPDValues").val() != "" || $("#userSPDTogether").val() != "") {
+      alertText +=
+        '<p class="font-size-_75 m-0 text-red">There must be the same number of wavelengths and values</p>';
+    }
+    validSPD = false;
+  }
+  if (userWL.length < 3) {
+    if ($("#userSPDValues").val() != "" || $("#userSPDTogether").val() != "") {
+      alertText +=
+        '<p class="font-size-_75 m-0 text-red">Must enter at least 3 wavelength-value pairs</p>';
+    }
+    validSPD = false;
+  }
+  if (userWL.some(notNumeric) || userV.some(notNumeric)) {
+    if ($("#userSPDValues").val() != "" || $("#userSPDTogether").val() != "") {
+      alertText +=
+        '<p class="font-size-_75 m-0 text-red">Wavelengths and values must not contain non-numeric entries</p>';
+    }
+    validSPD = false;
+  }
+
+  spd.wavelength = arrayParseFloat(userWL);
+  spd.value = arrayParseFloat(userV);
+
+  result = {
+    valid: validSPD,
+    spd: spd,
+  };
+  $(".addCustomSourceError").html(alertText);
+  return result;
+}
+
+function validateUserSPD() {
+  return readUserSPD().valid;
+}
+
+function loadUserSPD() {
+  var userSPDTest = readUserSPD();
+  return userSPDTest.spd;
+}
+
+function cleanSPDRows(spdRows) {
+  var result = [];
+  for (var i = 0; i < spdRows.length; i++) {
+    if (isWhitespaceNotEmpty(spdRows[i])) {
+      result.push(spdRows[i]);
+    }
+  }
+  return result;
+}
+
+function isWhitespaceNotEmpty(text) {
+  var result = text.length > 0 && !!/[^\s]/.test(text);
+  return result;
+}
+
+function notNumeric(n) {
+  return n == "" || !(!isNaN(n) && isFinite(n));
+}
+
+function arrayParseFloat(array) {
+  var result = [];
+  for (var i = 0; i < array.length; i++) {
+    result[i] = parseFloat(array[i]);
+  }
+  return result;
+}
+
 function handleCustomSource() {
-  function userIDValid() {
-    $("#userIDFormGroup").removeClass("has-error");
-    $("#userIDFormGroup").addClass("has-success");
-
-    $("#userIDSpan").removeClass("glyphicon-pencil");
-    $("#userIDSpan").removeClass("glyphicon-remove");
-    $("#userIDSpan").removeClass("glyphicon-ok");
-
-    $("#userIDSpan").addClass("glyphicon-ok");
-    return;
-  }
-
-  function userIDInvalid() {
-    $("#userID").attr("placeholder", "Invalid Source Name").val("");
-    $("#userIDFormGroup").removeClass("has-success");
-    $("#userIDFormGroup").addClass("has-error");
-
-    $("#userIDSpan").removeClass("glyphicon-pencil");
-    $("#userIDSpan").removeClass("glyphicon-remove");
-    $("#userIDSpan").removeClass("glyphicon-ok");
-
-    $("#userIDSpan").addClass("glyphicon-remove");
-    return;
-  }
-
-  function userSPDValid() {
-    $("#userSPDFormGroup").removeClass("has-error");
-    $("#userSPDFormGroup").addClass("has-success");
-
-    $("#userSPDSpan").removeClass("glyphicon-pencil");
-    $("#userSPDSpan").removeClass("glyphicon-remove");
-    $("#userSPDSpan").removeClass("glyphicon-ok");
-
-    $("#userSPDSpan").addClass("glyphicon-ok");
-    return;
-  }
-
-  function userSPDInvalid() {
-    $("#userSPDFormGroup").removeClass("has-success");
-    $("#userSPDFormGroup").addClass("has-error");
-
-    $("#userSPDSpan").removeClass("glyphicon-pencil");
-    $("#userSPDSpan").removeClass("glyphicon-remove");
-    $("#userSPDSpan").removeClass("glyphicon-ok");
-
-    $("#userSPDSpan").addClass("glyphicon-remove");
-    return;
-  }
-
-  function validateUserID() {
-    function isUniqueSourceName(newSourceID) {
-      for (var i in sourcelist) {
-        if (sourcelist[i].id == newSourceID) {
-          return false;
-        }
-      }
-      return true;
-    }
-
-    var result = false;
-    var newSourceID = $("#userID").val();
-    if ((newSourceID != "") & isUniqueSourceName(newSourceID)) {
-      result = true;
-    } else {
-      if ($("#userSPDValues").val() != "") {
-        $("#userSPDModalHelp").append(
-          '<li class="alert alert-danger"><strong>Error:</strong> Must enter a unique source name</li>'
-        );
-      }
-    }
-    return result;
-  }
-
-  function validateSubmit() {
-    if (validateUserID() && validateUserSPD()) {
-      $("#userSourceSubmit").removeClass("disabled");
-      $("#userSourceSubmit").prop("disabled", false);
-    } else {
-      $("#userSourceSubmit").addClass("disabled");
-      $("#userSourceSubmit").prop("disabled", true);
-    }
-  }
-
-  function readUserSPD() {
-    var result = {};
-    var validSPD = true;
-    var spd = {
-      wavelength: [],
-      value: [],
-    };
-    var alertText = "";
-    var userWL = [],
-      userV = [];
-    if (!$("#userSPDSeperateContainer").hasClass("d-none")) {
-      userWL = cleanSPDRows(
-        $("#userSPDWavelengths").val().replace(/\n/g, " ").split(" ")
-      );
-      userV = cleanSPDRows(
-        $("#userSPDValues").val().replace(/\n/g, " ").split(" ")
-      );
-    } else {
-      var spd_arr = $("#userSPDTogether").val().split("\n");
-      for (let line of spd_arr) {
-        if (line.trim() == "") {
-          continue;
-        }
-        line = line
-          .trim()
-          .replace(/\t|\s\s+/g, " ")
-          .split(" "); // replace all tabs and spaces with a single space
-        if (line.length > 2) {
-          alertText +=
-            '<p class="font-size-_75 m-0 text-red">Invalid SPD Input</p>';
-          validSPD = false;
-        } else {
-          userWL.push(line[0]);
-          userV.push(line[1]);
-        }
-      }
-    }
-
-    if (userWL.length != userV.length) {
-      if (
-        $("#userSPDValues").val() != "" ||
-        $("#userSPDTogether").val() != ""
-      ) {
-        alertText +=
-          '<p class="font-size-_75 m-0 text-red">There must be the same number of wavelengths and values</p>';
-      }
-      validSPD = false;
-    }
-    if (userWL.length < 3) {
-      if (
-        $("#userSPDValues").val() != "" ||
-        $("#userSPDTogether").val() != ""
-      ) {
-        alertText +=
-          '<p class="font-size-_75 m-0 text-red">Must enter at least 3 wavelength-value pairs</p>';
-      }
-      validSPD = false;
-    }
-    if (userWL.some(notNumeric) || userV.some(notNumeric)) {
-      if (
-        $("#userSPDValues").val() != "" ||
-        $("#userSPDTogether").val() != ""
-      ) {
-        alertText +=
-          '<p class="font-size-_75 m-0 text-red">Wavelengths and values must not contain non-numeric entries</p>';
-      }
-      validSPD = false;
-    }
-
-    spd.wavelength = arrayParseFloat(userWL);
-    spd.value = arrayParseFloat(userV);
-
-    result = {
-      valid: validSPD,
-      spd: spd,
-    };
-    $(".addCustomSourceError").html(alertText);
-    return result;
-  }
-
-  function validateUserSPD() {
-    return readUserSPD().valid;
-  }
-
-  function loadUserSPD() {
-    var userSPDTest = readUserSPD();
-    return userSPDTest.spd;
-  }
-
-  function cleanSPDRows(spdRows) {
-    var result = [];
-    for (var i = 0; i < spdRows.length; i++) {
-      if (isWhitespaceNotEmpty(spdRows[i])) {
-        result.push(spdRows[i]);
-      }
-    }
-    return result;
-  }
-
-  function isWhitespaceNotEmpty(text) {
-    var result = text.length > 0 && !!/[^\s]/.test(text);
-    return result;
-  }
-
-  function notNumeric(n) {
-    return n == "" || !(!isNaN(n) && isFinite(n));
-  }
-
-  function submitUserSource() {
-    var newSource = buildSourceObj();
-    applyNewSource(sourcelist.length, newSource, true);
-    updateSortSource();
-    sourcelist.push(newSource);
-    addSource(sourcelist.length - 1);
-    $("#names-list").animate({ scrollTop: 0 }, 1000);
-  }
-
-  function arrayParseFloat(array) {
-    var result = [];
-    for (var i = 0; i < array.length; i++) {
-      result[i] = parseFloat(array[i]);
-    }
-    return result;
-  }
-
-  function buildSourceObj() {
-    var result = {
-      id: $("#userID").val(),
-      manufacturer: $("#userMan").val(),
-      cct: $("#userCCT").val(),
-      lamp: $("#userLamp").val(),
-      spd: loadUserSPD(),
-      info: $("#userDesc").val(),
-    };
-    return result;
-  }
-
   $(".addSource").on("click", function () {
     var sourceIdx = $(this).attr("data-i");
     addSource(sourceIdx);
@@ -951,96 +944,95 @@ function updateResults() {
   return;
 }
 
+function applyNewSource(i, el, custom) {
+  // Expand the source object
+  el.isSelected = false;
+  var valueInt = interp1(el.spd.wavelength, el.spd.value, setwavelength, 0);
+  el.relativeSPD = arrayScalar(
+    arrayNormalize(spdNormalize(setwavelength, valueInt)),
+    1
+  );
+  el.selectedSource = {
+    relativeSPD: spdNormalize(setwavelength, valueInt),
+    illuminance: 0,
+    absoluteSPD: arrayScalar(setwavelength, 0),
+  };
+
+  if (manUnique.indexOf(el.manufacturer) == -1) manUnique.push(el.manufacturer);
+  if (lampUnique.indexOf(el.lamp) == -1) lampUnique.push(el.lamp);
+  if (cctUnique.indexOf(el.cct) == -1) cctUnique.push(el.cct);
+
+  // Create Source list button
+  var li =
+    '<li id="source_' +
+    i +
+    '" class="list-group-item text-center source-item" data-i="' +
+    i +
+    '">' +
+    el.id +
+    "</li>";
+
+  if (custom) {
+    $("#names-list").prepend(li);
+
+    $(".source-item:first-child").on("click", function () {
+      var i = $(this).attr("data-i");
+      sourceListModal(i);
+    });
+  } else {
+    $("#names-list").append(li);
+
+    $(".source-item:last-child").on("click", function () {
+      var i = $(this).attr("data-i");
+      sourceListModal(i);
+    });
+  }
+
+  //Append arrays
+}
+
+function updateSortSource() {
+  // Clear previous values
+  $("#manufacterer").empty();
+  $("#lamp").empty();
+  $("#cct").empty();
+
+  // Update sort options.
+  manUnique.sort();
+  lampUnique.sort();
+  cctUnique.sort();
+
+  // Move Other to end
+  manUnique.toEnd("Other");
+  lampUnique.toEnd("Other");
+  cctUnique.toEnd("Other");
+
+  // Move Any to front
+  manUnique.toFront("Any");
+  lampUnique.toFront("Any");
+  cctUnique.toFront("Any");
+
+  // Update inner HTML
+  $(manUnique).each(function (i, el) {
+    var opt = document.createElement("option");
+    opt.innerHTML = el;
+    $("#manufacterer")[0].appendChild(opt);
+  });
+
+  $(lampUnique).each(function (i, el) {
+    var opt = document.createElement("option");
+    opt.innerHTML = el;
+    $("#lamp")[0].appendChild(opt);
+  });
+
+  $(cctUnique).each(function (i, el) {
+    var opt = document.createElement("option");
+    opt.innerHTML = el;
+    $("#cct")[0].appendChild(opt);
+  });
+}
+
 function handleSources() {
-  function applyNewSource(i, el, custom) {
-    // Expand the source object
-    el.isSelected = false;
-    var valueInt = interp1(el.spd.wavelength, el.spd.value, setwavelength, 0);
-    el.relativeSPD = arrayScalar(
-      arrayNormalize(spdNormalize(setwavelength, valueInt)),
-      1
-    );
-    el.selectedSource = {
-      relativeSPD: spdNormalize(setwavelength, valueInt),
-      illuminance: 0,
-      absoluteSPD: arrayScalar(setwavelength, 0),
-    };
-
-    if (manUnique.indexOf(el.manufacturer) == -1)
-      manUnique.push(el.manufacturer);
-    if (lampUnique.indexOf(el.lamp) == -1) lampUnique.push(el.lamp);
-    if (cctUnique.indexOf(el.cct) == -1) cctUnique.push(el.cct);
-
-    // Create Source list button
-    var li =
-      '<li id="source_' +
-      i +
-      '" class="list-group-item text-center source-item" data-i="' +
-      i +
-      '">' +
-      el.id +
-      "</li>";
-
-    if (custom) {
-      $("#names-list").prepend(li);
-
-      $(".source-item:first-child").on("click", function () {
-        var i = $(this).attr("data-i");
-        sourceListModal(i);
-      });
-    } else {
-      $("#names-list").append(li);
-
-      $(".source-item:last-child").on("click", function () {
-        var i = $(this).attr("data-i");
-        sourceListModal(i);
-      });
-    }
-
-    //Append arrays
-  }
-
-  function updateSortSource() {
-    // Clear previous values
-    $("#manufacterer").empty();
-    $("#lamp").empty();
-    $("#cct").empty();
-
-    // Update sort options.
-    manUnique.sort();
-    lampUnique.sort();
-    cctUnique.sort();
-
-    // Move Other to end
-    manUnique.toEnd("Other");
-    lampUnique.toEnd("Other");
-    cctUnique.toEnd("Other");
-
-    // Move Any to front
-    manUnique.toFront("Any");
-    lampUnique.toFront("Any");
-    cctUnique.toFront("Any");
-
-    // Update inner HTML
-    $(manUnique).each(function (i, el) {
-      var opt = document.createElement("option");
-      opt.innerHTML = el;
-      $("#manufacterer")[0].appendChild(opt);
-    });
-
-    $(lampUnique).each(function (i, el) {
-      var opt = document.createElement("option");
-      opt.innerHTML = el;
-      $("#lamp")[0].appendChild(opt);
-    });
-
-    $(cctUnique).each(function (i, el) {
-      var opt = document.createElement("option");
-      opt.innerHTML = el;
-      $("#cct")[0].appendChild(opt);
-    });
-  }
-
   $(sourcelist).each(function (i, el) {
     applyNewSource(i, el, false);
   });
