@@ -393,16 +393,6 @@ function handleCustomSource() {
   }
 
   $(".addSource").on("click", function () {
-    if ($("#stepChange2").hasClass("disabled")) {
-      $("#stepChange2")
-        .fadeIn(500)
-        .fadeOut(500)
-        .fadeIn(500)
-        .fadeOut(500)
-        .fadeIn(500);
-      $("#stepChange2").removeClass("disabled");
-    }
-
     var sourceIdx = $(this).attr("data-i");
     addSource(sourceIdx);
   });
