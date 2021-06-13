@@ -7,6 +7,12 @@ html, body{
   font-size: 1.2rem;
 }
 
+h1 {
+  font-size: 2rem;
+  font-weight: 600;
+  font-variant: small-caps;
+}
+
 h2 {
   font-size: 1.1rem;
   font-weight: 600;
@@ -95,7 +101,7 @@ h2 {
 }
 
 .ms-logo{
-  width: 25%;
+  width: 200px;
 }
 
 .ssIll{
@@ -307,6 +313,14 @@ ul.list-group.list-group-hover li:hover{
 }
 
 @media only screen and (min-width:992px) {
+  h1 {
+    font-size: 4rem;
+  }
+
+  .ms-logo{
+    width: 300px;
+  }
+
   #continue-to-calculations-button{
     width: auto !important;
         position: absolute;
@@ -336,10 +350,6 @@ ul.list-group.list-group-hover li:hover{
     padding-left: 0;
     padding-right: 0;
   }
-
-  .ms-logo{
-    width: 80%;
-  }
 }
 
 @media only screen and (max-width: 992px) {
@@ -350,17 +360,8 @@ ul.list-group.list-group-hover li:hover{
   -ms-overflow-style: none;  /* IE and Edge */
   scrollbar-width: none;  /* Firefox */
   }
-  .ms-logo{
-    width: 80%;
-  }
   .card-body {
     padding-right: 0.25rem;
     padding-left: 0.25rem;
-  }
-}
-
-@media only screen and (max-width: 1140px) {
-  .ms-logo{
-    width: 60%;
   }
 }
