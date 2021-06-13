@@ -1,241 +1,17 @@
 const VERSION = "2.0.0";
 
-function resetInputs() {
-  // Reset Status text
-  $("#userSPDStatus").text("");
+let thickness = 1;
+let _thickness = 1;
+let _mpod = 0.5,
+  _t = 1,
+  _d = 1,
+  _p = 0;
 
-  // Reset Input values
-  $("#userID").attr("placeholder", "Unique Source Name").val("");
-  $("#userSPDValues").val("");
-  $("#userSPDWavelengths").val("");
-  $("#userMan").val("");
-  $("#userCCT").val("");
-  $("#userLamp").val("");
-  $("#userDesc").val("");
-
-  // Reset submit
-  //validateSubmit();
-  $("#userSourceSubmit").addClass("disabled");
-  $("#userSourceSubmit").prop("disabled", true);
-  return;
-}
-
-function notEmpty(id) {
-  return id != "";
-}
-
-function isUniqueSourceName(newSourceID) {
-  var result = true;
-  for (var i in sourcelist) {
-    if (sourcelist[i].id == newSourceID) {
-      result = false;
-      break;
-    }
-  }
-  return result;
-}
-
-function userIDValid() {
-  $("#userIDFormGroup").removeClass("has-error");
-  $("#userIDFormGroup").addClass("has-success");
-
-  $("#userIDSpan").removeClass("glyphicon-pencil");
-  $("#userIDSpan").removeClass("glyphicon-remove");
-  $("#userIDSpan").removeClass("glyphicon-ok");
-
-  $("#userIDSpan").addClass("glyphicon-ok");
-  return;
-}
-
-function userIDInvalid() {
-  $("#userID").attr("placeholder", "Invalid Source Name").val("");
-  $("#userIDFormGroup").removeClass("has-success");
-  $("#userIDFormGroup").addClass("has-error");
-
-  $("#userIDSpan").removeClass("glyphicon-pencil");
-  $("#userIDSpan").removeClass("glyphicon-remove");
-  $("#userIDSpan").removeClass("glyphicon-ok");
-
-  $("#userIDSpan").addClass("glyphicon-remove");
-  return;
-}
-
-function userSPDValid() {
-  $("#userSPDFormGroup").removeClass("has-error");
-  $("#userSPDFormGroup").addClass("has-success");
-
-  $("#userSPDSpan").removeClass("glyphicon-pencil");
-  $("#userSPDSpan").removeClass("glyphicon-remove");
-  $("#userSPDSpan").removeClass("glyphicon-ok");
-
-  $("#userSPDSpan").addClass("glyphicon-ok");
-  return;
-}
-
-function userSPDInvalid() {
-  $("#userSPDFormGroup").removeClass("has-success");
-  $("#userSPDFormGroup").addClass("has-error");
-
-  $("#userSPDSpan").removeClass("glyphicon-pencil");
-  $("#userSPDSpan").removeClass("glyphicon-remove");
-  $("#userSPDSpan").removeClass("glyphicon-ok");
-
-  $("#userSPDSpan").addClass("glyphicon-remove");
-  return;
-}
-
-function validateUserID() {
-  var result = false;
-  var newSourceID = $("#userID").val();
-  if (notEmpty(newSourceID) & isUniqueSourceName(newSourceID)) {
-    result = true;
-  } else {
-    if ($("#userSPDValues").val() != "") {
-      $("#userSPDModalHelp").append(
-        '<li class="alert alert-danger"><strong>Error:</strong> Must enter a unique source name</li>'
-      );
-    }
-  }
-  return result;
-}
-
-function validateSubmit() {
-  if (validateUserID() && validateUserSPD()) {
-    $("#userSourceSubmit").removeClass("disabled");
-    $("#userSourceSubmit").prop("disabled", false);
-  } else {
-    $("#userSourceSubmit").addClass("disabled");
-    $("#userSourceSubmit").prop("disabled", true);
-  }
-}
-
-function readUserSPD() {
-  var result = {};
-  var validSPD = true;
-  var spd = {
-    wavelength: [],
-    value: [],
-  };
-  var alertText = "";
-  var userWL = [],
-    userV = [];
-  if (!$("#userSPDSeperateContainer").hasClass("d-none")) {
-    userWL = cleanSPDRows(
-      $("#userSPDWavelengths").val().replace(/\n/g, " ").split(" ")
-    );
-    userV = cleanSPDRows(
-      $("#userSPDValues").val().replace(/\n/g, " ").split(" ")
-    );
-  } else {
-    var spd_arr = $("#userSPDComplete").val().split("\n");
-    for (let line of spd_arr) {
-      if (line.trim() == "") {
-        continue;
-      }
-      line = line
-        .trim()
-        .replace(/\t|\s\s+/g, " ")
-        .split(" "); // replace all tabs and spaces with a single space
-      if (line.length > 2) {
-        alertText += '<p class="error-text">Invalid SPD Input</p>';
-        validSPD = false;
-      } else {
-        userWL.push(line[0]);
-        userV.push(line[1]);
-      }
-    }
-  }
-
-  if (userWL.length != userV.length) {
-    if ($("#userSPDValues").val() != "" || $("#userSPDComplete").val() != "") {
-      alertText +=
-        '<p class="error-text">There must be the same number of wavelengths and values</p>';
-    }
-    validSPD = false;
-  }
-  if (userWL.length < 3) {
-    if ($("#userSPDValues").val() != "" || $("#userSPDComplete").val() != "") {
-      alertText +=
-        '<p class="error-text">Must enter at least 3 wavelength-value pairs</p>';
-    }
-    validSPD = false;
-  }
-  if (userWL.some(notNumeric) || userV.some(notNumeric)) {
-    if ($("#userSPDValues").val() != "" || $("#userSPDComplete").val() != "") {
-      alertText +=
-        '<p class="error-text">Wavelengths and values must not contain non-numeric entries</p>';
-    }
-    validSPD = false;
-  }
-
-  spd.wavelength = arrayParseFloat(userWL);
-  spd.value = arrayParseFloat(userV);
-
-  result = {
-    valid: validSPD,
-    spd: spd,
-  };
-  $(".addCustomSourceError").html(alertText);
-  return result;
-}
-
-function validateUserSPD() {
-  var userSPDTest = readUserSPD();
-  return userSPDTest.valid;
-}
-
-function loadUserSPD() {
-  var userSPDTest = readUserSPD();
-  return userSPDTest.spd;
-}
-
-function cleanSPDRows(spdRows) {
-  var result = [];
-  for (var i = 0; i < spdRows.length; i++) {
-    if (isWhitespaceNotEmpty(spdRows[i])) {
-      result.push(spdRows[i]);
-    }
-  }
-  return result;
-}
-
-function isWhitespaceNotEmpty(text) {
-  var result = text.length > 0 && !!/[^\s]/.test(text);
-  return result;
-}
-
-function notNumeric(n) {
-  return !notEmpty(n) || !(!isNaN(n) && isFinite(n));
-}
-
-function submitUserSource() {
-  var newSource = buildSourceObj();
-  applyNewSource(sourcelist.length, newSource, true);
-  updateSortSource();
-  sourcelist.push(newSource);
-  addSource(sourcelist.length - 1);
-  $("#names-list").animate({ scrollTop: 0 }, 1000);
-}
-
-function arrayParseFloat(array) {
-  var result = [];
-  for (var i = 0; i < array.length; i++) {
-    result[i] = parseFloat(array[i]);
-  }
-  return result;
-}
-
-function buildSourceObj() {
-  var result = {
-    id: $("#userID").val(),
-    manufacturer: $("#userMan").val(),
-    cct: $("#userCCT").val(),
-    lamp: $("#userLamp").val(),
-    spd: loadUserSPD(),
-    info: $("#userDesc").val(),
-  };
-  return result;
-}
+let sourcelist;
+let manUnique = [];
+let lampUnique = [];
+let cctUnique = [];
+var combinedValues;
 
 function addSource(sourceIdx) {
   // Activate second card step
@@ -330,6 +106,350 @@ function addSource(sourceIdx) {
 
   // Update chart dataset array
   addSourceDataset(sourcelist[sourceIdx]);
+}
+
+function addSourceDataset(source) {
+  var newDataset = {
+    label: source.id,
+    fill: false,
+    lineTension: 0.1,
+    backgroundColor: "rgba(255, 205, 86,1)", // Yellow
+    borderColor: "rgba(255, 205, 86,1)", // Yellow
+    borderCapStyle: "butt",
+    borderDash: [],
+    borderDashOffset: 0.0,
+    borderJoinStyle: "miter",
+    pointBorderColor: "rgba(255, 205, 86,1)", // Yellow
+    pointBackgroundColor: "#fff",
+    pointBorderWidth: 1,
+    radius: 0,
+    data: dataTestZero,
+    yAxisID: "y-axis-1",
+  };
+  configSPD.data.datasets.push(newDataset);
+  if (configSPD.data.datasets.length == 1) {
+    configSPD.data.datasets.unshift(spectralEfficiencyFunctionDataset);
+    $("#spdLegendDiv").show();
+    $("#crmLegendDiv").show();
+    $("#chromaticityLegendDiv").show();
+    $("#csInputSection").show();
+  } else if (configSPD.data.datasets.length == 3) {
+    configSPD.data.datasets.unshift(combinedSourceDataset);
+    $("#csInputSection").hide();
+  } else {
+    $("#csInputSection").hide();
+  }
+  spdChart.update();
+  document.getElementById("spdLegend").innerHTML = spdChart.generateLegend();
+  $("#noSelectedSources").hide();
+  $("#sources-table").show();
+}
+
+function removeSourceDataset(source) {
+  for (var i = 0; i < configSPD.data.datasets.length; i++) {
+    if (source.id === configSPD.data.datasets[i].label) {
+      configSPD.data.datasets.splice(i, 1);
+      if (
+        configSPD.data.datasets.length == 1 ||
+        configSPD.data.datasets.length == 3
+      ) {
+        configSPD.data.datasets[0].data = dataTestNan;
+        configSPD.data.datasets.splice(0, 1);
+        $("#csInputSection").show();
+        if (configSPD.data.datasets.length == 0) {
+          $("#spdLegendDiv").hide();
+          $("#crmLegendDiv").hide();
+          $("#chromaticityLegendDiv").hide();
+          $("#noSelectedSources").show();
+          $("#sources-table").hide();
+          $("#csInputSection").hide();
+        }
+      }
+    }
+  }
+  spdChart.update();
+  document.getElementById("spdLegend").innerHTML = spdChart.generateLegend();
+}
+
+function handleCustomSource() {
+  function userIDValid() {
+    $("#userIDFormGroup").removeClass("has-error");
+    $("#userIDFormGroup").addClass("has-success");
+
+    $("#userIDSpan").removeClass("glyphicon-pencil");
+    $("#userIDSpan").removeClass("glyphicon-remove");
+    $("#userIDSpan").removeClass("glyphicon-ok");
+
+    $("#userIDSpan").addClass("glyphicon-ok");
+    return;
+  }
+
+  function userIDInvalid() {
+    $("#userID").attr("placeholder", "Invalid Source Name").val("");
+    $("#userIDFormGroup").removeClass("has-success");
+    $("#userIDFormGroup").addClass("has-error");
+
+    $("#userIDSpan").removeClass("glyphicon-pencil");
+    $("#userIDSpan").removeClass("glyphicon-remove");
+    $("#userIDSpan").removeClass("glyphicon-ok");
+
+    $("#userIDSpan").addClass("glyphicon-remove");
+    return;
+  }
+
+  function userSPDValid() {
+    $("#userSPDFormGroup").removeClass("has-error");
+    $("#userSPDFormGroup").addClass("has-success");
+
+    $("#userSPDSpan").removeClass("glyphicon-pencil");
+    $("#userSPDSpan").removeClass("glyphicon-remove");
+    $("#userSPDSpan").removeClass("glyphicon-ok");
+
+    $("#userSPDSpan").addClass("glyphicon-ok");
+    return;
+  }
+
+  function userSPDInvalid() {
+    $("#userSPDFormGroup").removeClass("has-success");
+    $("#userSPDFormGroup").addClass("has-error");
+
+    $("#userSPDSpan").removeClass("glyphicon-pencil");
+    $("#userSPDSpan").removeClass("glyphicon-remove");
+    $("#userSPDSpan").removeClass("glyphicon-ok");
+
+    $("#userSPDSpan").addClass("glyphicon-remove");
+    return;
+  }
+
+  function validateUserID() {
+    function isUniqueSourceName(newSourceID) {
+      for (var i in sourcelist) {
+        if (sourcelist[i].id == newSourceID) {
+          return false;
+        }
+      }
+      return true;
+    }
+
+    var result = false;
+    var newSourceID = $("#userID").val();
+    if ((newSourceID != "") & isUniqueSourceName(newSourceID)) {
+      result = true;
+    } else {
+      if ($("#userSPDValues").val() != "") {
+        $("#userSPDModalHelp").append(
+          '<li class="alert alert-danger"><strong>Error:</strong> Must enter a unique source name</li>'
+        );
+      }
+    }
+    return result;
+  }
+
+  function validateSubmit() {
+    if (validateUserID() && validateUserSPD()) {
+      $("#userSourceSubmit").removeClass("disabled");
+      $("#userSourceSubmit").prop("disabled", false);
+    } else {
+      $("#userSourceSubmit").addClass("disabled");
+      $("#userSourceSubmit").prop("disabled", true);
+    }
+  }
+
+  function readUserSPD() {
+    var result = {};
+    var validSPD = true;
+    var spd = {
+      wavelength: [],
+      value: [],
+    };
+    var alertText = "";
+    var userWL = [],
+      userV = [];
+    if (!$("#userSPDSeperateContainer").hasClass("d-none")) {
+      userWL = cleanSPDRows(
+        $("#userSPDWavelengths").val().replace(/\n/g, " ").split(" ")
+      );
+      userV = cleanSPDRows(
+        $("#userSPDValues").val().replace(/\n/g, " ").split(" ")
+      );
+    } else {
+      var spd_arr = $("#userSPDComplete").val().split("\n");
+      for (let line of spd_arr) {
+        if (line.trim() == "") {
+          continue;
+        }
+        line = line
+          .trim()
+          .replace(/\t|\s\s+/g, " ")
+          .split(" "); // replace all tabs and spaces with a single space
+        if (line.length > 2) {
+          alertText +=
+            '<p class="font-size-_75 m-0 text-red">Invalid SPD Input</p>';
+          validSPD = false;
+        } else {
+          userWL.push(line[0]);
+          userV.push(line[1]);
+        }
+      }
+    }
+
+    if (userWL.length != userV.length) {
+      if (
+        $("#userSPDValues").val() != "" ||
+        $("#userSPDComplete").val() != ""
+      ) {
+        alertText +=
+          '<p class="font-size-_75 m-0 text-red">There must be the same number of wavelengths and values</p>';
+      }
+      validSPD = false;
+    }
+    if (userWL.length < 3) {
+      if (
+        $("#userSPDValues").val() != "" ||
+        $("#userSPDComplete").val() != ""
+      ) {
+        alertText +=
+          '<p class="font-size-_75 m-0 text-red">Must enter at least 3 wavelength-value pairs</p>';
+      }
+      validSPD = false;
+    }
+    if (userWL.some(notNumeric) || userV.some(notNumeric)) {
+      if (
+        $("#userSPDValues").val() != "" ||
+        $("#userSPDComplete").val() != ""
+      ) {
+        alertText +=
+          '<p class="font-size-_75 m-0 text-red">Wavelengths and values must not contain non-numeric entries</p>';
+      }
+      validSPD = false;
+    }
+
+    spd.wavelength = arrayParseFloat(userWL);
+    spd.value = arrayParseFloat(userV);
+
+    result = {
+      valid: validSPD,
+      spd: spd,
+    };
+    $(".addCustomSourceError").html(alertText);
+    return result;
+  }
+
+  function validateUserSPD() {
+    return readUserSPD().valid;
+  }
+
+  function loadUserSPD() {
+    var userSPDTest = readUserSPD();
+    return userSPDTest.spd;
+  }
+
+  function cleanSPDRows(spdRows) {
+    var result = [];
+    for (var i = 0; i < spdRows.length; i++) {
+      if (isWhitespaceNotEmpty(spdRows[i])) {
+        result.push(spdRows[i]);
+      }
+    }
+    return result;
+  }
+
+  function isWhitespaceNotEmpty(text) {
+    var result = text.length > 0 && !!/[^\s]/.test(text);
+    return result;
+  }
+
+  function notNumeric(n) {
+    return n == "" || !(!isNaN(n) && isFinite(n));
+  }
+
+  function submitUserSource() {
+    var newSource = buildSourceObj();
+    applyNewSource(sourcelist.length, newSource, true);
+    updateSortSource();
+    sourcelist.push(newSource);
+    addSource(sourcelist.length - 1);
+    $("#names-list").animate({ scrollTop: 0 }, 1000);
+  }
+
+  function arrayParseFloat(array) {
+    var result = [];
+    for (var i = 0; i < array.length; i++) {
+      result[i] = parseFloat(array[i]);
+    }
+    return result;
+  }
+
+  function buildSourceObj() {
+    var result = {
+      id: $("#userID").val(),
+      manufacturer: $("#userMan").val(),
+      cct: $("#userCCT").val(),
+      lamp: $("#userLamp").val(),
+      spd: loadUserSPD(),
+      info: $("#userDesc").val(),
+    };
+    return result;
+  }
+
+  $(".addSource").on("click", function () {
+    if ($("#stepChange2").hasClass("disabled")) {
+      $("#stepChange2")
+        .fadeIn(500)
+        .fadeOut(500)
+        .fadeIn(500)
+        .fadeOut(500)
+        .fadeIn(500);
+      $("#stepChange2").removeClass("disabled");
+    }
+
+    var sourceIdx = $(this).attr("data-i");
+    addSource(sourceIdx);
+  });
+
+  $("#userID").on("input change paste keyup", function () {
+    if (validateUserID()) {
+      userIDValid();
+    } else {
+      userIDInvalid();
+    }
+    validateSubmit();
+  });
+
+  $("#userSPDValues").on("input change paste keyup", function () {
+    if (validateUserSPD()) {
+      userSPDValid();
+    } else {
+      userSPDInvalid();
+    }
+    validateSubmit();
+  });
+
+  $("#userSPDWavelengths").on("input change paste keyup", function () {
+    if (validateUserSPD()) {
+      userSPDValid();
+    } else {
+      userSPDInvalid();
+    }
+    validateSubmit();
+  });
+
+  $("#userSPDComplete").on("input change paste keyup", function () {
+    if (validateUserSPD()) {
+      userSPDValid();
+    } else {
+      userSPDInvalid();
+    }
+    validateSubmit();
+  });
+
+  $(".userEnter").on("keydown", function (e) {
+    //Trigger change on enter
+    if (e.keyCode == 13) {
+      $(this).trigger("change");
+      $(this).focus().blur();
+    }
+  });
 }
 
 function handleBetaMessage() {
@@ -558,106 +678,757 @@ function handleChangeSPDInputType() {
   });
 }
 
-function createResultsJSON() {
-  var calculations = {};
-  calculations.version = VERSION;
-  calculations.date = new Date().toString();
-  calculations.sources = {};
-  for (source of sourcelist) {
-    if (source.isSelected) {
-      calculations.sources[source.id] = {
-        info: {
-          id: source.id,
-          manufacturer: source.manufacturer,
-          cct: source.cct,
-          lamp: source.lamp,
-          desc: source.info,
-          spd: {
-            wavelengths: source.spd.wavelength.map((a) => a.toString()),
-            values: source.spd.value.map((a) => a.toExponential(4)),
-          },
-        },
-        lux: source.selectedSource.illuminance.toString(),
-      };
+function sourceListModal(i) {
+  var source = sourcelist[i];
+  $("#source-modal-label").html(" " + source.id);
+  $("#source-lamptype").html(source.lamp);
+  $("#source-cct").html(source.cct);
+  $("#source-manufacturer").html(source.manufacturer);
+  $("#source-info").html(source.info);
+  $("#source-add").attr("data-i", i);
+  $("#source-modal-footer").removeClass("d-none");
+
+  sourceData = [];
+  for (i = 0; i < source.relativeSPD.length; i++) {
+    sourceData[i] = {
+      x: setwavelength[i],
+      y: source.relativeSPD[i],
+    };
+  }
+
+  var sourceSPD = {
+    label: source.id,
+    fill: false,
+    lineTension: 0.1,
+    backgroundColor: "rgba(255, 205, 86,1)", // Yellow
+    borderColor: "rgba(255, 205, 86,1)", // Yellow
+    borderCapStyle: "butt",
+    borderDash: [],
+    borderDashOffset: 0.0,
+    borderJoinStyle: "miter",
+    pointBorderColor: "rgba(255, 205, 86,1)", // Yellow
+    pointBackgroundColor: "#fff",
+    pointBorderWidth: 1,
+    radius: 0,
+    data: sourceData,
+    yAxisID: "y-axis-1",
+  };
+
+  configSourceSPD.data.datasets[0] = sourceSPD;
+  sourceSPDChart.update();
+  $("#source-modal").modal("show");
+}
+
+function updateResults() {
+  combinedValues = ssAbsoluteSPDCalc();
+  combinedValues.relativeSPD = {
+    wavelength: setwavelength,
+    value: spdNormalize(setwavelength, combinedValues.absoluteSPD.value),
+  };
+  // Calculate CLA and CS Values based on macular thickness range
+  combinedValues.CLA = CLAcalc(combinedValues.absoluteSPD, thickness * 2);
+  combinedValues.CS = cla2cs(combinedValues.CLA);
+
+  // Calculate Melanopic Lux
+  combinedValues.EML = EMLcalc(combinedValues.absoluteSPD);
+
+  // Calculate Spectral Irradiance
+  combinedValues.Irr = combinedValues.absoluteSPD.value.sum() * 2;
+
+  // Calculate photon flux
+  combinedValues.pf =
+    arrayDiv(
+      combinedValues.absoluteSPD.value,
+      arrayInverse(
+        arrayScalar(
+          combinedValues.absoluteSPD.wavelength,
+          1e-9 / 1.9865275648e-25
+        )
+      )
+    ).sum() * 2;
+
+  // Calculate color metrics
+  combinedValues.CCT = CCTcalc(combinedValues.relativeSPD);
+  combinedValues.CRI = CRIcalc(combinedValues.relativeSPD);
+  combinedValues.GAI = GAIcalc(combinedValues.relativeSPD);
+  combinedValues.Duv = DuvCalc(combinedValues.relativeSPD);
+
+  // Calculate color cordinates
+  var ccVals = chromaticityCoordinatesCalc(combinedValues.absoluteSPD);
+  combinedValues.x = ccVals.x;
+  combinedValues.y = ccVals.y;
+
+  // Calculate Spectral Efficiency Function
+  var rodSat0 = 0.1088;
+  var test = {
+    spd: combinedValues.relativeSPD,
+    thickness: thickness * 2,
+  };
+  var rodSat = fmin(prepGenerateCircadianSpectralResponceForSPD, test, rodSat0);
+  var sefObj = generateCircadianSpectralResponceForSPD(
+    test.spd,
+    test.thickness,
+    rodSat
+  );
+  if (sefObj.cool) {
+    spectralEfficiencyFunctionDataset.label =
+      "Relative Spectral Contribution of the Circadian Response*: Cool";
+    spectralEfficiencyFunctionDataset.backgroundColor = "rgba(0,0,192,1)";
+    spectralEfficiencyFunctionDataset.borderColor = "rgba(0,0,192,1)";
+    spectralEfficiencyFunctionDataset.pointBorderColor = "rgba(0,0,192,1)";
+  } else {
+    spectralEfficiencyFunctionDataset.label =
+      "Relative Spectral Contribution of the Circadian Response*: Warm";
+    spectralEfficiencyFunctionDataset.backgroundColor = "rgba(192,0,0,1)";
+    spectralEfficiencyFunctionDataset.borderColor = "rgba(192,0,0,1)";
+    spectralEfficiencyFunctionDataset.pointBorderColor = "rgba(192,0,0,1)";
+  }
+
+  // Update Results Section HTML
+  $("#resultIll").html(combinedValues.absoluteIll);
+  $("#resultEML").html(combinedValues.EML.toFixed());
+  $("#resultCLA").html(combinedValues.CLA.toFixed());
+  $("#resultCS").html(combinedValues.CS.toFixed(3));
+  $("#resultCCT").html(combinedValues.CCT.toFixed());
+  $("#resultDuv").html(combinedValues.Duv.toFixed(3));
+  $("#resultCRI").html(combinedValues.CRI.toFixed(1));
+  $("#resultGAI").html(combinedValues.GAI.toFixed(1));
+  $("#resultXY").html(
+    combinedValues.x.toFixed(4) + ", " + combinedValues.y.toFixed(4)
+  );
+  $("#resultIrr").html(combinedValues.Irr.toExponential(4));
+
+  $("#resultCIE_S").html(combinedValues.CIE_S_cone_opic_irr.toExponential(4));
+  $("#resultCIE_M").html(combinedValues.CIE_M_cone_opic_irr.toExponential(4));
+  $("#resultCIE_L").html(combinedValues.CIE_L_cone_opic_irr.toExponential(4));
+  $("#resultCIE_Rhod").html(combinedValues.CIE_Rhodopic_irr.toExponential(4));
+  $("#resultCIE_Mela").html(combinedValues.CIE_Melanopic_irr.toExponential(4));
+
+  $("#resultPf").html(combinedValues.pf.toExponential(4));
+
+  var normSPDVals = arrayNormalize(combinedValues.absoluteSPD.value);
+
+  // Update Relative SPD HTML
+  $("#RelSpdContainer").empty();
+  var row, wave, val;
+  for (var i = 0; i < combinedValues.relativeSPD.wavelength.length; i++) {
+    row = "";
+    row += '<div class="row mb-1 zebra-row">';
+    row += '  <div class="col d-flex justify-content-around zebra-entry">';
+    row +=
+      '    <div class="spd-wl">' +
+      combinedValues.relativeSPD.wavelength[i] +
+      "</div>";
+    row +=
+      '    <div class="spd-value">' +
+      normSPDVals[i].toExponential(4) +
+      "</div>";
+    row += "  </div>";
+    row += "</div>";
+    $("#RelSpdContainer").append(row);
+  }
+
+  // Update Absolute SPD HTML
+  $("#AbsSpdContainer").empty();
+  for (i = 0; i < combinedValues.absoluteSPD.wavelength.length; i++) {
+    row = "";
+    row += '<div class="row mb-1 zebra-row">';
+    row += '  <div class="col d-flex justify-content-around zebra-entry">';
+    row +=
+      '    <div class="spd-wl">' +
+      combinedValues.absoluteSPD.wavelength[i] +
+      "</div>";
+    row +=
+      '    <div class="spd-value">' +
+      combinedValues.absoluteSPD.value[i].toExponential(4) +
+      "</div>";
+    row += "  </div>";
+    row += "</div>";
+    $("#AbsSpdContainer").append(row);
+  }
+
+  //Update Chart Combined SPD
+  //spdChart.data.datasets[0].label = 'Combined Source SPD'
+  var dataValue;
+  var dataTest;
+  var j, k;
+  for (i = 0; i < sourcelist.length; i++) {
+    if (sourcelist[i].isSelected) {
+      for (j = 0; j < configSPD.data.datasets.length; j++) {
+        if (sourcelist[i].id === configSPD.data.datasets[j].label) {
+          dataValue = arrayScalar(
+            arrayNormalize(sourcelist[i].selectedSource.relativeSPD),
+            sourcelist[i].selectedSource.illuminance /
+              combinedValues.absoluteIll
+          );
+          dataTest = {};
+          for (k = 0; k < setwavelength.length; k++) {
+            dataTest[k] = {
+              x: setwavelength[k],
+              y: dataValue[k],
+            };
+          }
+          configSPD.data.datasets[j].data = dataTest;
+        }
+      }
     }
   }
-  calculations.input_variables = {
-    exposure_duration: _t.toString(),
-    distribution_scaler: _d.toString(),
-  };
-  calculations.combined_metrics = {
-    "cs_2.0": combinedValues.CS.toFixed(3),
-    "cla_2.0": combinedValues.CLA.toFixed(),
-    illuminance: combinedValues.absoluteIll.toString(),
-    irradiance: combinedValues.Irr.toExponential(4),
-    flux: combinedValues.pf.toExponential(4),
-    eml: combinedValues.EML.toFixed(),
-    cct: combinedValues.CCT.toFixed(),
-    duv: combinedValues.Duv.toFixed(3),
-    cri: combinedValues.CRI.toFixed(1),
-    gai: combinedValues.GAI.toFixed(1),
-    chromaticity_coordinates: `(${combinedValues.x.toFixed(
-      4
-    )}, ${combinedValues.y.toFixed(4)})`,
-    "cie_s-cone-irradiance":
-      combinedValues.CIE_S_cone_opic_irr.toExponential(4),
-    "cie_m-cone_irradiance":
-      combinedValues.CIE_M_cone_opic_irr.toExponential(4),
-    "cie_l-cone_irradiance":
-      combinedValues.CIE_L_cone_opic_irr.toExponential(4),
-    cie_rhodopic_irradiance: combinedValues.CIE_Rhodopic_irr.toExponential(4),
-    cie_melanopic_irradiance: combinedValues.CIE_Melanopic_irr.toExponential(4),
-  };
-  calculations.combined_spd = {
-    relative: {
-      wavelengths: combinedValues.relativeSPD.wavelength.map((a) =>
-        a.toString()
-      ),
-      values: combinedValues.relativeSPD.value.map((a) => a.toExponential(4)),
-    },
-    absolute: {
-      wavelengths: combinedValues.absoluteSPD.wavelength.map((a) =>
-        a.toString()
-      ),
-      values: combinedValues.absoluteSPD.value.map((a) => a.toExponential(4)),
-    },
-  };
 
-  $("#jsondownload").attr(
-    "href",
-    "data:application/json;charset=utf-8," +
-      encodeURIComponent(JSON.stringify(calculations, null, 2))
-  );
-  $("#jsondownload").attr("download", "CSCalculator Results.json");
-  $("#jsondownload")[0].click();
+  // Update SEF
+  if (configSPD.data.datasets.length > 0) {
+    dataValue = arrayNormalize(sefObj.specRespMinusRod);
+    dataTest = [];
+    for (k = 0; k < setwavelength.length; k++) {
+      dataTest[k] = {
+        x: setwavelength[k],
+        y: dataValue[k],
+      };
+    }
+
+    if (configSPD.data.datasets.length > 2) {
+      configSPD.data.datasets[1].data = dataTest;
+    } else {
+      configSPD.data.datasets[0].data = dataTest;
+    }
+  }
+
+  // Update Combined
+  if (configSPD.data.datasets.length > 2) {
+    dataValue = normSPDVals;
+    dataTest = [];
+    for (k = 0; k < setwavelength.length; k++) {
+      dataTest[k] = {
+        x: setwavelength[k],
+        y: dataValue[k],
+      };
+    }
+    configSPD.data.datasets[0].data = dataTest;
+  }
+  spdChart.update();
+  document.getElementById("spdLegend").innerHTML = spdChart.generateLegend();
+
+  // Update CRM Plot
+  configCRM.data.datasets[0].data[0].x = combinedValues.CRI;
+  configCRM.data.datasets[0].data[0].y = combinedValues.GAI;
+  if (combinedValues.CRI < 30) {
+    configCRM.options.scales.xAxes[0].ticks.min = -100;
+  } else {
+    configCRM.options.scales.xAxes[0].ticks.min = 20;
+  }
+
+  crmChart.update();
+  document.getElementById("crmLegend").innerHTML = crmChart.generateLegend();
+
+  // Update Chromaticity Plot
+  configChromaticity.data.datasets[0].data[0].x = combinedValues.x;
+  configChromaticity.data.datasets[0].data[0].y = combinedValues.y;
+  if (
+    combinedValues.x > 0.3 &&
+    combinedValues.x < 0.5 &&
+    combinedValues.y > 0.3 &&
+    combinedValues.y < 0.5
+  ) {
+    configChromaticity.options.scales.xAxes[0].ticks.min = 0.3;
+    configChromaticity.options.scales.xAxes[0].ticks.max = 0.5;
+    configChromaticity.options.scales.xAxes[0].ticks.stepSize = 0.05;
+    configChromaticity.options.scales.yAxes[0].ticks.min = 0.3;
+    configChromaticity.options.scales.yAxes[0].ticks.max = 0.5;
+    configChromaticity.options.scales.yAxes[0].ticks.stepSize = 0.05;
+  } else {
+    configChromaticity.options.scales.xAxes[0].ticks.min = 0.0;
+    configChromaticity.options.scales.xAxes[0].ticks.max = 0.9;
+    configChromaticity.options.scales.xAxes[0].ticks.stepSize = 0.1;
+    configChromaticity.options.scales.yAxes[0].ticks.min = 0.0;
+    configChromaticity.options.scales.yAxes[0].ticks.max = 0.9;
+    configChromaticity.options.scales.yAxes[0].ticks.stepSize = 0.1;
+  }
+  chromaticityChart.update();
+  document.getElementById("chromaticityLegend").innerHTML =
+    chromaticityChart.generateLegend();
+
+  return;
 }
 
-function resetInputVariables() {
-  $("#mpod_sel").val("0.5");
-  $("#time_sel").val("1.00");
-  $("#scalar_sel").val("1.0");
-  $("#attenuation_sel").val("0.0");
-}
+function handleSources() {
+  function applyNewSource(i, el, custom) {
+    // Expand the source object
+    el.isSelected = false;
+    var valueInt = interp1(el.spd.wavelength, el.spd.value, setwavelength, 0);
+    el.relativeSPD = arrayScalar(
+      arrayNormalize(spdNormalize(setwavelength, valueInt)),
+      1
+    );
+    el.selectedSource = {
+      relativeSPD: spdNormalize(setwavelength, valueInt),
+      illuminance: 0,
+      absoluteSPD: arrayScalar(setwavelength, 0),
+    };
 
-// Page Action Functions
-$(document).ready(function () {
-  $(function () {
-    $('[data-toggle="tooltip"]').tooltip();
+    if (manUnique.indexOf(el.manufacturer) == -1)
+      manUnique.push(el.manufacturer);
+    if (lampUnique.indexOf(el.lamp) == -1) lampUnique.push(el.lamp);
+    if (cctUnique.indexOf(el.cct) == -1) cctUnique.push(el.cct);
+
+    // Create Source list button
+    var li =
+      '<li id="source_' +
+      i +
+      '" class="list-group-item text-center source-item" data-i="' +
+      i +
+      '">' +
+      el.id +
+      "</li>";
+
+    if (custom) {
+      $("#names-list").prepend(li);
+
+      $(".source-item:first-child").on("click", function () {
+        var i = $(this).attr("data-i");
+        sourceListModal(i);
+      });
+    } else {
+      $("#names-list").append(li);
+
+      $(".source-item:last-child").on("click", function () {
+        var i = $(this).attr("data-i");
+        sourceListModal(i);
+      });
+    }
+
+    //Append arrays
+  }
+
+  function updateSortSource() {
+    // Clear previous values
+    $("#manufacterer").empty();
+    $("#lamp").empty();
+    $("#cct").empty();
+
+    // Update sort options.
+    manUnique.sort();
+    lampUnique.sort();
+    cctUnique.sort();
+
+    // Move Other to end
+    manUnique.toEnd("Other");
+    lampUnique.toEnd("Other");
+    cctUnique.toEnd("Other");
+
+    // Move Any to front
+    manUnique.toFront("Any");
+    lampUnique.toFront("Any");
+    cctUnique.toFront("Any");
+
+    // Update inner HTML
+    $(manUnique).each(function (i, el) {
+      var opt = document.createElement("option");
+      opt.innerHTML = el;
+      $("#manufacterer")[0].appendChild(opt);
+    });
+
+    $(lampUnique).each(function (i, el) {
+      var opt = document.createElement("option");
+      opt.innerHTML = el;
+      $("#lamp")[0].appendChild(opt);
+    });
+
+    $(cctUnique).each(function (i, el) {
+      var opt = document.createElement("option");
+      opt.innerHTML = el;
+      $("#cct")[0].appendChild(opt);
+    });
+  }
+
+  $(sourcelist).each(function (i, el) {
+    applyNewSource(i, el, false);
   });
-  resetInputVariables();
+  updateSortSource();
 
-  $("button.addSource").on("click", function () {
-    if ($("#stepChange2").hasClass("disabled")) {
-      $("#stepChange2")
-        .fadeIn(500)
-        .fadeOut(500)
-        .fadeIn(500)
-        .fadeOut(500)
-        .fadeIn(500);
-      $("#stepChange2").removeClass("disabled");
+  $(".sortSource").change(function () {
+    for (var i = 0; i < sourcelist.length; i++) {
+      $("#source_" + i).hide();
+    }
+    $("#noAvailableSources").show();
+
+    var manSelected = $("#manufacterer option:selected").text();
+    var cctSelected = $("#cct option:selected").text();
+    var lampSelected = $("#lamp option:selected").text();
+
+    var searchVal = $("#searchSource").val().toLocaleLowerCase();
+
+    for (i = 0; i < sourcelist.length; i++) {
+      var j, k;
+      // Sort using the dropdown menus
+      var manTest =
+        manSelected == "Any" || sourcelist[i].manufacturer == manSelected;
+      var cctTest = cctSelected == "Any" || sourcelist[i].cct == cctSelected;
+      var lampTest =
+        lampSelected == "Any" || sourcelist[i].lamp == lampSelected;
+
+      // Sort using the keyword box
+      var searchTest = false;
+      if (searchVal != "") {
+        // Initialize Search Test
+        searchTest = false;
+
+        // Split the search string
+        var searchValArray = searchVal.split(" ");
+
+        // Search ID
+        var sourceIDArray = sourcelist[i].id.toLocaleLowerCase().split(" ");
+        for (j = 0; j < sourceIDArray.length; j++) {
+          var isSourceID = true;
+          for (k = 0; k < searchValArray.length; k++) {
+            isSourceID =
+              isSourceID & (sourceIDArray[j].search(searchValArray[k]) == 0);
+          }
+          if (isSourceID) {
+            searchTest = true;
+            break;
+          }
+        }
+
+        // Search Manufacturer
+        if (!searchTest) {
+          var sourceManArray = sourcelist[i].manufacturer
+            .toLocaleLowerCase()
+            .split(" ");
+          for (j = 0; j < sourceManArray.length; j++) {
+            var isSourceMan = true;
+            for (k = 0; k < searchValArray.length; k++) {
+              isSourceMan =
+                isSourceMan &
+                (sourceManArray[j].search(searchValArray[k]) == 0);
+            }
+            if (isSourceMan) {
+              searchTest = true;
+              break;
+            }
+          }
+        }
+
+        // Search CCTs
+        if (!searchTest) {
+          var sourceCCTArray = sourcelist[i].cct.toLocaleLowerCase().split(" ");
+          for (j = 0; j < sourceCCTArray.length; j++) {
+            var isSourceCCT = true;
+            for (k = 0; k < searchValArray.length; k++) {
+              isSourceCCT =
+                isSourceCCT &
+                (sourceCCTArray[j].search(searchValArray[k]) == 0);
+            }
+            if (isSourceCCT) {
+              searchTest = true;
+              break;
+            }
+          }
+        }
+
+        // Search Lamps
+        if (!searchTest) {
+          var sourceLampArray = sourcelist[i].lamp
+            .toLocaleLowerCase()
+            .split(" ");
+          for (j = 0; j < sourceLampArray.length; j++) {
+            var isSourceLamp = true;
+            for (k = 0; k < searchValArray.length; k++) {
+              isSourceLamp =
+                isSourceLamp &
+                (sourceLampArray[j].search(searchValArray[k]) == 0);
+            }
+            if (isSourceLamp) {
+              searchTest = true;
+              break;
+            }
+          }
+        }
+      } else {
+        searchTest = true;
+      }
+      if (manTest & cctTest & lampTest & searchTest) {
+        $("#source_" + i).show();
+        $("#noAvailableSources").hide();
+      }
     }
   });
 
+  $("#reset").on("click", function () {
+    document.getElementById("manufacterer").selectedIndex = 0;
+    document.getElementById("cct").selectedIndex = 0;
+    document.getElementById("lamp").selectedIndex = 0;
+    document.getElementById("searchSource").value = "";
+    $(".sortSource").trigger("change");
+    var manSelected = $("#manufacterer option:selected").text();
+  });
+
+  $(document).on("click", ".selected-source-icon", function () {
+    var i = $(this).attr("data-i");
+
+    var source = sourcelist[i];
+    $("#source-modal-label").html(" " + source.id);
+    $("#source-lamptype").html(source.lamp);
+    $("#source-cct").html(source.cct);
+    $("#source-manufacturer").html(source.manufacturer);
+    $("#source-info").html(source.info);
+    $("#source-add").attr("data-i", i);
+    $("#source-modal-footer").addClass("d-none");
+
+    sourceData = [];
+    for (i = 0; i < source.relativeSPD.length; i++) {
+      sourceData[i] = {
+        x: setwavelength[i],
+        y: source.relativeSPD[i],
+      };
+    }
+
+    var sourceSPD = {
+      label: source.id,
+      fill: false,
+      lineTension: 0.1,
+      backgroundColor: "rgba(255, 205, 86,1)", // Yellow
+      borderColor: "rgba(255, 205, 86,1)", // Yellow
+      borderCapStyle: "butt",
+      borderDash: [],
+      borderDashOffset: 0.0,
+      borderJoinStyle: "miter",
+      pointBorderColor: "rgba(255, 205, 86,1)", // Yellow
+      pointBackgroundColor: "#fff",
+      pointBorderWidth: 1,
+      radius: 0,
+      data: sourceData,
+      yAxisID: "y-axis-1",
+    };
+    configSourceSPD.data.datasets[0] = sourceSPD;
+    sourceSPDChart.update();
+
+    $("#source-modal").modal("show");
+  });
+
+  $(document).on("click", ".removeSource", function () {
+    // Get Source data index
+    var sourceIdx = $(this).attr("data-i");
+    $(this).tooltip("dispose");
+
+    // Remove selected source
+    $("#SelectedSource_" + sourceIdx)
+      .parent()
+      .remove();
+    $("#SelectedSource_" + sourceIdx + "_")
+      .parent()
+      .remove();
+    sourcelist[sourceIdx].isSelected = false;
+    sourcelist[sourceIdx].selectedSource.illuminance = 0;
+    sourcelist[sourceIdx].selectedSource.absoluteSPD = arrayScalar(
+      sourcelist[sourceIdx].selectedSource.relativeSPD,
+      sourcelist[sourceIdx].selectedSource.illuminance
+    );
+
+    if ($("#selected-sources > div").length == 1) {
+      $(".no-sources").removeClass("d-none");
+    }
+
+    // Enable source in sourcelist array
+    $("#source_" + sourceIdx).removeClass("disabled");
+    $("#source_" + sourceIdx).prop("disabled", false);
+    updateResults();
+    removeSourceDataset(sourcelist[sourceIdx]);
+  });
+
+  $(document).on("change", ".ssIll", function () {
+    var sourceIdx = this.id.split("_")[1];
+    if (this.value == "") {
+      this.value = "0";
+    } else if (/^\.\d*$/.test(this.value)) {
+      this.value = "0".concat(this.value);
+    }
+    if (/^\d*\.$/.test(this.value)) {
+      this.value = this.value.concat("0");
+    }
+    sourcelist[sourceIdx].selectedSource.illuminance = parseFloat(this.value);
+    sourcelist[sourceIdx].selectedSource.absoluteSPD = arrayScalar(
+      sourcelist[sourceIdx].selectedSource.relativeSPD,
+      sourcelist[sourceIdx].selectedSource.illuminance
+    );
+    updateResults();
+  });
+
+  $(".userSortSource").change(function () {
+    var sourceVal = $(this).val();
+    if (sourceVal == "") {
+      $(this).val("Other");
+    }
+  });
+}
+
+function handleInputVariables() {
+  $("#time_sel").on("change", function () {
+    _t = Number(this.value);
+    updateResults();
+  });
+
+  $("#scalar_sel").on("change", function () {
+    _d = Number(this.value);
+    updateResults();
+  });
+}
+
+function handleToolTips() {
+  $('[data-toggle="tooltip"]').tooltip();
+}
+
+function handleCalculateByCS() {
+  $(document).on("keydown", "#csInput", function (e) {
+    // Allow: backspace, delete, tab, escape, enter and .
+    if (
+      !(e.keyCode == 8 || e.keyCode == 46 || e.keyCode == 37 || e.keyCode == 39)
+    ) {
+      var testString = this.value
+        .slice(0, this.selectionStart)
+        .concat(e.key)
+        .concat(this.value.slice(this.selectionEnd, this.value.length));
+      if (!/(^0$)|(^0?\.(\d{1,3})?$)/.test(testString)) {
+        //(!((e.keyCode > 95 && e.keyCode < 106) || (e.keyCode > 47 && e.keyCode < 58) || e.keyCode == 8 || e.keyCode == 110 || e.keyCode == 190 || e.keyCode == 46)) {
+        return false;
+      }
+    }
+
+    // Trigger change on enter
+    if (e.keyCode == 13) {
+      $("#csInput").trigger("change");
+    }
+  });
+
+  $(document).on("change", "#csInput", function () {
+    var sourceIdx = this.id.split("_")[1];
+    if (this.value == "") {
+      this.value = "0";
+    }
+    if (/^\.\d*$/.test(this.value)) {
+      this.value = "0".concat(this.value);
+    }
+    if (/^0.$/.test(this.value)) {
+      this.value = this.value.concat("0");
+    }
+    var cla = cs2cla(parseFloat(this.value));
+
+    var testSPD = {
+      wavelength: setwavelength,
+      value: arrayScalar(setwavelength, 0),
+    };
+
+    for (var i = 0; i < sourcelist.length; i++) {
+      if (sourcelist[i].isSelected) {
+        testSPD.value = sourcelist[i].selectedSource.relativeSPD;
+        break;
+      }
+    }
+    var lux = claspd2lux(cla, testSPD, thickness * 2);
+    document.getElementsByClassName("ssIll")[0].value = lux
+      .toFixed(2)
+      .toString();
+    $(".ssIll").trigger("change");
+  });
+}
+
+function readJson() {
+  $.ajax({
+    mimeType: "application/json",
+    url: "json/sources.json",
+    async: false,
+    dataType: "json",
+    success: function (result) {
+      $.each(result, function () {
+        sourcelist = this;
+      });
+    },
+  });
+}
+
+function handleCalculationsJson() {
+  function createResultsJSON() {
+    var calculations = {};
+    calculations.version = VERSION;
+    calculations.date = new Date().toString();
+    calculations.sources = {};
+    for (source of sourcelist) {
+      if (source.isSelected) {
+        calculations.sources[source.id] = {
+          info: {
+            id: source.id,
+            manufacturer: source.manufacturer,
+            cct: source.cct,
+            lamp: source.lamp,
+            desc: source.info,
+            spd: {
+              wavelengths: source.spd.wavelength.map((a) => a.toString()),
+              values: source.spd.value.map((a) => a.toExponential(4)),
+            },
+          },
+          lux: source.selectedSource.illuminance.toString(),
+        };
+      }
+    }
+    calculations.input_variables = {
+      exposure_duration: _t.toString(),
+      distribution_scaler: _d.toString(),
+    };
+    calculations.combined_metrics = {
+      "cs_2.0": combinedValues.CS.toFixed(3),
+      "cla_2.0": combinedValues.CLA.toFixed(),
+      illuminance: combinedValues.absoluteIll.toString(),
+      irradiance: combinedValues.Irr.toExponential(4),
+      flux: combinedValues.pf.toExponential(4),
+      eml: combinedValues.EML.toFixed(),
+      cct: combinedValues.CCT.toFixed(),
+      duv: combinedValues.Duv.toFixed(3),
+      cri: combinedValues.CRI.toFixed(1),
+      gai: combinedValues.GAI.toFixed(1),
+      chromaticity_coordinates: `(${combinedValues.x.toFixed(
+        4
+      )}, ${combinedValues.y.toFixed(4)})`,
+      "cie_s-cone-irradiance":
+        combinedValues.CIE_S_cone_opic_irr.toExponential(4),
+      "cie_m-cone_irradiance":
+        combinedValues.CIE_M_cone_opic_irr.toExponential(4),
+      "cie_l-cone_irradiance":
+        combinedValues.CIE_L_cone_opic_irr.toExponential(4),
+      cie_rhodopic_irradiance: combinedValues.CIE_Rhodopic_irr.toExponential(4),
+      cie_melanopic_irradiance:
+        combinedValues.CIE_Melanopic_irr.toExponential(4),
+    };
+    calculations.combined_spd = {
+      relative: {
+        wavelengths: combinedValues.relativeSPD.wavelength.map((a) =>
+          a.toString()
+        ),
+        values: combinedValues.relativeSPD.value.map((a) => a.toExponential(4)),
+      },
+      absolute: {
+        wavelengths: combinedValues.absoluteSPD.wavelength.map((a) =>
+          a.toString()
+        ),
+        values: combinedValues.absoluteSPD.value.map((a) => a.toExponential(4)),
+      },
+    };
+
+    $("#jsondownload").attr(
+      "href",
+      "data:application/json;charset=utf-8," +
+        encodeURIComponent(JSON.stringify(calculations, null, 2))
+    );
+    $("#jsondownload").attr("download", "CSCalculator Results.json");
+    $("#jsondownload")[0].click();
+  }
+  $("#resultsDownload").click(createResultsJSON);
+}
+
+function handleContinueToCalculationsButton() {
+  $("#continue-to-calculations-button").on("click", function () {
+    $("#stepChange2").trigger("click");
+  });
+}
+
+function handleContentCardSteps() {
   $(".step-title-container").on("click", function (e) {
     var step = $(this).attr("id").replace("stepChange", "");
     $(".step-title-container").removeClass("active");
@@ -667,86 +1438,22 @@ $(document).ready(function () {
     $("#stepContent" + step).removeClass("d-none");
     $("#stepContent" + step).addClass("d-block");
   });
+}
 
-  $("#userID").change(function () {
-    if (validateUserID()) {
-      userIDValid();
-    } else {
-      userIDInvalid();
-    }
-    validateSubmit();
-  });
+$(document).ready(function () {
+  readJson();
 
-  $("#userSPDValues").on("input", function () {
-    validateSubmit();
-  });
+  handleSources();
 
-  $("#userSPDWavelengths").on("input", function () {
-    validateSubmit();
-  });
+  handleInputVariables();
 
-  $("#userSPDComplete").on("input", function () {
-    validateSubmit();
-  });
+  handleToolTips();
 
-  $(".userEnter").on("keydown", function (e) {
-    //Trigger change on enter
-    if (e.keyCode == 13) {
-      $(this).trigger("change");
-      $(this).focus().blur();
-    }
-  });
+  // handleCalculateByCS();
 
-  $(".userSortSource").change(function () {
-    var sourceVal = $(this).val();
-    if (!notEmpty(sourceVal)) {
-      $(this).val("Other");
-    }
-  });
+  handleContinueToCalculationsButton();
 
-  $("#newSourceCol").mousemove(function () {
-    if (validateUserSPD()) {
-      userSPDValid();
-    } else {
-      userSPDInvalid();
-    }
-    validateSubmit();
-  });
-
-  $("#userSPDWavelengths").change(function () {
-    if (validateUserSPD()) {
-      userSPDValid();
-    } else {
-      userSPDInvalid();
-    }
-    validateSubmit();
-  });
-
-  $("#userSPDValues").change(function () {
-    if (validateUserSPD()) {
-      userSPDValid();
-    } else {
-      userSPDInvalid();
-    }
-    validateSubmit();
-  });
-
-  $("#userSPDComplete").change(function () {
-    if (validateUserSPD()) {
-      userSPDValid();
-    } else {
-      userSPDInvalid();
-    }
-    validateSubmit();
-  });
-
-  $("#continue-to-calculations-button").on("click", function () {
-    $("#stepChange2").trigger("click");
-  });
-
-  $("#custom-source").on("click", function () {
-    validateSubmit();
-  });
+  handleContentCardSteps();
 
   handleBetaMessage();
 
@@ -772,5 +1479,7 @@ $(document).ready(function () {
 
   handleChangeSPDInputType();
 
-  $("#resultsDownload").click(createResultsJSON);
+  handleCustomSource();
+
+  handleCalculationsJson();
 });

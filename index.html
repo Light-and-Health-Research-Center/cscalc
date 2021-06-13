@@ -23,7 +23,6 @@
     <script src="js/charts.js"></script>
     <script src="js/generalFunctions.js"></script>
     <script src="js/lightMetricFunctions.js"></script>
-    <script src="js/spectralEfficiency.js"></script>
     <script src="js/userFunctions.js"></script>
     <link rel="stylesheet" href="css/css.css" />
     <link
@@ -371,7 +370,12 @@
                 <label for="userID">*Source Name</label>
                 <input
                   type="text"
-                  class="form-control userSortSource userEnter"
+                  class="
+                    form-control
+                    custom-form-control
+                    userSortSource
+                    userEnter
+                  "
                   id="userID"
                   placeholder="Custom Source"
                 />
@@ -382,7 +386,12 @@
                     <label for="userMan">Manufacturer</label>
                     <input
                       type="text"
-                      class="form-control userSortSorce userEnter"
+                      class="
+                        form-control
+                        custom-form-control
+                        userSortSource
+                        userEnter
+                      "
                       id="userMan"
                       placeholder="GE"
                     />
@@ -394,12 +403,24 @@
                     <div class="input-group">
                       <input
                         type="text"
-                        class="form-control userSortSorce userEnter"
+                        class="
+                          form-control
+                          custom-form-control
+                          userSortSource
+                          userEnter
+                        "
                         id="userCCT"
                         placeholder="6500"
                       />
                       <div class="input-group-append">
-                        <span class="input-group-text d-block">K</span>
+                        <span
+                          class="
+                            input-group-text
+                            custom-input-group-text
+                            d-block
+                          "
+                          >K</span
+                        >
                       </div>
                     </div>
                   </div>
@@ -409,7 +430,12 @@
                     <label for="userLamp">Lamp Type</label>
                     <input
                       type="text"
-                      class="form-control userSortSorce userEnter"
+                      class="
+                        form-control
+                        custom-form-control
+                        userSortSource
+                        userEnter
+                      "
                       id="userLamp"
                       placeholder="Daylight"
                     />
@@ -419,7 +445,7 @@
               <div class="form-group">
                 <label for="userDesc">Description</label>
                 <textarea
-                  class="form-control"
+                  class="form-control custom-form-control"
                   id="userDesc"
                   row="2"
                   placeholder="My Custom Source"
@@ -428,7 +454,7 @@
 
               <div id="userSPDTogetherContainer">
                 <div class="form-group">
-                  <div class="form-label-container">
+                  <div class="position-relative">
                     <div class="btn-menu">
                       <button
                         class="btn btn-link btn-menu-btn"
@@ -445,7 +471,7 @@
                   </div>
 
                   <textarea
-                    class="form-control"
+                    class="form-control custom-form-control"
                     id="userSPDComplete"
                     rows="5"
                     placeholder="380&#9;0.0020065&#10;382&#9;0.0016818&#10;384&#9;0.001013&#10;386&#9;0.00054935&#10;388&#9;0.00027727"
@@ -461,7 +487,7 @@
                     <div class="form-group">
                       <label for="userSPDWavelengths">*λ</label>
                       <textarea
-                        class="form-control"
+                        class="form-control custom-form-control"
                         id="userSPDWavelengths"
                         rows="5"
                         placeholder="380&#10;382&#10;384&#10;386&#10;388"
@@ -472,7 +498,7 @@
                   </div>
                   <div class="col-sm-6 col-xs-12">
                     <div class="form-group">
-                      <div class="form-label-container">
+                      <div class="position-relative">
                         <div class="btn-menu">
                           <button
                             class="btn btn-link btn-menu-btn"
@@ -492,7 +518,7 @@
                         <label for="userSPDValues">*Values</label>
                       </div>
                       <textarea
-                        class="form-control"
+                        class="form-control custom-form-control"
                         id="userSPDValues"
                         rows="5"
                         placeholder="0.0020065&#10;0.0016818&#10;0.001013&#10;0.00054935&#10;0.00027727"

@@ -200,6 +200,14 @@ ul.list-group.list-group-hover li:hover{
 }
 
 /*
+* === Forms ===
+*/
+.custom-form-control, .custom-input-group-text{
+  background-color: #F7F7F7;
+  border: none;
+}
+
+/*
 * === Buttons ===
 */
 .btn-menu{
