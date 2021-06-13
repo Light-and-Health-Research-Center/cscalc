@@ -14,6 +14,62 @@ let lampUnique = [];
 let cctUnique = [];
 var combinedValues;
 
+function uploadCustomSources() {
+  $("#upload-custom-sources-errors").html("");
+  let error = false;
+  const files = $("#upload-custom-sources-input")[0].files;
+  for (file of files) {
+    if (
+      (file.name.slice(-5) !== ".json" && file.name.slice(-5) !== ".JSON") ||
+      file.type !== "application/json"
+    ) {
+      error = true;
+      continue;
+    }
+    const reader = new FileReader();
+    reader.onload = (function (aFile) {
+      return function (e) {
+        let json = JSON.parse(e.target.result);
+        for (source of json.sources) {
+          submitUserSourceFromUpload(source);
+        }
+      };
+    })(file);
+
+    reader.readAsText(file);
+  }
+  $("#upload-custom-sources-input").val("");
+  if (error) {
+    $("#upload-custom-sources-errors").append(
+      "<p class='font-size-_75 m-0 text-red'>One or more files could not be read.</p>"
+    );
+  } else {
+    $("#upload-sources-modal").modal("hide");
+  }
+}
+
+function downloadCustomSources() {
+  let download = { sources: [] };
+  for (source of userSourceList) {
+    download.sources.push({
+      id: source.id,
+      manufacturer: source.manufacturer,
+      cct: source.cct,
+      lamp: source.lamp,
+      info: source.info,
+      spd: source.spd,
+    });
+  }
+
+  $("#custom-sources-download").attr(
+    "href",
+    "data:application/json;charset=utf-8," +
+      encodeURIComponent(JSON.stringify(download, null, 2))
+  );
+  $("#custom-sources-download").attr("download", "Sources.json");
+  $("#custom-sources-download")[0].click();
+}
+
 function addSource(sourceIdx) {
   // Activate second card step
   if ($("#stepChange2").hasClass("disabled")) {
@@ -97,7 +153,9 @@ function addSource(sourceIdx) {
   $("#selected-sources").append(div);
 
   $(function () {
-    $('[data-toggle="tooltip"]').tooltip();
+    $('[data-toggle="tooltip"]').tooltip({
+      trigger: "hover",
+    });
   });
 
   // Disable sourcelist button
@@ -170,6 +228,25 @@ function removeSourceDataset(source) {
   }
   spdChart.update();
   document.getElementById("spdLegend").innerHTML = spdChart.generateLegend();
+}
+
+function submitUserSourceFromUpload(source) {
+  var newSource = source;
+  for (var i in sourcelist) {
+    if (sourcelist[i].id == newSource.id) {
+      $("#upload-custom-sources-errors").append(
+        "<p class='font-size-_75 m-0 text-red'>Sources with duplicate ID's could not be read.</p>"
+      );
+      return false;
+    }
+  }
+  applyNewSource(sourcelist.length, newSource, true);
+  updateSortSource();
+  sourcelist.push(newSource);
+  userSourceList.push(newSource);
+  addSource(sourcelist.length - 1);
+  $("#names-list").animate({ scrollTop: 0 }, 1000);
+  return true;
 }
 
 function submitUserSource() {
@@ -1267,7 +1344,9 @@ function handleInputVariables() {
 }
 
 function handleToolTips() {
-  $('[data-toggle="tooltip"]').tooltip();
+  $('[data-toggle="tooltip"]').tooltip({
+    trigger: "hover",
+  });
 }
 
 function handleCalculateByCS() {

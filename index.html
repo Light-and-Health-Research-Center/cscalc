@@ -55,7 +55,7 @@
                     data-value="calculations"
                     class="help-menu-list-item pointer"
                   >
-                    <h4 class="help-menu-list-title">Caclulations</h4>
+                    <h4 class="help-menu-list-title">Calculations</h4>
                   </li>
                 </ul>
               </div>
@@ -610,6 +610,47 @@
       </div>
     </div>
 
+    <div
+      class="modal"
+      id="upload-sources-modal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="upload-sources-modal-label"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="upload-sources-modal-label">
+              Upload Custom Sources from JSON
+            </h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body text-center">
+            <input
+              autocomplete="off"
+              type="file"
+              accept=".json"
+              id="upload-custom-sources-input"
+              class="text-truncate w-100 mb-4"
+              multiple
+            />
+            <div id="upload-custom-sources-errors"></div>
+            <button class="btn btn-ms m-2 py-1" onClick="uploadCustomSources()">
+              Upload Sources
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <h6 class="alert alert-warning alert-dismissible fade show">
       <strong>Beta v2.0.0:</strong> the CS Calculator 2.0 is in beta. Please
       e-mail
@@ -687,7 +728,7 @@
                           class="btn btn-link btn-menu-btn"
                           type="button"
                           data-toggle="tooltip"
-                          title="Download All Calculations as .json"
+                          title="Download All Calculations as JSON"
                         >
                           <i class="fas fa-lg fa-download"></i>
                         </button>
@@ -828,6 +869,28 @@
                             "
                           >
                             <div class="btn-menu">
+                              <span
+                                data-toggle="modal"
+                                data-target="#upload-sources-modal"
+                              >
+                                <button
+                                  class="btn btn-link btn-menu-btn"
+                                  type="button"
+                                  data-toggle="tooltip"
+                                  title="Upload Custom Sources from JSON"
+                                >
+                                  <i class="fas fa-upload"></i>
+                                </button>
+                              </span>
+                              <button
+                                onClick="downloadCustomSources()"
+                                class="btn btn-link btn-menu-btn"
+                                type="button"
+                                data-toggle="tooltip"
+                                title="Download Custom Sources as JSON"
+                              >
+                                <i class="fas fa-download"></i>
+                              </button>
                               <span
                                 data-toggle="modal"
                                 data-target="#custom-source-modal"
@@ -1093,7 +1156,7 @@
                                 type="button"
                                 data-toggle="tooltip"
                                 data-html="true"
-                                title="Download Metrics as .txt"
+                                title="Download Metrics as Text"
                               >
                                 <i class="fas fa-download"></i>
                               </button>
@@ -1437,7 +1500,7 @@
                                     class="btn btn-link btn-menu-btn"
                                     type="button"
                                     data-toggle="tooltip"
-                                    title="Download Combined SPDs as .txt"
+                                    title="Download Combined SPDs as Text"
                                   >
                                     <i class="fas fa-download"></i>
                                   </button>
@@ -1699,5 +1762,6 @@
     <a id="jsondownload" class="hidden"></a>
     <a id="metrics-download" class="hidden"></a>
     <a id="spd-download" class="hidden"></a>
+    <a id="custom-sources-download" class="hidden"></a>
   </body>
 </html>
