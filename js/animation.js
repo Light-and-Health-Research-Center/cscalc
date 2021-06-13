@@ -6,7 +6,7 @@ function prep() {
     duration: 0,
   });
   anime({
-    targets: "#logo",
+    targets: "#logo-container",
     translateY: 50,
     opacity: 0,
     duration: 0,
@@ -33,7 +33,7 @@ function animateMainCard() {
 
 function animateLogo() {
   anime({
-    targets: "#logo",
+    targets: "#logo-container",
     opacity: {
       value: 1,
       easing: "easeOutQuad",
