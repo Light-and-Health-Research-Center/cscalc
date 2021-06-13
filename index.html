@@ -1422,15 +1422,42 @@
                             "
                           >
                             <div class="btn-menu">
-                              <button
-                                id="download-spds"
-                                class="btn btn-link btn-menu-btn"
-                                type="button"
-                                data-toggle="tooltip"
-                                title="Download Combined SPDs as .txt"
-                              >
-                                <i class="fas fa-download"></i>
-                              </button>
+                              <div class="dropdown">
+                                <span
+                                  class=""
+                                  href="#"
+                                  role="button"
+                                  id="downloadCombinedSPDDropdown"
+                                  data-toggle="dropdown"
+                                  aria-haspopup="true"
+                                  aria-expanded="false"
+                                >
+                                  <button
+                                    id="download-spds"
+                                    class="btn btn-link btn-menu-btn"
+                                    type="button"
+                                    data-toggle="tooltip"
+                                    title="Download Combined SPDs as .txt"
+                                  >
+                                    <i class="fas fa-download"></i>
+                                  </button>
+                                </span>
+                                <div
+                                  class="dropdown-menu"
+                                  aria-labelledby="downloadCombinedSPDDropdown"
+                                >
+                                  <a
+                                    class="dropdown-item"
+                                    id="download-relative-spd"
+                                    >Download Relative SPD</a
+                                  >
+                                  <a
+                                    class="dropdown-item"
+                                    id="download-absolute-spd"
+                                    >Download Absolute SPD</a
+                                  >
+                                </div>
+                              </div>
                             </div>
                             <h2
                               class="text-center"
@@ -1439,7 +1466,7 @@
                               aria-expanded="false"
                               aria-controls="spds"
                             >
-                              Results SPDs
+                              Combined Source SPD's
                             </h2>
                           </div>
                           <div class="collapse" id="spds">

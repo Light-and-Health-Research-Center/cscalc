@@ -617,20 +617,32 @@ function handleDownloadMetrics() {
 }
 
 function handleDownloadSPDs() {
-  $("#download-spds").on("click", function () {
+  $("#download-relative-spd").on("click", function () {
     var str = "Nothing here. Check to make sure you've added sources.";
     if (combinedValues) {
       str = "";
       var wl, v, i;
-
-      str += "Relative\n";
       for (i = 0; i < combinedValues.relativeSPD.wavelength.length; i++) {
         wl = combinedValues.relativeSPD.wavelength[i];
         v = combinedValues.relativeSPD.value[i];
         str += `${wl}\t${v}\n`;
       }
+    }
 
-      str += "\nAbsolute\n";
+    $("#spd-download").attr(
+      "href",
+      "data:text/plain;charset=utf-8," + encodeURIComponent(str)
+    );
+    $("#spd-download").attr("download", "Relative SPD.txt");
+    $("#spd-download")[0].click();
+  });
+
+  $("#download-absolute-spd").on("click", function () {
+    var str = "Nothing here. Check to make sure you've added sources.";
+
+    if (combinedValues) {
+      str = "";
+      var wl, v, i;
       for (i = 0; i < combinedValues.absoluteSPD.wavelength.length; i++) {
         wl = combinedValues.absoluteSPD.wavelength[i];
         v = combinedValues.absoluteSPD.value[i];
@@ -642,7 +654,7 @@ function handleDownloadSPDs() {
       "href",
       "data:text/plain;charset=utf-8," + encodeURIComponent(str)
     );
-    $("#spd-download").attr("download", "Combined SPDs.txt");
+    $("#spd-download").attr("download", "Absolute SPD.txt");
     $("#spd-download")[0].click();
   });
 }
