@@ -292,6 +292,9 @@ function updateSourceNameAcrossHTML() {
         '" title="Edit Source"><i class="fas fa-edit"></i></button></span></div>';
     }
     $(this)[0].innerHTML = str + sourcelist[i].id;
+    $('[data-toggle="tooltip"]').tooltip({
+      trigger: "hover",
+    });
   });
 
   $(".selected-source_ > div").each(function () {
