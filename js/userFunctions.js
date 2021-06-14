@@ -1268,7 +1268,6 @@ function applyNewSource(i, el, custom) {
     $("#names-list").prepend(li);
 
     $(".source-item:first-child").on("click", function (e) {
-      console.log(e.target);
       if ($(e.target).is("li")) {
         if (!$(this).hasClass("disabled")) {
           var i = $(this).attr("data-i");
