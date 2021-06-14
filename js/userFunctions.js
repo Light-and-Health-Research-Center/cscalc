@@ -14,6 +14,38 @@ let lampUnique = [];
 let cctUnique = [];
 var combinedValues;
 
+function fillEditSourceSPD(source, together) {
+  if (together) {
+    str = "";
+    for (let i = 0; i < source.spd.wavelength.length; i++) {
+      str += `${source.spd.wavelength[i]}\t${source.spd.value[i]}\n`;
+    }
+    $("#edit-userSPDTogether").val(str);
+  } else {
+    wl = "";
+    v = "";
+    for (let i = 0; i < source.spd.wavelength.length; i++) {
+      wl += `${source.spd.wavelength[i]}\n`;
+      v += `${source.spd.value[i]}\n`;
+    }
+    $("#edit-userSPDWavelengths").val(wl);
+    $("#edit-userSPDValues").val(v);
+  }
+}
+
+function fillEditSourceModal(el) {
+  let i = el.getAttribute("data-i");
+  let source = sourcelist[i];
+  $(".edit-change-spd-input-type").attr("data-i", i);
+  $("#edit-userSourceSubmit").attr("data-i", i);
+  $("#edit-userID").val(source.id);
+  $("#edit-userMan").val(source.manufacturer);
+  $("#edit-userCCT").val(source.cct);
+  $("#edit-userLamp").val(source.lamp);
+  $("#edit-userDesc").val(source.info);
+  fillEditSourceSPD(source, true);
+}
+
 function uploadCustomSources() {
   $("#upload-custom-sources-errors").html("");
   let error = false;
@@ -58,6 +90,7 @@ function downloadCustomSources() {
       lamp: source.lamp,
       info: source.info,
       spd: source.spd,
+      custom: "true",
     });
   }
 
@@ -102,7 +135,7 @@ function addSource(sourceIdx) {
     '<div id="SelectedSource_' +
     sourceIdx +
     "_" +
-    '" class="col d-flex  justify-content-between zebra-entry">';
+    '" class="selected-source_ col d-flex  justify-content-between zebra-entry">';
   div +=
     '<button class="py-0 selected-source-icon btn btn-link" type="button" data-toggle="tooltip" title="Toggle Source Info" data-i="' +
     sourceIdx +
@@ -127,7 +160,7 @@ function addSource(sourceIdx) {
   div +=
     '<div id="SelectedSource_' +
     sourceIdx +
-    '" class="col d-flex  justify-content-between zebra-entry py-2">';
+    '" class="selected-source col d-flex  justify-content-between zebra-entry py-2">';
   div +=
     '<button class="py-0 selected-source-icon btn btn-link" type="button" data-toggle="tooltip" title="Toggle Source Info" data-i="' +
     sourceIdx +
@@ -152,10 +185,8 @@ function addSource(sourceIdx) {
 
   $("#selected-sources").append(div);
 
-  $(function () {
-    $('[data-toggle="tooltip"]').tooltip({
-      trigger: "hover",
-    });
+  $('[data-toggle="tooltip"]').tooltip({
+    trigger: "hover",
   });
 
   // Disable sourcelist button
@@ -232,6 +263,7 @@ function removeSourceDataset(source) {
 
 function submitUserSourceFromUpload(source) {
   var newSource = source;
+  newSource.custom = "true";
   for (var i in sourcelist) {
     if (sourcelist[i].id == newSource.id) {
       $("#upload-custom-sources-errors").append(
@@ -249,14 +281,84 @@ function submitUserSourceFromUpload(source) {
   return true;
 }
 
+function updateSourceNameAcrossHTML() {
+  $(".source-item").each(function () {
+    let i = $(this)[0].getAttribute("data-i");
+    str = "";
+    if ("custom" in sourcelist[i] && sourcelist[i].custom == "true") {
+      str =
+        '<div class="btn-menu"><span data-toggle="modal" data-target="#edit-custom-source-modal"><button onClick="fillEditSourceModal(this)" class="btn btn-link btn-menu-btn" type="button" data-toggle="tooltip" data-i="' +
+        i +
+        '" title="Edit Source"><i class="fas fa-edit"></i></button></span></div>';
+    }
+    $(this)[0].innerHTML = str + sourcelist[i].id;
+  });
+
+  $(".selected-source_ > div").each(function () {
+    let i = $(this)[0].getAttribute("data-i");
+    $(this)[0].innerHTML = sourcelist[i].id;
+  });
+
+  $(".selected-source > div.text-truncate").each(function () {
+    let i = $(this)[0].getAttribute("data-i");
+    $(this)[0].innerHTML = sourcelist[i].id;
+  });
+}
+
+function editUserSource(el) {
+  let i = el.getAttribute("data-i");
+  source = sourcelist[i];
+  source.id = $("#edit-userID").val();
+  source.userMan = $("#edit-userMan").val();
+  source.ctt = $("#edit-userCCT").val();
+  source.lamp = $("#edit-userLamp").val();
+  source.userDesc = $("#edit-userDesc").val();
+  source.spd = readEditUserSPD().spd;
+
+  var valueInt = interp1(
+    source.spd.wavelength,
+    source.spd.value,
+    setwavelength,
+    0
+  );
+  source.relativeSPD = arrayScalar(
+    arrayNormalize(spdNormalize(setwavelength, valueInt)),
+    1
+  );
+  source.selectedSource.relativeSPD = spdNormalize(setwavelength, valueInt);
+
+  source.selectedSource.absoluteSPD = arrayScalar(
+    sourcelist[i].selectedSource.relativeSPD,
+    sourcelist[i].selectedSource.illuminance
+  );
+
+  if (manUnique.indexOf(source.manufacturer) == -1)
+    manUnique.push(source.manufacturer);
+  if (lampUnique.indexOf(source.lamp) == -1) lampUnique.push(source.lamp);
+  if (cctUnique.indexOf(source.cct) == -1) cctUnique.push(source.cct);
+
+  updateSourceNameAcrossHTML();
+  updateSortSource();
+  updateResults();
+}
+
 function submitUserSource() {
   var newSource = buildSourceObj();
+  newSource.custom = "true";
   applyNewSource(sourcelist.length, newSource, true);
   updateSortSource();
   sourcelist.push(newSource);
   userSourceList.push(newSource);
   addSource(sourcelist.length - 1);
   $("#names-list").animate({ scrollTop: 0 }, 1000);
+  $("#userID").val("");
+  $("#userMan").val("");
+  $("#userCCT").val("");
+  $("#userLamp").val("");
+  $("#userDesc").val("");
+  $("#userSPDWavelengths").val("");
+  $("#userSPDValues").val("");
+  $("#userSPDTogether").val("");
 }
 
 function buildSourceObj() {
@@ -269,31 +371,6 @@ function buildSourceObj() {
     info: $("#userDesc").val(),
   };
   return result;
-}
-
-function userIDValid() {
-  $("#userIDFormGroup").removeClass("has-error");
-  $("#userIDFormGroup").addClass("has-success");
-
-  $("#userIDSpan").removeClass("glyphicon-pencil");
-  $("#userIDSpan").removeClass("glyphicon-remove");
-  $("#userIDSpan").removeClass("glyphicon-ok");
-
-  $("#userIDSpan").addClass("glyphicon-ok");
-  return;
-}
-
-function userIDInvalid() {
-  $("#userID").attr("placeholder", "Invalid Source Name").val("");
-  $("#userIDFormGroup").removeClass("has-success");
-  $("#userIDFormGroup").addClass("has-error");
-
-  $("#userIDSpan").removeClass("glyphicon-pencil");
-  $("#userIDSpan").removeClass("glyphicon-remove");
-  $("#userIDSpan").removeClass("glyphicon-ok");
-
-  $("#userIDSpan").addClass("glyphicon-remove");
-  return;
 }
 
 function userSPDValid() {
@@ -320,6 +397,15 @@ function userSPDInvalid() {
   return;
 }
 
+function validateEditUserID() {
+  var result = false;
+  var editSourceID = $("#edit-userID").val();
+  if (editSourceID != "") {
+    result = true;
+  }
+  return result;
+}
+
 function validateUserID() {
   function isUniqueSourceName(newSourceID) {
     for (var i in sourcelist) {
@@ -344,6 +430,16 @@ function validateUserID() {
   return result;
 }
 
+function validateEditSubmit() {
+  if (validateEditUserID() && validateEditUserSPD()) {
+    $("#edit-userSourceSubmit").removeClass("disabled");
+    $("#edit-userSourceSubmit").prop("disabled", false);
+  } else {
+    $("#edit-userSourceSubmit").addClass("disabled");
+    $("#edit-userSourceSubmit").prop("disabled", true);
+  }
+}
+
 function validateSubmit() {
   if (validateUserID() && validateUserSPD()) {
     $("#userSourceSubmit").removeClass("disabled");
@@ -352,6 +448,86 @@ function validateSubmit() {
     $("#userSourceSubmit").addClass("disabled");
     $("#userSourceSubmit").prop("disabled", true);
   }
+}
+
+function readEditUserSPD() {
+  var result = {};
+  var validSPD = true;
+  var spd = {
+    wavelength: [],
+    value: [],
+  };
+  var alertText = "";
+  var userWL = [],
+    userV = [];
+  if (!$("#edit-userSPDSeperateContainer").hasClass("d-none")) {
+    userWL = cleanSPDRows(
+      $("#edit-userSPDWavelengths").val().replace(/\n/g, " ").split(" ")
+    );
+    userV = cleanSPDRows(
+      $("#edit-userSPDValues").val().replace(/\n/g, " ").split(" ")
+    );
+  } else {
+    var spd_arr = $("#edit-userSPDTogether").val().split("\n");
+    for (let line of spd_arr) {
+      if (line.trim() == "") {
+        continue;
+      }
+      line = line
+        .trim()
+        .replace(/\t|\s\s+/g, " ")
+        .split(" "); // replace all tabs and spaces with a single space
+      if (line.length > 2) {
+        alertText +=
+          '<p class="font-size-_75 m-0 text-red">Invalid SPD Input</p>';
+        validSPD = false;
+      } else {
+        userWL.push(line[0]);
+        userV.push(line[1]);
+      }
+    }
+  }
+
+  if (userWL.length != userV.length) {
+    if (
+      $("#edit-userSPDValues").val() != "" ||
+      $("#edit-userSPDTogether").val() != ""
+    ) {
+      alertText +=
+        '<p class="font-size-_75 m-0 text-red">There must be the same number of wavelengths and values</p>';
+    }
+    validSPD = false;
+  }
+  if (userWL.length < 3) {
+    if (
+      $("#edit-userSPDValues").val() != "" ||
+      $("#edit-userSPDTogether").val() != ""
+    ) {
+      alertText +=
+        '<p class="font-size-_75 m-0 text-red">Must enter at least 3 wavelength-value pairs</p>';
+    }
+    validSPD = false;
+  }
+  if (userWL.some(notNumeric) || userV.some(notNumeric)) {
+    if (
+      $("#edit-userSPDValues").val() != "" ||
+      $("#edit-userSPDTogether").val() != ""
+    ) {
+      alertText +=
+        '<p class="font-size-_75 m-0 text-red">Wavelengths and values must not contain non-numeric entries</p>';
+    }
+    validSPD = false;
+  }
+
+  spd.wavelength = arrayParseFloat(userWL);
+  spd.value = arrayParseFloat(userV);
+
+  result = {
+    valid: validSPD,
+    spd: spd,
+  };
+  $(".editCustomSourceError").html(alertText);
+  return result;
 }
 
 function readUserSPD() {
@@ -425,6 +601,10 @@ function readUserSPD() {
   return result;
 }
 
+function validateEditUserSPD() {
+  return readEditUserSPD().valid;
+}
+
 function validateUserSPD() {
   return readUserSPD().valid;
 }
@@ -461,45 +641,53 @@ function arrayParseFloat(array) {
   return result;
 }
 
-function handleCustomSource() {
+function handleEditCustomSource() {
+  $("#edit-userID").on("input change paste keyup", function () {
+    validateEditSubmit();
+  });
+
+  $("#edit-userSPDValues").on("input change paste keyup", function () {
+    validateEditSubmit();
+  });
+
+  $("#edit-userSPDWavelengths").on("input change paste keyup", function () {
+    validateEditSubmit();
+  });
+
+  $("#edit-userSPDTogether").on("input change paste keyup", function () {
+    validateEditSubmit();
+  });
+
+  $(".userEnter").on("keydown", function (e) {
+    //Trigger change on enter
+    if (e.keyCode == 13) {
+      $(this).trigger("change");
+      $(this).focus().blur();
+    }
+  });
+}
+
+function handleAddSourceFromSourceList() {
   $(".addSource").on("click", function () {
     var sourceIdx = $(this).attr("data-i");
     addSource(sourceIdx);
   });
+}
 
+function handleCustomSource() {
   $("#userID").on("input change paste keyup", function () {
-    if (validateUserID()) {
-      userIDValid();
-    } else {
-      userIDInvalid();
-    }
     validateSubmit();
   });
 
   $("#userSPDValues").on("input change paste keyup", function () {
-    if (validateUserSPD()) {
-      userSPDValid();
-    } else {
-      userSPDInvalid();
-    }
     validateSubmit();
   });
 
   $("#userSPDWavelengths").on("input change paste keyup", function () {
-    if (validateUserSPD()) {
-      userSPDValid();
-    } else {
-      userSPDInvalid();
-    }
     validateSubmit();
   });
 
   $("#userSPDTogether").on("input change paste keyup", function () {
-    if (validateUserSPD()) {
-      userSPDValid();
-    } else {
-      userSPDInvalid();
-    }
     validateSubmit();
   });
 
@@ -744,6 +932,28 @@ function handleChangeSPDInputType() {
       $("#userSPDTogetherContainer").addClass("d-none");
       $("#userSPDTogether").val("");
       $(".change-spd-input-type")
+        .removeClass("fa-toggle-off")
+        .addClass("fa-toggle-on");
+    }
+  });
+
+  $(".edit-change-spd-input-type").on("click", function () {
+    let i = $(".edit-change-spd-input-type").attr("data-i");
+    if ($(".edit-change-spd-input-type").hasClass("fa-toggle-on")) {
+      fillEditSourceSPD(sourcelist[i], true);
+      $("#edit-userSPDTogetherContainer").removeClass("d-none");
+      $("#edit-userSPDWavelengths").val("");
+      $("#edit-userSPDValues").val("");
+      $("#edit-userSPDSeperateContainer").addClass("d-none");
+      $(".edit-change-spd-input-type")
+        .removeClass("fa-toggle-on")
+        .addClass("fa-toggle-off");
+    } else {
+      fillEditSourceSPD(sourcelist[i], false);
+      $("#edit-userSPDSeperateContainer").removeClass("d-none");
+      $("#edit-userSPDTogetherContainer").addClass("d-none");
+      $("#edit-userSPDTogether").val("");
+      $(".edit-change-spd-input-type")
         .removeClass("fa-toggle-off")
         .addClass("fa-toggle-on");
     }
@@ -1039,22 +1249,32 @@ function applyNewSource(i, el, custom) {
   if (lampUnique.indexOf(el.lamp) == -1) lampUnique.push(el.lamp);
   if (cctUnique.indexOf(el.cct) == -1) cctUnique.push(el.cct);
 
-  // Create Source list button
+  // Create Source list item
   var li =
     '<li id="source_' +
     i +
     '" class="list-group-item text-center source-item" data-i="' +
     i +
-    '">' +
-    el.id +
-    "</li>";
+    '">';
+  if (el.custom === "true") {
+    li +=
+      '<div class="btn-menu"><span data-toggle="modal" data-target="#edit-custom-source-modal"><button onClick="fillEditSourceModal(this)" class="btn btn-link btn-menu-btn" type="button" data-toggle="tooltip" data-i="' +
+      i +
+      '" title="Edit Source"><i class="fas fa-edit"></i></button></span></div>';
+  }
+  li += el.id + "</li>";
 
   if (custom) {
     $("#names-list").prepend(li);
 
-    $(".source-item:first-child").on("click", function () {
-      var i = $(this).attr("data-i");
-      sourceListModal(i);
+    $(".source-item:first-child").on("click", function (e) {
+      console.log(e.target);
+      if ($(e.target).is("li")) {
+        if (!$(this).hasClass("disabled")) {
+          var i = $(this).attr("data-i");
+          sourceListModal(i);
+        }
+      }
     });
   } else {
     $("#names-list").append(li);
@@ -1064,6 +1284,10 @@ function applyNewSource(i, el, custom) {
       sourceListModal(i);
     });
   }
+
+  $('[data-toggle="tooltip"]').tooltip({
+    trigger: "hover",
+  });
 
   //Append arrays
 }
@@ -1552,7 +1776,11 @@ $(document).ready(function () {
 
   handleChangeSPDInputType();
 
+  handleAddSourceFromSourceList();
+
   handleCustomSource();
+
+  handleEditCustomSource();
 
   handleCalculationsJson();
 });

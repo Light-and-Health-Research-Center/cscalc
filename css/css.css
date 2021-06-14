@@ -240,6 +240,7 @@ ul.list-group.list-group-hover li:hover{
   margin-left: 0.25rem;
   margin-right: 0.25rem;
   color: #212070;
+  pointer-events: all;
 }
 
 .btn-menu-btn:hover, .selected-source-icon:hover{

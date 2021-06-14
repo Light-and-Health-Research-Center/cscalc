@@ -500,7 +500,7 @@
                     placeholder="380&#9;0.0020065&#10;382&#9;0.0016818&#10;384&#9;0.001013&#10;386&#9;0.00054935&#10;388&#9;0.00027727"
                   ></textarea>
                   <small class="form-text text-muted">*required</small>
-                  <div class="addCustomSourceError"></div>
+                  <div class="editCustomSourceError"></div>
                 </div>
               </div>
 
@@ -560,6 +560,213 @@
                 onclick="submitUserSource()"
               >
                 Add Source
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="modal"
+      id="edit-custom-source-modal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="edit-custom-source-modal-label"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="edit-custom-source-modal-label">
+              Edit Custom Source
+            </h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form autocomplete="off">
+              <div class="form-group">
+                <label for="edit-userID">*Source Name</label>
+                <input
+                  type="text"
+                  class="
+                    form-control
+                    custom-form-control
+                    userSortSource
+                    userEnter
+                  "
+                  id="edit-userID"
+                  placeholder="Custom Source"
+                />
+              </div>
+              <div class="form-row">
+                <div class="col-sm-4 col-xs-12">
+                  <div class="form-group">
+                    <label for="edit-userMan">Manufacturer</label>
+                    <input
+                      type="text"
+                      class="
+                        form-control
+                        custom-form-control
+                        userSortSource
+                        userEnter
+                      "
+                      id="edit-userMan"
+                      placeholder="GE"
+                    />
+                  </div>
+                </div>
+                <div class="col-sm-4 col-xs-12">
+                  <div class="form-group">
+                    <label for="edit-userCCT">CCT</label>
+                    <div class="input-group">
+                      <input
+                        type="text"
+                        class="
+                          form-control
+                          custom-form-control
+                          userSortSource
+                          userEnter
+                        "
+                        id="edit-userCCT"
+                        placeholder="6500"
+                      />
+                      <div class="input-group-append">
+                        <span
+                          class="
+                            input-group-text
+                            custom-input-group-text
+                            d-block
+                          "
+                          >K</span
+                        >
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-4">
+                  <div class="form-group">
+                    <label for="edit-userLamp">Lamp Type</label>
+                    <input
+                      type="text"
+                      class="
+                        form-control
+                        custom-form-control
+                        userSortSource
+                        userEnter
+                      "
+                      id="edit-userLamp"
+                      placeholder="Daylight"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="edit-userDesc">Description</label>
+                <textarea
+                  class="form-control custom-form-control"
+                  id="edit-userDesc"
+                  rows="2"
+                  placeholder="My Custom Source"
+                ></textarea>
+              </div>
+
+              <div id="edit-userSPDTogetherContainer">
+                <div class="form-group">
+                  <div class="position-relative">
+                    <div class="btn-menu">
+                      <button
+                        class="btn btn-link btn-menu-btn"
+                        type="button"
+                        data-toggle="tooltip"
+                        title="Toggle SPD Input Type"
+                      >
+                        <i
+                          class="
+                            edit-change-spd-input-type
+                            fas
+                            fa-lg fa-toggle-off
+                          "
+                        ></i>
+                      </button>
+                    </div>
+                    <label for="edit-userSPDTogether">*SPD</label>
+                  </div>
+
+                  <textarea
+                    class="form-control custom-form-control"
+                    id="edit-userSPDTogether"
+                    rows="5"
+                    placeholder="380&#9;0.0020065&#10;382&#9;0.0016818&#10;384&#9;0.001013&#10;386&#9;0.00054935&#10;388&#9;0.00027727"
+                  ></textarea>
+                  <small class="form-text text-muted">*required</small>
+                  <div class="edit-addCustomSourceError"></div>
+                </div>
+              </div>
+
+              <div id="edit-userSPDSeperateContainer" class="d-none">
+                <div class="form-row">
+                  <div class="col-sm-6 col-xs-12">
+                    <div class="form-group">
+                      <label for="edit-userSPDWavelengths">*λ</label>
+                      <textarea
+                        class="form-control custom-form-control"
+                        id="edit-userSPDWavelengths"
+                        rows="5"
+                        placeholder="380&#10;382&#10;384&#10;386&#10;388"
+                      ></textarea>
+                      <small class="form-text text-muted">*required</small>
+                      <div class="addCustomSourceError"></div>
+                    </div>
+                  </div>
+                  <div class="col-sm-6 col-xs-12">
+                    <div class="form-group">
+                      <div class="position-relative">
+                        <div class="btn-menu">
+                          <button
+                            class="btn btn-link btn-menu-btn"
+                            type="button"
+                            data-toggle="tooltip"
+                            title="Toggle SPD Input Type"
+                          >
+                            <i
+                              class="
+                                edit-change-spd-input-type
+                                fas
+                                fa-lg fa-toggle-off
+                              "
+                            ></i>
+                          </button>
+                        </div>
+                        <label for="edit-userSPDValues">*Values</label>
+                      </div>
+                      <textarea
+                        class="form-control custom-form-control"
+                        id="edit-userSPDValues"
+                        rows="5"
+                        placeholder="0.0020065&#10;0.0016818&#10;0.001013&#10;0.00054935&#10;0.00027727"
+                      ></textarea>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <button
+                id="edit-userSourceSubmit"
+                class="btn btn-ms disabled w-100"
+                type="button"
+                data-dismiss="modal"
+                aria-label="Close"
+                onclick="editUserSource(this)"
+              >
+                Edit Source
               </button>
             </form>
           </div>
