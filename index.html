@@ -422,7 +422,7 @@
                 </div>
                 <div class="col-sm-4 col-xs-12">
                   <div class="form-group">
-                    <label for="userCCT">CCT</label>
+                    <label for="userCCT">CCT/Color</label>
                     <div class="input-group">
                       <input
                         type="text"
@@ -433,18 +433,8 @@
                           userEnter
                         "
                         id="userCCT"
-                        placeholder="6500"
+                        placeholder="6500 K"
                       />
-                      <div class="input-group-append">
-                        <span
-                          class="
-                            input-group-text
-                            custom-input-group-text
-                            d-block
-                          "
-                          >K</span
-                        >
-                      </div>
                     </div>
                   </div>
                 </div>
@@ -625,7 +615,7 @@
                 </div>
                 <div class="col-sm-4 col-xs-12">
                   <div class="form-group">
-                    <label for="edit-userCCT">CCT</label>
+                    <label for="edit-userCCT">CCT/Color</label>
                     <div class="input-group">
                       <input
                         type="text"
@@ -800,7 +790,7 @@
               <b>Lamp Type:</b><span class="pl-1" id="source-lamptype"></span>
             </p>
             <p class="m-0">
-              <b>CCT:</b><span class="pl-1" id="source-cct"></span> K
+              <b>CCT/Color:</b><span class="pl-1" id="source-cct"></span>
             </p>
             <p class="m-0">
               <b>Manufacturer:</b
@@ -898,13 +888,24 @@
     <div id="content" class="container-fluid px-0 mt-4">
       <div class="row mb-4 mx-0 opacity-0 d-flex" id="logo-container">
         <div class="col text-center">
+          <a href=""
+            ><img id="LHRC_Logo" src="img/LHRC_Logo.png" width="200"
+          /></a>
           <h1 class="mb-0">CS Calculator 2.0</h1>
         </div>
       </div>
       <div id="main-card-row" class="row opacity-0 mx-0">
         <div class="col px-0">
           <div class="card mb-0 sm-mb-3 drop-shadow">
-            <div class="card-header border-bottom-0 p-0 position-relative">
+            <div
+              class="
+                main-card-header
+                card-header
+                border-bottom-0
+                p-0
+                position-relative
+              "
+            >
               <div class="container-fluid">
                 <div class="row">
                   <div class="col-md-6 p-0">
@@ -1014,7 +1015,7 @@
                                   <label
                                     class="input-group-text d-block mw-175"
                                     for="cct"
-                                    ><b>CCT:</b></label
+                                    ><b>CCT/Color:</b></label
                                   >
                                 </div>
                                 <select

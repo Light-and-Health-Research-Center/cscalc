@@ -119,6 +119,10 @@ h2 {
   color: #dc298d;
 }
 
+.card-header:not(.main-card-header):hover{
+  background-color: #e3e3e3
+}
+
 /*
 * === Misc ===
 */
@@ -321,7 +325,9 @@ ul.list-group.list-group-hover li:hover{
   .ms-logo{
     width: 300px;
   }
-
+  #LHRC_Logo{
+    width: 300px;
+  }
   #continue-to-calculations-button{
     width: auto !important;
         position: absolute;
