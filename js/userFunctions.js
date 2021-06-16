@@ -14,6 +14,15 @@ let lampUnique = [];
 let cctUnique = [];
 var combinedValues;
 
+colors = ["#804080", "#408040", "#C0C040", "#C08040", "#C090A0"];
+colorIdx = 0;
+
+function getColor(iterate) {
+  let color = colors[colorIdx];
+  if (iterate) colorIdx = colorIdx == colors.length - 1 ? 0 : colorIdx + 1;
+  return color;
+}
+
 function fillEditSourceSPD(source, together) {
   if (together) {
     str = "";
@@ -199,17 +208,18 @@ function addSource(sourceIdx) {
 }
 
 function addSourceDataset(source) {
+  let color = getColor(true);
   var newDataset = {
     label: source.id,
     fill: false,
     lineTension: 0.1,
-    backgroundColor: "rgba(255, 205, 86,1)", // Yellow
-    borderColor: "rgba(255, 205, 86,1)", // Yellow
+    backgroundColor: color,
+    borderColor: color,
     borderCapStyle: "butt",
     borderDash: [],
     borderDashOffset: 0.0,
     borderJoinStyle: "miter",
-    pointBorderColor: "rgba(255, 205, 86,1)", // Yellow
+    pointBorderColor: color,
     pointBackgroundColor: "#fff",
     pointBorderWidth: 1,
     radius: 0,
@@ -981,17 +991,18 @@ function sourceListModal(i) {
     };
   }
 
+  let color = getColor(false);
   var sourceSPD = {
     label: source.id,
     fill: false,
     lineTension: 0.1,
-    backgroundColor: "rgba(255, 205, 86,1)", // Yellow
-    borderColor: "rgba(255, 205, 86,1)", // Yellow
+    backgroundColor: color,
+    borderColor: color,
     borderCapStyle: "butt",
     borderDash: [],
     borderDashOffset: 0.0,
     borderJoinStyle: "miter",
-    pointBorderColor: "rgba(255, 205, 86,1)", // Yellow
+    pointBorderColor: color,
     pointBackgroundColor: "#fff",
     pointBorderWidth: 1,
     radius: 0,
@@ -1147,6 +1158,7 @@ function updateResults() {
               combinedValues.absoluteIll
           );
           dataTest = {};
+          dataTest.backgroundColor = "green";
           for (k = 0; k < setwavelength.length; k++) {
             dataTest[k] = {
               x: setwavelength[k],
@@ -1478,17 +1490,18 @@ function handleSources() {
       };
     }
 
+    let color = getColor(false);
     var sourceSPD = {
       label: source.id,
       fill: false,
       lineTension: 0.1,
-      backgroundColor: "rgba(255, 205, 86,1)", // Yellow
-      borderColor: "rgba(255, 205, 86,1)", // Yellow
+      backgroundColor: color,
+      borderColor: color,
       borderCapStyle: "butt",
       borderDash: [],
       borderDashOffset: 0.0,
       borderJoinStyle: "miter",
-      pointBorderColor: "rgba(255, 205, 86,1)", // Yellow
+      pointBorderColor: color,
       pointBackgroundColor: "#fff",
       pointBorderWidth: 1,
       radius: 0,
