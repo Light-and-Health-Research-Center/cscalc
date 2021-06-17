@@ -849,7 +849,7 @@ function handleDownloadMetrics() {
     if (combinedValues) {
       str = "";
       str += `CS\t${combinedValues.CS.toFixed(3)}\n`;
-      str += `CLA\t${combinedValues.CLA.toFixed()}\n`;
+      str += `CLA 2.0\t${combinedValues.CLA.toFixed()}\n`;
       str += `Illuminance\t${combinedValues.absoluteIll}\n`;
       str += `Irradiance\t${combinedValues.Irr.toExponential(4)}\n`;
       str += `Photon Flux\t${combinedValues.pf.toExponential(4)}\n`;
