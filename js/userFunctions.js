@@ -848,8 +848,8 @@ function handleDownloadMetrics() {
       "Nothing Here. Check to make soure you've added one or more sources.";
     if (combinedValues) {
       str = "";
-      str += `CS 2.0\t${combinedValues.CS.toFixed(3)}\n`;
-      str += `CLA 2.0\t${combinedValues.CLA.toFixed()}\n`;
+      str += `CS\t${combinedValues.CS.toFixed(3)}\n`;
+      str += `CLA\t${combinedValues.CLA.toFixed()}\n`;
       str += `Illuminance\t${combinedValues.absoluteIll}\n`;
       str += `Irradiance\t${combinedValues.Irr.toExponential(4)}\n`;
       str += `Photon Flux\t${combinedValues.pf.toExponential(4)}\n`;
