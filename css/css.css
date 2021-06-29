@@ -8,6 +8,7 @@ html, body{
 }
 
 h1 {
+  display: inline-block;
   font-size: 2rem;
   font-weight: 600;
   font-variant: small-caps;
@@ -140,6 +141,14 @@ h2 {
 
 .rounded{
   border-radius: 0.25rem;
+}
+
+.help-menu-btn-menu{
+  border-radius: 25px;
+  background-color: #F5F5F5;
+  padding: 1rem;
+  margin-left: 2rem;
+  margin-bottom: 2rem;
 }
 
 /*
@@ -325,6 +334,7 @@ ul.list-group.list-group-hover li:hover{
   .ms-logo{
     width: 300px;
   }
+
   #LHRC_Logo{
     width: 300px;
   }

@@ -77,7 +77,7 @@
                 <div class="help-section" id="help-sources">
                   <div class="modal-header">
                     <h4 class="modal-title" id="helpModal-label">
-                      Source Selection
+                      Source
                     </h4>
                     <button type="button" class="close" data-dismiss="modal">
                       &times;
@@ -85,35 +85,10 @@
                   </div>
                   <div class="modal-body help-body">
                     <h3 class="font-size-1_25 text-uppercase font-weight-bold">
-                      Source List
-                    </h3>
-                    <p class="font-size-1_3">
-                      Click on a source to view additional information and have
-                      the opportunity to add the source to the calculation area.
-                      When the page is first loaded, all preloaded sources will
-                      be listed. Use the filtering tools to only display sources
-                      with the selected metrics.
-                    </p>
-                    <figure class="w-95 text-center mobile-figure">
-                      <img
-                        alt="Source List"
-                        src="img/help/2.png"
-                        class="w-55 my-4 rounded drop-shadow"
-                      />
-                    </figure>
-                    <h3 class="font-size-1_25 text-uppercase font-weight-bold">
                       Source List Filters
                     </h3>
                     <p class="font-size-1_3">
-                      Click the
-                      <b>Source List Filters</b>
-                      header to drop down possible source list filtering
-                      options. Select from the dropdown menus and/or use the
-                      keyword search bar to access the sources that are
-                      currently loaded in the calculator. Sources meeting the
-                      selected criteria will appear under the Sources heading.
-                      Press the <b>Reset Filters</b> button to clear any
-                      filters.
+                      The Source List Filters allow you to filter the Source List. Select from the dropdown menus and/or use the keyword search bar to access the sources that are currently loaded in the calculator. Sources meeting the selected criteria will appear under the Sources heading. Press the Reset Filters button to clear any filters.
                     </p>
                     <figure class="w-95 text-center mobile-figure">
                       <img
@@ -122,34 +97,60 @@
                         class="w-55 my-4 rounded drop-shadow"
                       />
                     </figure>
+
                     <h3 class="font-size-1_25 text-uppercase font-weight-bold">
-                      Custom Source
+                      Source List
                     </h3>
                     <p class="font-size-1_3">
-                      Click the <i class="ms-purple fas fa-plus"></i> button to
-                      open up a modal which will allow you to add a custom
-                      source. Fill in the required fields and click the
-                      <b>Add to Sources List</b> button to see your custom
-                      source appear in the Sources list and in the Selected
-                      Sources table.
+                      Click on a source to view additional information and have
+                      the opportunity to add the source to the calculation area.
+                      When the page is first loaded, all preloaded sources will
+                      be listed.
                     </p>
                     <figure class="w-95 text-center mobile-figure">
                       <img
-                        alt="Add Custom Source Modal"
-                        src="img/help/3.png"
-                        class="w-65 my-4 rounded drop-shadow"
+                        alt="Source List"
+                        src="img/help/2.png"
+                        class="w-55 my-4 rounded drop-shadow"
                       />
                     </figure>
+                    <div class="help-menu-btn-menu">
+                      <h5 class="font-size-1 text-uppercase font-weight-bold"><i class="ms-purple fas fa-plus"></i> Add Custom Source</h5>
+                      <p>The add custom source button will open a modal which will alow you to add a custom source. Fill in the required fields and click the Add Source button to confirm. Your source will appear in the Source List and automatically be add to Selected Sources. </p>
+                      <figure class="w-95 text-center mobile-figure">
+                        <img
+                          alt="Add Custom Source"
+                          src="img/help/3.png"
+                          class="w-55 my-4 rounded drop-shadow"
+                        />
+                      </figure>
+
+                      <h5 class="font-size-1 text-uppercase font-weight-bold"><i class="ms-purple fas fa-upload"></i> Download Custom Sources as JSON</h5>
+                      <p>The download custom sources feature will allow you to download as .json all custom, user generated sources that you've added to the CS Calculator 2.0. Custom sources won't save on page refresh, so this way you can maintain your custom sources.</p>
+                      <figure class="w-95 text-center mobile-figure">
+                        <img
+                          alt="Download Sources from JSON"
+                          src="img/help/11.png"
+                          class="w-55 my-4 rounded drop-shadow"
+                        />
+                      </figure>
+
+                      <h5 class="font-size-1 text-uppercase font-weight-bold"><i class="ms-purple fas fa-upload"></i> Upload Custom Sources as JSON</h5>
+                      <p>The upload custom sources feature will allow you to upload custom sources that you've previously downloaded from the CS Calculator 2.0. Select as many .json files as you'd like, each containing any number of sources. Note that sources with duplicate ID's will be ignored.</p>
+                      <figure class="w-95 text-center mobile-figure">
+                        <img
+                          alt="Upload Sources from JSON"
+                          src="img/help/12.png"
+                          class="w-55 my-4 rounded drop-shadow"
+                        />
+                      </figure>
+                    </div>
+                    
                     <h3 class="font-size-1_25 text-uppercase font-weight-bold">
                       Selected Sources
                     </h3>
                     <p class="font-size-1_3">
-                      Once a source is added to the
-                      <b>Selected Sources</b> list it will appear here. Click
-                      the <i class="ms-purple fas fa-info-circle"></i> icon to
-                      display information about that source. Click the
-                      <i class="text-red fas fa-times"></i> icon to remove that
-                      source from the <b>Selected Sources</b> list.
+                      Once a source is added it will appear in the Selected Sources tab.
                     </p>
                     <figure class="w-95 text-center mobile-figure">
                       <img
@@ -158,6 +159,21 @@
                         class="w-65 my-4 rounded drop-shadow"
                       />
                     </figure>
+                    <div class="help-menu-btn-menu">
+                      <h5 class="font-size-1 text-uppercase font-weight-bold"><i class="ms-purple fas fa-info-circle"></i> Source Info</h5>
+                      <p>The Source Info button will display the same source information available when selecting sources.</p>
+
+                      <figure class="w-95 text-center mobile-figure">
+                      <img
+                        alt="Source Info"
+                        src="img/help/13.png"
+                        class="w-55 my-4 rounded drop-shadow"
+                      />
+                    </figure>
+
+                      <h5 class="font-size-1 text-uppercase font-weight-bold"><i class="text-red fas fa-times"></i> Remove Source</h5>
+                      <p>The Remove Source button will remove that source from the Selected Sources list.</p>
+                    </div>
                   </div>
                 </div>
                 <div class="help-section d-none" id="help-calculations">
@@ -168,6 +184,19 @@
                     </button>
                   </div>
                   <div class="modal-body help-body">
+                    <div class="help-menu-btn-menu">
+                      <h5 class="font-size-1 text-uppercase font-weight-bold"><i class="ms-purple fas fa-download"></i> Download All Calculations as JSON</h5>
+                      <p>
+                        The Download All Calculations as JSON button will prompt a JSON file download which contains all the data of the curretn calculation, including each of the sources, their SPD's, their vertical illuminance, the combined output metrics, the chart data, and more. This file can be used for further programmatic purposes.
+                      </p>
+                      <figure class="w-95 text-center mobile-figure">
+                      <img
+                        alt="Download All Calculations as JSON"
+                        src="img/help/16.png"
+                        class="w-65 my-4 rounded drop-shadow"
+                      />
+                    </figure>
+                    </div>
                     <h3 class="font-size-1_25 text-uppercase font-weight-bold">
                       Selected Sources
                     </h3>
@@ -175,10 +204,10 @@
                       This Selected Sources Table is a duplicate of the one in
                       the Sources page, only this one will allow you to change
                       the vertical illuminance of the source. Once a source is
-                      added to the <b>Selected Sources</b> list it will appear
+                      added to the Selected Sources list it will appear
                       here. Click the graph icon to display information about
                       that source. Click the trash icon to remove that source
-                      from the <b>Selected Sources</b> list. Click inside the
+                      from the Selected Sources list. Click inside the
                       input field to change the vertical illuminance.
                     </p>
                     <figure class="w-95 text-center mobile-figure">
@@ -188,13 +217,27 @@
                         class="w-65 my-4 rounded drop-shadow"
                       />
                     </figure>
+                    <div class="help-menu-btn-menu">
+                      <h5 class="font-size-1 text-uppercase font-weight-bold"><i class="ms-purple fas fa-info-circle"></i> Source Info</h5>
+                      <p>The Source Info button will display the same source information available when selecting sources.</p>
+
+                      <figure class="w-95 text-center mobile-figure">
+                      <img
+                        alt="Source Info"
+                        src="img/help/13.png"
+                        class="w-55 my-4 rounded drop-shadow"
+                      />
+                    </figure>
+
+                      <h5 class="font-size-1 text-uppercase font-weight-bold"><i class="text-red fas fa-times"></i> Remove Source</h5>
+                      <p>The Remove Source button will remove that source from the Selected Sources list.</p>
+                    </div>
                     <h3 class="font-size-1_25 text-uppercase font-weight-bold">
                       Input Variables
                     </h3>
                     <p class="font-size-1_3">
                       Input variables are listed by name and current setting.
-                      All variables default to average values. Click on each
-                      variable for additional information and click on the value
+                      All variables are set to their default values on page load. Click on the value
                       to change it.
                     </p>
                     <figure class="w-95 text-center mobile-figure">
@@ -204,6 +247,14 @@
                         class="w-65 my-4 rounded drop-shadow"
                       />
                     </figure>
+                    <div class="help-menu-btn-menu">
+                      <h5 class="font-size-1 font-weight-bold">Duration of Exposure (hrs)</h5>
+                      <p>Exposure duration of the continuous light pulse in hours, ranging from 0.5 h to 3.0 h.</p>
+
+                      <h5 class="font-size-1 font-weight-bold">Distribution Scalar</h5>
+                      <p>A discrete variable characterizing the spatial distribution of the light source used in the calculations, ranging from 0.5 for an overhead light source to 2.0 for a full-field ganzfeld source.</p>
+                    </div>
+
                     <h3 class="font-size-1_25 text-uppercase font-weight-bold">
                       Metrics
                     </h3>
@@ -213,28 +264,45 @@
                       output measurements are shown on the left, and the values
                       are shown on the right.
                     </p>
-                    <p class="font-size-1_3">
-                      <b>Circadian Stimulus (CS)</b> is the calculated
-                      effectiveness of the spectrally weighted irradiance at the
+                    <figure class="w-95 text-center mobile-figure">
+                      <img
+                        alt="Light Metrics"
+                        src="img/help/8.png"
+                        class="w-65 my-4 rounded drop-shadow"
+                      />
+                    </figure>
+                    <div class="help-menu-btn-menu">
+                      <h5 class="font-size-1 text-uppercase font-weight-bold"><i class="ms-purple fas fa-download"></i> Download Metrics as Text</h5>
+                      <p>The Download Metrics as Text button allows you to download a plain .txt file containing all of the output metrics. The content of this file is easily pastable into something like Microsoft Excel.</p>
+                      <figure class="w-95 text-center mobile-figure">
+                      <img
+                        alt="Download Metrics as Text"
+                        src="img/help/14.png"
+                        class="w-65 my-4 rounded drop-shadow"
+                      />
+                    </figure>
+
+                      <h5 class="font-size-1 font-weight-bold">Circadian Stimulus (CS)</h5>
+                      <p>The calculated effectiveness of the spectrally weighted irradiance at the
                       cornea from threshold (CS = 0.1) to saturation (CS = 0.7),
-                      assuming a fixed duration of exposure of 1 hour.
-                    </p>
-                    <p class="font-size-1_3">
-                      <b>Circadian Light (CL<sub>A</sub>)</b> is the irradiance
+                      assuming a fixed duration of exposure of 1 hour.</p>
+
+                      <h5 class="font-size-1 font-weight-bold">Circadian Light (CL<sub>A</sub>)</h5>
+                      <p>The irradiance
                       at the cornea weighted to reflect the spectral sensitivity
                       of the human circadian system as measured by acute
-                      melatonin suppression after a 1-hour exposure.
-                    </p>
-                    <p class="font-size-1_3">
-                      <b>Illuminance (lx)</b> is the amount of light (luminous
+                      melatonin suppression after a 1-hour exposure.</p>
+
+                      <h5 class="font-size-1 font-weight-bold">Illuminance (lx)</h5>
+                      <p>The amount of light (luminous
                       flux) incident on a surface area. Illuminance is measured
                       in footcandles (lumens/square foot) or lux (lx,
                       lumens/square meter). One footcandle equals 10.76 lx,
                       although for convenience 10 lx commonly is used as the
-                      equivalent.
-                    </p>
-                    <p class="font-size-1_3">
-                      <b>Irradiance (W·m-2)</b> is the irradiance of a surface
+                      equivalent.</p>
+
+                      <h5 class="font-size-1 font-weight-bold">Irradiance (W·m-2)</h5>
+                      <p>The irradiance of a surface
                       per unit frequency or wavelength, depending on whether the
                       spectrum is taken as a function of frequency or of
                       wavelength. The two forms have different dimensions:
@@ -243,14 +311,14 @@
                       spectral irradiance of a wavelength spectrum is measured
                       in watts per square metre per metre (W·m−3), or more
                       commonly watts per square metre per nanometre
-                      (W·m−2·nm−1).
-                    </p>
-                    <p class="font-size-1_3">
-                      <b>Photon Flux (Photons·m-2·s-1)</b> is defined as the
-                      number of photons per second per unit area
-                    </p>
-                    <p class="font-size-1_3">
-                      <b>Correlated Color Temperature (CCT, Tcp)</b> is a
+                      (W·m−2·nm−1).</p>
+
+                      <h5 class="font-size-1 font-weight-bold">Photon Flux (Photons·m-2·s-1)</h5>
+                      <p>Defined as the
+                      number of photons per second per unit area.</p>
+
+                      <h5 class="font-size-1 font-weight-bold">Correlated Color Temperature (CCT, Tcp)</h5>
+                      <p>A
                       specification for white light sources used to describe the
                       dominant color tone along the dimension from warm (yellows
                       and reds) to cool (blue). Lamps with a CCT rating below
@@ -267,20 +335,10 @@
                       sources, however, differ substantially from black body
                       radiators yet they can have a color appearance similar to
                       a blackbody radiator of a particular temperature as given
-                      by CCT.
-                    </p>
-                    <p class="font-size-1_3">
-                      <b>D<sub>uv</sub></b> is a metric defined by American
-                      National Standard Institute (ANSI) that quantifies the
-                      distance between the chromaticity of a given light source
-                      and a blackbody radiator of equal CCT. A negative Duv
-                      indicates that the source is “below” the blackbody locus,
-                      having a purplish tint, whereas a positive Duv indicates
-                      that the source is “above” the blackbody locus, having a
-                      greenish tint.
-                    </p>
-                    <p class="font-size-1_3">
-                      <b>Color Rendering Index (CRI)</b> is a rating index
+                      by CCT.</p>
+
+                      <h5 class="font-size-1 font-weight-bold">Color Rendering Index (CRI)</h5>
+                      <p>A rating index
                       commonly used to represent how well a light source renders
                       the colors of objects that it illuminates. For a CRI value
                       of 100, the maximum value, the colors of objects can be
@@ -288,46 +346,54 @@
                       incandescent or daylight spectrum of the same correlated
                       color temperature (CCT). Sources with CRI values less than
                       50 are generally regarded as rendering colors poorly, that
-                      is, colors may appear unnatural.
-                    </p>
-                    <p class="font-size-1_3">
-                      <b>Gamut Area Index (GAI)</b> is a measure of color
+                      is, colors may appear unnatural.</p>
+
+                      <h5 class="font-size-1 font-weight-bold">Gamut Area Index (GAI)</h5>
+                      <p>A measure of color
                       rendering based upon volume in color space. It is the
                       range of colors achievable on a given color reproduction
                       medium (or present in an image on that medium) under a
-                      given set of viewing conditions.
-                    </p>
-                    <p class="font-size-1_3">
-                      <b>Chromaticity:</b> The dominant or complementary
+                      given set of viewing conditions.</p>
+
+                      <h5 class="font-size-1 font-weight-bold">Chromaticity (x,y)</h5>
+                      <p>The dominant or complementary
                       wavelength and purity aspects of the color taken together,
                       or of the aspects specified by the chromaticity
                       coordinates of the color taken together. It describes the
                       properties of light related to hue and saturation, but not
-                      luminance (brightness).
-                    </p>
-                    <figure class="w-95 text-center mobile-figure">
-                      <img
-                        alt="Light Metrics"
-                        src="img/help/8.png"
-                        class="w-65 my-4 rounded drop-shadow"
-                      />
-                    </figure>
+                      luminance (brightness).</p>
+
+                      <h5 class="font-size-1 font-weight-bold">CIE &alpha;-opic Irradiances</h5>
+                      <p>Effective photobiological irradiance with the spectral irradiance, spectrally weighted with the α-opic action spectrum</p>
+                    </div>
+                    
                     <h3 class="font-size-1_25 text-uppercase font-weight-bold">
-                      Combined SPD Values
+                      Combined Source SPD's
                     </h3>
                     <p class="font-size-1_3">
-                      Click the
-                      <i class="ms-purple fas fa-chart-area"></i> button to view
-                      the specific values for the relative and absolute spectral
+                      View the wavelength and spectral power values for the combined relative and absolute spectral
                       power distributions.
                     </p>
                     <figure class="w-95 text-center mobile-figure">
                       <img
-                        alt="Combined Spectral Power Distribution"
+                        alt="Combined Source SPD's"
                         src="img/help/9.png"
                         class="w-55 my-4 rounded drop-shadow"
                       />
                     </figure>
+
+                    <div class="help-menu-btn-menu">
+                      <h5 class="font-size-1 text-uppercase font-weight-bold"><i class="ms-purple fas fa-download"></i> Download Combined SPD's as Text</h5>
+                      <p>The Download Combined SPD's as Text button allows you to download a plain .txt file containing either the relative or absolute combined source SPD. The content of this file is easily pastable into something like Microsoft Excel.</p>
+                      <figure class="w-95 text-center mobile-figure">
+                      <img
+                        alt="Combined Source SPD's"
+                        src="img/help/15.png"
+                        class="w-55 my-4 rounded drop-shadow"
+                      />
+                    </figure>
+                    </div>
+
                     <h3 class="font-size-1_25 text-uppercase font-weight-bold">
                       Charts
                     </h3>
@@ -347,14 +413,6 @@
                         class="w-85 my-4 rounded drop-shadow"
                       />
                     </figure>
-                    <h3 class="font-size-1_25 text-uppercase font-weight-bold">
-                      Download Calculations
-                    </h3>
-                    <p class="font-size-1_3">
-                      Click the
-                      <i class="ms-purple fas fa-download"></i>
-                      button to download your current calculation as json data.
-                    </p>
                   </div>
                 </div>
               </div>
@@ -886,12 +944,19 @@
     </h6>
 
     <div id="content" class="container-fluid px-0 mt-4">
-      <div class="row mb-4 mx-0 opacity-0 d-flex" id="logo-container">
-        <div class="col text-center">
-          <a href=""
-            ><img id="LHRC_Logo" src="img/LHRC_Logo.png" width="200"
-          /></a>
-          <h1 class="mb-0">CS Calculator (2.0)</h1>
+      <div class="opacity-0" id="logo-container">
+        <div class="row mb-4 mx-0 d-flex">
+          <div class="col text-center">
+            <h1 class="mb-0">
+              <a href="https://icahn.mssm.edu/research/light-health"
+                ><img
+                  id="LHRC_Logo"
+                  src="img/LHRC_Logo.png"
+                  width="200"
+                  class="pr-3" /></a
+              >CS Calculator (2.0)
+            </h1>
+          </div>
         </div>
       </div>
       <div id="main-card-row" class="row opacity-0 mx-0">
@@ -916,7 +981,7 @@
                             class="btn btn-link btn-menu-btn"
                             type="button"
                             data-toggle="tooltip"
-                            title="Toggle Help Menu"
+                            title="Toggle Quick Start Guide"
                           >
                             <i class="far fa-lg fa-question-circle"></i>
                           </button>
@@ -1390,7 +1455,17 @@
                           </div>
                           <div class="collapse show" id="measurements">
                             <div class="card-body measurements-container">
+                              
                               <div class="container-fluid">
+                                <div class="row">
+                                  <div class="col text-center">
+                                    <p class="text-center">
+                                      Click
+                                      <a href="model.html" target="_blank">here</a> to
+                                      see notes on updated CS Model
+                                    </p>
+                                  </div>
+                                </div>
                                 <div class="row mb-1 zebra-row">
                                   <div
                                     class="
@@ -1572,7 +1647,7 @@
                                       zebra-entry
                                     "
                                     data-toggle="tooltip"
-                                    title="Toggle CIE Alpha Opic Irradiances"
+                                    title="Toggle CIE  	&alpha;-opic Irradiances"
                                   >
                                     <div>
                                       <i
@@ -1583,7 +1658,7 @@
                                           fa-caret-right
                                         "
                                       ></i>
-                                      CIE Alpha Opic Irradiances
+                                      CIE &alpha;-opic Irradiances
                                     </div>
                                   </div>
                                 </div>

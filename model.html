@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Notes on Updated CS Model</title>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="device-width, initial-scale=1" />
+    <meta name="description" content="A few notes on the new CS Model" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.css"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <article>
+            <h1 class="text-center mb-4">Notes on Updated CS Model</h1>
+
+            <section>
+              <h3>Note 1: Instrument calibration for CL<sub>A</sub></h3>
+
+              <p>
+                The revised model (Rea et al., 2021a,b) involved optimization of
+                the CLA spectral sensitivity framework, and was designed to (a)
+                maintain the relationship between CS and predicted nocturnal
+                melatonin suppression (e.g., CS of 0.5 results in 50% nocturnal
+                melatonin suppression following a reference light exposure
+                duration of 1 hour ) and to (b) maintain the original model
+                coefficients (Rea et al., 2005) from the CS operating
+                characteristic. In the original model, 1000 lux of CIE
+                Illuminant A resulted in a CLA = 1000. In the revised model, a
+                photopic illuminance of 1000 lux from CIE Illuminant A
+                (approximately that of an incandescent lamp operated at 2856 K)
+                results in a CLA 2.0 = 813. The value of 813 CLA 2.0 should be
+                used by those wishing to calibrate instrumentation designed to
+                report CLA 2.0 and CS. CLA 2.0 values can still be used to
+                approximate the photopic illuminance, in lux, from a nonspecific
+                "white" light source. For comparison, CLA 2.0 values should be
+                multiplied by 1.23 to estimate the equivalent photopic
+                illuminance from CIE Illuminant A, or by 0.66 to estimate the
+                equivalent photopic illuminance from CIE Illuminant D65 (an
+                approximation of daylight with a correlated color temperature of
+                6500 K).
+              </p>
+
+              <p>
+                <small
+                  >Rea, M. S., Nagare, R., & Figueiro, M. G. (2021a). Modeling
+                  Circadian Phototransduction: Retinal Neurophysiology and
+                  Neuroanatomy. Front Neurosci, 14, 615305.
+                  doi:10.3389/fnins.2020.615305
+                </small>
+              </p>
+              <p>
+                <small>
+                  Rea, M. S., Nagare, R., & Figueiro, M. G. (2021b). Modeling
+                  Circadian Phototransduction: Quantitative Predictions of
+                  Psychophysical Data. Front Neurosci, 15, 615322.
+                  doi:10.3389/fnins.2021.615322
+                </small>
+              </p>
+              <p>
+                <small>
+                  Rea, M. S., Figueiro, M. G., Bullough, J. D., & Bierman, A.
+                  (2005). A model of phototransduction by the human circadian
+                  system. Brain Research Reviews, 50(2), 213-228.
+                  doi:10.1016/j.brainresrev.2005.07.002
+                </small>
+              </p>
+            </section>
+            <section>
+              <h3>Note 2: Photoreceptor fundamentals</h3>
+
+              <p>
+                For the revised model (Rea et al. 2021a,b), the optimization of
+                spectral sensitivity was performed using fundamentals that
+                differed slightly from those recommended in CIE S 026 (CIE
+                2015a,b) for S-cone and melanopsin. Using the CIE S-cone
+                fundamental for the optimization had negligible effect on the
+                accuracy of predictions for both broadband and narrowband light
+                sources. To characterize the action spectrum for melanopsin, we
+                used the template published by Wyszecki and Stiles (1982) with
+                an in vivo (filtered by the crystalline lens) peak sensitivity
+                at 485 nm and a half-maxim sensitivity of 89 nm. The CIE on the
+                other hand used the template from Govardovskii et al. (2000)
+                with a peak sensitivity of 490 nm and a half-maximum sensitivity
+                of 84 nm. Using the CIE melanopsin template for the model
+                optimization did not affect the optimization process for
+                broadband sources, however, the prediction accuracy for
+                narrowband sources was significantly worse. Thus, the Wyszecki
+                and Stiles (1982) template appears to be better than that from
+                Govardovskii et al. (2000) in characterizing the in vivo action
+                spectrum of melanopsin. The revised model indirectly tests the
+                utility of the CIE S 026 melanopic function for modeling the
+                spectral sensitivity of the human circadian system.
+              </p>
+
+              <p>
+                <small
+                  >Rea, M. S., Nagare, R., & Figueiro, M. G. (2021a). Modeling
+                  Circadian Phototransduction: Retinal Neurophysiology and
+                  Neuroanatomy. Front Neurosci, 14, 615305.
+                  doi:10.3389/fnins.2020.615305
+                </small>
+              </p>
+              <p>
+                <small>
+                  Rea, M. S., Nagare, R., & Figueiro, M. G. (2021b). Modeling
+                  Circadian Phototransduction: Quantitative Predictions of
+                  Psychophysical Data. Front Neurosci, 15, 615322.
+                  doi:10.3389/fnins.2021.615322
+                </small>
+              </p>
+              <p>
+                <small>
+                  Commission Internationale de l'Éclairage. (2015). SI-compliant
+                  Toolbox, First International Workshop on Circadian and
+                  Neurophysiological Photometry, 2013. In. Vienna: Commission
+                  International de l'Éclairage.
+                </small>
+              </p>
+              <p>
+                <small>
+                  Commission Internationale de l'Éclairage. (2015). Technical
+                  Note: Report on the First International Workshop on Circadian
+                  and Neurophysiological Photometry, 2013. Retrieved from
+                  Vienna, Austria:
+                  http://files.cie.co.at/785_CIE_TN_003-2015.pdf
+                </small>
+              </p>
+              <p>
+                <small>
+                  Wyszecki, G., & Stiles, W. S. (1982). Color Science: Concepts
+                  and Methods, Quantitative Data and Formulae (2 ed.). New York,
+                  NY: John Wiley & Sons.
+                </small>
+              </p>
+              <p>
+                <small>
+                  Govardovskii, V. I., Fyhrquist, N., Reuter, T., Kuzmin, D. G.,
+                  & Donner, K. (2000). In search of the visual pigment template.
+                  Visual Neuroscience, 17(4), 509-528.
+                  doi:10.1017/s095252380017403
+                </small>
+              </p>
+            </section>
+            <section>
+              <h3>Note 3: Photoreceptor action spectra normalization</h3>
+
+              <p>
+                The four photoreceptor action spectra in the CLA equation (M(λ),
+                V(λ), V’(λ) and S-cone(λ)) are all unitless weighting functions,
+                each normalized to have a maximum value of 1. These action
+                spectra represent in-vivo photoreceptor spectral sensitivities
+                including the effects of preretinal filtering by the eye (e.g.,
+                lens absorption). Thus, the CIE photopic and scotopic luminous
+                efficiency functions (V(λ) and V’(λ), can be used to represent
+                the spectral sensitivity of the L-cone + M-cone achromatic
+                channel and rod achromatic channel, respectively. However, after
+                adjusting the 480 nm opsin response representing melanopsin for
+                lens transmission and removing macular pigment filtering from
+                the S-cone fundamental, these photoreceptor action spectra
+                needed to be renormalized to have a maximum value of 1.0.
+              </p>
+
+              <p>
+                <small
+                  >Commission Internationale de l'Éclairage. (1994). Light as a
+                  True Visual Quantity: Principles of Measurement, CIE 041-1978.
+                  Retrieved from Vienna, Austria:
+                </small>
+              </p>
+              <p>
+                <small>
+                  Smith, V., & Pokorny, J. (1975). Spectral sensitivity of the
+                  foveal cone photopigments between 400 and 500 nm. Vision
+                  Research, 15, 161-171.
+                </small>
+              </p>
+            </section>
+          </article>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

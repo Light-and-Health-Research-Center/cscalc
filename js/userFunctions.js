@@ -1728,7 +1728,7 @@ function handleCalculationsJson() {
       "data:application/json;charset=utf-8," +
         encodeURIComponent(JSON.stringify(calculations, null, 2))
     );
-    $("#jsondownload").attr("download", "CSCalculator Results.json");
+    $("#jsondownload").attr("download", "CS Calculator Results.json");
     $("#jsondownload")[0].click();
   }
   $("#resultsDownload").click(createResultsJSON);
