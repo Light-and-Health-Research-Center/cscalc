@@ -1,6 +1,6 @@
 # CS-Calculator 2.0
 
-The CS Calculator 2.0 is an open source web application tool for calculating light metrics of a light source. Provide the calculator with spectral power distribution (SPD) and illuminance data about your source(s) and recieve combined metrics, charts, and SPD's in return.
+The CS Calculator 2.0 is an open source web application tool that allows lighting professionals to select light sources and light levels that will increase the potential for circadian-effective light exposure in architectural spaces, utilizing the CS metric. Provide the calculator with spectral power distribution (SPD) and illuminance data about your source(s) and recieve combined metrics, charts, and SPD's in return.
 
 Access the CS Calculator at [cscalc.light-health.org](https://cscalc.light-health.org).
 
