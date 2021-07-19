@@ -2083,7 +2083,9 @@ function EMLcalc(spd, thickness) {
   }
   var eml = cs * 852;
 
-  return eml;
+  var scalar = 0.885;
+
+  return eml * scalar;
 }
 
 function DuvCalc(spd) {
