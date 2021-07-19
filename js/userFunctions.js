@@ -1698,7 +1698,7 @@ function handleCalculationsJson() {
       chromaticity_coordinates: `(${combinedValues.x.toFixed(
         4
       )}, ${combinedValues.y.toFixed(4)})`,
-      "cie_s-cone-irradiance":
+      "cie_s-cone_irradiance":
         combinedValues.CIE_S_cone_opic_irr.toExponential(4),
       "cie_m-cone_irradiance":
         combinedValues.CIE_M_cone_opic_irr.toExponential(4),
