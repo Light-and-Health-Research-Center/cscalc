@@ -143,6 +143,14 @@ h2 {
   border-radius: 0.25rem;
 }
 
+.rounded-tr{
+  border-top-right-radius: 0.25rem;
+}
+
+.rounded-tl{
+  border-top-left-radius: 0.25rem;
+}
+
 .help-menu-btn-menu{
   border-radius: 25px;
   background-color: #F5F5F5;
@@ -285,9 +293,26 @@ ul.list-group.list-group-hover li:hover{
 /*
 * === Main Content Card ===
 */
+.step-title-container .step-title{
+  color: #969696;
+}
+
+.step-title-container:not(.disabled):not(.active):hover{
+  background-color: white;
+}
+
+.step-title-container:not(.disabled):not(.active):hover .step-title{
+  color: black;
+}
+
+
 .step-title-container.active{
   background-color: white;
   border-bottom: none;
+}
+
+.step-title-container.active .step-title{
+  color: black;
 }
 
 .step-title-container.disabled{
@@ -304,16 +329,6 @@ ul.list-group.list-group-hover li:hover{
 
 .step-title-container:hover{
   cursor: pointer;
-}
-
-.step-title-container:first-child{
-  border-top-left-radius: .25rem;
-
-}
-
-.step-title-container:last-child{
-  border-right: 1px solid transparent;
-  border-top-right-radius: .25rem;
 }
 
 /*
