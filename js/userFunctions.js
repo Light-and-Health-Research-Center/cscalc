@@ -1749,6 +1749,10 @@ function handleContentCardSteps() {
     $("[id^='stepContent']").addClass("d-none");
     $("#stepContent" + step).removeClass("d-none");
     $("#stepContent" + step).addClass("d-block");
+
+    if (step === "2") {
+      if ($(".ssIll").length) $(".ssIll")[0].focus();
+    }
   });
 }
 
