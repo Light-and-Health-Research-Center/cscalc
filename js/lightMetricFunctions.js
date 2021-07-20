@@ -1596,7 +1596,8 @@ function cla2cs(cla) {
 }
 
 function cs2cla(cs) {
-  return (355.7 / (_t * _d)) * Math.pow(1 / (1 - cs / 0.7) - 1, 1 / 1.1026);
+  var cla = (355.7 / (_t * _d)) * Math.pow(1 / (1 - cs / 0.7) - 1, 1 / 1.1026);
+  return cla;
 }
 
 function blackbodySpectra(Tc, wave) {
@@ -2144,7 +2145,7 @@ function claspd2lux(cla, spd, thickness) {
   var result;
 
   // Internal variables
-  var csval = cla / 1547.9;
+  var csval = cla / 1548;
 
   // Parse and normalize SPD input
   var spd1wavelength = spd.wavelength;
@@ -2197,7 +2198,6 @@ function claspd2lux(cla, spd, thickness) {
   // Test B-Y
   if (spd1efs.Scone - consts.k * spd1efs.Vlambda > 0) {
     var lux0 = 0;
-    var luxTest = 50.33;
     var spd1 = {
       wavelength: spd1wavelength,
       value: spd1value,
@@ -2220,7 +2220,6 @@ function claspd2lux(cla, spd, thickness) {
 
 function claspd2luxmin(funcParams, lux) {
   // Unbox funcParams
-  var spd = funcParams.spd;
   var csval = funcParams.csval;
   var consts = funcParams.consts;
   var spd1efs = funcParams.spd1efs;

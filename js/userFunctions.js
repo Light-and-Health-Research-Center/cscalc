@@ -185,7 +185,7 @@ function addSource(sourceIdx) {
   div +=
     '<div class="d-flex justify-content-end"><input oninput="handleLuxChangeFocus()" onfocusout="handleLuxChangeFocusOut()" onkeydown="if(event.keyCode==13){ $(this).blur(); return false;}" id="ssIll_' +
     sourceIdx +
-    '" class="form-control ssIll flex-shrink-1" placeholder="Illuminance (lx)" />';
+    '" class="form-control ssIll flex-shrink-1" placeholder="0" />';
   div +=
     '<button class="py-0 removeSource text-red pointer btn btn-link" type="button" data-toggle="tooltip" title="Remove Source" data-i="' +
     sourceIdx +
@@ -232,16 +232,17 @@ function addSourceDataset(source) {
     $("#spdLegendDiv").show();
     $("#crmLegendDiv").show();
     $("#chromaticityLegendDiv").show();
-    $("#csInputSection").show();
+    $("#csInputSection").removeClass("d-none");
   } else if (configSPD.data.datasets.length == 3) {
     configSPD.data.datasets.unshift(combinedSourceDataset);
-    $("#csInputSection").hide();
+    $("#csInputSection").addClass("d-none");
   } else {
-    $("#csInputSection").hide();
+    $("#csInputSection").addClass("d-none");
   }
   spdChart.update();
   document.getElementById("spdLegend").innerHTML = spdChart.generateLegend();
   $("#noSelectedSources").hide();
+  $("#selected-sources").removeClass("d-none");
   $("#sources-table").show();
 }
 
@@ -255,14 +256,15 @@ function removeSourceDataset(source) {
       ) {
         configSPD.data.datasets[0].data = dataTestNan;
         configSPD.data.datasets.splice(0, 1);
-        $("#csInputSection").show();
+        $("#csInputSection").removeClass("d-none");
         if (configSPD.data.datasets.length == 0) {
           $("#spdLegendDiv").hide();
           $("#crmLegendDiv").hide();
           $("#chromaticityLegendDiv").hide();
           $("#noSelectedSources").show();
+          $("#selected-sources").addClass("d-none");
           $("#sources-table").hide();
-          $("#csInputSection").hide();
+          $("#csInputSection").addClass("d-none");
         }
       }
     }
@@ -1080,6 +1082,9 @@ function updateResults() {
     spectralEfficiencyFunctionDataset.pointBorderColor = "rgba(192,0,0,1)";
   }
 
+  // Update CS Input Section
+  document.getElementById("csInput").value = combinedValues.CS.toFixed(3);
+
   // Update Results Section HTML
   $("#resultIll").html(combinedValues.absoluteIll);
   $("#resultEML").html(combinedValues.EML.toFixed());
@@ -1594,6 +1599,7 @@ function handleCalculateByCS() {
     if (
       !(e.keyCode == 8 || e.keyCode == 46 || e.keyCode == 37 || e.keyCode == 39)
     ) {
+      console.log("here");
       var testString = this.value
         .slice(0, this.selectionStart)
         .concat(e.key)
@@ -1611,7 +1617,6 @@ function handleCalculateByCS() {
   });
 
   $(document).on("change", "#csInput", function () {
-    var sourceIdx = this.id.split("_")[1];
     if (this.value == "") {
       this.value = "0";
     }
@@ -1761,7 +1766,7 @@ $(document).ready(function () {
 
   handleToolTips();
 
-  // handleCalculateByCS();
+  handleCalculateByCS();
 
   handleContinueToCalculationsButton();
 
