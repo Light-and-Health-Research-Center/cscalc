@@ -1588,7 +1588,7 @@ function CLAcalc(spd) {
     cs = 0;
   }
   cla = cs * 1548;
-  return cla;
+  return (cla = cla || 0);
 }
 
 function cla2cs(cla) {
