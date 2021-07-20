@@ -713,22 +713,6 @@ function handleCustomSource() {
   });
 }
 
-function handleBetaMessage() {
-  $("#copy-email").on("click", function () {
-    $("#copy-email")
-      .attr("title", '<i class="fas fa-check"></i> Copied')
-      .tooltip("_fixTitle")
-      .tooltip("show");
-
-    var textArea = document.createElement("textarea");
-    textArea.value = "michaelmorrison@mountsinai.org";
-    document.body.appendChild(textArea);
-    textArea.select();
-    document.execCommand("Copy");
-    textArea.remove();
-  });
-}
-
 function handlePlotBtns() {
   $(".plot-btn").on("click", function () {
     if (!$(this).hasClass("active")) {
@@ -1770,8 +1754,6 @@ $(document).ready(function () {
   handleContinueToCalculationsButton();
 
   handleContentCardSteps();
-
-  handleBetaMessage();
 
   handlePlotBtns();
 
