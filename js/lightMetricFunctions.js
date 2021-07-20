@@ -2069,35 +2069,23 @@ function EMLcalc(spd, thickness) {
   var efs = efficiencyFunctions(wavelength, thickness);
   var deltaWavelength = createDelta(wavelength);
 
-  var spdScone = sumproduct(value, arrayMul(deltaWavelength, efs.Scone));
-  var spdVlambda = sumproduct(value, arrayMul(deltaWavelength, efs.Vlambda));
   var spdMelanopsin = sumproduct(
     value,
-    arrayMul(deltaWavelength, efs.Melanopsin)
+    arrayMul(deltaWavelength, efs.CIE_Melanopsin)
   );
-  var spdVprime = sumproduct(value, arrayMul(deltaWavelength, efs.Vprime));
-
-  var rodSat1 = 35000;
-  var retinalE = [1, 3, 10, 30, 100, 300, 1000, 3000, 10000, 30000, 100000];
-  var pupilDiam = [7.1, 7, 6.9, 6.8, 6.7, 6.5, 6.3, 5.65, 5, 3.65, 2.3];
-  var diam = interp1(retinalE, pupilDiam, rodSat1, 0);
-  var rodSat =
-    ((rodSat1 / ((Math.pow(diam, 2) / 4) * Math.PI)) * Math.PI) / 1700;
 
   var a1 = 1;
   var b1 = 0.0;
-  var a2 = 0.7;
-  var b2 = 0.0;
-  var k = 0.2616; //0.2883;//0.2616;
-  var a3 = 3.3;
 
   cs = a1 * spdMelanopsin - b1;
   if (cs < 0) {
     cs = 0;
   }
-  var cla = cs * 852;
+  var eml = cs * 852;
 
-  return cla;
+  var scalar = 0.885;
+
+  return eml * scalar;
 }
 
 function DuvCalc(spd) {
@@ -2383,6 +2371,14 @@ function efficiencyFunctions(wavelength, thickness) {
   );
   var MelanopsinInt = arrayNormalize(MelanopsinInt1);
 
+  var CIE_MelanopsinInt1 = interp1(
+    CIE_Melanopic.wavelength,
+    CIE_Melanopic.value,
+    wavelength,
+    0
+  );
+  var CIE_MelanopsinInt = arrayNormalize(CIE_MelanopsinInt1);
+
   var SconeInt1 = interp1(Scone.wavelength, Scone.value, wavelength, 0);
   var SconeInt2 = arrayDiv(SconeInt1, macularTi);
   var SconeInt = arrayNormalize(SconeInt2);
@@ -2437,6 +2433,7 @@ function efficiencyFunctions(wavelength, thickness) {
     Vlambda: VlambdaInt,
     Vprime: VprimeInt,
     Scone: SconeInt,
+    CIE_Melanopsin: CIE_MelanopsinInt,
     Melanopsin: MelanopsinInt,
     Photopic: PhotopicInt,
     CIE_S_cone: CIE_S_cone_int,
