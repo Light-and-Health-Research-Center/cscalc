@@ -2238,26 +2238,7 @@ function claspd2luxmin(funcParams, lux) {
 }
 
 function generateCircadianSpectralResponceForSPD(spd, thickness, rod) {
-  /*
-  		% Revised May 11, 2011
-  		% Revised September 26, 2014:
-  		%   Conforms to Corrigendum, Lighting Res. Technol. 2012; 44: 516
-  		%   for the publication: Rea MS, Figueiro MG, Bierman A, Hamner R.
-  		%   Modeling the spectral sensitivity of the human circadian system.
-  		%   Lighting Research and Technology 2012; 44(4): 386–396.
-
-  		% Calculates the circadian stimulus for the given spd
-  		% spd is assumed to be in units of W/m^2
-  		% CS is scaled to be equal to lux for illuminanct A (2856 K)
-  		% spd is two column matrix with wavelength (nm) in the first column
-  		% and spectral irradiance (W/(m^2 nm) in the second column
-  		% OR spd is a column vector and start, end and increment wavelength values
-  		% are specified as additional arguements (e.g. f(spd,400,700,10))
-  	*/
-
-  var resultObj = {};
   var cs;
-  var specResp;
   var specRespMinusRod;
 
   var wavelength = spd.wavelength;

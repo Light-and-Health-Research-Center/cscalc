@@ -241,7 +241,6 @@ function createDelta(wavelength) {
 function spdNormalize(wavelength, value) {
   var result = [];
 
-  //var efs = efficiencyFunctions(wavelength);
   var ybar = interp1(cie.wavelength, cie.ybar, wavelength, 0);
   var deltaWavelength = createDelta(wavelength);
   var spdPhotopic = sumproduct(value, arrayMul(deltaWavelength, ybar));
