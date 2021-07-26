@@ -1233,6 +1233,7 @@ function updateResults() {
 function applyNewSource(i, el, custom) {
   // Expand the source object
   el.isSelected = false;
+  console.log(setwavelength);
   var valueInt = interp1(el.spd.wavelength, el.spd.value, setwavelength, 0);
   el.relativeSPD = arrayScalar(
     arrayNormalize(spdNormalize(setwavelength, valueInt)),
