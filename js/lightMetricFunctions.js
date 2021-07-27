@@ -1576,18 +1576,6 @@ function CLAcalc(spd) {
     arrayMul(deltaWavelength, efs.CIE_Melanopic)
   );
 
-  let response = {
-    scone,
-    vlambda,
-    values,
-    deltaWavelength,
-    "efs-scone": efs.Scone,
-    "efs-vlambda": efs.Vlambda,
-  };
-
-  console.log(`CLACalc:`);
-  console.log(response);
-
   var rod_mel = vprime / (vlambda + g1 * scone);
   var rod_bminusY = vprime / (vlambda + g2 * scone);
 
@@ -2272,19 +2260,6 @@ function generateCircadianSpectralResponceForSPD(spd, rod) {
 
   var spdScone = sumproduct(value, arrayMul(deltaWavelength, efs.Scone));
   var spdVlambda = sumproduct(value, arrayMul(deltaWavelength, efs.Vlambda));
-
-  let response = {
-    spdScone,
-    spdVlambda,
-    value,
-    deltaWavelength,
-    "efs-scone": efs.Scone,
-    "efs-vlambda": efs.Vlambda,
-  };
-
-  console.log("Cool vs. Warm calc:");
-
-  console.log(response);
 
   var a1 = 1;
   var b1 = 0.0;
