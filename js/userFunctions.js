@@ -1042,14 +1042,9 @@ function updateResults() {
   var rodSat0 = 0.1088;
   var test = {
     spd: combinedValues.relativeSPD,
-    thickness: thickness * 2,
   };
   var rodSat = fmin(prepGenerateCircadianSpectralResponceForSPD, test, rodSat0);
-  var sefObj = generateCircadianSpectralResponceForSPD(
-    test.spd,
-    test.thickness,
-    rodSat
-  );
+  var sefObj = generateCircadianSpectralResponceForSPD(test.spd, rodSat);
   if (sefObj.cool) {
     spectralEfficiencyFunctionDataset.label =
       "Relative Spectral Contribution of the Circadian Response*: Cool";
