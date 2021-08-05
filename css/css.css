@@ -124,6 +124,11 @@ h2 {
   background-color: #e3e3e3
 }
 
+.form-control::placeholder {
+  color: #D1D5DB;
+  font-style: italic;
+}
+
 /*
 * === Misc ===
 */
