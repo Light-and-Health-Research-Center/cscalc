@@ -16,7 +16,7 @@ Deatiled documentation for the CS Calculator 2.0 is available at [docs.light-hea
 * CL<sub>A</sub> 2.0
 * Illuminance
 * Photo Flux
-* Equivalent Melanopic Lux (EML)
+* Melanopic EDI
 * CCT
 * Duv
 * CRI
