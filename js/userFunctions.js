@@ -837,7 +837,7 @@ function handleDownloadMetrics() {
       str += `Illuminance\t${combinedValues.absoluteIll}\n`;
       str += `Irradiance\t${combinedValues.Irr.toExponential(4)}\n`;
       str += `Photon Flux\t${combinedValues.pf.toExponential(4)}\n`;
-      str += `EML\t${combinedValues.EML.toFixed()}\n`;
+      str += `Melanopic EDI\t${combinedValues.EML.toFixed()}\n`;
       str += `CCT\t${combinedValues.CCT.toFixed()}\n`;
       str += `Duv\t${combinedValues.Duv.toFixed(3)}\n`;
       str += `CRI\t${combinedValues.CRI.toFixed(1)}\n`;
@@ -1669,7 +1669,7 @@ function handleCalculationsJson() {
       illuminance: combinedValues.absoluteIll.toString(),
       irradiance: combinedValues.Irr.toExponential(4),
       flux: combinedValues.pf.toExponential(4),
-      eml: combinedValues.EML.toFixed(),
+      medi: combinedValues.EML.toFixed(),
       cct: combinedValues.CCT.toFixed(),
       duv: combinedValues.Duv.toFixed(3),
       cri: combinedValues.CRI.toFixed(1),

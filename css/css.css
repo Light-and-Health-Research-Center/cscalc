@@ -124,6 +124,11 @@ h2 {
   background-color: #e3e3e3
 }
 
+.form-control::placeholder {
+  color: #D1D5DB;
+  font-style: italic;
+}
+
 /*
 * === Misc ===
 */
@@ -374,13 +379,10 @@ ul.list-group.list-group-hover li:hover{
   }
 }
 
-@media only screen and (min-width: 1200px) {
-}
-
-@media only screen and (max-width: 720px) {
-  #content{
-    padding-left: 0;
-    padding-right: 0;
+@media only screen and (max-width: 1200px) {
+  #content {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
   }
 }
 
@@ -395,5 +397,12 @@ ul.list-group.list-group-hover li:hover{
   .card-body {
     padding-right: 0.25rem;
     padding-left: 0.25rem;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  #content{
+    padding-left: 0 !important;
+    padding-right: 0 !important;
   }
 }
