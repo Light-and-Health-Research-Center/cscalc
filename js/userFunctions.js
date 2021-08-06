@@ -144,7 +144,7 @@ function addSource(sourceIdx) {
     '<div id="SelectedSource_' +
     sourceIdx +
     "_" +
-    '" class="selected-source_ col d-flex  justify-content-between zebra-entry">';
+    '" class="selected-source_ col d-flex justify-content-between align-items-center zebra-entry">';
   div +=
     '<button class="py-0 selected-source-icon btn btn-link" type="button" data-toggle="tooltip" title="Toggle Source Info" data-i="' +
     sourceIdx +
@@ -169,7 +169,7 @@ function addSource(sourceIdx) {
   div +=
     '<div id="SelectedSource_' +
     sourceIdx +
-    '" class="selected-source col d-flex  justify-content-between zebra-entry py-2">';
+    '" class="selected-source col d-flex justify-content-between align-items-center zebra-entry py-2">';
   div +=
     '<button class="py-0 selected-source-icon btn btn-link" type="button" data-toggle="tooltip" title="Toggle Source Info" data-i="' +
     sourceIdx +
