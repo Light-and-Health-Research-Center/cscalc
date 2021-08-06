@@ -1,5 +1,18 @@
 // Defined in ../json/consts.json
-let cie, TCS, isoTempLines, Vlambda, Vprime, Scone, Macula, Melanopsin, CIE_S_cone_opic, CIE_M_cone_opic, CIE_L_cone_opic, CIE_Rhodopic, CIE_Melanopic, setwavelength;
+let cie,
+  TCS,
+  isoTempLines,
+  Vlambda,
+  Vprime,
+  Scone,
+  Macula,
+  Melanopsin,
+  CIE_S_cone_opic,
+  CIE_M_cone_opic,
+  CIE_L_cone_opic,
+  CIE_Rhodopic,
+  CIE_Melanopic,
+  setwavelength;
 
 let thickness = 1;
 let _thickness = 1;
@@ -16,11 +29,11 @@ const g2 = 0.16;
 const k = 0.2616;
 const rodSat = 6.5215;
 
-const a1= 1;
-const b1= 0.0;
-const a2= 0.7;
-const b2= 0.0;
-const a3= 3.3;
+const a1 = 1;
+const b1 = 0.0;
+const a2 = 0.7;
+const b2 = 0.0;
+const a3 = 3.3;
 
 var combinedValues;
 
@@ -218,7 +231,7 @@ function CIEDaySpectra() {
 }
 
 function TCS_1calc() {
-  let ret = {}
+  let ret = {};
   for (var iCS in TCS.color_standards) {
     if (TCS.color_standards.hasOwnProperty(iCS)) {
       ret[iCS] = interp1(
@@ -241,7 +254,7 @@ function CRIcalc() {
     if (combinedValues.CCT <= 25000) {
       spdref = CIEDaySpectra();
     }
-  }  
+  }
 
   // Calculate u, v chromaticity coordinates of samples
   //test illuminant, uk, vk
@@ -385,18 +398,22 @@ function GAIcalc() {
   for (iCS in combinedValues.TCS_1) {
     if (combinedValues.TCS_1.hasOwnProperty(iCS)) {
       //test illuminant, uki, vki
-      xki[iCS] =
-        combinedValues.X /
-        (combinedValues.X + combinedValues.Y + combinedValues.Z);
-      yki[iCS] =
-        combinedValues.Y /
-        (combinedValues.X + combinedValues.Y + combinedValues.Z);
-      uki[iCS] =
-        (4 * combinedValues.X) /
-        (combinedValues.X + 15 * combinedValues.Y + 3 * combinedValues.Z);
-      vki[iCS] =
-        (6 * combinedValues.Y) /
-        (combinedValues.X + 15 * combinedValues.Y + 3 * combinedValues.Z);
+      let X_TCS = sumproduct(
+        arrayMul(combinedValues.relativeSPD.value, combinedValues.TCS_1[iCS]),
+        arrayMul(combinedValues.deltaWavelength, combinedValues.xbar)
+      );
+      let Y_TCS = sumproduct(
+        arrayMul(combinedValues.relativeSPD.value, combinedValues.TCS_1[iCS]),
+        arrayMul(combinedValues.deltaWavelength, combinedValues.ybar)
+      );
+      let Z_TCS = sumproduct(
+        arrayMul(combinedValues.relativeSPD.value, combinedValues.TCS_1[iCS]),
+        arrayMul(combinedValues.deltaWavelength, combinedValues.zbar)
+      );
+      xki[iCS] = X_TCS / (X_TCS + Y_TCS + Z_TCS);
+      yki[iCS] = Y_TCS / (X_TCS + Y_TCS + Z_TCS);
+      uki[iCS] = (4 * X_TCS) / (X_TCS + 15 * Y_TCS + 3 * Z_TCS);
+      vki[iCS] = (6 * Y_TCS) / (X_TCS + 15 * Y_TCS + 3 * Z_TCS);
       ukiprime[iCS] = uki[iCS];
       vkiprime[iCS] = vki[iCS] * 1.5;
     }
@@ -450,15 +467,17 @@ function chromaticityCoordinatesCalc() {
 }
 
 function PFcalc() {
-  return arrayDiv(
-    combinedValues.absoluteSPD.value,
-    arrayInverse(
-      arrayScalar(
-        combinedValues.absoluteSPD.wavelength,
-        1e-9 / 1.9865275648e-25
+  return (
+    arrayDiv(
+      combinedValues.absoluteSPD.value,
+      arrayInverse(
+        arrayScalar(
+          combinedValues.absoluteSPD.wavelength,
+          1e-9 / 1.9865275648e-25
+        )
       )
-    )
-  ).sum() * 2;
+    ).sum() * 2
+  );
 }
 
 function MEDIcalc() {
@@ -511,8 +530,7 @@ function DuvCalc() {
   return Duv;
 }
 
-function cla2lux() {
-}
+function cla2lux() {}
 
 function generateCircadianSpectralResponseForSPD(rod) {
   var specRespMinusRod;
@@ -544,7 +562,10 @@ function generateCircadianSpectralResponseForSPD(rod) {
     ); //(a1*spdMelanopsin - b1) + (a2*spdScone - k*spdVlambda - b2) - a3*rod*spdVprime;
     cool = true;
   } else {
-    specRespMinusRod = arraySub2(arrayScalar(combinedValues.efs.Melanopsin, a1), b1); //a1*spdMelanopsin - b1;
+    specRespMinusRod = arraySub2(
+      arrayScalar(combinedValues.efs.Melanopsin, a1),
+      b1
+    ); //a1*spdMelanopsin - b1;
     cool = false;
   }
 
@@ -693,30 +714,29 @@ function ssAbsoluteSPDCalc() {
 $(document).ready(function () {
   function importConsts() {
     $.ajax({
-    mimeType: "application/json",
-    url: "json/consts.json",
-    async: false,
-    dataType: "json",
-    success: function (results) {
-      CIE_L_cone_opic = results.CIE_L_cone_opic
-      CIE_M_cone_opic = results.CIE_M_cone_opic
-      CIE_Melanopic = results.CIE_Melanopic
-      CIE_Rhodopic = results.CIE_Rhodopic;
-      CIE_S_cone_opic = results.CIE_S_cone_opic;
-      Macula = results.Macula;
-      Melanopsin = results.Melanopsin;
-      Scone = results.Scone;
-      TCS = results.TCS;
-      Vlambda = results.Vlambda;
-      Vprime = results.Vprime;
-      cie = results.cie;
-      isoTempLines = results.isoTempLines;
-      setwavelength = results.setwavelength;
-      loadCharts();
-    },
-  });
+      mimeType: "application/json",
+      url: "json/consts.json",
+      async: false,
+      dataType: "json",
+      success: function (results) {
+        CIE_L_cone_opic = results.CIE_L_cone_opic;
+        CIE_M_cone_opic = results.CIE_M_cone_opic;
+        CIE_Melanopic = results.CIE_Melanopic;
+        CIE_Rhodopic = results.CIE_Rhodopic;
+        CIE_S_cone_opic = results.CIE_S_cone_opic;
+        Macula = results.Macula;
+        Melanopsin = results.Melanopsin;
+        Scone = results.Scone;
+        TCS = results.TCS;
+        Vlambda = results.Vlambda;
+        Vprime = results.Vprime;
+        cie = results.cie;
+        isoTempLines = results.isoTempLines;
+        setwavelength = results.setwavelength;
+        loadCharts();
+      },
+    });
   }
 
   importConsts();
-  
 });
