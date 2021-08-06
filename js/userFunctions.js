@@ -1641,7 +1641,7 @@ function handleCalculateByCS() {
     if (/^0.$/.test(this.value)) {
       this.value = this.value.concat("0");
     }
-    var cla = cs2cla(parseFloat(this.value));
+    combinedValues.CLA = cs2cla(parseFloat(this.value));
 
     var testSPD = {
       wavelength: setwavelength,
@@ -1654,7 +1654,7 @@ function handleCalculateByCS() {
         break;
       }
     }
-    var lux = claspd2lux(cla, testSPD, thickness * 2);
+    var lux = cla2lux();
     document.getElementsByClassName("ssIll")[0].value = lux
       .toFixed(2)
       .toString();

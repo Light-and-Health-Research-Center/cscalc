@@ -517,12 +517,12 @@ function DuvCalc() {
   return Duv;
 }
 
-function claspd2lux(cla, thickness) {
+function cla2lux() {
   //Define output
   var result;
 
   // Internal variables
-  var csval = cla / 1547.9;
+  var csval = combinedValues.CLA / 1547.9;
 
   // Parse and normalize SPD input
   var spd1value = spdNormalize(
