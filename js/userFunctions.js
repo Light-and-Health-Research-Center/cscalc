@@ -829,7 +829,7 @@ function handleDownloadMetrics() {
       str += `Illuminance\t${combinedValues.absoluteIll}\n`;
       str += `Irradiance\t${combinedValues.Irr.toExponential(4)}\n`;
       str += `Photon Flux\t${combinedValues.pf.toExponential(4)}\n`;
-      str += `Melanopic EDI\t${combinedValues.EML.toFixed()}\n`;
+      str += `Melanopic EDI\t${combinedValues.MEDI.toFixed()}\n`;
       str += `CCT\t${combinedValues.CCT.toFixed()}\n`;
       str += `Duv\t${combinedValues.Duv.toFixed(3)}\n`;
       str += `CRI\t${combinedValues.CRI.toFixed(1)}\n`;
@@ -1068,7 +1068,7 @@ function updateResults() {
   combinedValues.TCS_1 = TCS_1calc();
   combinedValues.CLA = CLAcalc();
   combinedValues.CS = cla2cs();
-  combinedValues.EML = EMLcalc();
+  combinedValues.MEDI = MEDIcalc();
   combinedValues.Irr = combinedValues.absoluteSPD.value.sum() * 2;
   combinedValues.pf = PFcalc();
   combinedValues.CCT = CCTcalc();
@@ -1081,10 +1081,10 @@ function updateResults() {
 
   // Calculate Spectral Efficiency Function
   var rodSat0 = 0.1088;
-  var rodSat1 = fmin(prepGenerateCircadianSpectralResponceForSPD, {
+  var rodSat1 = fmin(prepgenerateCircadianSpectralResponseForSPD, {
     spd: combinedValues.relativeSPD,
   }, rodSat0);
-  var sefObj = generateCircadianSpectralResponceForSPD(rodSat1);
+  var sefObj = generateCircadianSpectralResponseForSPD(rodSat1);
   if (sefObj.cool) {
     spectralEfficiencyFunctionDataset.label =
       "Relative Spectral Contribution of the Circadian Response*: Cool";
@@ -1101,7 +1101,7 @@ function updateResults() {
 
   // Update Results Section HTML
   $("#resultIll").html(combinedValues.absoluteIll);
-  $("#resultEML").html(combinedValues.EML.toFixed());
+  $("#resultMEDI").html(combinedValues.MEDI.toFixed());
   $("#resultCLA").html(combinedValues.CLA.toFixed());
   $("#resultCS").html(combinedValues.CS.toFixed(3));
   $("#resultCCT").html(combinedValues.CCT.toFixed());
@@ -1709,7 +1709,7 @@ function handleCalculationsJson() {
       illuminance: combinedValues.absoluteIll.toString(),
       irradiance: combinedValues.Irr.toExponential(4),
       flux: combinedValues.pf.toExponential(4),
-      medi: combinedValues.EML.toFixed(),
+      medi: combinedValues.MEDI.toFixed(),
       cct: combinedValues.CCT.toFixed(),
       duv: combinedValues.Duv.toFixed(3),
       cri: combinedValues.CRI.toFixed(1),

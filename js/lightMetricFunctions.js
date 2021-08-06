@@ -236,16 +236,10 @@ function CRIcalc() {
   // Calculate Reference Source Spectrum, spdref
   var spdref = [];
   if (combinedValues.CCT < 5000 && combinedValues.CCT > 0) {
-    spdref = blackbodySpectra(
-      combinedValues.CCT,
-      combinedValues.relativeSPD.wavelength
-    );
+    spdref = blackbodySpectra();
   } else {
     if (combinedValues.CCT <= 25000) {
-      spdref = CIEDaySpectra(
-        combinedValues.CCT,
-        combinedValues.relativeSPD.wavelength
-      );
+      spdref = CIEDaySpectra();
     }
   }  
 
@@ -467,7 +461,7 @@ function PFcalc() {
   ).sum() * 2;
 }
 
-function EMLcalc() {
+function MEDIcalc() {
   var cs;
 
   var spdMelanopsin = sumproduct(
@@ -520,7 +514,7 @@ function DuvCalc() {
 function cla2lux() {
 }
 
-function generateCircadianSpectralResponceForSPD(rod) {
+function generateCircadianSpectralResponseForSPD(rod) {
   var specRespMinusRod;
 
   var spdScone = sumproduct(
@@ -533,8 +527,6 @@ function generateCircadianSpectralResponceForSPD(rod) {
   );
 
   var cool = false;
-
-  console.log({a3, rod});
 
   if (spdScone - k * spdVlambda > 0) {
     specRespMinusRod = arraySub2(
@@ -564,8 +556,8 @@ function generateCircadianSpectralResponceForSPD(rod) {
   return result;
 }
 
-function prepGenerateCircadianSpectralResponceForSPD(funcParams, rod) {
-  var resultObj = generateCircadianSpectralResponceForSPD(rod);
+function prepgenerateCircadianSpectralResponseForSPD(funcParams, rod) {
+  var resultObj = generateCircadianSpectralResponseForSPD(rod);
   return resultObj.responseDiff;
 }
 
