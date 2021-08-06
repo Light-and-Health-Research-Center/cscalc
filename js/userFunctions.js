@@ -1081,10 +1081,9 @@ function updateResults() {
 
   // Calculate Spectral Efficiency Function
   var rodSat0 = 0.1088;
-  var test = {
+  var rodSat1 = fmin(prepGenerateCircadianSpectralResponceForSPD, {
     spd: combinedValues.relativeSPD,
-  };
-  var rodSat1 = fmin(prepGenerateCircadianSpectralResponceForSPD, test, rodSat0);
+  }, rodSat0);
   var sefObj = generateCircadianSpectralResponceForSPD(rodSat1);
   if (sefObj.cool) {
     spectralEfficiencyFunctionDataset.label =

@@ -179,8 +179,8 @@ function CIEDaySpectra() {
     var xd;
     if (combinedValues.CCT <= 7000) {
       xd =
-        -4.607e9 / Math.pow(Tc, 3) +
-        2.9678e6 / Math.pow(Tc, 2) +
+        -4.607e9 / Math.pow(combinedValues.CCT, 3) +
+        2.9678e6 / Math.pow(combinedValues.CCT, 2) +
         0.09911e3 / combinedValues.CCT +
         0.244063;
     } else {
@@ -518,110 +518,33 @@ function DuvCalc() {
 }
 
 function cla2lux() {
-  //Define output
-  var result;
-
-  // Internal variables
-  var csval = combinedValues.CLA / 1547.9;
-
-  // Parse and normalize SPD input
-  var spd1value = spdNormalize(
-    combinedValues.relativeSPD.wavelength,
-    combinedValues.relativeSPD.value
-  );
-
-  // Prep spd1efs
-  var spd1Scone = sumproduct(
-    spd1value,
-    arrayMul(combinedValues.deltaWavelength, combinedValues.efs.Scone)
-  );
-  var spd1Vlambda = sumproduct(
-    spd1value,
-    arrayMul(combinedValues.deltaWavelength, combinedValues.efs.Vlambda)
-  );
-  var spd1Melanopsin = sumproduct(
-    spd1value,
-    arrayMul(combinedValues.deltaWavelength, combinedValues.efs.Melanopsin)
-  );
-  var spd1Vprime = sumproduct(
-    spd1value,
-    arrayMul(combinedValues.deltaWavelength, combinedValues.efs.Vprime)
-  );
-
-  // Create spd1efs
-  var spd1efs = {
-    Scone: spd1Scone,
-    Vlambda: spd1Vlambda,
-    Melanopsin: spd1Melanopsin,
-    Vprime: spd1Vprime,
-  };
-
-  // Test B-Y
-  if (spd1efs.Scone - k * spd1efs.Vlambda > 0) {
-    var lux0 = 0;
-
-    var test = {
-      csval: csval,
-      consts: consts,
-      spd1efs: spd1efs,
-    };
-    // Calculate lux
-    result = fmin(claspd2luxmin, test, lux0);
-  } else {
-    result = csval / (a1 * spd1efs.Melanopsin - b1);
-  }
-  return result;
-}
-
-function claspd2luxmin(funcParams, lux) {
-  // Unbox funcParams
-  var csval = funcParams.csval;
-  var consts = funcParams.consts;
-  var spd1efs = funcParams.spd1efs;
-
-  // Calculate cs
-  var cs1 = a1 * spd1efs.Melanopsin * lux - b1;
-  if (cs1 < 0) {
-    cs1 = 0;
-  }
-  var cs2 =
-    a2 * (spd1efs.Scone * lux - k * spd1efs.Vlambda * lux) -
-    b2;
-  if (cs2 < 0) {
-    cs2 = 0;
-  }
-  var rod =
-    a3 * (1 - Math.exp((-spd1efs.Vprime * lux) / rodSat));
-  var cs = cs1 + cs2 - rod;
-  if (cs < 0) {
-    cs = 0;
-  }
-
-  // Set Result
-  var result = Math.pow(csval - cs, 2);
-  //var result = cs;
-  return result;
 }
 
 function generateCircadianSpectralResponceForSPD(rod) {
   var specRespMinusRod;
 
-  var wavelength = combinedValues.relativeSPD.wavelength;
-  var value = combinedValues.relativeSPD.value;
-
-  var deltaWavelength = createDelta(wavelength);
-
-  var spdScone = sumproduct(value, arrayMul(deltaWavelength, combinedValues.efs.Scone));
-  var spdVlambda = sumproduct(value, arrayMul(deltaWavelength, combinedValues.efs.Vlambda));
+  var spdScone = sumproduct(
+    combinedValues.relativeSPD.value,
+    arrayMul(combinedValues.deltaWavelength, combinedValues.efs.Scone)
+  );
+  var spdVlambda = sumproduct(
+    combinedValues.relativeSPD.value,
+    arrayMul(combinedValues.deltaWavelength, combinedValues.efs.Vlambda)
+  );
 
   var cool = false;
+
+  console.log({a3, rod});
 
   if (spdScone - k * spdVlambda > 0) {
     specRespMinusRod = arraySub2(
       arrayAdd(
         arraySub2(arrayScalar(combinedValues.efs.Melanopsin, a1), b1),
         arraySub2(
-          arraySub2(arrayScalar(combinedValues.efs.Scone, a2), arrayScalar(combinedValues.efs.Vlambda, k)),
+          arraySub2(
+            arrayScalar(combinedValues.efs.Scone, a2),
+            arrayScalar(combinedValues.efs.Vlambda, k)
+          ),
           b2
         )
       ),
