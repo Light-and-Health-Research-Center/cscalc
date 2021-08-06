@@ -301,6 +301,102 @@ function arrayEval(array1, array2) {
   return result;
 }
 
+function pchip(x, y, xx) {
+  var h = arrayDiff(x);
+  var del = arrayDiv(arrayDiff(y), h);
+  var n = x.length;
+
+  // First derivatives
+  var d = pchipslopes(x, y, del);
+
+  // Piecewise polynomial coefficients
+  var d1 = d.slice(0, n - 1);
+  var d2 = d.slice(1, n);
+  var a1 = arrayScalar(d1, 2);
+  var a = arrayDiv(
+    arraySub(arraySub(arrayScalar(del, 3), arrayScalar(d1, 2)), d2),
+    h
+  );
+  var b = arrayDiv(
+    arrayAdd(arraySub(d1, arrayScalar(del, 2)), d2),
+    arrayBase(h, 2)
+  );
+
+  // Find Subinterval indicies
+  var k = arrayRep(1, xx.length);
+  for (var j = 1; j < x.length; j++) {
+    for (var i = 0; i < xx.length; i++) {
+      if (x[j] <= xx[i]) {
+        k[i] = j;
+      }
+    }
+  }
+
+  // Evaluate inerpolant
+  var s = arraySub(xx, arrayEval(x, k));
+  var v = arrayAdd(
+    arrayEval(y, k),
+    arrayMul(
+      arrayAdd(
+        arrayEval(d, k),
+        arrayMul(arrayAdd(arrayEval(a, k), arrayMul(arrayEval(b, k), s)), s)
+      ),
+      s
+    )
+  );
+
+  return v;
+}
+
+function pchipslopes(x, y, del) {
+  var n = x.length;
+  var d = arrayRep(0, y.length);
+  var h = arrayDiff(x);
+
+  // k = find(sign(del(1:n-2)).*sign(del(2:n-1)) > 0);
+  var signDel = arrayDiv(del, arrayAbs(del));
+  var signDel1 = signDel.slice(0, n - 1);
+  var signDel2 = signDel.slice(1, n);
+  var signDelTest = arrayMul(signDel1, signDel2);
+  var k = [];
+  var kIndex = 0;
+  for (var i = 0; i < signDelTest.length; i++) {
+    if (signDelTest[i] > 0) {
+      k[kIndex] = i;
+      kIndex = kIndex + 1;
+    }
+  }
+
+  for (i = 0; i < k.length; i++) {
+    var hs = h[k[i]] + h[k[i] + 1];
+    var w1 = (h[k[i]] + hs) / (3 * hs);
+    var w2 = (h[k[i] + 1] + hs) / (3 * hs);
+    var dmax = Math.max(Math.abs(del[k[i]]), Math.abs(del[k[i] + 1]));
+    var dmin = Math.min(Math.abs(del[k[i]]), Math.abs(del[k[i] + 1]));
+    d[k[i] + 1] =
+      dmin / (w1 * (del[k[i]] / dmax) + w2 * (del[k[i] + 1] / dmax));
+  }
+
+  d[0] = ((2 * h[0] + h[1]) * del[0] - h[0] * del[1]) / (h[0] + h[1]);
+  if (d[0] * del[0] < 0) {
+    d[0] = 0;
+  } else if (del[0] * del[1] < 0 && Math.abs(d[0]) > Math.abs(del[0] * 3)) {
+    d[0] = 3 * del[0];
+  }
+  d[n - 1] =
+    ((2 * h[n - 2] + h[n - 3]) * del[n - 2] - h[n - 2] * del[n - 3]) /
+    (h[n - 2] + h[n - 3]);
+  if (d[n - 1] * del[n - 1] < 0) {
+    d[n - 1] = 0;
+  } else if (
+    del[n - 2] * del[n - 3] < 0 &&
+    Math.abs(d[n - 1]) > Math.abs(3 * del[n - 2])
+  ) {
+    d[n - 1] = 3 * del[n - 2];
+  }
+  return d;
+}
+
 function fmin(func, funcParams, xin) {
   var rho = 1;
   var chi = 2;

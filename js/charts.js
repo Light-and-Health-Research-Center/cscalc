@@ -13,7 +13,7 @@ var configSourceSPD,
   sourceWavelengths,
   sourceValues;
 
-$(document).ready(function () {
+function loadCharts(){
   // Source SPD
   Chart.defaults.global.defaultFontSize = 18;
   Chart.defaults.global.defaultFontColor = "black";
@@ -1386,4 +1386,4 @@ $(document).ready(function () {
   document.getElementById("chromaticityLegend").innerHTML =
     chromaticityChart.generateLegend();
   // Chromaticity
-});
+};
