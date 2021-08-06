@@ -1,18 +1,10 @@
 const VERSION = "2.0.0";
 
-let thickness = 1;
-let _thickness = 1;
-let _mpod = 0.5,
-  _t = 1,
-  _d = 1,
-  _p = 0;
-
 let sourcelist;
 let userSourceList = [];
 let manUnique = [];
 let lampUnique = [];
 let cctUnique = [];
-var combinedValues;
 
 colors = ["#804080", "#408040", "#C0C040", "#C08040", "#C090A0"];
 colorIdx = 0;
@@ -837,7 +829,7 @@ function handleDownloadMetrics() {
       str += `Illuminance\t${combinedValues.absoluteIll}\n`;
       str += `Irradiance\t${combinedValues.Irr.toExponential(4)}\n`;
       str += `Photon Flux\t${combinedValues.pf.toExponential(4)}\n`;
-      str += `Melanopic EDI\t${combinedValues.EML.toFixed()}\n`;
+      str += `Melanopic EDI\t${combinedValues.MEDI.toFixed()}\n`;
       str += `CCT\t${combinedValues.CCT.toFixed()}\n`;
       str += `Duv\t${combinedValues.Duv.toFixed(3)}\n`;
       str += `CRI\t${combinedValues.CRI.toFixed(1)}\n`;
@@ -1005,46 +997,94 @@ function updateResults() {
     wavelength: setwavelength,
     value: spdNormalize(setwavelength, combinedValues.absoluteSPD.value),
   };
-  // Calculate CLA and CS Values based on macular thickness range
-  combinedValues.CLA = CLAcalc(combinedValues.absoluteSPD, thickness * 2);
-  combinedValues.CS = cla2cs(combinedValues.CLA);
-
-  // Calculate Melanopic Lux
-  combinedValues.EML = EMLcalc(combinedValues.absoluteSPD);
-
-  // Calculate Spectral Irradiance
+  combinedValues.efs = efficiencyFunctions();
+  combinedValues.deltaWavelength = createDelta(combinedValues.relativeSPD.wavelength);
+  combinedValues.xbar = interp1(
+    cie.wavelength,
+    cie.xbar,
+    combinedValues.relativeSPD.wavelength,
+    0
+  );
+  combinedValues.ybar = interp1(
+    cie.wavelength,
+    cie.ybar,
+    combinedValues.relativeSPD.wavelength,
+    0
+  );
+  combinedValues.zbar = interp1(
+    cie.wavelength,
+    cie.zbar,
+    combinedValues.relativeSPD.wavelength,
+    0
+  );
+  combinedValues.X = sumproduct(
+    combinedValues.relativeSPD.value,
+    arrayMul(combinedValues.deltaWavelength, combinedValues.xbar)
+  );
+  combinedValues.Y = sumproduct(
+    combinedValues.relativeSPD.value,
+    arrayMul(combinedValues.deltaWavelength, combinedValues.ybar)
+  );
+  combinedValues.Z = sumproduct(
+    combinedValues.relativeSPD.value,
+    arrayMul(combinedValues.deltaWavelength, combinedValues.zbar)
+  );
+  combinedValues.CIE_S_cone_opic_irr = sumproduct(
+    combinedValues.absoluteSPD.value,
+    arrayMul(combinedValues.deltaWavelength, combinedValues.efs.CIE_S_cone)
+  );
+  combinedValues.CIE_M_cone_opic_irr = sumproduct(
+    combinedValues.absoluteSPD.value,
+    arrayMul(combinedValues.deltaWavelength, combinedValues.efs.CIE_M_cone)
+  );
+  combinedValues.CIE_L_cone_opic_irr = sumproduct(
+    combinedValues.absoluteSPD.value,
+    arrayMul(combinedValues.deltaWavelength, combinedValues.efs.CIE_L_cone)
+  );
+  combinedValues.CIE_Rhodopic_irr = sumproduct(
+    combinedValues.absoluteSPD.value,
+    arrayMul(combinedValues.deltaWavelength, combinedValues.efs.CIE_Rhodopic)
+  );
+  combinedValues.CIE_Melanopic_irr = sumproduct(
+    combinedValues.absoluteSPD.value,
+    arrayMul(combinedValues.deltaWavelength, combinedValues.efs.CIE_Melanopic)
+  );
+  combinedValues.vlambda = sumproduct(
+    combinedValues.absoluteSPD.value,
+    arrayMul(combinedValues.deltaWavelength, combinedValues.efs.Vlambda)
+  );
+  combinedValues.vprime = sumproduct(
+    combinedValues.absoluteSPD.value,
+    arrayMul(combinedValues.deltaWavelength, combinedValues.efs.Vprime)
+  );
+  combinedValues.scone = sumproduct(
+    combinedValues.absoluteSPD.value,
+    arrayMul(combinedValues.deltaWavelength, combinedValues.efs.Scone)
+  );
+  combinedValues.melanopsin = sumproduct(
+    combinedValues.absoluteSPD.value,
+    arrayMul(combinedValues.deltaWavelength, combinedValues.efs.Melanopsin)
+  );
+  combinedValues.TCS_1 = TCS_1calc();
+  combinedValues.CLA = CLAcalc();
+  combinedValues.CS = cla2cs();
+  combinedValues.MEDI = MEDIcalc();
   combinedValues.Irr = combinedValues.absoluteSPD.value.sum() * 2;
-
-  // Calculate photon flux
-  combinedValues.pf =
-    arrayDiv(
-      combinedValues.absoluteSPD.value,
-      arrayInverse(
-        arrayScalar(
-          combinedValues.absoluteSPD.wavelength,
-          1e-9 / 1.9865275648e-25
-        )
-      )
-    ).sum() * 2;
-
-  // Calculate color metrics
-  combinedValues.CCT = CCTcalc(combinedValues.relativeSPD);
-  combinedValues.CRI = CRIcalc(combinedValues.relativeSPD);
-  combinedValues.GAI = GAIcalc(combinedValues.relativeSPD);
-  combinedValues.Duv = DuvCalc(combinedValues.relativeSPD);
-
-  // Calculate color cordinates
-  var ccVals = chromaticityCoordinatesCalc(combinedValues.absoluteSPD);
+  combinedValues.pf = PFcalc();
+  combinedValues.CCT = CCTcalc();
+  combinedValues.CRI = CRIcalc();
+  combinedValues.GAI = GAIcalc();
+  combinedValues.Duv = DuvCalc();
+  var ccVals = chromaticityCoordinatesCalc();
   combinedValues.x = ccVals.x;
   combinedValues.y = ccVals.y;
 
   // Calculate Spectral Efficiency Function
   var rodSat0 = 0.1088;
-  var test = {
+  var rodSat1 = fmin(prepgenerateCircadianSpectralResponseForSPD, {
     spd: combinedValues.relativeSPD,
-  };
-  var rodSat = fmin(prepGenerateCircadianSpectralResponceForSPD, test, rodSat0);
-  var sefObj = generateCircadianSpectralResponceForSPD(test.spd, rodSat);
+  }, rodSat0);
+  var sefObj = generateCircadianSpectralResponseForSPD(rodSat1);
   if (sefObj.cool) {
     spectralEfficiencyFunctionDataset.label =
       "Relative Spectral Contribution of the Circadian Response*: Cool";
@@ -1061,7 +1101,7 @@ function updateResults() {
 
   // Update Results Section HTML
   $("#resultIll").html(combinedValues.absoluteIll);
-  $("#resultEML").html(combinedValues.EML.toFixed());
+  $("#resultMEDI").html(combinedValues.MEDI.toFixed());
   $("#resultCLA").html(combinedValues.CLA.toFixed());
   $("#resultCS").html(combinedValues.CS.toFixed(3));
   $("#resultCCT").html(combinedValues.CCT.toFixed());
@@ -1085,7 +1125,7 @@ function updateResults() {
 
   // Update Relative SPD HTML
   $("#RelSpdContainer").empty();
-  var row, wave, val;
+  var row;
   for (var i = 0; i < combinedValues.relativeSPD.wavelength.length; i++) {
     row = "";
     row += '<div class="row mb-1 zebra-row">';
@@ -1600,7 +1640,7 @@ function handleCalculateByCS() {
     if (/^0.$/.test(this.value)) {
       this.value = this.value.concat("0");
     }
-    var cla = cs2cla(parseFloat(this.value));
+    combinedValues.CLA = cs2cla(parseFloat(this.value));
 
     var testSPD = {
       wavelength: setwavelength,
@@ -1613,7 +1653,7 @@ function handleCalculateByCS() {
         break;
       }
     }
-    var lux = claspd2lux(cla, testSPD, thickness * 2);
+    var lux = cla2lux();
     document.getElementsByClassName("ssIll")[0].value = lux
       .toFixed(2)
       .toString();
@@ -1669,7 +1709,7 @@ function handleCalculationsJson() {
       illuminance: combinedValues.absoluteIll.toString(),
       irradiance: combinedValues.Irr.toExponential(4),
       flux: combinedValues.pf.toExponential(4),
-      medi: combinedValues.EML.toFixed(),
+      medi: combinedValues.MEDI.toFixed(),
       cct: combinedValues.CCT.toFixed(),
       duv: combinedValues.Duv.toFixed(3),
       cri: combinedValues.CRI.toFixed(1),
