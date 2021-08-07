@@ -193,7 +193,6 @@ function addSource(sourceIdx) {
   // Disable sourcelist button
   $("#source_" + sourceIdx).addClass("disabled");
   $("#source_" + sourceIdx).prop("disabled", true);
-  updateResults();
 
   // Update chart dataset array
   addSourceDataset(sourcelist[sourceIdx]);
@@ -998,7 +997,9 @@ function updateResults() {
     value: spdNormalize(setwavelength, combinedValues.absoluteSPD.value),
   };
   combinedValues.efs = efficiencyFunctions();
-  combinedValues.deltaWavelength = createDelta(combinedValues.relativeSPD.wavelength);
+  combinedValues.deltaWavelength = createDelta(
+    combinedValues.relativeSPD.wavelength
+  );
   combinedValues.xbar = interp1(
     cie.wavelength,
     cie.xbar,
@@ -1081,9 +1082,13 @@ function updateResults() {
 
   // Calculate Spectral Efficiency Function
   var rodSat0 = 0.1088;
-  var rodSat1 = fmin(prepgenerateCircadianSpectralResponseForSPD, {
-    spd: combinedValues.relativeSPD,
-  }, rodSat0);
+  var rodSat1 = fmin(
+    prepgenerateCircadianSpectralResponseForSPD,
+    {
+      spd: combinedValues.relativeSPD,
+    },
+    rodSat0
+  );
   var sefObj = generateCircadianSpectralResponseForSPD(rodSat1);
   if (sefObj.cool) {
     spectralEfficiencyFunctionDataset.label =
@@ -1261,7 +1266,6 @@ function updateResults() {
   chromaticityChart.update();
   document.getElementById("chromaticityLegend").innerHTML =
     chromaticityChart.generateLegend();
-
   return;
 }
 
