@@ -86,6 +86,10 @@ h2 {
   width: 10%;
 }
 
+.h-1rem {
+height: 1rem;
+}
+
 .mw-175{
   min-width: 175px;
 }
