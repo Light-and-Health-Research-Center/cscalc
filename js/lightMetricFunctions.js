@@ -35,7 +35,40 @@ const a2 = 0.7;
 const b2 = 0.0;
 const a3 = 3.3;
 
-var combinedValues;
+var combinedValues = {
+  CCT: 0,
+  CIE_L_cone_opic_irr: 0,
+  CIE_M_cone_opic_irr: 0,
+  CIE_Melanopic_irr: 0,
+  CIE_Rhodopic_irr: 0,
+  CIE_S_cone_opic_irr: 0,
+  CLA: 0,
+  CRI: 0,
+  CS: 0,
+  Duv: 0,
+  GAI: 0,
+  Irr: 0,
+  MEDI: 0,
+  TCS_1: {},
+  X: 0,
+  Y: 0,
+  Z: 0,
+  absoluteIll: 0,
+  absoluteSPD: {},
+  deltaWavelength: [],
+  efs: {},
+  melanopsin: 0,
+  pf: 0,
+  relativeSPD: {},
+  scone: 0,
+  vlambda: 0,
+  vprime: 0,
+  x: 0,
+  xbar: [],
+  y: 0,
+  ybar: [],
+  zbar: [],
+};
 
 function CCTcalc() {
   // Base math
