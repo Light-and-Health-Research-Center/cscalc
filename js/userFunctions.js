@@ -736,18 +736,6 @@ function handleSPDBtns() {
   });
 }
 
-function handleHelpMenu() {
-  $(".help-menu-list-item").on("click", function () {
-    if (!$(this).hasClass("active")) {
-      $(".help-menu-list-item").removeClass("active");
-      $(this).addClass("active");
-      let sectionID = "#help-" + $(this).data("value");
-      $(".help-section").addClass("d-none");
-      $(sectionID).removeClass("d-none");
-    }
-  });
-}
-
 function handleScrollTopOnReload() {
   window.onbeforeunload = function () {
     window.scrollTo(0, 0);
@@ -1797,8 +1785,6 @@ $(document).ready(function () {
   handlePlotBtns();
 
   handleSPDBtns();
-
-  handleHelpMenu();
 
   handleScrollTopOnReload();
 
