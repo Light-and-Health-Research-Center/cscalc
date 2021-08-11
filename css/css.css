@@ -86,6 +86,10 @@ h2 {
   width: 10%;
 }
 
+.w-160px {
+  width: 160px;
+}
+
 .h-1rem {
 height: 1rem;
 }
