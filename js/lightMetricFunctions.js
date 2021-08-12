@@ -563,7 +563,51 @@ function DuvCalc() {
   return Duv;
 }
 
-function cla2lux() {}
+function cla2lux() {
+  const r = rodSat;
+  const R = combinedValues.vprime;
+  const M = combinedValues.melanopsin;
+  const S = combinedValues.scone;
+  const V = combinedValues.vlambda;
+  const f = arod1;
+  const b = a_bminusY;
+  const c = arod2;
+  const g = g1;
+  const h = g2;
+  const C = combinedValues.CLA / 1548;
+
+  let x, a;
+
+  const BminusY = S - k * V;
+
+  if (BminusY < 0) {
+    x =
+      (-Math.exp(
+        -(f * Math.pow(R, 2) + C * g * S * R + C * V * R) /
+          (g * M * r * S + M * r * V)
+      ) *
+        f *
+        Math.pow(R, 2)) /
+      (M * r * (g * S + V));
+    a = (r * lambertw(x)) / R + C / M + (f * R) / (g * M * S + M * V);
+  } else {
+    x =
+      (-Math.exp(
+        (R * (-C - (f * R) / (g * S + V) - (c * R) / (h * S + V))) /
+          (r * (M + b * S - b * k * V))
+      ) *
+        Math.pow(R, 2) *
+        (c * g * S + f * h * S + c * V + f * V)) /
+      (r * (g * S + V) * (h * S + V) * (M + b * S - b * k * V));
+    a =
+      (r * lambertw(x)) / R +
+      (c * R) / ((h * S + V) * (-b * k * V + b * S + M)) +
+      C / (-b * k * V + b * S + M) +
+      (f * R) / ((g * S + V) * (-b * k * V + b * S + M));
+  }
+
+  return combinedValues.Y * 683 * a;
+}
 
 function generateCircadianSpectralResponseForSPD(rod) {
   var specRespMinusRod;
@@ -723,7 +767,7 @@ function efficiencyFunctions() {
   };
 }
 
-function ssAbsoluteSPDCalc() {
+function ssAbsoluteSPDCalc(defaultIlluminance) {
   var result = {
     absoluteIll: 0,
     absoluteSPD: {
@@ -731,10 +775,18 @@ function ssAbsoluteSPDCalc() {
       value: arrayScalar(setwavelength, 0),
     },
   };
+
   for (var i = 0; i < sourcelist.length; i++) {
     if (sourcelist[i].isSelected) {
+      if (defaultIlluminance) {
+        sourcelist[i].selectedSource.absoluteSPD = arrayScalar(
+          sourcelist[i].selectedSource.relativeSPD,
+          defaultIlluminance
+        );
+      }
       result.absoluteIll =
-        result.absoluteIll + sourcelist[i].selectedSource.illuminance;
+        result.absoluteIll +
+        (defaultIlluminance || sourcelist[i].selectedSource.illuminance);
       result.absoluteSPD.value = arrayAdd(
         result.absoluteSPD.value,
         sourcelist[i].selectedSource.absoluteSPD

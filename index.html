@@ -910,24 +910,39 @@
                           </div>
                           <div class="collapse show" id="sources">
                             <div class="card-body" id="sources-container">
-                              <div
-                                id="selected-sources"
-                                class="container-fluid"
-                              >
+                              <div id="selected-sources" class="container-fluid mb-4 d-none">
+                                <div class="row">
+                                  <div class="col">
+                                    <p class="small border-bottom font-weight-bold">Calculate via Illuminance (lx)</p>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="container-fluid">
                                 <div class="no-sources row mb-1">
-                                  <div
-                                    class="col d-flex justify-content-center"
-                                  >
+                                  <div class="col d-flex justify-content-center">
                                     <div>No Selected Sources</div>
                                   </div>
                                 </div>
                               </div>
-                              <div
-                                class="container-fluid h-1rem"
-                              >
+                              <div id="csInputSection" class="container-fluid d-none mb-4">
+                                <div class="row">
+                                  <div class="col">
+                                    <p class="small border-bottom font-weight-bold">Calculate via CS</p>
+                                  </div>
+                                </div>
+                                <div class="row bg-f2 py-2 rounded">
+                                  <div class="col">
+                                    <input
+                                    oninput="handleLuxChangeFocus()" onfocusout="handleLuxChangeFocusOut()"
+                                    onkeydown="if(event.keyCode==13){ $(this).blur(); return false;}"
+                                    autocomplete="off" id="csInput" class="form-control" placeholder="0.000">
+                                  </div>
+                                </div>
+                              </div>
+                              <div id="lux-change-pending-container" class="container-fluid d-none">
                                 <div class="row">
                                   <div class="col text-center">
-                                    <div id="lux-change-pending-container" class="font-size-_75 font-italic d-none">
+                                    <div class="font-size-_75 font-italic">
                                       <i class="ms-pink far fa-dot-circle"></i>
                                       changes pending - press enter to
                                       recalculate

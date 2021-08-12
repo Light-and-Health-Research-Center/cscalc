@@ -220,21 +220,25 @@ function addSourceDataset(source) {
     yAxisID: "y-axis-1",
   };
   configSPD.data.datasets.push(newDataset);
+  console.log(configSPD.data.datasets);
   if (configSPD.data.datasets.length == 1) {
     configSPD.data.datasets.unshift(spectralEfficiencyFunctionDataset);
     $("#spdLegendDiv").show();
     $("#crmLegendDiv").show();
     $("#chromaticityLegendDiv").show();
-    $("#csInputSection").show();
+    console.log($("#csInputSection"));
+    $("#csInputSection").removeClass("d-none");
+    console.log($("#csInputSection"));
   } else if (configSPD.data.datasets.length == 3) {
     configSPD.data.datasets.unshift(combinedSourceDataset);
-    $("#csInputSection").hide();
+    $("#csInputSection").addClass("d-none");
   } else {
-    $("#csInputSection").hide();
+    $("#csInputSection").addClass("d-none");
   }
   spdChart.update();
   document.getElementById("spdLegend").innerHTML = spdChart.generateLegend();
   $("#noSelectedSources").hide();
+  $("#selected-sources").removeClass("d-none");
   $("#sources-table").show();
 }
 
@@ -248,14 +252,15 @@ function removeSourceDataset(source) {
       ) {
         configSPD.data.datasets[0].data = dataTestNan;
         configSPD.data.datasets.splice(0, 1);
-        $("#csInputSection").show();
+        $("#csInputSection").removeClass("d-none");
         if (configSPD.data.datasets.length == 0) {
           $("#spdLegendDiv").hide();
           $("#crmLegendDiv").hide();
           $("#chromaticityLegendDiv").hide();
           $("#noSelectedSources").show();
+          $("#selected-sources").addClass("d-none");
           $("#sources-table").hide();
-          $("#csInputSection").hide();
+          $("#csInputSection").addClass("d-none");
         }
       }
     }
@@ -1057,18 +1062,18 @@ function updateResults() {
     arrayMul(combinedValues.deltaWavelength, combinedValues.efs.Melanopsin)
   );
   combinedValues.TCS_1 = TCS_1calc();
-  combinedValues.CLA = CLAcalc();
-  combinedValues.CS = cla2cs();
-  combinedValues.MEDI = MEDIcalc();
-  combinedValues.Irr = combinedValues.absoluteSPD.value.sum() * 2;
-  combinedValues.pf = PFcalc();
-  combinedValues.CCT = CCTcalc();
-  combinedValues.CRI = CRIcalc();
-  combinedValues.GAI = GAIcalc();
-  combinedValues.Duv = DuvCalc();
-  var ccVals = chromaticityCoordinatesCalc();
-  combinedValues.x = ccVals.x;
-  combinedValues.y = ccVals.y;
+  combinedValues.CLA = CLAcalc() || 0;
+  combinedValues.CS = cla2cs() || 0;
+  combinedValues.MEDI = MEDIcalc() || 0;
+  combinedValues.Irr = combinedValues.absoluteSPD.value.sum() * 2 || 0;
+  combinedValues.pf = PFcalc() || 0;
+  combinedValues.CCT = CCTcalc() || 0;
+  combinedValues.CRI = CRIcalc() || 0;
+  combinedValues.GAI = GAIcalc() || 0;
+  combinedValues.Duv = DuvCalc() || 0;
+  var ccVals = chromaticityCoordinatesCalc() || 0;
+  combinedValues.x = ccVals.x || 0;
+  combinedValues.y = ccVals.y || 0;
 
   // Calculate Spectral Efficiency Function
   var rodSat0 = 0.1088;
@@ -1093,6 +1098,9 @@ function updateResults() {
     spectralEfficiencyFunctionDataset.borderColor = "rgba(192,0,0,1)";
     spectralEfficiencyFunctionDataset.pointBorderColor = "rgba(192,0,0,1)";
   }
+
+  // Update CS Input Section
+  document.getElementById("csInput").value = combinedValues.CS.toFixed(3);
 
   // Update Results Section HTML
   $("#resultIll").html(combinedValues.absoluteIll);
@@ -1624,7 +1632,6 @@ function handleCalculateByCS() {
   });
 
   $(document).on("change", "#csInput", function () {
-    var sourceIdx = this.id.split("_")[1];
     if (this.value == "") {
       this.value = "0";
     }
@@ -1634,19 +1641,43 @@ function handleCalculateByCS() {
     if (/^0.$/.test(this.value)) {
       this.value = this.value.concat("0");
     }
+    combinedValues = ssAbsoluteSPDCalc(1);
     combinedValues.CLA = cs2cla(parseFloat(this.value));
-
-    var testSPD = {
+    combinedValues.relativeSPD = {
       wavelength: setwavelength,
-      value: arrayScalar(setwavelength, 0),
+      value: spdNormalize(setwavelength, combinedValues.absoluteSPD.value),
     };
+    combinedValues.efs = efficiencyFunctions();
+    combinedValues.deltaWavelength = createDelta(
+      combinedValues.relativeSPD.wavelength
+    );
+    combinedValues.vlambda = sumproduct(
+      combinedValues.absoluteSPD.value,
+      arrayMul(combinedValues.deltaWavelength, combinedValues.efs.Vlambda)
+    );
+    combinedValues.vprime = sumproduct(
+      combinedValues.absoluteSPD.value,
+      arrayMul(combinedValues.deltaWavelength, combinedValues.efs.Vprime)
+    );
+    combinedValues.scone = sumproduct(
+      combinedValues.absoluteSPD.value,
+      arrayMul(combinedValues.deltaWavelength, combinedValues.efs.Scone)
+    );
+    combinedValues.melanopsin = sumproduct(
+      combinedValues.absoluteSPD.value,
+      arrayMul(combinedValues.deltaWavelength, combinedValues.efs.Melanopsin)
+    );
+    combinedValues.ybar = interp1(
+      cie.wavelength,
+      cie.ybar,
+      combinedValues.relativeSPD.wavelength,
+      0
+    );
+    combinedValues.Y = sumproduct(
+      combinedValues.relativeSPD.value,
+      arrayMul(combinedValues.deltaWavelength, combinedValues.ybar)
+    );
 
-    for (var i = 0; i < sourcelist.length; i++) {
-      if (sourcelist[i].isSelected) {
-        testSPD.value = sourcelist[i].selectedSource.relativeSPD;
-        break;
-      }
-    }
     var lux = cla2lux();
     document.getElementsByClassName("ssIll")[0].value = lux
       .toFixed(2)
@@ -1778,7 +1809,7 @@ $(document).ready(function () {
 
   handleToolTips();
 
-  // handleCalculateByCS();
+  handleCalculateByCS();
 
   handleContinueToCalculationsButton();
 
