@@ -391,10 +391,11 @@ ul.list-group.list-group-hover li:hover{
   }
 }
 
-@media only screen and (max-width: 768px) {
-  #content{
-    padding-left: 0 !important;
-    padding-right: 0 !important;
+
+@media only screen and (max-width: 1200px) {
+  #content {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
   }
 }
 
@@ -412,9 +413,17 @@ ul.list-group.list-group-hover li:hover{
   }
 }
 
-@media only screen and (max-width: 1200px) {
-  #content {
-    padding-left: 1rem !important;
-    padding-right: 1rem !important;
+@media only screen and (max-width: 768px) {
+  #content{
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+  .selected-source {
+    flex-wrap: wrap;
+  }
+  .selected-source-input {
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+    width: 100%;
   }
 }

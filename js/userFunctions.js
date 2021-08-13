@@ -161,7 +161,7 @@ function addSource(sourceIdx) {
   div +=
     '<div id="SelectedSource_' +
     sourceIdx +
-    '" class="selected-source col d-flex py-2 justify-content-between align-items-center zebra-entry py-2">';
+    '" class="selected-source col d-flex justify-content-between align-items-center zebra-entry py-2">';
   div += '<div class="d-flex justify-content-start">';
   div +=
     '<button class="py-0 selected-source-icon btn btn-link" type="button" data-toggle="tooltip" title="Toggle Source Info" data-i="' +
@@ -172,12 +172,12 @@ function addSource(sourceIdx) {
     sourceIdx +
     '" data-toggle="tooltip" title="' +
     sourcelist[sourceIdx].id +
-    '" class="px-2">' +
+    '" class="px-2 truncate">' +
     sourcelist[sourceIdx].id +
     "</div>";
   div += "</div>";
   div +=
-    '<div class="d-flex justify-content-end"><input oninput="handleLuxChangeFocus()" onfocusout="handleLuxChangeFocusOut()" onkeydown="if(event.keyCode==13){ $(this).blur(); return false;}" id="ssIll_' +
+    '<div class="d-flex justify-content-end selected-source-input"><input oninput="handleLuxChangeFocus()" onfocusout="handleLuxChangeFocusOut()" onkeydown="if(event.keyCode==13){ $(this).blur(); return false;}" id="ssIll_' +
     sourceIdx +
     '" class="form-control ssIll w-160px" placeholder="Illuminance (lx)" />';
   div +=
