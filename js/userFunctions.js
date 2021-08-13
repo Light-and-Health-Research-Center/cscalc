@@ -172,7 +172,7 @@ function addSource(sourceIdx) {
     sourceIdx +
     '" data-toggle="tooltip" title="' +
     sourcelist[sourceIdx].id +
-    '" class="px-2 truncate">' +
+    '" class="px-2">' +
     sourcelist[sourceIdx].id +
     "</div>";
   div += "</div>";
@@ -286,7 +286,7 @@ function submitUserSourceFromUpload(source) {
   return true;
 }
 
-function updateSourceNameAcrossHTML() {
+function updateSourceNameAcrossHTML(oldid, newid) {
   $(".source-item").each(function () {
     let i = $(this)[0].getAttribute("data-i");
     str = "";
@@ -302,20 +302,31 @@ function updateSourceNameAcrossHTML() {
     });
   });
 
-  $(".selected-source_ > div").each(function () {
-    let i = $(this)[0].getAttribute("data-i");
+  $(".selected-source_ > div.px-2").each(function () {
+    i = $(this)[0].getAttribute("data-i");
     $(this)[0].innerHTML = sourcelist[i].id;
   });
 
-  $(".selected-source > div.text-truncate").each(function () {
-    let i = $(this)[0].getAttribute("data-i");
+  $(".selected-source > div > div.px-2").each(function () {
+    i = $(this)[0].getAttribute("data-i");
     $(this)[0].innerHTML = sourcelist[i].id;
   });
+
+  console.log(configSPD.data.datasets);
+
+  configSPD.data.datasets.forEach((el) => {
+    if (el.label == oldid) {
+      console.log(el);
+      el.label = newid;
+    }
+  });
+  spdChart.update();
 }
 
 function editUserSource(el) {
   let i = el.getAttribute("data-i");
   source = sourcelist[i];
+  oldid = source.id;
   source.id = $("#edit-userID").val();
   source.userMan = $("#edit-userMan").val();
   source.ctt = $("#edit-userCCT").val();
@@ -345,7 +356,7 @@ function editUserSource(el) {
   if (lampUnique.indexOf(source.lamp) == -1) lampUnique.push(source.lamp);
   if (cctUnique.indexOf(source.cct) == -1) cctUnique.push(source.cct);
 
-  updateSourceNameAcrossHTML();
+  updateSourceNameAcrossHTML(oldid, source.id);
   updateSortSource();
   updateResults();
 }
@@ -983,6 +994,7 @@ function sourceListModal(i) {
 }
 
 function updateResults() {
+  console.log("here");
   combinedValues = ssAbsoluteSPDCalc();
   combinedValues.relativeSPD = {
     wavelength: setwavelength,
