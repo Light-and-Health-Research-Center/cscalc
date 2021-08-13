@@ -312,11 +312,8 @@ function updateSourceNameAcrossHTML(oldid, newid) {
     $(this)[0].innerHTML = sourcelist[i].id;
   });
 
-  console.log(configSPD.data.datasets);
-
   configSPD.data.datasets.forEach((el) => {
     if (el.label == oldid) {
-      console.log(el);
       el.label = newid;
     }
   });
@@ -994,7 +991,6 @@ function sourceListModal(i) {
 }
 
 function updateResults() {
-  console.log("here");
   combinedValues = ssAbsoluteSPDCalc();
   combinedValues.relativeSPD = {
     wavelength: setwavelength,
