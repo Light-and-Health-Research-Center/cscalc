@@ -220,15 +220,12 @@ function addSourceDataset(source) {
     yAxisID: "y-axis-1",
   };
   configSPD.data.datasets.push(newDataset);
-  console.log(configSPD.data.datasets);
   if (configSPD.data.datasets.length == 1) {
     configSPD.data.datasets.unshift(spectralEfficiencyFunctionDataset);
     $("#spdLegendDiv").show();
     $("#crmLegendDiv").show();
     $("#chromaticityLegendDiv").show();
-    console.log($("#csInputSection"));
     $("#csInputSection").removeClass("d-none");
-    console.log($("#csInputSection"));
   } else if (configSPD.data.datasets.length == 3) {
     configSPD.data.datasets.unshift(combinedSourceDataset);
     $("#csInputSection").addClass("d-none");
@@ -1619,7 +1616,11 @@ function handleCalculateByCS() {
         .slice(0, this.selectionStart)
         .concat(e.key)
         .concat(this.value.slice(this.selectionEnd, this.value.length));
-      if (!/(^0$)|(^0?\.(\d{1,3})?$)/.test(testString)) {
+      if (
+        !/(^0$)|(^0?\.((0|1|2|3|4|5|6)|(0|1|2|3|4|5|6)(\d)|(0|1|2|3|4|5|6)(\d)(\d)|(7|70|700))?$)/.test(
+          testString
+        )
+      ) {
         //(!((e.keyCode > 95 && e.keyCode < 106) || (e.keyCode > 47 && e.keyCode < 58) || e.keyCode == 8 || e.keyCode == 110 || e.keyCode == 190 || e.keyCode == 46)) {
         return false;
       }
