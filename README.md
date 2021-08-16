@@ -4,6 +4,10 @@ The CS Calculator 2.0 is an open source web application tool that empowers light
 
 Access the CS Calculator 2.0 at [cscalc.light-health.org](https://cscalc.light-health.org).
 
+![CS Calculator 2.0 promo image](img/promo.png)
+
+
+
 ## Documentation
 
 Deatiled documentation for the CS Calculator 2.0 is available at [docs.light-health.org](https://docs.light-health.org/cscalc)
