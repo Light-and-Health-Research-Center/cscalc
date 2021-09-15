@@ -45,6 +45,7 @@ function fillEditSourceModal(el) {
   $("#edit-userLamp").val(source.lamp);
   $("#edit-userDesc").val(source.info);
   fillEditSourceSPD(source, true);
+  validateEditSubmit();
 }
 
 function uploadCustomSources() {
@@ -63,6 +64,7 @@ function uploadCustomSources() {
     reader.onload = (function (aFile) {
       return function (e) {
         let json = JSON.parse(e.target.result);
+        console.log(e);
         for (source of json.sources) {
           submitUserSourceFromUpload(source);
         }
