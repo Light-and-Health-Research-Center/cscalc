@@ -327,10 +327,10 @@ function editUserSource(el) {
   source = sourcelist[i];
   oldid = source.id;
   source.id = $("#edit-userID").val();
-  source.userMan = $("#edit-userMan").val();
-  source.ctt = $("#edit-userCCT").val();
+  source.manufacturer = $("#edit-userMan").val();
+  source.cct = $("#edit-userCCT").val();
   source.lamp = $("#edit-userLamp").val();
-  source.userDesc = $("#edit-userDesc").val();
+  source.info = $("#edit-userDesc").val();
   source.spd = readEditUserSPD().spd;
 
   var valueInt = interp1(
