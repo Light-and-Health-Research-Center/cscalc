@@ -866,13 +866,14 @@ function handleDownloadMetrics() {
 
 function handleDownloadSPDs() {
   $("#download-relative-spd").on("click", function () {
+    var normSPDVals = arrayNormalize(combinedValues.absoluteSPD.value);
     var str = "Nothing here. Check to make sure you've added sources.";
     if (combinedValues) {
       str = "";
       var wl, v, i;
       for (i = 0; i < combinedValues.relativeSPD.wavelength.length; i++) {
         wl = combinedValues.relativeSPD.wavelength[i];
-        v = combinedValues.relativeSPD.value[i];
+        v = normSPDVals[i];
         str += `${wl}\t${v}\n`;
       }
     }
