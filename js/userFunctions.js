@@ -866,14 +866,13 @@ function handleDownloadMetrics() {
 
 function handleDownloadSPDs() {
   $("#download-relative-spd").on("click", function () {
-    var normSPDVals = arrayNormalize(combinedValues.absoluteSPD.value);
     var str = "Nothing here. Check to make sure you've added sources.";
     if (combinedValues) {
       str = "";
       var wl, v, i;
       for (i = 0; i < combinedValues.relativeSPD.wavelength.length; i++) {
         wl = combinedValues.relativeSPD.wavelength[i];
-        v = normSPDVals[i];
+        v = combinedValues.relativeSPD.value[i];
         str += `${wl}\t${v}\n`;
       }
     }
@@ -997,7 +996,9 @@ function updateResults() {
   combinedValues = ssAbsoluteSPDCalc();
   combinedValues.relativeSPD = {
     wavelength: setwavelength,
-    value: spdNormalize(setwavelength, combinedValues.absoluteSPD.value),
+    value: arrayNormalize(
+      spdNormalize(setwavelength, combinedValues.absoluteSPD.value)
+    ),
   };
   combinedValues.efs = efficiencyFunctions();
   combinedValues.deltaWavelength = createDelta(
@@ -1132,8 +1133,6 @@ function updateResults() {
 
   $("#resultPf").html(combinedValues.pf.toExponential(4));
 
-  var normSPDVals = arrayNormalize(combinedValues.absoluteSPD.value);
-
   // Update Relative SPD HTML
   $("#RelSpdContainer").empty();
   var row;
@@ -1147,7 +1146,7 @@ function updateResults() {
       "</div>";
     row +=
       '    <div class="spd-value">' +
-      normSPDVals[i].toExponential(4) +
+      combinedValues.relativeSPD.value[i].toExponential(4) +
       "</div>";
     row += "  </div>";
     row += "</div>";
@@ -1221,7 +1220,7 @@ function updateResults() {
 
   // Update Combined
   if (configSPD.data.datasets.length > 2) {
-    dataValue = normSPDVals;
+    dataValue = combinedValues.relativeSPD.value;
     dataTest = [];
     for (k = 0; k < setwavelength.length; k++) {
       dataTest[k] = {
