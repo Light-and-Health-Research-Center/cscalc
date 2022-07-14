@@ -1074,7 +1074,7 @@ function updateResults() {
   combinedValues.CLA = CLAcalc() || 0;
   combinedValues.CS = cla2cs() || 0;
   combinedValues.MEDI = MEDIcalc() || 0;
-  combinedValues.Irr = combinedValues.absoluteSPD.value.sum() * 2 || 0;
+  combinedValues.Irr = combinedValues.absoluteSPD.value.sum() * 1 || 0;
   combinedValues.pf = PFcalc() || 0;
   combinedValues.CCT = CCTcalc() || 0;
   combinedValues.CRI = CRIcalc() || 0;
