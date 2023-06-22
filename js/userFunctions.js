@@ -1133,6 +1133,17 @@ function updateResults() {
 
   $("#resultPf").html(combinedValues.pf.toExponential(4));
 
+  // update exposure duration section
+  var time = combinedValues.t = 542.48/combinedValues.CLA;
+  time = time.toFixed(1);
+
+  $("#timeDiv").show();
+  $("#timeNotes").hide();
+  if(time<0.5||time>3.0)
+    $("#resultTime").html("Exposure duration is out of range. Try changing the light level.");
+  else
+    $("#resultTime").html("You would need an exposure duration of "+time+" h at CS  of "+combinedValues.CS.toFixed(3)+" to achieve a CS<sub>d</sub> of 0.43");
+
   // Update Relative SPD HTML
   $("#RelSpdContainer").empty();
   var row;

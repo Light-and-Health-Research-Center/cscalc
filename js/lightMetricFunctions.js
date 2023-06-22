@@ -68,6 +68,7 @@ var combinedValues = {
   y: 0,
   ybar: [],
   zbar: [],
+  t: 0,
 };
 
 function CCTcalc() {
